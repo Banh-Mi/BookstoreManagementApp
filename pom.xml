@@ -11,4 +11,21 @@
         <maven.compiler.target>20</maven.compiler.target>
         <exec.mainClass>BookstoreManagementApp</exec.mainClass>
     </properties>
+    <dependencies>
+        <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf</artifactId>
+            <version>3.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.netbeans.external</groupId>
+            <artifactId>AbsoluteLayout</artifactId>
+            <version>RELEASE180</version>
+        </dependency>
+        <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>svgSalamander</artifactId>
+            <version>1.1.2.1</version>
+        </dependency>
+    </dependencies>
 </project>
