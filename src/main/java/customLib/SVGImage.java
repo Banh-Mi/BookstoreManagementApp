@@ -18,5 +18,4 @@ public class SVGImage extends JLabel{
         svgIcon = new FlatSVGIcon(getSource.Image(fileName), width, height);
         setIcon(svgIcon);
     }
-    
 }

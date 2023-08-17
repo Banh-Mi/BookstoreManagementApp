@@ -7,6 +7,7 @@ package gui;
  */
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
+import javax.swing.UIManager;
 
 /**
  *
@@ -27,7 +28,7 @@ public class BookStoreManagementApp extends javax.swing.JFrame {
 
     //Hàm set imageSVG
     private void SetupSVGImage() {
-        svgClose.setSvgImage("logout.svg", 25, 25);
+        svgClose.setSvgImage("close.svg", 25, 25);
         svgUser.setSvgImage("user.svg", 22, 22);
         passWordShow(setShow);
     }
@@ -43,7 +44,6 @@ public class BookStoreManagementApp extends javax.swing.JFrame {
         }
     }
 
-    //Hàm set imageSVG
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -84,11 +84,6 @@ public class BookStoreManagementApp extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(920, 550));
         setUndecorated(true);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowOpened(java.awt.event.WindowEvent evt) {
-                formWindowOpened(evt);
-            }
-        });
 
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -219,6 +214,11 @@ public class BookStoreManagementApp extends javax.swing.JFrame {
         jButton1.setForeground(new java.awt.Color(25, 118, 211));
         jButton1.setText("LOGIN");
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -258,19 +258,6 @@ public class BookStoreManagementApp extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        for (double i = 0.0; i <= 1.0; i = i + 0.1) {
-            String val = i + "";
-            float f = Float.valueOf(val);
-            this.setOpacity(f);
-            try {
-                Thread.sleep(50);
-            } catch (Exception e) {
-
-            }
-        }
-    }//GEN-LAST:event_formWindowOpened
-
     private void txtpasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtpasswordActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtpasswordActionPerformed
@@ -288,6 +275,13 @@ public class BookStoreManagementApp extends javax.swing.JFrame {
         passWordShow(setShow);
     }//GEN-LAST:event_svgHidenMouseClicked
 
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        //Khi có dữ liệu sẽ thực hiện kiểm tra tên đăng nhập và mật khẩu
+        this.setVisible(false); // Ẩn Frame đăng nhập
+        ApplicationFrame appFrame = new ApplicationFrame();
+        appFrame.setVisible(true); // Hiển thị app Fram
+    }//GEN-LAST:event_jButton1MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -303,6 +297,7 @@ public class BookStoreManagementApp extends javax.swing.JFrame {
 
         //</editor-fold>
         /* Create and display the form */
+        UIManager.put("Button.arc", 100);
         java.awt.EventQueue.invokeLater(() -> {
             new BookStoreManagementApp().setVisible(true);
         });
