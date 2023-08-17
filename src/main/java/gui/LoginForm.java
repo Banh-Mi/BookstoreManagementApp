@@ -5,8 +5,14 @@ package gui;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import ChuyenManHinh.taikhoancontroller;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
+import connectDB.ConnectDB;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.UIManager;
 
 /**
@@ -21,9 +27,13 @@ public class LoginForm extends javax.swing.JFrame {
     //Tạo biến hiện ẩn password
     private boolean setShow = false;
 
-    public LoginForm() {
+    public LoginForm() throws SQLException {
+//        ConnectDB.getInstance().connect();
+//        Connection con = ConnectDB.getConnection(); 
         initComponents();
         SetupSVGImage();
+//        taikhoancontroller controller = new taikhoancontroller(this, jButton1, txtusername, txtpassword, jlbdangnhap);
+//        controller.setEvent();
     }
 
     //Hàm set imageSVG
@@ -80,6 +90,7 @@ public class LoginForm extends javax.swing.JFrame {
         svgClose = new customLib.SVGImage();
         svgUser = new customLib.SVGImage();
         svgHiden = new customLib.SVGImage();
+        jlbdangnhap = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(920, 550));
@@ -240,6 +251,7 @@ public class LoginForm extends javax.swing.JFrame {
             }
         });
         jPanel2.add(svgHiden, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 310, 25, 25));
+        jPanel2.add(jlbdangnhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 460, 230, 30));
 
         jPanel3.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 0, 420, 550));
 
@@ -299,7 +311,11 @@ public class LoginForm extends javax.swing.JFrame {
         /* Create and display the form */
         UIManager.put("Button.arc", 100);
         java.awt.EventQueue.invokeLater(() -> {
-            new LoginForm().setVisible(true);
+            try {
+                new LoginForm().setVisible(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
     }
 
@@ -326,6 +342,7 @@ public class LoginForm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel jlbdangnhap;
     private customLib.SVGImage svgClose;
     private customLib.SVGImage svgHiden;
     private customLib.SVGImage svgUser;

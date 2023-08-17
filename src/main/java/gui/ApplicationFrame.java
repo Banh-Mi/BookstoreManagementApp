@@ -4,8 +4,15 @@
  */
 package gui;
 
+import ChuyenManHinh.Chuyenmanhinh;
+import DanhMuc.DanhMuc;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.UIManager;
 
 /**
@@ -14,12 +21,16 @@ import javax.swing.UIManager;
  */
 public class ApplicationFrame extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ApplicationFrame
-     */
     public ApplicationFrame() {
         initComponents();
         setupImage();
+        Chuyenmanhinh controller = new Chuyenmanhinh(jpnview);
+        controller.setView(pnItem1, lbHome1);
+    
+        List<DanhMuc> listItem = new ArrayList<>();
+        listItem.add(new DanhMuc("Home",pnItem1 , lbHome1));
+        listItem.add(new DanhMuc("Account",pnItem8 , lbAccount));
+        controller.setEvent(listItem);
     }
 
     public void setupImage() {
@@ -79,6 +90,7 @@ public class ApplicationFrame extends javax.swing.JFrame {
         pnItem8 = new customLib.roundedPanel();
         svgAccount = new customLib.SVGImage();
         lbAccount = new javax.swing.JLabel();
+        jpnview = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -389,6 +401,19 @@ public class ApplicationFrame extends javax.swing.JFrame {
 
         pnMain.add(slideBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 15, 230, 690));
 
+        javax.swing.GroupLayout jpnviewLayout = new javax.swing.GroupLayout(jpnview);
+        jpnview.setLayout(jpnviewLayout);
+        jpnviewLayout.setHorizontalGroup(
+            jpnviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1040, Short.MAX_VALUE)
+        );
+        jpnviewLayout.setVerticalGroup(
+            jpnviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 690, Short.MAX_VALUE)
+        );
+
+        pnMain.add(jpnview, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 20, 1040, 690));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -408,7 +433,12 @@ public class ApplicationFrame extends javax.swing.JFrame {
 
     private void pnItem10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnItem10MouseClicked
         this.setVisible(false);
-         LoginForm  loginForm = new LoginForm();
+         LoginForm  loginForm = null;
+        try {
+            loginForm = new LoginForm();
+        } catch (SQLException ex) {
+            Logger.getLogger(ApplicationFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
         loginForm.setVisible(true);
     }//GEN-LAST:event_pnItem10MouseClicked
 
@@ -513,6 +543,7 @@ public class ApplicationFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel jpnview;
     private javax.swing.JLabel lbAccount;
     private javax.swing.JLabel lbCustomer;
     private javax.swing.JLabel lbDiscount;

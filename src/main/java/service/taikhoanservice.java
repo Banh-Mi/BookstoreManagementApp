@@ -1,0 +1,15 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package service;
+
+import model.taikhoan;
+
+/**
+ *
+ * @author VONG VINH LOI
+ */
+public interface taikhoanservice {
+    public taikhoan login(String tdn, String mk);
+}
