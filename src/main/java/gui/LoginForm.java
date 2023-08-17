@@ -13,7 +13,7 @@ import javax.swing.UIManager;
  *
  * @author ME1
  */
-public class BookStoreManagementApp extends javax.swing.JFrame {
+public class LoginForm extends javax.swing.JFrame {
 
     /**
      * Creates new form login
@@ -21,7 +21,7 @@ public class BookStoreManagementApp extends javax.swing.JFrame {
     //Tạo biến hiện ẩn password
     private boolean setShow = false;
 
-    public BookStoreManagementApp() {
+    public LoginForm() {
         initComponents();
         SetupSVGImage();
     }
@@ -299,7 +299,7 @@ public class BookStoreManagementApp extends javax.swing.JFrame {
         /* Create and display the form */
         UIManager.put("Button.arc", 100);
         java.awt.EventQueue.invokeLater(() -> {
-            new BookStoreManagementApp().setVisible(true);
+            new LoginForm().setVisible(true);
         });
     }
 

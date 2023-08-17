@@ -6,7 +6,6 @@ package gui;
 
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
-import java.awt.Color;
 import javax.swing.UIManager;
 
 /**
@@ -24,7 +23,7 @@ public class ApplicationFrame extends javax.swing.JFrame {
     }
 
     public void setupImage() {
-        svgLogo.setSvgImage("logo.svg", 148, 56);
+        svgLogo.setSvgImage("logo.svg", 154, 65);
         svgHome.setSvgImage("menuItems/home.svg", 24, 22);
         svgSell.setSvgImage("menuItems/sell.svg", 24, 22);
         svgProduct.setSvgImage("menuItems/product.svg", 24, 22);
@@ -83,10 +82,10 @@ public class ApplicationFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1280, 720));
         setResizable(false);
         setSize(new java.awt.Dimension(0, 0));
 
+        pnMain.setBackground(new java.awt.Color(255, 255, 255));
         pnMain.setPreferredSize(new java.awt.Dimension(1280, 720));
         pnMain.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -98,7 +97,7 @@ public class ApplicationFrame extends javax.swing.JFrame {
         slideBar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         svgLogo.setText(" ");
-        slideBar.add(svgLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 148, 56));
+        slideBar.add(svgLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 154, 66));
 
         pnMenuItem.setBackground(new java.awt.Color(0, 122, 255));
         pnMenuItem.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -132,7 +131,7 @@ public class ApplicationFrame extends javax.swing.JFrame {
         lbLogout.setVerifyInputWhenFocusTarget(false);
         pnItem10.add(lbLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, -1, 40));
 
-        pnMenuItem.add(pnItem10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 535, -1, -1));
+        pnMenuItem.add(pnItem10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 495, -1, -1));
 
         pnItem5.setBackground(new java.awt.Color(0, 122, 255));
         pnItem5.setPreferredSize(new java.awt.Dimension(190, 40));
@@ -160,7 +159,7 @@ public class ApplicationFrame extends javax.swing.JFrame {
         lbCustomer.setVerifyInputWhenFocusTarget(false);
         pnItem5.add(lbCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, -1, 40));
 
-        pnMenuItem.add(pnItem5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 235, -1, -1));
+        pnMenuItem.add(pnItem5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, -1, -1));
 
         pnItem9.setBackground(new java.awt.Color(0, 122, 255));
         pnItem9.setPreferredSize(new java.awt.Dimension(190, 40));
@@ -188,7 +187,7 @@ public class ApplicationFrame extends javax.swing.JFrame {
         lbSupplier.setVerifyInputWhenFocusTarget(false);
         pnItem9.add(lbSupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, -1, 40));
 
-        pnMenuItem.add(pnItem9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 475, -1, -1));
+        pnMenuItem.add(pnItem9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 440, -1, -1));
 
         pnItem1.setBackground(new java.awt.Color(0, 122, 255));
         pnItem1.setPreferredSize(new java.awt.Dimension(190, 40));
@@ -272,7 +271,7 @@ public class ApplicationFrame extends javax.swing.JFrame {
         lbProduct.setVerifyInputWhenFocusTarget(false);
         pnItem3.add(lbProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, -1, 40));
 
-        pnMenuItem.add(pnItem3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 115, -1, -1));
+        pnMenuItem.add(pnItem3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, -1, -1));
 
         pnItem4.setBackground(new java.awt.Color(0, 122, 255));
         pnItem4.setPreferredSize(new java.awt.Dimension(190, 40));
@@ -300,7 +299,7 @@ public class ApplicationFrame extends javax.swing.JFrame {
         lbEmployee.setVerifyInputWhenFocusTarget(false);
         pnItem4.add(lbEmployee, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, -1, 40));
 
-        pnMenuItem.add(pnItem4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 175, -1, -1));
+        pnMenuItem.add(pnItem4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 165, -1, -1));
 
         pnItem7.setBackground(new java.awt.Color(0, 122, 255));
         pnItem7.setPreferredSize(new java.awt.Dimension(190, 40));
@@ -328,7 +327,7 @@ public class ApplicationFrame extends javax.swing.JFrame {
         lbStatistical.setVerifyInputWhenFocusTarget(false);
         pnItem7.add(lbStatistical, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, -1, 40));
 
-        pnMenuItem.add(pnItem7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 355, -1, -1));
+        pnMenuItem.add(pnItem7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, -1, -1));
 
         pnItem6.setBackground(new java.awt.Color(0, 122, 255));
         pnItem6.setPreferredSize(new java.awt.Dimension(190, 40));
@@ -356,7 +355,7 @@ public class ApplicationFrame extends javax.swing.JFrame {
         lbDiscount.setVerifyInputWhenFocusTarget(false);
         pnItem6.add(lbDiscount, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, -1, 40));
 
-        pnMenuItem.add(pnItem6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 295, -1, -1));
+        pnMenuItem.add(pnItem6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 275, -1, -1));
 
         pnItem8.setBackground(new java.awt.Color(0, 122, 255));
         pnItem8.setPreferredSize(new java.awt.Dimension(190, 40));
@@ -384,9 +383,9 @@ public class ApplicationFrame extends javax.swing.JFrame {
         lbAccount.setVerifyInputWhenFocusTarget(false);
         pnItem8.add(lbAccount, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, -1, 40));
 
-        pnMenuItem.add(pnItem8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 415, -1, -1));
+        pnMenuItem.add(pnItem8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 385, -1, -1));
 
-        slideBar.add(pnMenuItem, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 95, 190, -1));
+        slideBar.add(pnMenuItem, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 190, 540));
 
         pnMain.add(slideBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 15, 230, 690));
 
@@ -409,7 +408,7 @@ public class ApplicationFrame extends javax.swing.JFrame {
 
     private void pnItem10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnItem10MouseClicked
         this.setVisible(false);
-        BookStoreManagementApp loginForm = new BookStoreManagementApp();
+         LoginForm  loginForm = new LoginForm();
         loginForm.setVisible(true);
     }//GEN-LAST:event_pnItem10MouseClicked
 
