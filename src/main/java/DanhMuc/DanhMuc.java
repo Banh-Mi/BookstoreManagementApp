@@ -14,15 +14,13 @@ import javax.swing.JPanel;
 public class DanhMuc {
     private String kind;
     private JPanel jpn;
-    private JLabel jlb;
 
     public DanhMuc() {
     }
 
-    public DanhMuc(String kind, JPanel jpn, JLabel jlb) {
+    public DanhMuc(String kind, JPanel jpn) {
         this.kind = kind;
         this.jpn = jpn;
-        this.jlb = jlb;
     }
 
     public String getKind() {
@@ -41,12 +39,5 @@ public class DanhMuc {
         this.jpn = jpn;
     }
 
-    public JLabel getJlb() {
-        return jlb;
-    }
-
-    public void setJlb(JLabel jlb) {
-        this.jlb = jlb;
-    }
     
 }

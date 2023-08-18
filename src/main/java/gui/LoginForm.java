@@ -1,10 +1,5 @@
 package gui;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 import ChuyenManHinh.DangNhapController;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
@@ -14,6 +9,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
+
 
 /**
  *
@@ -288,6 +284,7 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_svgHidenMouseClicked
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        //Khi có dữ liệu sẽ thực hiện kiểm tra tên đăng nhập và mật khẩu
 
     }//GEN-LAST:event_jButton1MouseClicked
 

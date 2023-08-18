@@ -1,5 +1,5 @@
 
-package controller;
+package ChuyenManHinh;
 
 import DanhMuc.DanhMuc;
 import java.awt.BorderLayout;
@@ -34,8 +34,6 @@ public class Chuyenmanhinh {
     public void setView(JPanel jpnIteam, JLabel jlbiteam)
     {
         kindselected = "TrangChu";
-        jpnIteam.setBackground(new Color(96,100,191));
-        jlbiteam.setBackground(new Color(96,100,191));
         root.removeAll();
         root.setLayout(new BorderLayout());
         root.add(new jpannelTrangChu());
@@ -45,16 +43,17 @@ public class Chuyenmanhinh {
     public void setEvent(List<DanhMuc> listiteam)
     {
         this.listiteam = listiteam;
-        for(DanhMuc iteam : listiteam)
+        for(DanhMuc item : listiteam)
         {
-            iteam.getJlb().addMouseListener(new LabelEvent(iteam.getKind(), iteam.getJpn(), iteam.getJlb()));
+            item.getJpn().addMouseListener(new PanelEvent(item.getKind(), item.getJpn()));
+            
         }
     }
     
 
         
             
-    class LabelEvent implements MouseListener
+    class PanelEvent implements MouseListener
     {
         
 
@@ -63,10 +62,10 @@ public class Chuyenmanhinh {
          private JPanel jpnItem;
          private JLabel jlbItem;
 
-        public LabelEvent(String kind, JPanel jpnItem, JLabel jlbItem) {
+        public PanelEvent(String kind, JPanel jpnItem) {
             this.kind = kind;
             this.jpnItem = jpnItem;
-            this.jlbItem = jlbItem;
+//            this.jlbItem = jlbItem;
         }
          
         public void mouseClicked(MouseEvent e) {
@@ -92,7 +91,7 @@ public class Chuyenmanhinh {
                    break;
             }
             root.removeAll();
-            root.setLayout(new BorderLayout());
+//            root.setLayout(new BorderLayout());
             root.add(node);
             root.validate();
             root.repaint();
