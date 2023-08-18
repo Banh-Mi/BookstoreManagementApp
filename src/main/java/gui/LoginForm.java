@@ -5,7 +5,7 @@ package gui;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import ChuyenManHinh.taikhoancontroller;
+import controller.taikhoancontroller;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import connectDB.ConnectDB;
@@ -28,12 +28,12 @@ public class LoginForm extends javax.swing.JFrame {
     private boolean setShow = false;
 
     public LoginForm() throws SQLException {
-//        ConnectDB.getInstance().connect();
-//        Connection con = ConnectDB.getConnection(); 
+        ConnectDB.getInstance().connect();
+        Connection con = ConnectDB.getConnection(); 
         initComponents();
         SetupSVGImage();
-//        taikhoancontroller controller = new taikhoancontroller(this, jButton1, txtusername, txtpassword, jlbdangnhap);
-//        controller.setEvent();
+        taikhoancontroller controller = new taikhoancontroller(this, jButton1, txtusername, txtpassword, jlbdangnhap);
+        controller.setEvent();
     }
 
     //Hàm set imageSVG

@@ -4,7 +4,7 @@
  */
 package gui;
 
-import ChuyenManHinh.Chuyenmanhinh;
+import controller.Chuyenmanhinh;
 import DanhMuc.DanhMuc;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;

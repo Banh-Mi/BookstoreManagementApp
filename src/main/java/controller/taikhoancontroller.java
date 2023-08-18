@@ -1,5 +1,5 @@
 
-package ChuyenManHinh;
+package controller;
 
 import gui.ApplicationFrame;
 import java.awt.Frame;

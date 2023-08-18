@@ -1,5 +1,5 @@
 
-package ChuyenManHinh;
+package controller;
 
 import DanhMuc.DanhMuc;
 import java.awt.BorderLayout;
