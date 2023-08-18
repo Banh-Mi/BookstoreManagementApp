@@ -6,7 +6,7 @@ package service;
 
 import Dao.TaiKhoanDAO;
 import Dao.TaiKhoanDAOImpl;
-import model.taikhoan;
+import entity.taikhoan;
 
 /**
  *

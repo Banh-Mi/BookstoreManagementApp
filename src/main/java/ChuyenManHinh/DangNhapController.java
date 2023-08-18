@@ -1,6 +1,6 @@
 package ChuyenManHinh;
 
-import model.taikhoan;
+import entity.taikhoan;
 import service.taikhoanservice;
 import service.taikhoanserviceimpl;
 import gui.ApplicationFrame;

@@ -4,7 +4,7 @@
  */
 package service;
 
-import model.taikhoan;
+import entity.taikhoan;
 
 /**
  *

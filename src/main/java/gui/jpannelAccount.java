@@ -3,7 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package gui;
-
+import Dao.TaiKhoanDAOImpl;
+import java.sql.Connection;
+import entity.taikhoan;
+import connectDB.ConnectDB;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.ButtonGroup;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -15,12 +20,18 @@ import javax.swing.table.DefaultTableModel;
 public class jpannelAccount extends javax.swing.JPanel {
     private ButtonGroup btgroup;
     private DefaultTableModel modeltaikhoan;
+    private ConnectDB connectDB;
+    private ArrayList<taikhoan> listtaikhoan;
+    private TaiKhoanDAOImpl taikhoandao;
     /**
      * Creates new form QlTaiKhoan
      */
-    public jpannelAccount() {
+    public jpannelAccount() throws SQLException {
         modeltaikhoan = new DefaultTableModel();
         initComponents();
+        ConnectDB.getInstance().connect();
+        Connection con = ConnectDB.getConnection();
+        loaddulieu();
     }
 
     /**
@@ -84,7 +95,7 @@ public class jpannelAccount extends javax.swing.JPanel {
         jLabel6.setText("Quyền:");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, 90, 30));
 
-        jRadioButton1.setText("Xóa");
+        jRadioButton1.setText("Khóa");
         jPanel1.add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 230, -1, 20));
 
         btgroup.add(jRadioButton1);
@@ -102,7 +113,7 @@ public class jpannelAccount extends javax.swing.JPanel {
         jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 100, 180, -1));
         jPanel1.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 140, 180, -1));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nhân viên", "Quản lí"}));
         jPanel1.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 180, 180, -1));
 
         jButton2.setText("Sửa");
@@ -114,7 +125,7 @@ public class jpannelAccount extends javax.swing.JPanel {
         jButton4.setText("Xóa");
         jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 270, -1, -1));
 
-        modeltaikhoan.addColumn("Ma TK");
+        modeltaikhoan.addColumn("Ma nhân viên");
         modeltaikhoan.addColumn("Tên tài khoản");
         modeltaikhoan.addColumn("Mật khẩu");
         modeltaikhoan.addColumn("Quyền");
@@ -139,7 +150,26 @@ public class jpannelAccount extends javax.swing.JPanel {
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton2ActionPerformed
-
+    private void loaddulieu()
+    {
+        taikhoandao = new TaiKhoanDAOImpl();
+        for(taikhoan tk : taikhoandao.getAllHocVien())
+        {
+            Object[] row = {tk.getMataikhoan(),tk.getTendangnhap(),tk.getMatkhau(),tk.getQuyen(),chuyendoitruefalse(tk.isTinhtrang())};
+            modeltaikhoan.addRow(row);
+        }
+    }
+    private String chuyendoitruefalse(boolean t)
+    {
+        if(t==true)
+        {
+            return "Bình thường";
+        }
+        else 
+        {
+            return "Khóa";
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;

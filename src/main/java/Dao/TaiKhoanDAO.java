@@ -1,7 +1,7 @@
 
 package Dao;
 
-import model.taikhoan;
+import entity.taikhoan;
 
 public interface TaiKhoanDAO {
     public taikhoan login(String tdn, String mk);

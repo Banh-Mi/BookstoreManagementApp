@@ -75,8 +75,15 @@ public class Chuyenmanhinh {
                     node = new jpannelTrangChu();
                     break; 
                 case "Account":
-                    node = new jpannelAccount();
+                {
+                    try {
+                        node = new jpannelAccount();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Chuyenmanhinh.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
                     break; 
+ 
                 case "Employee":
                     node = new jpannelEmployee();
                     break; 

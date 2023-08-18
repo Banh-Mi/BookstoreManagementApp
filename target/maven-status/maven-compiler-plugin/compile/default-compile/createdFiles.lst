@@ -3,10 +3,10 @@ gui\LoginForm$2.class
 controller\Chuyenmanhinh.class
 gui\ApplicationFrame$2.class
 gui\jpannelEmployee$1.class
-model\taikhoan.class
 customLib\getSource.class
 gui\jpannelAccount$1.class
 Dao\TaiKhoanDAO.class
+entity\taikhoan.class
 gui\ApplicationFrame$5.class
 gui\jpannelAccount.class
 service\taikhoanservice.class
