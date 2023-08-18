@@ -1,4 +1,3 @@
-
 package Dao;
 
 import connectDB.ConnectDB;
@@ -7,35 +6,32 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-public class TaiKhoanDAOImpl implements TaiKhoanDAO{
+public class TaiKhoanDAOImpl implements TaiKhoanDAO {
+
     @Override
-    public taikhoan login(String tdn, String mk) {
+    public taikhoan login(String tenDangNhap, String matKhau) {
         ConnectDB.getInstance();
         Connection cons = ConnectDB.getConnection();
-       // Connection cons = ConnectDB.getInstance().getConnection();
-     String sql = "SELECT * FROM tai_khoan where tendangnhap like ? AND matkhau like ?";
-     taikhoan taikhoan1 = null;
+        String sql = "SELECT * FROM tai_khoan WHERE tendangnhap LIKE ? AND matkhau LIKE ?";
+        taikhoan taiKhoan = null;
         try {
-            PreparedStatement ps = cons.prepareStatement(sql);
-            ps.setString(1, tdn);
-            ps.setString(2, mk);
+            PreparedStatement ps = (PreparedStatement) cons.prepareStatement(sql);
+            ps.setString(1, tenDangNhap);
+            ps.setString(2, matKhau);
             ResultSet rs = ps.executeQuery();
-            if(rs.next())
-            {
-                taikhoan1 = new taikhoan();
-                taikhoan1.setMataikhoan(rs.getInt("mataikhoan"));
-                taikhoan1.setTendangnhap(rs.getString("tendangnhap"));
-                taikhoan1.setMatkhau(rs.getString("matkhau"));
-                taikhoan1.setTinhtrang(rs.getBoolean("tinhtrang"));
-            
-            } 
+            if (rs.next()) {
+                taiKhoan = new taikhoan();
+                taiKhoan.setMataikhoan(rs.getInt("mataikhoan"));
+                taiKhoan.setTendangnhap(rs.getString("tendangnhap"));
+                taiKhoan.setMatkhau(rs.getString("matkhau"));
+                taiKhoan.setTinhtrang(rs.getBoolean("tinhtrang"));
+            }           
             ps.close();
-            cons.close();
-            return taikhoan1;
+            return taiKhoan;
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
-    
+
 }

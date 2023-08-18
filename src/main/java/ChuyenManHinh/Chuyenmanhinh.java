@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import gui.jpannelTrangChu;
 import gui.jpannelAccount;
+import gui.jpannelEmployee;
 
 /**
  *
@@ -75,7 +76,10 @@ public class Chuyenmanhinh {
                     break; 
                 case "Account":
                     node = new jpannelAccount();
-                    break;     
+                    break; 
+                case "Employee":
+                    node = new jpannelEmployee();
+                    break; 
                 default:
                     node = new jpannelTrangChu();
                    break;
@@ -85,15 +89,15 @@ public class Chuyenmanhinh {
             root.add(node);
             root.validate();
             root.repaint();
-            setChangeBackgroud(kind);
+//            setChangeBackgroud(kind);
         }
 
         @Override
         public void mousePressed(MouseEvent e) {
-            kindselected = kind;
-            
-            jpnItem.setBackground(new Color(96,100,191));
-            jlbItem.setBackground(new Color(96,100,191));
+//            kindselected = kind;
+//            
+//            jpnItem.setBackground(new Color(96,100,191));
+//            jlbItem.setBackground(new Color(96,100,191));
         }
 
         @Override
@@ -108,30 +112,30 @@ public class Chuyenmanhinh {
         @Override
         public void mouseExited(MouseEvent e) 
         {
-            if(kindselected.equalsIgnoreCase(kind))
-            {
-              jpnItem.setBackground(new Color(96,100,191));
-              jlbItem.setBackground(new Color(96,100,191));  
-            }
+//            if(kindselected.equalsIgnoreCase(kind))
+//            {
+//              jpnItem.setBackground(new Color(96,100,191));
+//              jlbItem.setBackground(new Color(96,100,191));  
+//            }
         }
         
 
         }
-        private void setChangeBackgroud(String kind)
-        {
-            for(DanhMuc item : listiteam)
-            {
-                if(item.getKind().equalsIgnoreCase(kind))
-                {
-                    item.getJpn().setBackground(new Color(96,100,191));
-                    item.getJlb().setBackground(new Color(96,100,191));
-                }
-                else 
-                {
-                   item.getJpn().setBackground(new Color(76,175,80));
-                   item.getJlb().setBackground(new Color(76,175,80)); 
-                }
-            }
-        }
+//        private void setChangeBackgroud(String kind)
+//        {
+//            for(DanhMuc item : listiteam)
+//            {
+//                if(item.getKind().equalsIgnoreCase(kind))
+//                {
+//                    item.getJpn().setBackground(new Color(96,100,191));
+//                    item.getJlb().setBackground(new Color(96,100,191));
+//                }
+//                else 
+//                {
+//                   item.getJpn().setBackground(new Color(76,175,80));
+//                   item.getJlb().setBackground(new Color(76,175,80)); 
+//                }
+//            }
+//        }
     }
    

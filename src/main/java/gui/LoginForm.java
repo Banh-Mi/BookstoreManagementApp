@@ -5,7 +5,7 @@ package gui;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import controller.taikhoancontroller;
+import ChuyenManHinh.DangNhapController;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import connectDB.ConnectDB;
@@ -32,7 +32,7 @@ public class LoginForm extends javax.swing.JFrame {
         Connection con = ConnectDB.getConnection(); 
         initComponents();
         SetupSVGImage();
-        taikhoancontroller controller = new taikhoancontroller(this, jButton1, txtusername, txtpassword, jlbdangnhap);
+        DangNhapController controller = new DangNhapController(this, jButton1, txtusername, txtpassword, jlbdangnhap);
         controller.setEvent();
     }
 
@@ -288,10 +288,7 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_svgHidenMouseClicked
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        //Khi có dữ liệu sẽ thực hiện kiểm tra tên đăng nhập và mật khẩu
-        this.setVisible(false); // Ẩn Frame đăng nhập
-        ApplicationFrame appFrame = new ApplicationFrame();
-        appFrame.setVisible(true); // Hiển thị app Fram
+
     }//GEN-LAST:event_jButton1MouseClicked
 
     /**

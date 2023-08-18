@@ -30,6 +30,7 @@ public class ApplicationFrame extends javax.swing.JFrame {
         List<DanhMuc> listItem = new ArrayList<>();
         listItem.add(new DanhMuc("Home",pnItem1 , lbHome1));
         listItem.add(new DanhMuc("Account",pnItem8 , lbAccount));
+        listItem.add(new DanhMuc("Employee",pnItem4 , lbEmployee));
         controller.setEvent(listItem);
     }
 

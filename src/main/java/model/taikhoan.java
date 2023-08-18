@@ -8,6 +8,9 @@ public class taikhoan {
     private String matkhau;
     private boolean tinhtrang;
 
+ 
+
+    
     public int getMataikhoan() {
         return mataikhoan;
     }

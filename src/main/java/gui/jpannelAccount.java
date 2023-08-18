@@ -4,6 +4,7 @@
  */
 package gui;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -12,6 +13,7 @@ import javax.swing.table.DefaultTableModel;
  * @author VONG VINH LOI
  */
 public class jpannelAccount extends javax.swing.JPanel {
+    private ButtonGroup btgroup;
     private DefaultTableModel modeltaikhoan;
     /**
      * Creates new form QlTaiKhoan
@@ -39,6 +41,7 @@ public class jpannelAccount extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jRadioButton1 = new javax.swing.JRadioButton();
+        btgroup = new ButtonGroup();
         jRadioButton2 = new javax.swing.JRadioButton();
         jComboBox1 = new javax.swing.JComboBox<>();
         jTextField1 = new javax.swing.JTextField();
@@ -84,6 +87,8 @@ public class jpannelAccount extends javax.swing.JPanel {
         jRadioButton1.setText("Xóa");
         jPanel1.add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 230, -1, 20));
 
+        btgroup.add(jRadioButton1);
+        btgroup.add(jRadioButton2);
         jRadioButton2.setText("Bình thường");
         jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
