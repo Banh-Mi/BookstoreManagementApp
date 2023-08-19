@@ -6,7 +6,6 @@ entity\taikhoan.class
 gui\ApplicationFrame$18.class
 service\taikhoanservice.class
 gui\jpannelEmployee$5.class
-gui\LoginForm$5.class
 gui\ApplicationFrame$22.class
 gui\jpannelEmployee$2.class
 ChuyenManHinh\DangNhapController.class
@@ -41,12 +40,10 @@ gui\ApplicationFrame$4.class
 Dao\TaiKhoanDAOImpl.class
 gui\ApplicationFrame.class
 DanhMuc\DanhMuc.class
-gui\LoginForm$4.class
 gui\ApplicationFrame$10.class
 gui\ApplicationFrame$20.class
 gui\ApplicationFrame$3.class
 gui\ApplicationFrame$16.class
-gui\LoginForm$3.class
 gui\ApplicationFrame$21.class
 gui\jpannelTrangChu.class
 gui\LoginForm.class

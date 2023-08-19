@@ -22,73 +22,69 @@ import gui.jpannelEmployee;
  * @author VONG VINH LOI
  */
 public class Chuyenmanhinh {
-    private JPanel root;
-    private String kindselected = "";
-    private List<DanhMuc> listiteam= null;
-
+    private final JPanel root;
+    private final DanhMuc item;
     public Chuyenmanhinh(JPanel jpnRoot) {
         this.root = jpnRoot;
+        this.item = new DanhMuc("Home", new jpannelTrangChu());
     }
 
-    
-    public void setView(JPanel jpnIteam, JLabel jlbiteam)
+    public void setView()
     {
-        kindselected = "TrangChu";
         root.removeAll();
         root.setLayout(new BorderLayout());
-        root.add(new jpannelTrangChu());
+        root.add(item.getJpn(),BorderLayout.CENTER);
         root.validate();
         root.repaint();
     }
     public void setEvent(List<DanhMuc> listiteam)
     {
-        this.listiteam = listiteam;
-        for(DanhMuc item : listiteam)
+        for(DanhMuc pnItem : listiteam)
         {
-            item.getJpn().addMouseListener(new PanelEvent(item.getKind(), item.getJpn()));
-            
+            pnItem.getJpn().addMouseListener(new PanelEvent(pnItem.getKind(), pnItem.getJpn()));
         }
     }
     
-
+   
         
+    
             
     class PanelEvent implements MouseListener
     {
         
 
          private JPanel node;
-         private String kind;    
-         private JPanel jpnItem;
-         private JLabel jlbItem;
+         private final String kind ;    
 
         public PanelEvent(String kind, JPanel jpnItem) {
             this.kind = kind;
-            this.jpnItem = jpnItem;
-//            this.jlbItem = jlbItem;
         }
          
+         @Override
         public void mouseClicked(MouseEvent e) {
+            item.setKind(kind);
             switch (kind) {
-                case "Home":
+                case "Home" -> {
                     node = new jpannelTrangChu();
-                    break; 
-                case "Account":
-                {
+                    item.setJpn(node);
+                 }
+                case "Account" -> {
                     try {
                         node = new jpannelAccount();
+                        item.setJpn(node);
                     } catch (SQLException ex) {
                         Logger.getLogger(Chuyenmanhinh.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
-                    break; 
  
-                case "Employee":
+                case "Employee" -> {
                     node = new jpannelEmployee();
-                    break; 
-                default:
+                    item.setJpn(node);
+                 }
+                default -> {
                     node = new jpannelTrangChu();
-                   break;
+                    item.setJpn(node);
+                 }
             }
             root.removeAll();
 //            root.setLayout(new BorderLayout());

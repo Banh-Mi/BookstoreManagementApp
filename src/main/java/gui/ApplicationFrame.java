@@ -21,9 +21,6 @@ import java.util.logging.Logger;
  */
 public final class ApplicationFrame extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ApplicationFrame
-     */
     public ApplicationFrame() {
         initComponents();
         setupImage();
@@ -35,18 +32,11 @@ public final class ApplicationFrame extends javax.swing.JFrame {
             slideBar.remove(pnLogo);
             slideBar.remove(pnMenuItem);
         }
-        Chuyenmanhinh controller = new Chuyenmanhinh(pnView);
-        controller.setView(pnItem1, lbHome1);
-
-        List<DanhMuc> listItem = new ArrayList<>();
-        listItem.add(new DanhMuc("Home", pnItem1));
-        listItem.add(new DanhMuc("Home", miniItem1));
-        listItem.add(new DanhMuc("Account", pnItem8));
-        listItem.add(new DanhMuc("Account", miniItem8));
-        listItem.add(new DanhMuc("Employee", pnItem4));
-        listItem.add(new DanhMuc("Employee", miniItem4));
-        controller.setEvent(listItem);
-
+        this.controller = new Chuyenmanhinh(pnView);
+        
+        chuyenManHinh();
+        controller.setView();
+       
     }
 
     public void setupImage() {
@@ -76,6 +66,20 @@ public final class ApplicationFrame extends javax.swing.JFrame {
         svgMinSupplier.setSvgImage("menuITems/supplier.svg", 24, 22);
         svgMinLogout.setSvgImage("menuITems/logout.svg", 24, 22);
     }
+    private Chuyenmanhinh controller;
+
+    public void chuyenManHinh() {
+
+        List<DanhMuc> listItem = new ArrayList<>();
+        listItem.add(new DanhMuc("Home", pnItem1));
+        listItem.add(new DanhMuc("Home", miniItem1));
+        listItem.add(new DanhMuc("Account", pnItem8));
+        listItem.add(new DanhMuc("Account", miniItem8));
+        listItem.add(new DanhMuc("Employee", pnItem4));
+        listItem.add(new DanhMuc("Employee", miniItem4));
+        controller.setEvent(listItem);
+
+    }
 
     public void bgMouseEntered(roundedPanel panel) {
         panel.setBackground(new java.awt.Color(255, 255, 255, 80));
@@ -93,7 +97,7 @@ public final class ApplicationFrame extends javax.swing.JFrame {
 
     public void logout() throws SQLException {
         this.setVisible(false);
-        LoginForm  loginForm = null;
+        LoginForm loginForm = null;
         try {
             loginForm = new LoginForm();
         } catch (SQLException ex) {
@@ -168,8 +172,10 @@ public final class ApplicationFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(1296, 720));
         setResizable(false);
         setSize(new java.awt.Dimension(0, 0));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pnMain.setBackground(new java.awt.Color(255, 255, 255));
         pnMain.setPreferredSize(new java.awt.Dimension(1280, 720));
@@ -469,6 +475,9 @@ public final class ApplicationFrame extends javax.swing.JFrame {
         pnItem1.setRoundedTopLeft(10);
         pnItem1.setRoundedTopRight(10);
         pnItem1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pnItem1MouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 pnItem1MouseEntered(evt);
             }
@@ -686,40 +695,15 @@ public final class ApplicationFrame extends javax.swing.JFrame {
 
         pnMain.add(slideBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 15, 230, 690));
 
+        pnView.setBackground(new java.awt.Color(255, 255, 255));
         pnView.setRoundedBottomLeft(15);
         pnView.setRoundedBottomRight(15);
         pnView.setRoundedTopLeft(15);
         pnView.setRoundedTopRight(15);
+        pnView.setLayout(new java.awt.BorderLayout());
+        pnMain.add(pnView, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 15, 1040, 690));
 
-        javax.swing.GroupLayout pnViewLayout = new javax.swing.GroupLayout(pnView);
-        pnView.setLayout(pnViewLayout);
-        pnViewLayout.setHorizontalGroup(
-            pnViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1020, Short.MAX_VALUE)
-        );
-        pnViewLayout.setVerticalGroup(
-            pnViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 690, Short.MAX_VALUE)
-        );
-
-        pnMain.add(pnView, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 15, 1020, 690));
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(pnMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pnMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        getContentPane().add(pnMain, new org.netbeans.lib.awtextra.AbsoluteConstraints(-4, -4, 1300, 740));
 
         pack();
         setLocationRelativeTo(null);
@@ -912,6 +896,10 @@ public final class ApplicationFrame extends javax.swing.JFrame {
         slideBar.repaint();
     }//GEN-LAST:event_pnMinLogoMouseClicked
 
+    private void pnItem1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnItem1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pnItem1MouseClicked
+
     public void fullSlideBar() {
 
         new Thread(() -> {
@@ -923,12 +911,15 @@ public final class ApplicationFrame extends javax.swing.JFrame {
 
             for (int i = 60; i <= 230; i += 10) {
                 slideBar.setSize(i, 690);
+
                 try {
                     Thread.sleep(1);
                 } catch (InterruptedException ex) {
-                   
+
                 }
             }
+            pnView.setBounds(250, 15, 1040, 690);
+
             minSlide();
         }).start();
 
@@ -940,7 +931,7 @@ public final class ApplicationFrame extends javax.swing.JFrame {
             slideBar.remove(pnLogo);
             slideBar.add(pnMinLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 40, 45));
             slideBar.add(pnMinMenuItem, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 40, 540));
-           
+
             for (int i = 230; i >= 60; i -= 10) {
 
                 slideBar.setSize(i, 690);
@@ -948,10 +939,13 @@ public final class ApplicationFrame extends javax.swing.JFrame {
                     Thread.sleep(1);
 
                 } catch (InterruptedException ex) {
-                   
+
                 }
             }
-          
+
+            pnView.setBounds(80, 15, 1210, 690);
+//            chuyenManHinh();
+            controller.setView();
             minSlide();
         }).start();
 

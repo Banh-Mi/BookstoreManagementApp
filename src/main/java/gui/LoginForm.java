@@ -193,11 +193,6 @@ public class LoginForm extends javax.swing.JFrame {
         txtpassword.setForeground(new java.awt.Color(255, 255, 255));
         txtpassword.setBorder(null);
         txtpassword.setCaretColor(new java.awt.Color(255, 255, 255));
-        txtpassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtpasswordActionPerformed(evt);
-            }
-        });
         jPanel2.add(txtpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, 290, 30));
 
         jSeparator2.setBackground(new java.awt.Color(255, 255, 255));
@@ -221,16 +216,6 @@ public class LoginForm extends javax.swing.JFrame {
         jButton1.setForeground(new java.awt.Color(25, 118, 211));
         jButton1.setText("LOGIN");
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
-            }
-        });
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
         jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 400, 341, 40));
 
         svgClose.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -266,14 +251,6 @@ public class LoginForm extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtpasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtpasswordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtpasswordActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void svgCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_svgCloseMouseClicked
         System.exit(0);        // TODO add your handling code here:
     }//GEN-LAST:event_svgCloseMouseClicked
@@ -282,11 +259,6 @@ public class LoginForm extends javax.swing.JFrame {
         setShow = !setShow;
         passWordShow(setShow);
     }//GEN-LAST:event_svgHidenMouseClicked
-
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        //Khi có dữ liệu sẽ thực hiện kiểm tra tên đăng nhập và mật khẩu
-
-    }//GEN-LAST:event_jButton1MouseClicked
 
     /**
      * @param args the command line arguments
