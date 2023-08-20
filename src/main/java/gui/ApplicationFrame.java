@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.UIManager;
 
 /**
  *
@@ -28,15 +29,17 @@ public final class ApplicationFrame extends javax.swing.JFrame {
         if (!minSlide) {
             slideBar.remove(pnMinLogo);
             slideBar.remove(pnMinMenuItem);
+            slideBar.remove(pnStaffIcon);
         } else {
             slideBar.remove(pnLogo);
             slideBar.remove(pnMenuItem);
+            slideBar.remove(pnStaffInfo);
         }
         this.controller = new Chuyenmanhinh(pnView);
-        
+
         chuyenManHinh();
         controller.setView();
-       
+
     }
 
     public void setupImage() {
@@ -54,7 +57,7 @@ public final class ApplicationFrame extends javax.swing.JFrame {
     }
 
     public void minIconSlide() {
-        svgMinLogo.setSvgImage("minLogo.svg", 30, 30);
+        svgMinLogo.setSvgImage("minLogo.svg", 40, 40);
         svgMinHome.setSvgImage("menuItems/home.svg", 24, 22);
         svgMinSell.setSvgImage("menuItems/sell.svg", 24, 22);
         svgMinProduct.setSvgImage("menuItems/product.svg", 24, 22);
@@ -65,6 +68,7 @@ public final class ApplicationFrame extends javax.swing.JFrame {
         svgMinAccount.setSvgImage("menuITems/account.svg", 24, 22);
         svgMinSupplier.setSvgImage("menuITems/supplier.svg", 24, 22);
         svgMinLogout.setSvgImage("menuITems/logout.svg", 24, 22);
+        svgStaff.setSvgImage("ql.svg", 40, 40);
     }
     private Chuyenmanhinh controller;
 
@@ -168,17 +172,22 @@ public final class ApplicationFrame extends javax.swing.JFrame {
         svgMinLogo = new customLib.SVGImage();
         pnLogo = new javax.swing.JPanel();
         svgLogo = new customLib.SVGImage();
+        jSeparator1 = new javax.swing.JSeparator();
+        pnStaffIcon = new customLib.roundedPanel();
+        svgStaff = new customLib.SVGImage();
+        pnStaffInfo = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
         pnView = new customLib.roundedPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1296, 720));
         setResizable(false);
         setSize(new java.awt.Dimension(0, 0));
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pnMain.setBackground(new java.awt.Color(255, 255, 255));
-        pnMain.setPreferredSize(new java.awt.Dimension(1280, 720));
+        pnMain.setPreferredSize(new java.awt.Dimension(1300, 780));
         pnMain.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         slideBar.setBackground(new java.awt.Color(0, 122, 255));
@@ -375,7 +384,7 @@ public final class ApplicationFrame extends javax.swing.JFrame {
 
         pnMinMenuItem.add(miniItem10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 495, 40, 40));
 
-        slideBar.add(pnMinMenuItem, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 40, 540));
+        slideBar.add(pnMinMenuItem, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 115, 40, 530));
         pnMinMenuItem.getAccessibleContext().setAccessibleParent(slideBar);
 
         pnMenuItem.setBackground(new java.awt.Color(0, 122, 255));
@@ -667,7 +676,7 @@ public final class ApplicationFrame extends javax.swing.JFrame {
 
         pnMenuItem.add(pnItem8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 385, -1, -1));
 
-        slideBar.add(pnMenuItem, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 190, 540));
+        slideBar.add(pnMenuItem, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 115, 190, 540));
 
         pnMinLogo.setBackground(new java.awt.Color(0, 122, 255));
         pnMinLogo.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -676,9 +685,9 @@ public final class ApplicationFrame extends javax.swing.JFrame {
             }
         });
         pnMinLogo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        pnMinLogo.add(svgMinLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 30, 30));
+        pnMinLogo.add(svgMinLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 40));
 
-        slideBar.add(pnMinLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 20, 30, 30));
+        slideBar.add(pnMinLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 40, 40));
 
         pnLogo.setBackground(new java.awt.Color(0, 122, 255));
         pnLogo.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -693,17 +702,51 @@ public final class ApplicationFrame extends javax.swing.JFrame {
 
         slideBar.add(pnLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 154, 66));
 
-        pnMain.add(slideBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 15, 230, 690));
+        jSeparator1.setBackground(new java.awt.Color(255, 255, 255));
+        jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
+        slideBar.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 660, 230, 5));
 
-        pnView.setBackground(new java.awt.Color(255, 255, 255));
+        pnStaffIcon.setBackground(new java.awt.Color(255, 255, 255));
+        pnStaffIcon.setRoundedBottomLeft(40);
+        pnStaffIcon.setRoundedBottomRight(40);
+        pnStaffIcon.setRoundedTopLeft(40);
+        pnStaffIcon.setRoundedTopRight(40);
+        pnStaffIcon.setLayout(new java.awt.BorderLayout());
+        pnStaffIcon.add(svgStaff, java.awt.BorderLayout.CENTER);
+
+        slideBar.add(pnStaffIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 690, 40, 40));
+
+        pnStaffInfo.setBackground(new java.awt.Color(0, 122, 255));
+        pnStaffInfo.setLayout(new java.awt.GridLayout(2, 1));
+
+        jLabel1.setFont(new java.awt.Font("Roboto Black", 0, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel1.setText("NGUYỄN VĂN A");
+        pnStaffInfo.add(jLabel1);
+
+        jLabel2.setFont(new java.awt.Font("Roboto Medium", 0, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Chức vụ");
+        pnStaffInfo.add(jLabel2);
+
+        slideBar.add(pnStaffInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 685, 190, 60));
+
+        jSeparator2.setBackground(new java.awt.Color(255, 255, 255));
+        jSeparator2.setForeground(new java.awt.Color(255, 255, 255));
+        slideBar.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 105, 230, 560));
+
+        pnMain.add(slideBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 12, 230, 760));
+
+        pnView.setBackground(new java.awt.Color(255, 0, 0));
         pnView.setRoundedBottomLeft(15);
         pnView.setRoundedBottomRight(15);
         pnView.setRoundedTopLeft(15);
         pnView.setRoundedTopRight(15);
         pnView.setLayout(new java.awt.BorderLayout());
-        pnMain.add(pnView, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 15, 1040, 690));
+        pnMain.add(pnView, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 12, 1040, 760));
 
-        getContentPane().add(pnMain, new org.netbeans.lib.awtextra.AbsoluteConstraints(-4, -4, 1300, 740));
+        getContentPane().add(pnMain, java.awt.BorderLayout.CENTER);
 
         pack();
         setLocationRelativeTo(null);
@@ -905,12 +948,12 @@ public final class ApplicationFrame extends javax.swing.JFrame {
         new Thread(() -> {
             slideBar.remove(pnMinMenuItem);
             slideBar.remove(pnMinLogo);
-
+            slideBar.remove(pnStaffIcon);
             slideBar.add(pnMenuItem, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 190, 540));
-            slideBar.add(pnLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 154, 66));
-
+            slideBar.add(pnLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, pnMenuItem.getWidth(), pnMenuItem.getHeight()));
+            slideBar.add(pnStaffInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 685, 190, 60));
             for (int i = 60; i <= 230; i += 10) {
-                slideBar.setSize(i, 690);
+                slideBar.setSize(i, slideBar.getHeight());
 
                 try {
                     Thread.sleep(1);
@@ -918,8 +961,8 @@ public final class ApplicationFrame extends javax.swing.JFrame {
 
                 }
             }
-            pnView.setBounds(250, 15, 1040, 690);
-
+            pnView.setBounds(250, pnView.getY(), 1040, pnView.getHeight());
+             controller.setView();
             minSlide();
         }).start();
 
@@ -929,12 +972,14 @@ public final class ApplicationFrame extends javax.swing.JFrame {
         new Thread(() -> {
             slideBar.remove(pnMenuItem);
             slideBar.remove(pnLogo);
-            slideBar.add(pnMinLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 40, 45));
-            slideBar.add(pnMinMenuItem, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 40, 540));
+            slideBar.remove(pnStaffInfo);
+            slideBar.add(pnMinLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 40, 40));
+            slideBar.add(pnMinMenuItem, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, pnMinMenuItem.getWidth(), pnMinMenuItem.getHeight()));
+            slideBar.add(pnStaffIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 690, 40, 40));
 
             for (int i = 230; i >= 60; i -= 10) {
 
-                slideBar.setSize(i, 690);
+                slideBar.setSize(i, slideBar.getHeight());
                 try {
                     Thread.sleep(1);
 
@@ -943,8 +988,8 @@ public final class ApplicationFrame extends javax.swing.JFrame {
                 }
             }
 
-            pnView.setBounds(80, 15, 1210, 690);
-//            chuyenManHinh();
+            pnView.setBounds(80, pnView.getY(), 1210, pnView.getHeight());
+
             controller.setView();
             minSlide();
         }).start();
@@ -952,15 +997,7 @@ public final class ApplicationFrame extends javax.swing.JFrame {
     }
 
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        FlatLaf.registerCustomDefaultsSource("resources.themes");
-        FlatMacLightLaf.setup();
-
-        /* Create and display the form */
+   
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new ApplicationFrame().setVisible(true);
@@ -969,6 +1006,10 @@ public final class ApplicationFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel lbAccount;
     private javax.swing.JLabel lbCustomer;
     private javax.swing.JLabel lbDiscount;
@@ -1004,6 +1045,8 @@ public final class ApplicationFrame extends javax.swing.JFrame {
     private javax.swing.JPanel pnMenuItem;
     private javax.swing.JPanel pnMinLogo;
     private javax.swing.JPanel pnMinMenuItem;
+    private customLib.roundedPanel pnStaffIcon;
+    private javax.swing.JPanel pnStaffInfo;
     private customLib.roundedPanel pnView;
     private customLib.roundedPanel slideBar;
     private customLib.SVGImage svgAccount;
@@ -1026,6 +1069,7 @@ public final class ApplicationFrame extends javax.swing.JFrame {
     private customLib.SVGImage svgMinSupplier;
     private customLib.SVGImage svgProduct;
     private customLib.SVGImage svgSell;
+    private customLib.SVGImage svgStaff;
     private customLib.SVGImage svgStatistical;
     private customLib.SVGImage svgSupplier;
     // End of variables declaration//GEN-END:variables

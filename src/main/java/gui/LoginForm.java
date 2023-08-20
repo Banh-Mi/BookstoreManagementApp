@@ -272,10 +272,7 @@ public class LoginForm extends javax.swing.JFrame {
         FlatLaf.registerCustomDefaultsSource("resources.themes");
 
         FlatMacLightLaf.setup();
-
-        //</editor-fold>
-        /* Create and display the form */
-        UIManager.put("Button.arc", 100);
+        UIManager.put("Button.arc", 5);
         java.awt.EventQueue.invokeLater(() -> {
             try {
                 new LoginForm().setVisible(true);
