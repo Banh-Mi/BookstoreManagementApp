@@ -68,7 +68,7 @@ public class jpannelAccount extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(1040, 690));
         setLayout(new java.awt.BorderLayout());
 
-        jPanel1.setBackground(new java.awt.Color(255, 51, 51));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setBackground(new java.awt.Color(51, 0, 51));
