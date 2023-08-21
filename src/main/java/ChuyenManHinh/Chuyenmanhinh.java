@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import gui.jpannelTrangChu;
 import gui.jpannelAccount;
 import gui.jpannelEmployee;
+import gui.jpannelgiamgia;
 
 /**
  *
@@ -79,6 +80,14 @@ public class Chuyenmanhinh {
  
                 case "Employee" -> {
                     node = new jpannelEmployee();
+                    item.setJpn(node);
+                 }
+                case "Discount" -> {
+                try {
+                    node = new jpannelgiamgia();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Chuyenmanhinh.class.getName()).log(Level.SEVERE, null, ex);
+                }
                     item.setJpn(node);
                  }
                 default -> {

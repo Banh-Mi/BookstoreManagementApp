@@ -81,6 +81,7 @@ public final class ApplicationFrame extends javax.swing.JFrame {
         listItem.add(new DanhMuc("Account", miniItem8));
         listItem.add(new DanhMuc("Employee", pnItem4));
         listItem.add(new DanhMuc("Employee", miniItem4));
+        listItem.add(new DanhMuc("Discount", pnItem6));
         controller.setEvent(listItem);
 
     }
