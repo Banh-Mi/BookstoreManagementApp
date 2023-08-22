@@ -45,7 +45,7 @@ public class jpannelgiamgia extends javax.swing.JPanel{
             modelgiamgia.addRow(row);
         }
     }
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("check")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 

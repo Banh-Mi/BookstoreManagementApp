@@ -17,6 +17,7 @@ import gui.jpannelTrangChu;
 import gui.jpannelAccount;
 import gui.jpannelEmployee;
 import gui.jpannelgiamgia;
+import gui.jpannelthongke;
 
 /**
  *
@@ -80,6 +81,10 @@ public class Chuyenmanhinh {
  
                 case "Employee" -> {
                     node = new jpannelEmployee();
+                    item.setJpn(node);
+                 }
+                case "Statistical" -> {
+                    node = new jpannelthongke();
                     item.setJpn(node);
                  }
                 case "Discount" -> {
