@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package gui;
+
 import com.toedter.calendar.JDateChooser;
 import Dao.giamgiaDAO;
 import connectDB.ConnectDB;
@@ -12,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -22,29 +24,29 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author VONG VINH LOI
  */
-public class jpannelgiamgia extends javax.swing.JPanel{
+public class jpannelgiamgia extends javax.swing.JPanel {
 
-   private DefaultTableModel modelgiamgia;
+    private DefaultTableModel modelgiamgia;
     public JDateChooser dateChooser = new JDateChooser();
     private ConnectDB connectDB;
     private ArrayList<giamgia> listgiamgia;
     private giamgiaDAO giamgiadao;
-    
+
     public jpannelgiamgia() throws SQLException {
         initComponents();
         ConnectDB.getInstance().connect();
         Connection con = ConnectDB.getConnection();
         loaddulieu();
     }
-    private void loaddulieu()
-    {
+
+    private void loaddulieu() {
         giamgiadao = new giamgiaDAO();
-        for(giamgia gg : giamgiadao.getAllgiamgia())
-        {
-            Object[] row={gg.getMagiamgia(),gg.getTenchuongtrinh(),gg.getLoaichuongtrinh(),gg.getNgaybatdau(),gg.getNgayketthuc()};
+        for (giamgia gg : giamgiadao.getAllgiamgia()) {
+            Object[] row = {gg.getMagiamgia(), gg.getTenchuongtrinh(), gg.getLoaichuongtrinh(), gg.getNgaybatdau(), gg.getNgayketthuc()};
             modelgiamgia.addRow(row);
         }
     }
+
     @SuppressWarnings("check")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -303,64 +305,55 @@ public class jpannelgiamgia extends javax.swing.JPanel{
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jbtthemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtthemMouseClicked
-      giamgiadao = new giamgiaDAO();
-     Date utilDate = jtfngaybatdau.getDate();
-     java.sql.Date sqldate = new java.sql.Date(utilDate.getTime());
-     Date utilDate1 = jtfngayketthuc.getDate();
-     java.sql.Date sqldate1 = new java.sql.Date(utilDate1.getTime());
-    String ma = jtfmagiamgia.getText();
-    String ten = jtftenchuongtrinh.getText();
-    String loai = jtfloaichuongtrinh.getText();
-    giamgia gg = new giamgia(loai, ten, loai, sqldate, sqldate1);
-    giamgiadao.them(gg);
-    Object[] row = {ma, ten, loai, sqldate, sqldate1};
-    modelgiamgia.addRow(row);
+        giamgiadao = new giamgiaDAO();
+        Date utilDate = jtfngaybatdau.getDate();
+        java.sql.Date sqldate = new java.sql.Date(utilDate.getTime());
+        Date utilDate1 = jtfngayketthuc.getDate();
+        java.sql.Date sqldate1 = new java.sql.Date(utilDate1.getTime());
+        String ma = jtfmagiamgia.getText();
+        String ten = jtftenchuongtrinh.getText();
+        String loai = jtfloaichuongtrinh.getText();
+        giamgia gg = new giamgia(loai, ten, loai, sqldate, sqldate1);
+        giamgiadao.them(gg);
+        Object[] row = {ma, ten, loai, sqldate, sqldate1};
+        modelgiamgia.addRow(row);
         hienthi("", "", "", null, null);
     }//GEN-LAST:event_jbtthemMouseClicked
 
     private void table1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table1MouseClicked
-       int rowindex =table1.getSelectedRow();
-       if(rowindex>=0)
-       {
-           String ma=modelgiamgia.getValueAt(rowindex, 0).toString();
-           String ten = modelgiamgia.getValueAt(rowindex, 1).toString();
-           String loai= modelgiamgia.getValueAt(rowindex, 2).toString();
-           Date ngaybatdau= (Date)modelgiamgia.getValueAt(rowindex, 3);
-           Date ngayketthuc= (Date)modelgiamgia.getValueAt(rowindex, 4);
-           hienthi(ma, ten, loai, ngaybatdau, ngayketthuc);
-       }
+        int rowindex = table1.getSelectedRow();
+        if (rowindex >= 0) {
+            String ma = modelgiamgia.getValueAt(rowindex, 0).toString();
+            String ten = modelgiamgia.getValueAt(rowindex, 1).toString();
+            String loai = modelgiamgia.getValueAt(rowindex, 2).toString();
+            Date ngaybatdau = (Date) modelgiamgia.getValueAt(rowindex, 3);
+            Date ngayketthuc = (Date) modelgiamgia.getValueAt(rowindex, 4);
+            hienthi(ma, ten, loai, ngaybatdau, ngayketthuc);
+        }
     }//GEN-LAST:event_table1MouseClicked
 
     private void jbtxoaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtxoaMouseClicked
-        int rowindex=table1.getSelectedRow();
-        if(rowindex==0)
-        {
+        int rowindex = table1.getSelectedRow();
+        if (rowindex == 0) {
             JOptionPane.showMessageDialog(null, "Vui lòng chọn dòng muốn xóa");
-            hienthi("", "", "", null,null   );
-        }
-        else 
-        {
-            if(JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa không?", "Xác nhận", JOptionPane.YES_OPTION)==JOptionPane.YES_OPTION)
-            {
+            hienthi("", "", "", null, null);
+        } else {
+            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa không?", "Xác nhận", JOptionPane.YES_OPTION) == JOptionPane.YES_OPTION) {
                 giamgiadao.xoa(jtfmagiamgia.getText());
                 modelgiamgia.removeRow(rowindex);
-                hienthi("", "", "", null,null   );
+                hienthi("", "", "", null, null);
             }
-            
+
         }
     }//GEN-LAST:event_jbtxoaMouseClicked
 
     private void jbtsuaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtsuaMouseClicked
-        int rowindex=table1.getSelectedRow();
-        if(rowindex==0)
-        {
+        int rowindex = table1.getSelectedRow();
+        if (rowindex == -1) {
             JOptionPane.showMessageDialog(null, "Vui lòng chọn dòng muốn sửa");
-            hienthi("", "", "", null,null   );
-        }
-        else 
-        {
-            if(JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn sửa dòng này không?", "Xác nhận", JOptionPane.YES_OPTION)==JOptionPane.YES_OPTION)
-            {
+            hienthi("", "", "", null, null);
+        } else {
+            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn sửa dòng này không?", "Xác nhận", JOptionPane.YES_OPTION) == JOptionPane.YES_OPTION) {
                 Date utilDate = jtfngaybatdau.getDate();
                 java.sql.Date sqldate = new java.sql.Date(utilDate.getTime());
                 Date utilDate1 = jtfngayketthuc.getDate();
@@ -368,7 +361,7 @@ public class jpannelgiamgia extends javax.swing.JPanel{
                 String ma = jtfmagiamgia.getText();
                 String ten = jtftenchuongtrinh.getText();
                 String loai = jtfloaichuongtrinh.getText();
-                giamgia gg = new giamgia(loai, ten, loai, sqldate, sqldate1); 
+                giamgia gg = new giamgia(ma, ten, loai, sqldate, sqldate1);
                 giamgiadao.sua(gg);
                 modelgiamgia.removeRow(rowindex);
                 Object[] row = {ma, ten, loai, sqldate, sqldate1};
@@ -377,41 +370,46 @@ public class jpannelgiamgia extends javax.swing.JPanel{
             }
         }
     }//GEN-LAST:event_jbtsuaMouseClicked
+    private void filterTableByDate(Date startDate, Date endDate) {
+        if((startDate==null&&endDate==null)||(startDate==null&&endDate!=null)||startDate!=null&&endDate==null)
+        {
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập dữ liệu");
+            return;
+        }
+    DefaultTableModel model = (DefaultTableModel) table1.getModel();
+    model.setRowCount(0); // Xóa hết dữ liệu trong bảng
+
+    giamgiadao = new giamgiaDAO();
+
+    for (giamgia gg : giamgiadao.getAllgiamgia()) {
+        
+        Date rowStartDate = gg.getNgaybatdau();
+        Date rowEndDate = gg.getNgayketthuc();
+
+        boolean start1 = startDate.before(rowStartDate);
+        boolean end1 = endDate.after(rowEndDate);
+        // Sử dụng equals để kiểm tra ngày kết thúc bằng nhau
+        boolean start = rowStartDate.equals(startDate);
+        // Sử dụng equals để kiểm tra ngày bắt đầu bằng nhau
+        boolean end = endDate.equals(rowEndDate);
+
+        if ((start1 || start) && (end1 || end)) {
+            Object[] row = {gg.getMagiamgia(), gg.getTenchuongtrinh(), gg.getLoaichuongtrinh(), rowStartDate, rowEndDate};
+            model.addRow(row);
+        }
+    }
+}
 
     private void jbttimkimMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbttimkimMouseClicked
-         int[] selectedRows = table1.getSelectedRows();
+        filterTableByDate(jtfbatdautk.getDate(), jtfketthuctk.getDate());
 
-    if (jtfbatdautk != null && jtfketthuctk != null) {
-        Date batdautk = jtfbatdautk.getDate();
-        Date ketthuctk = jtfketthuctk.getDate();
-
-        for (int rowIndex : selectedRows) {
-            Date batdau = (Date) modelgiamgia.getValueAt(rowIndex, 3);
-            Date ketthuc = (Date) modelgiamgia.getValueAt(rowIndex, 4);
-
-            int result = batdau.compareTo(batdautk);
-            int result1 = ketthuc.compareTo(ketthuctk);
-
-            if (result >= 0 && result1 <= 0) {
-                System.out.println(modelgiamgia.getValueAt(rowIndex, 0));
-            }
-            else 
-            {
-                System.out.println("saidieukien");
-            }
-        }
-    } else {
-        JOptionPane.showMessageDialog(null, "Vui lòng nhập dữ liệu để tìm");
-    }
-        
     }//GEN-LAST:event_jbttimkimMouseClicked
-    private void hienthi(String ma, String ten, String loai, Date batdau,Date ketthuc)
-    {
+    private void hienthi(String ma, String ten, String loai, Date batdau, Date ketthuc) {
         jtfmagiamgia.setText(ma);
         jtftenchuongtrinh.setText(ten);
         jtfloaichuongtrinh.setText(loai);
         jtfngaybatdau.setDate(batdau);
-        jtfngayketthuc.setDate(ketthuc);     
+        jtfngayketthuc.setDate(ketthuc);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
