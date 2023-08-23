@@ -15,7 +15,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -306,10 +306,8 @@ public class jpannelgiamgia extends javax.swing.JPanel {
 
     private void jbtthemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtthemMouseClicked
         giamgiadao = new giamgiaDAO();
-        Date utilDate = jtfngaybatdau.getDate();
-        java.sql.Date sqldate = new java.sql.Date(utilDate.getTime());
-        Date utilDate1 = jtfngayketthuc.getDate();
-        java.sql.Date sqldate1 = new java.sql.Date(utilDate1.getTime());
+        java.sql.Date sqldate = new java.sql.Date(jtfngaybatdau.getDate().getTime());
+        java.sql.Date sqldate1 = new java.sql.Date(jtfngaybatdau.getDate().getTime());
         String ma = jtfmagiamgia.getText();
         String ten = jtftenchuongtrinh.getText();
         String loai = jtfloaichuongtrinh.getText();
@@ -354,10 +352,8 @@ public class jpannelgiamgia extends javax.swing.JPanel {
             hienthi("", "", "", null, null);
         } else {
             if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn sửa dòng này không?", "Xác nhận", JOptionPane.YES_OPTION) == JOptionPane.YES_OPTION) {
-                Date utilDate = jtfngaybatdau.getDate();
-                java.sql.Date sqldate = new java.sql.Date(utilDate.getTime());
-                Date utilDate1 = jtfngayketthuc.getDate();
-                java.sql.Date sqldate1 = new java.sql.Date(utilDate1.getTime());
+                java.sql.Date sqldate = new java.sql.Date(jtfngaybatdau.getDate().getTime());
+                java.sql.Date sqldate1 = new java.sql.Date(jtfngayketthuc.getDate().getTime());
                 String ma = jtfmagiamgia.getText();
                 String ten = jtftenchuongtrinh.getText();
                 String loai = jtfloaichuongtrinh.getText();
@@ -371,37 +367,45 @@ public class jpannelgiamgia extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jbtsuaMouseClicked
     private void filterTableByDate(Date startDate, Date endDate) {
-        if((startDate==null&&endDate==null)||(startDate==null&&endDate!=null)||startDate!=null&&endDate==null)
-        {
+        if ((startDate == null && endDate == null) || (startDate == null && endDate != null) || startDate != null && endDate == null) {
             JOptionPane.showMessageDialog(null, "Vui lòng nhập dữ liệu");
             return;
         }
-    DefaultTableModel model = (DefaultTableModel) table1.getModel();
-    model.setRowCount(0); // Xóa hết dữ liệu trong bảng
+        DefaultTableModel model = (DefaultTableModel) table1.getModel();
+        model.setRowCount(0); // Xóa hết dữ liệu trong bảng
 
-    giamgiadao = new giamgiaDAO();
+        giamgiadao = new giamgiaDAO();
 
-    for (giamgia gg : giamgiadao.getAllgiamgia()) {
-        
-        Date rowStartDate = gg.getNgaybatdau();
-        Date rowEndDate = gg.getNgayketthuc();
+        for (giamgia gg : giamgiadao.getAllgiamgia()) {
 
-        boolean start1 = startDate.before(rowStartDate);
-        boolean end1 = endDate.after(rowEndDate);
-        // Sử dụng equals để kiểm tra ngày kết thúc bằng nhau
-        boolean start = rowStartDate.equals(startDate);
-        // Sử dụng equals để kiểm tra ngày bắt đầu bằng nhau
-        boolean end = endDate.equals(rowEndDate);
+//            Date rowStartDate = gg.getNgaybatdau();
+//            Date rowEndDate = gg.getNgayketthuc();
+//
+//            boolean start1 = startDate.before(rowStartDate) || startDate.equals(rowStartDate);
+//            boolean end1 = endDate.after(rowEndDate) || endDate.equals(rowEndDate);
 
-        if ((start1 || start) && (end1 || end)) {
-            Object[] row = {gg.getMagiamgia(), gg.getTenchuongtrinh(), gg.getLoaichuongtrinh(), rowStartDate, rowEndDate};
-            model.addRow(row);
+            Date rowStartDate = gg.getNgaybatdau();
+            Date rowEndDate = gg.getNgayketthuc();
+
+            LocalDate startLocalDate = rowStartDate.toLocalDate();
+            LocalDate endLocalDate = rowEndDate.toLocalDate();
+
+            LocalDate startLocal = startDate.toLocalDate();
+            LocalDate endLocal = endDate.toLocalDate();
+
+            boolean start1 = startLocal.isBefore(startLocalDate) || startLocal.isEqual(startLocalDate);
+            boolean end1 = endLocal.isAfter(endLocalDate) || endLocal.isEqual(endLocalDate);
+            if ((start1) && (end1)) {
+                Object[] row = {gg.getMagiamgia(), gg.getTenchuongtrinh(), gg.getLoaichuongtrinh(), rowStartDate, rowEndDate};
+                model.addRow(row);
+            }
         }
     }
-}
 
     private void jbttimkimMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbttimkimMouseClicked
-        filterTableByDate(jtfbatdautk.getDate(), jtfketthuctk.getDate());
+        Date star = new Date(jtfbatdautk.getDate().getTime());
+        Date end = new Date(jtfketthuctk.getDate().getTime());
+        filterTableByDate(star, end);
 
     }//GEN-LAST:event_jbttimkimMouseClicked
     private void hienthi(String ma, String ten, String loai, Date batdau, Date ketthuc) {
