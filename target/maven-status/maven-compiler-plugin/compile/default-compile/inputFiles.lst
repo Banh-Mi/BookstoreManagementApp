@@ -1,23 +1,22 @@
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\gui\ApplicationFrame.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\Dao\TaiKhoanDAOImpl.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\entity\giamgia.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\gui\jpannelTrangChu.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\service\taikhoanservice.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\service\taikhoanserviceimpl.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\customLib\roundedPanel.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\ChuyenManHinh\DangNhapController.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\gui\jpannelEmployee.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\DanhMuc\DanhMuc.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\customLib\SVGImage.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\customLib\getSource.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\gui\jpannelthongke.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\gui\LoginForm.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\Dao\TaiKhoanDAO.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\gui\jpannelAccount.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\Dao\giamgiaDAO.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\entity\taikhoan.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\gui\jpannelgiamgia.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\ChuyenManHinh\Chuyenmanhinh.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\connectDB\ConnectDB.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\gui\FrameEmployee.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\model\taikhoan.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\connectDB\ConnectDB.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\entity\giamgia.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\service\taikhoanserviceimpl.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\service\taikhoanservice.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\ChuyenManHinh\Chuyenmanhinh.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\customLib\SVGImage.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\gui\LoginForm.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\DanhMuc\DanhMuc.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\gui\jpannelthongke.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\ChuyenManHinh\DangNhapController.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\gui\ApplicationFrame.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\customLib\getSource.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\gui\jpannelgiamgia.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\model\taikhoan.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\Dao\giamgiaDAO.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\entity\taikhoan.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\gui\jpanelEmployee.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\gui\jpannelTrangChu.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\Dao\TaiKhoanDAO.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\Dao\TaiKhoanDAOImpl.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\customLib\roundedPanel.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\gui\jpannelAccount.java
