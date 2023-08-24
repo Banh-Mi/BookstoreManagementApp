@@ -5,7 +5,7 @@
 package gui;
 
 import com.toedter.calendar.JDateChooser;
-import Dao.giamgiaDAO;
+import Dao.GiamgiaDAO;
 import connectDB.ConnectDB;
 import entity.giamgia;
 import java.awt.event.ActionEvent;
@@ -24,15 +24,15 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author VONG VINH LOI
  */
-public class jpannelgiamgia extends javax.swing.JPanel {
+public class jpannelGiamGia extends javax.swing.JPanel {
 
     private DefaultTableModel modelgiamgia;
     public JDateChooser dateChooser = new JDateChooser();
     private ConnectDB connectDB;
     private ArrayList<giamgia> listgiamgia;
-    private giamgiaDAO giamgiadao;
+    private GiamgiaDAO giamgiadao;
 
-    public jpannelgiamgia() throws SQLException {
+    public jpannelGiamGia() throws SQLException {
         initComponents();
         ConnectDB.getInstance().connect();
         Connection con = ConnectDB.getConnection();
@@ -40,7 +40,7 @@ public class jpannelgiamgia extends javax.swing.JPanel {
     }
 
     private void loaddulieu() {
-        giamgiadao = new giamgiaDAO();
+        giamgiadao = new GiamgiaDAO();
         for (giamgia gg : giamgiadao.getAllgiamgia()) {
             Object[] row = {gg.getMagiamgia(), gg.getTenchuongtrinh(), gg.getLoaichuongtrinh(), gg.getNgaybatdau(), gg.getNgayketthuc()};
             modelgiamgia.addRow(row);
@@ -305,7 +305,7 @@ public class jpannelgiamgia extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jbtthemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtthemMouseClicked
-        giamgiadao = new giamgiaDAO();
+        giamgiadao = new GiamgiaDAO();
         java.sql.Date sqldate = new java.sql.Date(jtfngaybatdau.getDate().getTime());
         java.sql.Date sqldate1 = new java.sql.Date(jtfngaybatdau.getDate().getTime());
         String ma = jtfmagiamgia.getText();
@@ -380,7 +380,7 @@ public class jpannelgiamgia extends javax.swing.JPanel {
         model.setRowCount(0); // Xóa hết dữ liệu trong bảng
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        giamgiadao = new giamgiaDAO();
+        giamgiadao = new GiamgiaDAO();
 
         for (giamgia gg : giamgiadao.getAllgiamgia()) {
             java.sql.Date rowStartDate = gg.getNgaybatdau();

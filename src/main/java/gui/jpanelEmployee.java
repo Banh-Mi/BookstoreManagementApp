@@ -4,6 +4,11 @@
  */
 package gui;
 
+import java.awt.Color;
+import java.awt.Panel;
+import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
+
 /**
  *
  * @author pc
@@ -15,8 +20,22 @@ public class jpanelEmployee extends javax.swing.JPanel {
      */
     public jpanelEmployee() {
         initComponents();
+        svgAdd.setSvgImage("add.svg", 30, 30);
+        svgEdit.setSvgImage("edit.svg", 25, 25);
+        svgDelete.setSvgImage("delete.svg", 30, 30);
+        svgRefresh.setSvgImage("refresh.svg", 25, 25);
+         svgExcel.setSvgImage("excel.svg", 30, 30);
+         svgPdf.setSvgImage("pdf.svg", 25, 30);
+         svgSearch.setSvgImage("search.svg", 30, 30);
     }
 
+    public void mouseEntered(JPanel panel) {
+        panel.setBorder(new LineBorder(new java.awt.Color(145, 184, 240),2));
+    }
+    
+    public void mouseExited(JPanel panel) {
+        panel.setBorder(null);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,18 +45,12 @@ public class jpanelEmployee extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jPanelEmployeeDetail = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTableEmployee = new javax.swing.JTable();
+        jpTitle = new javax.swing.JPanel();
         title = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
+        jpFunction = new javax.swing.JPanel();
         lblEmployeeID = new javax.swing.JLabel();
         lblFullName = new javax.swing.JLabel();
         txtSoDienThoai = new javax.swing.JTextField();
-        btnAdd = new javax.swing.JButton();
-        btnEdit = new javax.swing.JButton();
-        btnDelete = new javax.swing.JButton();
         lblGender = new javax.swing.JLabel();
         radFemale = new javax.swing.JRadioButton();
         radMale = new javax.swing.JRadioButton();
@@ -54,23 +67,323 @@ public class jpanelEmployee extends javax.swing.JPanel {
         jDateChooserDob = new com.toedter.calendar.JDateChooser();
         lblEmail = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
-        jButtonExportExcel = new javax.swing.JButton();
-        jButtonExportReport = new javax.swing.JButton();
         jPanelSearch = new javax.swing.JPanel();
+        jpSearch = new customLib.roundedPanel();
+        jbSearch = new javax.swing.JLabel();
+        svgSearch = new customLib.SVGImage();
         jLabelSearchByNameOrByCode = new javax.swing.JLabel();
         jTextFieldSearchByNameOrByCode = new javax.swing.JTextField();
         jLabelSearchSelection = new javax.swing.JLabel();
         jComboBoxSearchSelection = new javax.swing.JComboBox<>();
-        jButtonSearch = new javax.swing.JButton();
-        jButtonRefresh = new javax.swing.JButton();
         jPanelSort = new javax.swing.JPanel();
         jComboBoxSortSelection = new javax.swing.JComboBox<>();
         jLabelSortBy = new javax.swing.JLabel();
         jComboBoxSortDropDown = new javax.swing.JComboBox<>();
+        jpAdd = new customLib.roundedPanel();
+        jbAdd = new javax.swing.JLabel();
+        svgAdd = new customLib.SVGImage();
+        jpEdit = new customLib.roundedPanel();
+        jbEdit = new javax.swing.JLabel();
+        svgEdit = new customLib.SVGImage();
+        jpDelete = new customLib.roundedPanel();
+        jbDelete = new javax.swing.JLabel();
+        svgDelete = new customLib.SVGImage();
+        jpRefresh = new customLib.roundedPanel();
+        jbRefresh = new javax.swing.JLabel();
+        svgRefresh = new customLib.SVGImage();
+        jpExcel = new customLib.roundedPanel();
+        jbExcel = new javax.swing.JLabel();
+        svgExcel = new customLib.SVGImage();
+        jpPdf = new customLib.roundedPanel();
+        jbPdf = new javax.swing.JLabel();
+        svgPdf = new customLib.SVGImage();
+        jPanelEmployeeDetail = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableEmployee = new javax.swing.JTable();
 
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setPreferredSize(new java.awt.Dimension(1040, 760));
         setLayout(new java.awt.BorderLayout());
+
+        jpTitle.setLayout(new java.awt.BorderLayout());
+
+        title.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        title.setText("Employee Manager");
+        jpTitle.add(title, java.awt.BorderLayout.CENTER);
+
+        add(jpTitle, java.awt.BorderLayout.PAGE_START);
+
+        jpFunction.setPreferredSize(new java.awt.Dimension(1010, 350));
+        jpFunction.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblEmployeeID.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblEmployeeID.setText("Employee ID:");
+        jpFunction.add(lblEmployeeID, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 100, 30));
+
+        lblFullName.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblFullName.setText("Full Name:");
+        jpFunction.add(lblFullName, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, 30));
+
+        txtSoDienThoai.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jpFunction.add(txtSoDienThoai, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 120, 220, 30));
+
+        lblGender.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblGender.setText("Gender:");
+        jpFunction.add(lblGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 70, -1, 30));
+
+        radFemale.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        radFemale.setText("Female");
+        radFemale.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radFemaleActionPerformed(evt);
+            }
+        });
+        jpFunction.add(radFemale, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 70, -1, 30));
+
+        radMale.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        radMale.setSelected(true);
+        radMale.setText("Male");
+        radMale.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radMaleActionPerformed(evt);
+            }
+        });
+        jpFunction.add(radMale, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 70, -1, 30));
+
+        lblPhone.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblPhone.setText("Phone:");
+        jpFunction.add(lblPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 120, 50, 30));
+
+        lblStatus.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblStatus.setText("Status:");
+        jpFunction.add(lblStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 20, -1, 30));
+
+        lblDob.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblDob.setText("Date Of Birth:");
+        jpFunction.add(lblDob, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 20, -1, 30));
+
+        txtAddress.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jpFunction.add(txtAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 70, 300, 30));
+
+        comboboxPosition.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        comboboxPosition.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jpFunction.add(comboboxPosition, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, 180, 30));
+
+        lblPosition.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblPosition.setText("Position:");
+        jpFunction.add(lblPosition, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 100, 30));
+
+        txtEmployeeID.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtEmployeeID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEmployeeIDActionPerformed(evt);
+            }
+        });
+        jpFunction.add(txtEmployeeID, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 20, 180, 30));
+
+        lblAddress.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblAddress.setText("Address:");
+        jpFunction.add(lblAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 70, -1, 30));
+
+        txtFullName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtFullName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFullNameActionPerformed(evt);
+            }
+        });
+        jpFunction.add(txtFullName, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 70, 180, 30));
+
+        txtEmployeeID1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtEmployeeID1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEmployeeID1ActionPerformed(evt);
+            }
+        });
+        jpFunction.add(txtEmployeeID1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 180, 30));
+        jpFunction.add(jDateChooserDob, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 20, 180, 30));
+
+        lblEmail.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblEmail.setText("Email:");
+        jpFunction.add(lblEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 120, 50, 30));
+
+        txtEmail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jpFunction.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 120, 220, 30));
+
+        jPanelSearch.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Advanced Search", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
+        jPanelSearch.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jpSearch.setBackground(new java.awt.Color(255, 255, 255));
+        jpSearch.setRoundedBottomLeft(10);
+        jpSearch.setRoundedBottomRight(10);
+        jpSearch.setRoundedTopLeft(10);
+        jpSearch.setRoundedTopRight(10);
+        jpSearch.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jbSearch.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jbSearch.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jbSearch.setText("Search");
+        jpSearch.add(jbSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 60, 40));
+
+        svgSearch.setText(" ");
+        jpSearch.add(svgSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
+
+        jPanelSearch.add(jpSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 40, 100, 40));
+
+        jLabelSearchByNameOrByCode.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabelSearchByNameOrByCode.setText("Search by Name or ID:");
+        jPanelSearch.add(jLabelSearchByNameOrByCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 29, -1, 30));
+
+        jTextFieldSearchByNameOrByCode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldSearchByNameOrByCodeActionPerformed(evt);
+            }
+        });
+        jPanelSearch.add(jTextFieldSearchByNameOrByCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 29, 160, 30));
+
+        jLabelSearchSelection.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabelSearchSelection.setText("Search Selection:");
+        jPanelSearch.add(jLabelSearchSelection, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, 30));
+
+        jComboBoxSearchSelection.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxSearchSelection.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxSearchSelectionActionPerformed(evt);
+            }
+        });
+        jPanelSearch.add(jComboBoxSearchSelection, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 70, 85, 30));
+
+        jpFunction.add(jPanelSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 570, 110));
+
+        jPanelSort.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Sort", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
+        jPanelSort.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jComboBoxSortSelection.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanelSort.add(jComboBoxSortSelection, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 120, 30));
+
+        jLabelSortBy.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabelSortBy.setText("Sort by:");
+        jPanelSort.add(jLabelSortBy, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
+
+        jComboBoxSortDropDown.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanelSort.add(jComboBoxSortDropDown, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 60, 120, 30));
+
+        jpFunction.add(jPanelSort, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 220, 300, 110));
+
+        jpAdd.setBackground(new java.awt.Color(255, 255, 255));
+        jpAdd.setRoundedBottomLeft(10);
+        jpAdd.setRoundedBottomRight(10);
+        jpAdd.setRoundedTopLeft(10);
+        jpAdd.setRoundedTopRight(10);
+        jpAdd.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jpAddMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jpAddMouseExited(evt);
+            }
+        });
+        jpAdd.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jbAdd.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jbAdd.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jbAdd.setText("Add");
+        jpAdd.add(jbAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 60, 40));
+
+        svgAdd.setText(" ");
+        jpAdd.add(svgAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
+
+        jpFunction.add(jpAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 170, 100, 40));
+
+        jpEdit.setBackground(new java.awt.Color(255, 255, 255));
+        jpEdit.setRoundedBottomLeft(10);
+        jpEdit.setRoundedBottomRight(10);
+        jpEdit.setRoundedTopLeft(10);
+        jpEdit.setRoundedTopRight(10);
+        jpEdit.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jbEdit.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jbEdit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jbEdit.setText("Edit");
+        jpEdit.add(jbEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 60, 40));
+
+        svgEdit.setText(" ");
+        jpEdit.add(svgEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
+
+        jpFunction.add(jpEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 170, 100, 40));
+
+        jpDelete.setBackground(new java.awt.Color(255, 255, 255));
+        jpDelete.setRoundedBottomLeft(10);
+        jpDelete.setRoundedBottomRight(10);
+        jpDelete.setRoundedTopLeft(10);
+        jpDelete.setRoundedTopRight(10);
+        jpDelete.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jbDelete.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jbDelete.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jbDelete.setText("Delete");
+        jpDelete.add(jbDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 60, 40));
+
+        svgDelete.setText(" ");
+        jpDelete.add(svgDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
+
+        jpFunction.add(jpDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 170, 100, 40));
+
+        jpRefresh.setBackground(new java.awt.Color(255, 255, 255));
+        jpRefresh.setRoundedBottomLeft(10);
+        jpRefresh.setRoundedBottomRight(10);
+        jpRefresh.setRoundedTopLeft(10);
+        jpRefresh.setRoundedTopRight(10);
+        jpRefresh.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jbRefresh.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jbRefresh.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jbRefresh.setText("Refresh");
+        jpRefresh.add(jbRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 60, 40));
+
+        svgRefresh.setText(" ");
+        jpRefresh.add(svgRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
+
+        jpFunction.add(jpRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 170, 100, 40));
+
+        jpExcel.setBackground(new java.awt.Color(255, 255, 255));
+        jpExcel.setRoundedBottomLeft(10);
+        jpExcel.setRoundedBottomRight(10);
+        jpExcel.setRoundedTopLeft(10);
+        jpExcel.setRoundedTopRight(10);
+        jpExcel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jbExcel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jbExcel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jbExcel.setText("Export Excel");
+        jpExcel.add(jbExcel, new org.netbeans.lib.awtextra.AbsoluteConstraints(44, 0, 90, 40));
+
+        svgExcel.setText(" ");
+        jpExcel.add(svgExcel, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
+
+        jpFunction.add(jpExcel, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 170, 140, 40));
+
+        jpPdf.setBackground(new java.awt.Color(255, 255, 255));
+        jpPdf.setRoundedBottomLeft(10);
+        jpPdf.setRoundedBottomRight(10);
+        jpPdf.setRoundedTopLeft(10);
+        jpPdf.setRoundedTopRight(10);
+        jpPdf.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jbPdf.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jbPdf.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jbPdf.setText("Export PDF");
+        jpPdf.add(jbPdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 100, 40));
+
+        svgPdf.setText(" ");
+        jpPdf.add(svgPdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
+
+        jpFunction.add(jpPdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 170, 130, 40));
+
+        add(jpFunction, java.awt.BorderLayout.CENTER);
+
+        jPanelEmployeeDetail.setPreferredSize(new java.awt.Dimension(458, 370));
+        jPanelEmployeeDetail.setLayout(new java.awt.BorderLayout());
 
         jTableEmployee.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -85,293 +398,10 @@ public class jpanelEmployee extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(jTableEmployee);
 
-        javax.swing.GroupLayout jPanelEmployeeDetailLayout = new javax.swing.GroupLayout(jPanelEmployeeDetail);
-        jPanelEmployeeDetail.setLayout(jPanelEmployeeDetailLayout);
-        jPanelEmployeeDetailLayout.setHorizontalGroup(
-            jPanelEmployeeDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelEmployeeDetailLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1))
-        );
-        jPanelEmployeeDetailLayout.setVerticalGroup(
-            jPanelEmployeeDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE)
-        );
+        jPanelEmployeeDetail.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
-        title.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        title.setText("Employee Manager");
-
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        lblEmployeeID.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblEmployeeID.setText("Employee ID:");
-        jPanel2.add(lblEmployeeID, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 100, 30));
-
-        lblFullName.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblFullName.setText("Full Name:");
-        jPanel2.add(lblFullName, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, 30));
-
-        txtSoDienThoai.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jPanel2.add(txtSoDienThoai, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 120, 220, 30));
-
-        btnAdd.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/light/addEmployee.png"))); // NOI18N
-        btnAdd.setText("Add");
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddActionPerformed(evt);
-            }
-        });
-        jPanel2.add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, 100, 30));
-
-        btnEdit.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/light/editEmployee.png"))); // NOI18N
-        btnEdit.setText("Edit");
-        jPanel2.add(btnEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 180, 100, 30));
-
-        btnDelete.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/light/deleteEmployee.png"))); // NOI18N
-        btnDelete.setText("Delete");
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteActionPerformed(evt);
-            }
-        });
-        jPanel2.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 180, 100, 30));
-
-        lblGender.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblGender.setText("Gender:");
-        jPanel2.add(lblGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 70, -1, 30));
-
-        radFemale.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        radFemale.setText("Female");
-        radFemale.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radFemaleActionPerformed(evt);
-            }
-        });
-        jPanel2.add(radFemale, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 70, -1, 30));
-
-        radMale.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        radMale.setSelected(true);
-        radMale.setText("Male");
-        radMale.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radMaleActionPerformed(evt);
-            }
-        });
-        jPanel2.add(radMale, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 70, -1, 30));
-
-        lblPhone.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblPhone.setText("Phone:");
-        jPanel2.add(lblPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 120, 50, 30));
-
-        lblStatus.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblStatus.setText("Status:");
-        jPanel2.add(lblStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 20, -1, 30));
-
-        lblDob.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblDob.setText("Date Of Birth:");
-        jPanel2.add(lblDob, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 20, -1, 30));
-
-        txtAddress.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jPanel2.add(txtAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 70, 300, 30));
-
-        comboboxPosition.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        comboboxPosition.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel2.add(comboboxPosition, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, 180, 30));
-
-        lblPosition.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblPosition.setText("Position:");
-        jPanel2.add(lblPosition, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 100, 30));
-
-        txtEmployeeID.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtEmployeeID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEmployeeIDActionPerformed(evt);
-            }
-        });
-        jPanel2.add(txtEmployeeID, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 20, 180, 30));
-
-        lblAddress.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblAddress.setText("Address:");
-        jPanel2.add(lblAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 70, -1, 30));
-
-        txtFullName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtFullName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFullNameActionPerformed(evt);
-            }
-        });
-        jPanel2.add(txtFullName, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 70, 180, 30));
-
-        txtEmployeeID1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtEmployeeID1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEmployeeID1ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(txtEmployeeID1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 180, 30));
-        jPanel2.add(jDateChooserDob, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 20, 180, 30));
-
-        lblEmail.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblEmail.setText("Email:");
-        jPanel2.add(lblEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 120, 50, 30));
-
-        txtEmail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jPanel2.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 120, 220, 30));
-
-        jButtonExportExcel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButtonExportExcel.setText("Export Excel");
-        jButtonExportExcel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonExportExcelActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButtonExportExcel, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 180, -1, 30));
-
-        jButtonExportReport.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButtonExportReport.setText("Export Report PDF");
-        jPanel2.add(jButtonExportReport, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 180, -1, 30));
-
-        jPanelSearch.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Advanced Search", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
-
-        jLabelSearchByNameOrByCode.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabelSearchByNameOrByCode.setText("Search by Name or by Code:");
-
-        jTextFieldSearchByNameOrByCode.setText("jTextField1");
-
-        jLabelSearchSelection.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabelSearchSelection.setText("Search Selection:");
-
-        jComboBoxSearchSelection.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jButtonSearch.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButtonSearch.setText("Search");
-        jButtonSearch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSearchActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanelSearchLayout = new javax.swing.GroupLayout(jPanelSearch);
-        jPanelSearch.setLayout(jPanelSearchLayout);
-        jPanelSearchLayout.setHorizontalGroup(
-            jPanelSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelSearchLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanelSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelSearchLayout.createSequentialGroup()
-                        .addComponent(jLabelSearchByNameOrByCode)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextFieldSearchByNameOrByCode, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelSearchLayout.createSequentialGroup()
-                        .addComponent(jLabelSearchSelection)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBoxSearchSelection, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
-                .addComponent(jButtonSearch)
-                .addGap(40, 40, 40))
-        );
-        jPanelSearchLayout.setVerticalGroup(
-            jPanelSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelSearchLayout.createSequentialGroup()
-                .addGap(7, 7, 7)
-                .addGroup(jPanelSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelSearchByNameOrByCode, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldSearchByNameOrByCode, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabelSearchSelection, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBoxSearchSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36))
-            .addGroup(jPanelSearchLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jButtonSearch)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel2.add(jPanelSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 530, 90));
-
-        jButtonRefresh.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButtonRefresh.setText("Refresh");
-        jPanel2.add(jButtonRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 180, 100, 30));
-
-        jPanelSort.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Sort", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
-
-        jComboBoxSortSelection.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jLabelSortBy.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabelSortBy.setText("Sort by:");
-
-        jComboBoxSortDropDown.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        javax.swing.GroupLayout jPanelSortLayout = new javax.swing.GroupLayout(jPanelSort);
-        jPanelSort.setLayout(jPanelSortLayout);
-        jPanelSortLayout.setHorizontalGroup(
-            jPanelSortLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelSortLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabelSortBy)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jComboBoxSortSelection, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jComboBoxSortDropDown, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34))
-        );
-        jPanelSortLayout.setVerticalGroup(
-            jPanelSortLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelSortLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanelSortLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelSortBy, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBoxSortSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxSortDropDown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel2.add(jPanelSort, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 230, 280, 60));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(20, 20, 20))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanelEmployeeDetail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1023, Short.MAX_VALUE)
-                        .addContainerGap())))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanelEmployeeDetail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
-        add(jPanel1, java.awt.BorderLayout.CENTER);
+        add(jPanelEmployeeDetail, java.awt.BorderLayout.PAGE_END);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAddActionPerformed
-
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void radFemaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radFemaleActionPerformed
         // TODO add your handling code here:
@@ -393,24 +423,25 @@ public class jpanelEmployee extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtEmployeeID1ActionPerformed
 
-    private void jButtonExportExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExportExcelActionPerformed
+    private void jTextFieldSearchByNameOrByCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldSearchByNameOrByCodeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonExportExcelActionPerformed
+    }//GEN-LAST:event_jTextFieldSearchByNameOrByCodeActionPerformed
 
-    private void jButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchActionPerformed
+    private void jComboBoxSearchSelectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxSearchSelectionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonSearchActionPerformed
+    }//GEN-LAST:event_jComboBoxSearchSelectionActionPerformed
+
+    private void jpAddMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpAddMouseEntered
+        mouseEntered(jpAdd);
+    }//GEN-LAST:event_jpAddMouseEntered
+
+    private void jpAddMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpAddMouseExited
+        mouseExited(jpAdd);
+    }//GEN-LAST:event_jpAddMouseExited
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdd;
-    private javax.swing.JButton btnDelete;
-    private javax.swing.JButton btnEdit;
     private javax.swing.JComboBox<String> comboboxPosition;
-    private javax.swing.JButton jButtonExportExcel;
-    private javax.swing.JButton jButtonExportReport;
-    private javax.swing.JButton jButtonRefresh;
-    private javax.swing.JButton jButtonSearch;
     private javax.swing.JComboBox<String> jComboBoxSearchSelection;
     private javax.swing.JComboBox<String> jComboBoxSortDropDown;
     private javax.swing.JComboBox<String> jComboBoxSortSelection;
@@ -418,14 +449,28 @@ public class jpanelEmployee extends javax.swing.JPanel {
     private javax.swing.JLabel jLabelSearchByNameOrByCode;
     private javax.swing.JLabel jLabelSearchSelection;
     private javax.swing.JLabel jLabelSortBy;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanelEmployeeDetail;
     private javax.swing.JPanel jPanelSearch;
     private javax.swing.JPanel jPanelSort;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableEmployee;
     private javax.swing.JTextField jTextFieldSearchByNameOrByCode;
+    private javax.swing.JLabel jbAdd;
+    private javax.swing.JLabel jbDelete;
+    private javax.swing.JLabel jbEdit;
+    private javax.swing.JLabel jbExcel;
+    private javax.swing.JLabel jbPdf;
+    private javax.swing.JLabel jbRefresh;
+    private javax.swing.JLabel jbSearch;
+    private customLib.roundedPanel jpAdd;
+    private customLib.roundedPanel jpDelete;
+    private customLib.roundedPanel jpEdit;
+    private customLib.roundedPanel jpExcel;
+    private javax.swing.JPanel jpFunction;
+    private customLib.roundedPanel jpPdf;
+    private customLib.roundedPanel jpRefresh;
+    private customLib.roundedPanel jpSearch;
+    private javax.swing.JPanel jpTitle;
     private javax.swing.JLabel lblAddress;
     private javax.swing.JLabel lblDob;
     private javax.swing.JLabel lblEmail;
@@ -437,6 +482,13 @@ public class jpanelEmployee extends javax.swing.JPanel {
     private javax.swing.JLabel lblStatus;
     private javax.swing.JRadioButton radFemale;
     private javax.swing.JRadioButton radMale;
+    private customLib.SVGImage svgAdd;
+    private customLib.SVGImage svgDelete;
+    private customLib.SVGImage svgEdit;
+    private customLib.SVGImage svgExcel;
+    private customLib.SVGImage svgPdf;
+    private customLib.SVGImage svgRefresh;
+    private customLib.SVGImage svgSearch;
     private javax.swing.JLabel title;
     private javax.swing.JTextField txtAddress;
     private javax.swing.JTextField txtEmail;

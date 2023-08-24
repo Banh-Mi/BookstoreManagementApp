@@ -12,11 +12,11 @@ import entity.taikhoan;
  *
  * @author VONG VINH LOI
  */
-public class taikhoanserviceimpl implements taikhoanservice{
+public class taiKhoanServiceImpl implements taiKhoanService{
 
     private TaiKhoanDAO taikhoandao = null;
 
-    public taikhoanserviceimpl() {
+    public taiKhoanServiceImpl() {
         taikhoandao = new TaiKhoanDAOImpl();
     }
     

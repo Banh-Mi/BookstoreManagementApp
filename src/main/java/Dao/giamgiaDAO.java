@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class giamgiaDAO {
+public class GiamgiaDAO {
 
     public ArrayList<giamgia> getAllgiamgia() {
         ArrayList<giamgia> dsgiamgia = new ArrayList<>();

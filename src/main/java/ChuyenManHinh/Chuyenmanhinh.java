@@ -2,21 +2,18 @@ package ChuyenManHinh;
 
 import DanhMuc.DanhMuc;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import gui.jpannelTrangChu;
 import gui.jpannelAccount;
-import gui.jpannelgiamgia;
+import gui.jpannelGiamGia;
 import gui.jpanelEmployee;
-import gui.jpannelthongke;
+import gui.jpannelThongKe;
 
 /**
  *
@@ -77,16 +74,17 @@ public class Chuyenmanhinh {
                     item.setJpn(node);
                 }
                 case "Statistical" -> {
-                    node = new jpannelthongke();
+                    node = new jpannelThongKe();
                     item.setJpn(node);
                 }
                 case "Discount" -> {
                     try {
-                        node = new jpannelgiamgia();
+                        node = new jpannelGiamGia();
+                         item.setJpn(node);
                     } catch (SQLException ex) {
                         Logger.getLogger(Chuyenmanhinh.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    item.setJpn(node);
+                   
                 }
                 default -> {
                     node = new jpannelTrangChu();

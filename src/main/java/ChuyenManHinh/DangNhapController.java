@@ -1,8 +1,7 @@
 package ChuyenManHinh;
 
 import entity.taikhoan;
-import service.taikhoanservice;
-import service.taikhoanserviceimpl;
+import service.taiKhoanServiceImpl;
 import gui.ApplicationFrame;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
@@ -14,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
+import service.taiKhoanService;
 
 public class DangNhapController {
 
@@ -23,7 +23,7 @@ public class DangNhapController {
     private final JTextField jtfMatKhau;
     private final JLabel jlbMsg;
 
-    private taikhoanservice taiKhoanService = null;
+    private taiKhoanService taiKhoanService = null;
 
     public DangNhapController(JFrame jframe, JButton btnSubmit,
             JTextField jtfTenDangNhap, JTextField jtfMatKhau, JLabel jlbMsg) {
@@ -33,7 +33,7 @@ public class DangNhapController {
         this.jtfMatKhau = jtfMatKhau;
         this.jlbMsg = jlbMsg;
 
-        taiKhoanService = new taikhoanserviceimpl();
+        taiKhoanService = new taiKhoanServiceImpl();
     }
 
     public void setEvent() {

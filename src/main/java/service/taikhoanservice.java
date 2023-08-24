@@ -10,6 +10,6 @@ import entity.taikhoan;
  *
  * @author VONG VINH LOI
  */
-public interface taikhoanservice {
+public interface taiKhoanService {
     public taikhoan login(String tdn, String mk);
 }

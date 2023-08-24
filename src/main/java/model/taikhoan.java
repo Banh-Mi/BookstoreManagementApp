@@ -2,7 +2,7 @@
 package model;
 
 
-public class taikhoan {
+public class taiKhoan {
     private int mataikhoan;
     private String tendangnhap;
     private String matkhau;

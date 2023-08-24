@@ -23,9 +23,9 @@ import org.jfree.data.statistics.HistogramDataset;
  *
  * @author VONG VINH LOI
  */
-public class jpannelthongke extends javax.swing.JPanel {
+public class jpannelThongKe extends javax.swing.JPanel {
 
-    public jpannelthongke() {
+    public jpannelThongKe() {
         initComponents();
         showPieChart();
         showLineChart();
