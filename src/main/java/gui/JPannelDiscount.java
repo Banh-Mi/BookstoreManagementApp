@@ -34,7 +34,7 @@ public class JPannelDiscount extends javax.swing.JPanel {
     private void loadData() {
         discountDAO = new DiscountDAO();
         for (Discount discount : discountDAO.getAllDiscount()) {
-            Object[] row = {discount.getDiscountID(), discount.getDiscountName(), discount.getDiscountType(), discount.getStartDate(), discount.getEndDate()};
+            Object[] row = {discount.getDiscountID(), discount.getProgramName(), discount.getProgramType(), discount.getStartDate(), discount.getEndDate()};
             modelDiscount.addRow(row);
         }
     }
@@ -325,7 +325,7 @@ public class JPannelDiscount extends javax.swing.JPanel {
             System.out.println(rowStartDate + "---" + start1 + "******");
 
             if (start1 && end1) {
-                Object[] row = {discount.getDiscountID(), discount.getDiscountName(), discount.getDiscountType(), rowStartDate, rowEndDate};
+                Object[] row = {discount.getDiscountID(), discount.getProgramName(), discount.getProgramType(), rowStartDate, rowEndDate};
                 model.addRow(row);
             }
         }

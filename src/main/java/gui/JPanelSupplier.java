@@ -6,6 +6,8 @@ package gui;
 
 import dao.SupplierDAO;
 import entity.Supplier;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -16,7 +18,8 @@ import javax.swing.table.DefaultTableModel;
 public class JPanelSupplier extends javax.swing.JPanel {
 
     private final DefaultTableModel modelSupplier;
-    private SupplierDAO supplierDAO;
+    private SupplierDAO supplierDAO = new SupplierDAO();
+    private final String regex = "^[AÀẢÃÁẠĂẰẲẴẮẶÂẦẨẪẤẬBCDĐEÈẺẼÉẸÊỀỂỄẾỆFGHIÌỈĨÍỊJKLMNOÒỎÕÓỌÔỒỔỖỐỘƠỜỞỠỚỢPQRSTUÙỦŨÚỤƯỪỬỮỨỰVWXYỲỶỸÝỴZ][aàảãáạăằẳẵắặâầẩẫấậbcdđeèẻẽéẹêềểễếệfghiìỉĩíịjklmnoòỏõóọôồổỗốộơờởỡớợpqrstuùủũúụưừửữứựvwxyỳỷỹýỵz]+ [AÀẢÃÁẠĂẰẲẴẮẶÂẦẨẪẤẬBCDĐEÈẺẼÉẸÊỀỂỄẾỆFGHIÌỈĨÍỊJKLMNOÒỎÕÓỌÔỒỔỖỐỘƠỜỞỠỚỢPQRSTUÙỦŨÚỤƯỪỬỮỨỰVWXYỲỶỸÝỴZ][aàảãáạăằẳẵắặâầẩẫấậbcdđeèẻẽéẹêềểễếệfghiìỉĩíịjklmnoòỏõóọôồổỗốộơờởỡớợpqrstuùủũúụưừửữứựvwxyỳỷỹýỵz]+(?: [AÀẢÃÁẠĂẰẲẴẮẶÂẦẨẪẤẬBCDĐEÈẺẼÉẸÊỀỂỄẾỆFGHIÌỈĨÍỊJKLMNOÒỎÕÓỌÔỒỔỖỐỘƠỜỞỠỚỢPQRSTUÙỦŨÚỤƯỪỬỮỨỰVWXYỲỶỸÝỴZ][aàảãáạăằẳẵắặâầẩẫấậbcdđeèẻẽéẹêềểễếệfghiìỉĩíịjklmnoòỏõóọôồổỗốộơờởỡớợpqrstuùủũúụưừửữứựvwxyỳỷỹýỵz]*)*";
 
     public JPanelSupplier() {
         initComponents();
@@ -26,18 +29,33 @@ public class JPanelSupplier extends javax.swing.JPanel {
         svgRefresh.setSvgImage("refresh.svg", 25, 25);
         svgSearch.setSvgImage("search.svg", 35, 35);
         modelSupplier = (DefaultTableModel) tableSupplier.getModel();
-        setJText("", "", "", "", "", "");
+        setJText(supplierDAO.createSupplierID(), "", "", "", "", "");
+        txtSupplierID.setEditable(false);
         loadData();
 
     }
 
     private void setJText(String supplierID, String supplierName, String address, String contactPerson, String phone, String email) {
+
         txtSupplierID.setText(supplierID);
+
         txtSupplierName.setText(supplierName);
         txtAddress.setText(address);
         txtContactPerson.setText(contactPerson);
         txtSoDienThoai.setText(phone);
         txtEmail.setText(email);
+
+    }
+
+    private boolean checkName(String contactPerson) {
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(contactPerson);
+        if (matcher.matches()) {
+            return true;
+        } else {
+            JOptionPane.showMessageDialog(this, "Tên người liên hệ không hơp lệ");
+            return false;
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -306,14 +324,19 @@ public class JPanelSupplier extends javax.swing.JPanel {
 
         if (!"".equals(supplierID.trim()) && !"".equals(supplierName.trim()) && !"".equals(address.trim()) && !"".equals(contactPerson.trim()) && !"".equals(phone.trim()) && !"".equals(email.trim())) {
             Supplier supplier = new Supplier(supplierID, supplierName, address, phone, email, contactPerson);
-            if (supplierDAO.insert(supplier)) {
-                Object[] row = {supplierID, supplierName, address, phone, email, contactPerson};
-                modelSupplier.addRow(row);
-                setJText("", "", "", "", "", "");
-                JOptionPane.showMessageDialog(this, "Thêm thành công");
+            if (!txtSupplierID.getText().equals(supplierDAO.createSupplierID())) {
+                JOptionPane.showMessageDialog(this, "Không được thêm sản phẩm đã tồn tại");
             } else {
-                JOptionPane.showMessageDialog(this, "Thêm không thành công");
+                if (supplierDAO.insert(supplier)) {
+                    Object[] row = {supplierID, supplierName, address, phone, email, contactPerson};
+                    modelSupplier.addRow(row);
+                    setJText(supplierDAO.createSupplierID(), "", "", "", "", "");
+                    JOptionPane.showMessageDialog(this, "Thêm thành công");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Thêm không thành công");
+                }
             }
+
         } else {
             JOptionPane.showMessageDialog(this, "Không được để dữ liệu bị trống");
         }
@@ -338,12 +361,12 @@ public class JPanelSupplier extends javax.swing.JPanel {
         int rowIndex = tableSupplier.getSelectedRow();
         if (rowIndex < 0) {
             JOptionPane.showMessageDialog(null, "Vui lòng chọn dòng muốn xóa");
-            setJText("", "", "", "", "", "");
+            setJText(supplierDAO.createSupplierID(), "", "", "", "", "");
         } else {
             if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa không?", "Xác nhận", JOptionPane.YES_OPTION) == JOptionPane.YES_OPTION) {
                 if (supplierDAO.delete(txtSupplierID.getText())) {
                     modelSupplier.removeRow(rowIndex);
-                    setJText("", "", "", "", "", "");
+                    setJText(supplierDAO.createSupplierID(), "", "", "", "", "");
                     JOptionPane.showMessageDialog(this, "Xoá thành công");
                 } else {
                     JOptionPane.showMessageDialog(this, "Xoá thất bại");
@@ -356,7 +379,7 @@ public class JPanelSupplier extends javax.swing.JPanel {
         int rowIndex = tableSupplier.getSelectedRow();
         if (rowIndex < 0) {
             JOptionPane.showMessageDialog(null, "Vui lòng chọn dòng muốn sửa");
-            setJText("", "", "", "", "", "");
+            setJText(supplierDAO.createSupplierID(), "", "", "", "", "");
         } else {
             if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn sửa dòng này không?", "Xác nhận", JOptionPane.YES_OPTION) == JOptionPane.YES_OPTION) {
                 String supplierID = txtSupplierID.getText();
@@ -365,16 +388,19 @@ public class JPanelSupplier extends javax.swing.JPanel {
                 String contactPerson = txtContactPerson.getText();
                 String phone = txtSoDienThoai.getText();
                 String email = txtEmail.getText();
-                Supplier supplier = new Supplier(supplierID, supplierName, address, phone, email, contactPerson);
+
                 if (!"".equals(supplierID.trim()) && !"".equals(supplierName.trim()) && !"".equals(address.trim()) && !"".equals(contactPerson.trim()) && !"".equals(phone.trim()) && !"".equals(email.trim())) {
-                    if (supplierDAO.update(supplier)) {
-                        modelSupplier.removeRow(rowIndex);
-                        Object[] row = {supplierID, supplierName, address, phone, email, contactPerson};
-                        modelSupplier.insertRow(rowIndex, row);
-                        setJText("", "", "", "", "", "");
-                        JOptionPane.showMessageDialog(null, "Sửa thành công");
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Sửa thất bại");
+                    if (checkName(contactPerson)) {
+                        Supplier supplier = new Supplier(supplierID, supplierName, address, contactPerson, phone, email);
+                        if (supplierDAO.update(supplier)) {
+                            modelSupplier.removeRow(rowIndex);
+                            Object[] row = {supplierID, supplierName, address, contactPerson, phone, email};
+                            modelSupplier.insertRow(rowIndex, row);
+                            setJText(supplierDAO.createSupplierID(), "", "", "", "", "");
+                            JOptionPane.showMessageDialog(null, "Sửa thành công");
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Sửa thất bại");
+                        }
                     }
                 } else {
                     JOptionPane.showMessageDialog(this, "Không được để dữ liệu bị trống");
@@ -384,8 +410,9 @@ public class JPanelSupplier extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jpEditMouseClicked
 
+
     private void jpRefreshMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpRefreshMouseClicked
-        setJText("", "", "", "", "", "");
+        setJText(supplierDAO.createSupplierID(), "", "", "", "", "");
     }//GEN-LAST:event_jpRefreshMouseClicked
 
     private void loadData() {

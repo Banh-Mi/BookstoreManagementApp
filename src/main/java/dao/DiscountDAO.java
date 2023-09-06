@@ -37,8 +37,8 @@ public class DiscountDAO {
         try {
             stmt = con.prepareStatement(sql);
             stmt.setString(1, discount.getDiscountID());
-            stmt.setString(2, discount.getDiscountName());
-            stmt.setString(3, discount.getDiscountType());
+            stmt.setString(2, discount.getProgramName());
+            stmt.setString(3, discount.getProgramType());
             stmt.setDate(4, discount.getStartDate());
             stmt.setDate(5, discount.getEndDate());
             stmt.executeUpdate();
@@ -71,13 +71,13 @@ public class DiscountDAO {
         try {
 
             stmt = con.prepareStatement("Update Discounts\r\n"
-                    + "set discount_name = ?,\r\n"
-                    + "discount_type = ?,\r\n"
+                    + "set program_name = ?,\r\n"
+                    + "program_type = ?,\r\n"
                     + "start_date = ?,\r\n"
                     + "end_date = ?\r\n"
                     + "where discount_id = ?");
-            stmt.setString(1, discount.getDiscountName());
-            stmt.setString(2, discount.getDiscountType());
+            stmt.setString(1, discount.getProgramName());
+            stmt.setString(2, discount.getProgramType());
             stmt.setDate(3, discount.getStartDate());
             stmt.setDate(4, discount.getEndDate());
             stmt.setString(5, discount.getDiscountID());

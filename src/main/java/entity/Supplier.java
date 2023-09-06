@@ -10,18 +10,15 @@ package entity;
  */
 public class Supplier {
 
-    private String supplierID, supplierName, address, phone, email, contactPerson;
+    private String supplierID, supplierName, address, contactPerson, phone, email;
 
-    public Supplier(String supplierID, String supplierName, String address, String phone, String email, String contactPerson) {
+    public Supplier(String supplierID, String supplierName, String address, String contactPerson, String phone, String email) {
         this.supplierID = supplierID;
         this.supplierName = supplierName;
         this.address = address;
+        this.contactPerson = contactPerson;
         this.phone = phone;
         this.email = email;
-        this.contactPerson = contactPerson;
-    }
-
-    public Supplier() {
     }
 
     public String getSupplierID() {
@@ -48,6 +45,14 @@ public class Supplier {
         this.address = address;
     }
 
+    public String getContactPerson() {
+        return contactPerson;
+    }
+
+    public void setContactPerson(String contactPerson) {
+        this.contactPerson = contactPerson;
+    }
+
     public String getPhone() {
         return phone;
     }
@@ -64,12 +69,5 @@ public class Supplier {
         this.email = email;
     }
 
-    public String getContactPerson() {
-        return contactPerson;
-    }
-
-    public void setContactPerson(String contactPerson) {
-        this.contactPerson = contactPerson;
-    }
-
+   
 }

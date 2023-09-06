@@ -84,8 +84,8 @@ public class SupplierDAO {
                     + "set supplier_name = ?,\r\n"
                     + "address = ?,\r\n"
                     + "contact_person = ?,\r\n"
-                    + "phone = ?\r\n"
-                    + "email = ? \r\n"
+                    + "phone = ?,\r\n"
+                    + "email = ?\r\n"
                     + "where supplier_id = ?");
             stmt.setString(1, supplier.getSupplierName());
             stmt.setString(2, supplier.getAddress());
@@ -101,6 +101,30 @@ public class SupplierDAO {
         }
         return false;
     }
+    
+    public String createSupplierID() {
+		try {
+			String sql = "SELECT TOP 1 supplier_id FROM Suppliers ORDER BY supplier_id DESC";
+			Statement statement = ConnectDB.getConnection().createStatement();
+			ResultSet resultSet = statement.executeQuery(sql);
+
+			if (resultSet.next()) {
+				String supplier_id = resultSet.getString(1);
+				int number = Integer.parseInt(supplier_id.substring(3));
+				number++;
+				String supplier_idNew = number + "";
+
+				while (supplier_idNew.length() < 3)
+					supplier_idNew = "0" + supplier_idNew;
+
+				return "SUP" + supplier_idNew;
+			} else
+				return "SUP001";
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
     public void close(PreparedStatement stmt) {
         if (stmt != null) {

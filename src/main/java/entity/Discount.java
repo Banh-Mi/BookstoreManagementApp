@@ -8,14 +8,14 @@ import java.sql.Date;
 
 public class Discount {
 
-    private String discountID, discountName, discountType;
+    private String discountID, programName, programType;
     private Date startDate;
     private Date endDate;
 
-    public Discount(String discountID, String discountName, String discountType, Date startDate, Date endDate) {
+    public Discount(String discountID, String programName, String programType, Date startDate, Date endDate) {
         this.discountID = discountID;
-        this.discountName = discountName;
-        this.discountType = discountType;
+        this.programName = programName;
+        this.programType = programType;
         this.startDate = startDate;
         this.endDate = endDate;
     }
@@ -28,20 +28,20 @@ public class Discount {
         this.discountID = discountID;
     }
 
-    public String getDiscountName() {
-        return discountName;
+    public String getProgramName() {
+        return programName;
     }
 
-    public void setDiscountName(String discountName) {
-        this.discountName = discountName;
+    public void setProgramName(String programName) {
+        this.programName = programName;
     }
 
-    public String getDiscountType() {
-        return discountType;
+    public String getProgramType() {
+        return programType;
     }
 
-    public void setDiscountType(String discountType) {
-        this.discountType = discountType;
+    public void setProgramType(String programType) {
+        this.programType = programType;
     }
 
     public Date getStartDate() {
@@ -59,5 +59,9 @@ public class Discount {
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
+
+
+
+   
 
 }
