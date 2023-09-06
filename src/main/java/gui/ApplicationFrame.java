@@ -82,7 +82,12 @@ public final class ApplicationFrame extends javax.swing.JFrame {
         listItem.add(new Screen("Employee", pnItem4));
         listItem.add(new Screen("Employee", miniItem4));
         listItem.add(new Screen("Discount", pnItem6));
+        listItem.add(new Screen("Discount", miniItem6));
         listItem.add(new Screen("Statistical", pnItem7));
+        listItem.add(new Screen("Statistical", miniItem7));
+        listItem.add(new Screen("Supplier", pnItem9));
+        listItem.add(new Screen("Supplier", miniItem9));
+
         controller.setEvent(listItem);
 
     }
@@ -964,7 +969,7 @@ public final class ApplicationFrame extends javax.swing.JFrame {
                 }
             }
             pnView.setBounds(250, pnView.getY(), 1040, pnView.getHeight());
-             controller.setView();
+            controller.setView();
             minSlide();
         }).start();
 
@@ -999,7 +1004,7 @@ public final class ApplicationFrame extends javax.swing.JFrame {
     }
 
     public static void main(String args[]) {
-   
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new ApplicationFrame().setVisible(true);

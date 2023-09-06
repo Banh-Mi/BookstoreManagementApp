@@ -13,6 +13,7 @@ import gui.JPannelHome;
 import gui.JPannelAccount;
 import gui.JPannelDiscount;
 import gui.JPanelEmployee;
+import gui.JPanelSupplier;
 import gui.JPannelStatistical;
 
 /**
@@ -80,18 +81,21 @@ public class ScreenSwitch {
                 case "Discount" -> {
                     try {
                         node = new JPannelDiscount();
-                         item.setJpn(node);
+                        item.setJpn(node);
                     } catch (SQLException ex) {
                         Logger.getLogger(ScreenSwitch.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                   
+
                 }
+                case "Supplier" -> {
+                    node = new JPanelSupplier();
+                    item.setJpn(node);
+                }
+
                 default -> {
                     node = new JPannelHome();
                     item.setJpn(node);
                 }
-
-
 
             }
             root.removeAll();

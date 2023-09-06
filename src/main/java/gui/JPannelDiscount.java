@@ -345,21 +345,21 @@ public class JPannelDiscount extends javax.swing.JPanel {
 
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
         discountDAO = new DiscountDAO();
-        java.sql.Date sqldate = new java.sql.Date(txtStartDate.getDate().getTime());
-        java.sql.Date sqldate1 = new java.sql.Date(txtStartDate.getDate().getTime());
+        java.sql.Date startDate = new java.sql.Date(txtStartDate.getDate().getTime());
+        java.sql.Date endDate = new java.sql.Date(txtStartDate.getDate().getTime());
         String ma = txtDiscountID.getText();
         String ten = txtDiscountName.getText();
         String loai = txtDiscountType.getText();
-        Discount discount = new Discount(loai, ten, loai, sqldate, sqldate1);
+        Discount discount = new Discount(ma, ten, loai, startDate, endDate);
         discountDAO.insert(discount);
-        Object[] row = {ma, ten, loai, sqldate, sqldate1};
+        Object[] row = {ma, ten, loai, startDate, endDate};
         modelDiscount.addRow(row);
         show("", "", "", null, null);
     }//GEN-LAST:event_btnAddMouseClicked
 
     private void btnDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteMouseClicked
         int rowindex = tableDiscount.getSelectedRow();
-        if (rowindex == 0) {
+        if (rowindex < 0) {
             JOptionPane.showMessageDialog(null, "Vui lòng chọn dòng muốn xóa");
             show("", "", "", null, null);
         } else {
@@ -374,7 +374,7 @@ public class JPannelDiscount extends javax.swing.JPanel {
 
     private void btnEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditMouseClicked
         int rowindex = tableDiscount.getSelectedRow();
-        if (rowindex == -1) {
+        if (rowindex < 0) {
             JOptionPane.showMessageDialog(null, "Vui lòng chọn dòng muốn sửa");
             show("", "", "", null, null);
         } else {

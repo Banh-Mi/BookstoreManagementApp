@@ -53,7 +53,7 @@ public class DiscountDAO {
     public void delete(String discountID) {
         Connection con = ConnectDB.getInstance().getConnection();
         PreparedStatement stmt = null;
-        String sql = "delete from Discounts where discount_id = ?";
+        String sql = "Delete from Discounts where discount_id = ?";
         try {
             stmt = con.prepareStatement(sql);
             stmt.setString(1, discountID);
@@ -70,19 +70,17 @@ public class DiscountDAO {
         PreparedStatement stmt = null;
         try {
 
-            stmt = con.prepareStatement("update Discounts\r\n"
+            stmt = con.prepareStatement("Update Discounts\r\n"
                     + "set discount_name = ?,\r\n"
                     + "discount_type = ?,\r\n"
-                    + "start-date = ?,\r\n"
+                    + "start_date = ?,\r\n"
                     + "end_date = ?\r\n"
                     + "where discount_id = ?");
-
-            stmt.setString(1, discount.getDiscountID());
-            stmt.setString(2, discount.getDiscountName());
+            stmt.setString(1, discount.getDiscountName());
+            stmt.setString(2, discount.getDiscountType());
             stmt.setDate(3, discount.getStartDate());
             stmt.setDate(4, discount.getEndDate());
             stmt.setString(5, discount.getDiscountID());
-
             stmt.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();

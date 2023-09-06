@@ -2,9 +2,13 @@ gui\JPannelAccount$3.class
 gui\ApplicationFrame$15.class
 gui\ApplicationFrame$9.class
 gui\LoginForm$2.class
+Dao\SupplierDAO.class
 gui\JPannelDiscount$4.class
 entity\Account.class
+gui\JPanelSupplier$9.class
+gui\JPanelSupplier$6.class
 gui\JPannelDiscount$7.class
+gui\JPanelSupplier$3.class
 gui\JPannelDiscount$11.class
 service\AccountServiceImpl.class
 gui\ApplicationFrame$18.class
@@ -25,8 +29,11 @@ gui\ApplicationFrame$23.class
 gui\LoginForm$1.class
 model\Account.class
 gui\JPanelEmployee$7.class
+gui\JPanelSupplier$8.class
 gui\ApplicationFrame$6.class
+gui\JPanelSupplier$7.class
 Dao\DiscountDAO.class
+gui\JPanelSupplier$1.class
 gui\ApplicationFrame$12.class
 gui\JPanelEmployee$1.class
 gui\ApplicationFrame$19.class
@@ -35,11 +42,13 @@ gui\JPanelEmployee$8.class
 gui\JPannelDiscount$6.class
 gui\ApplicationFrame$2.class
 gui\JPanelEmployee$5.class
+gui\JPanelSupplier$2.class
 gui\JPannelDiscount$8.class
 gui\ApplicationFrame$5.class
 gui\JPanelEmployee$2.class
 screenSwitch\LoginController$2.class
 gui\JPannelDiscount$5.class
+gui\JPanelSupplier$5.class
 screenSwitch\LoginController.class
 gui\ApplicationFrame$8.class
 gui\ApplicationFrame$11.class
@@ -47,6 +56,7 @@ gui\ApplicationFrame$17.class
 connectDB\ConnectDB.class
 gui\JPannelDiscount$12.class
 gui\ApplicationFrame$14.class
+gui\JPanelSupplier$4.class
 gui\JPanelEmployee$3.class
 gui\ApplicationFrame$4.class
 screen\Screen.class
@@ -56,6 +66,7 @@ gui\JPannelDiscount$2.class
 gui\ApplicationFrame$10.class
 gui\ApplicationFrame$20.class
 gui\JPannelAccount$2.class
+entity\Supplier.class
 gui\ApplicationFrame$3.class
 gui\JPannelDiscount.class
 gui\JPannelDiscount$10.class
@@ -66,6 +77,7 @@ gui\JPannelDiscount$3.class
 gui\ApplicationFrame$16.class
 customLib\SVGImage.class
 gui\ApplicationFrame$21.class
+gui\JPanelSupplier.class
 screenSwitch\LoginController$1.class
 gui\JPannelDiscount$9.class
 gui\JPanelEmployee.class
