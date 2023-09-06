@@ -85,6 +85,8 @@ public final class ApplicationFrame extends javax.swing.JFrame {
         listItem.add(new Screen("Discount", miniItem6));
         listItem.add(new Screen("Statistical", pnItem7));
         listItem.add(new Screen("Statistical", miniItem7));
+         listItem.add(new Screen("Customer", pnItem5));
+            listItem.add(new Screen("Customer", miniItem5));
         listItem.add(new Screen("Supplier", pnItem9));
         listItem.add(new Screen("Supplier", miniItem9));
 

@@ -14,6 +14,7 @@ import gui.JPannelAccount;
 import gui.JPannelDiscount;
 import gui.JPanelEmployee;
 import gui.JPanelSupplier;
+import gui.JPannelCustomer;
 import gui.JPannelStatistical;
 
 /**
@@ -76,6 +77,14 @@ public class ScreenSwitch {
                 }
                 case "Statistical" -> {
                     node = new JPannelStatistical();
+                    item.setJpn(node);
+                }
+                 case "Customer" -> {
+                try {
+                    node = new JPannelCustomer();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ScreenSwitch.class.getName()).log(Level.SEVERE, null, ex);
+                }
                     item.setJpn(node);
                 }
                 case "Discount" -> {
