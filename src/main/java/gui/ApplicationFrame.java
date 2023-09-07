@@ -192,7 +192,6 @@ public final class ApplicationFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        setResizable(false);
         setSize(new java.awt.Dimension(0, 0));
 
         pnMain.setBackground(new java.awt.Color(255, 255, 255));

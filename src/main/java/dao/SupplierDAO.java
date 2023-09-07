@@ -135,7 +135,6 @@ public class SupplierDAO {
                 int number = Integer.parseInt(supplier_id.substring(3));
                 number++;
                 String supplier_idNew = number + "";
-
                 while (supplier_idNew.length() < 3) {
                     supplier_idNew = "0" + supplier_idNew;
                 }

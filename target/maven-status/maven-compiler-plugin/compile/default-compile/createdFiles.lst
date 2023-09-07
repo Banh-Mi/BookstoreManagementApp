@@ -7,6 +7,7 @@ gui\JPannelDiscount$4.class
 entity\Account.class
 gui\JPanelSupplier$9.class
 gui\JPannelCustomer$13.class
+gui\JPannelCustomer$23.class
 gui\JPanelSupplier$6.class
 gui\JPannelDiscount$7.class
 gui\JPanelSupplier$3.class
@@ -27,6 +28,7 @@ gui\JPannelDiscount$1.class
 gui\ApplicationFrame$1.class
 gui\JPannelCustomer$9.class
 customLib\GetSource.class
+gui\JPannelCustomer$21.class
 gui\JPannelCustomer$2.class
 gui\ApplicationFrame$7.class
 gui\JPannelDiscount$13.class
@@ -70,8 +72,10 @@ gui\JPannelCustomer$17.class
 gui\ApplicationFrame$8.class
 gui\ApplicationFrame$11.class
 gui\JPannelCustomer$14.class
+gui\JPannelCustomer$25.class
 gui\ApplicationFrame$17.class
 connectDB\ConnectDB.class
+gui\JPannelCustomer$22.class
 gui\JPannelDiscount$12.class
 gui\ApplicationFrame$14.class
 util\CheckRegex.class
@@ -83,7 +87,9 @@ screen\Screen.class
 screenSwitch\ScreenSwitch.class
 gui\ApplicationFrame.class
 gui\JPannelCustomer$18.class
+gui\JPannelCustomer$24.class
 gui\JPannelDiscount$2.class
+gui\LoginForm$4.class
 gui\ApplicationFrame$10.class
 gui\ApplicationFrame$20.class
 gui\JPannelAccount$2.class
@@ -99,6 +105,7 @@ gui\JPanelEmployee$4.class
 gui\JPannelCustomer$19.class
 gui\JPannelDiscount$3.class
 gui\ApplicationFrame$16.class
+gui\LoginForm$3.class
 customLib\SVGImage.class
 gui\ApplicationFrame$21.class
 gui\JPanelSupplier$10.class

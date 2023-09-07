@@ -24,6 +24,9 @@ public class Customer {
         this.country = country;
     }
 
+    public Customer() {
+    }
+
     public String getCustomer_id() {
         return customer_id;
     }

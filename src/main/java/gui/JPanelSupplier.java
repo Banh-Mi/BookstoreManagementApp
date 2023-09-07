@@ -6,11 +6,11 @@ package gui;
 
 import dao.SupplierDAO;
 import entity.Supplier;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import util.CheckRegex;
+import static util.CheckRegex.checkName;
+import static util.CheckRegex.checkPhone;
+import static util.CheckRegex.checkText;
 
 /**
  *
@@ -20,7 +20,7 @@ public class JPanelSupplier extends javax.swing.JPanel {
 
     private final DefaultTableModel modelSupplier;
     private SupplierDAO supplierDAO = new SupplierDAO();
-    private CheckRegex regex = new CheckRegex();
+
 
     public JPanelSupplier() {
         initComponents();
@@ -343,7 +343,7 @@ public class JPanelSupplier extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Không được thêm sản phẩm đã tồn tại");
             } else {
                 Supplier supplier = new Supplier(supplierID, supplierName, address, contactPerson, phone, email, status);
-                if (regex.checkText(supplierName, "Tên nhà cung cấp không hợp lệ") && regex.checkPhone(phone, "Số điện thoại không hợp lệ") && regex.checkName(contactPerson, "Tên người liên hệ không hợp lệ") && regex.checkName(address, "Địa chỉ không hợp lệ")) {
+                if (checkText(supplierName, "Tên nhà cung cấp không hợp lệ") && checkPhone(phone, "Số điện thoại không hợp lệ") && checkName(contactPerson, "Tên người liên hệ không hợp lệ") && checkName(address, "Địa chỉ không hợp lệ")) {
                     if (supplierDAO.insert(supplier)) {
                         String statusText = status == 0 ? "Đang hợp tác" : "Ngưng hợp tác";
                         Object[] row = {supplierID, supplierName, address, contactPerson, phone, email, statusText};
@@ -410,7 +410,7 @@ public class JPanelSupplier extends javax.swing.JPanel {
                 String email = txtEmail.getText();
                 int status = cbStatus.getSelectedIndex();
                 if (!"".equals(supplierID.trim()) && !"".equals(supplierName.trim()) && !"".equals(address.trim()) && !"".equals(contactPerson.trim()) && !"".equals(phone.trim()) && !"".equals(email.trim())) {
-                    if (regex.checkText(supplierName, "Tên nhà cung cấp không hợp lệ") && regex.checkPhone(phone, "Số điện thoại không hợp lệ") && regex.checkName(contactPerson, "Tên người liên hệ không hợp lệ") && regex.checkName(address, "Địa chỉ không hợp lệ")) {
+                    if (checkText(supplierName, "Tên nhà cung cấp không hợp lệ") && checkPhone(phone, "Số điện thoại không hợp lệ") && checkName(contactPerson, "Tên người liên hệ không hợp lệ") && checkName(address, "Địa chỉ không hợp lệ")) {
                         Supplier supplier = new Supplier(supplierID, supplierName, address, contactPerson, phone, email, status);
                         if (supplierDAO.update(supplier)) {
                             modelSupplier.removeRow(rowIndex);
