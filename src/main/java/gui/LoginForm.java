@@ -4,9 +4,11 @@ import screenSwitch.LoginController;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import connectDB.ConnectDB;
+import java.awt.event.ItemEvent;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JComboBox;
 import javax.swing.UIManager;
 
 
@@ -21,7 +23,7 @@ public class LoginForm extends javax.swing.JFrame {
      */
     //Tạo biến hiện ẩn password
     private boolean setShow = false;
-
+    public static int ngongu;
     public LoginForm() throws SQLException {
         ConnectDB.getInstance().connect();
         initComponents();
@@ -83,6 +85,7 @@ public class LoginForm extends javax.swing.JFrame {
         svgUser = new customLib.SVGImage();
         svgHiden = new customLib.SVGImage();
         jbNotification = new javax.swing.JLabel();
+        comboxngonngu = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(920, 550));
@@ -220,6 +223,19 @@ public class LoginForm extends javax.swing.JFrame {
         jbNotification.setForeground(new java.awt.Color(255, 255, 255));
         jpRight.add(jbNotification, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 365, 230, 30));
 
+        comboxngonngu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tiếng Việt", "English"}));
+        comboxngonngu.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboxngonnguItemStateChanged(evt);
+            }
+        });
+        comboxngonngu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                comboxngonnguMouseClicked(evt);
+            }
+        });
+        jpRight.add(comboxngonngu, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 470, -1, -1));
+
         jpLogin.add(jpRight, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 0, 420, 550));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -246,15 +262,29 @@ public class LoginForm extends javax.swing.JFrame {
         passWordShow(setShow);
     }//GEN-LAST:event_svgHidenMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
+    private void comboxngonnguMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboxngonnguMouseClicked
+        
+    }//GEN-LAST:event_comboxngonnguMouseClicked
+
+    private void comboxngonnguItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboxngonnguItemStateChanged
+       if (evt.getStateChange() == ItemEvent.SELECTED) {
+           comboxngonngu.setSelectedItem(comboxngonngu.getSelectedItem());
+    }
+       if(comboxngonngu.getSelectedItem().equals("English"))
+       {
+           ngongu=2;
+       }
+       else
+       {
+           ngongu=1;
+       }
+    }//GEN-LAST:event_comboxngonnguItemStateChanged
+    public static int getngonngu()
+    {
+        return ngongu;
+    }
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+    
         FlatLaf.registerCustomDefaultsSource("resources.themes");
 
         FlatMacLightLaf.setup();
@@ -267,9 +297,11 @@ public class LoginForm extends javax.swing.JFrame {
             }
         });
     }
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
+    public javax.swing.JComboBox<String> comboxngonngu;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
