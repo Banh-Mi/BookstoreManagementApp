@@ -74,6 +74,7 @@ gui\ApplicationFrame$17.class
 connectDB\ConnectDB.class
 gui\JPannelDiscount$12.class
 gui\ApplicationFrame$14.class
+util\CheckRegex.class
 gui\JPanelSupplier$4.class
 gui\JPanelEmployee$3.class
 gui\JPannelCustomer$11.class
@@ -100,6 +101,7 @@ gui\JPannelDiscount$3.class
 gui\ApplicationFrame$16.class
 customLib\SVGImage.class
 gui\ApplicationFrame$21.class
+gui\JPanelSupplier$10.class
 gui\JPanelSupplier.class
 screenSwitch\LoginController$1.class
 gui\JPannelDiscount$9.class

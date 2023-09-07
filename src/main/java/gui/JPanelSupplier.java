@@ -10,6 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import util.CheckRegex;
 
 /**
  *
@@ -19,7 +20,7 @@ public class JPanelSupplier extends javax.swing.JPanel {
 
     private final DefaultTableModel modelSupplier;
     private SupplierDAO supplierDAO = new SupplierDAO();
-    private final String regex = "^[AÀẢÃÁẠĂẰẲẴẮẶÂẦẨẪẤẬBCDĐEÈẺẼÉẸÊỀỂỄẾỆFGHIÌỈĨÍỊJKLMNOÒỎÕÓỌÔỒỔỖỐỘƠỜỞỠỚỢPQRSTUÙỦŨÚỤƯỪỬỮỨỰVWXYỲỶỸÝỴZ][aàảãáạăằẳẵắặâầẩẫấậbcdđeèẻẽéẹêềểễếệfghiìỉĩíịjklmnoòỏõóọôồổỗốộơờởỡớợpqrstuùủũúụưừửữứựvwxyỳỷỹýỵz]+ [AÀẢÃÁẠĂẰẲẴẮẶÂẦẨẪẤẬBCDĐEÈẺẼÉẸÊỀỂỄẾỆFGHIÌỈĨÍỊJKLMNOÒỎÕÓỌÔỒỔỖỐỘƠỜỞỠỚỢPQRSTUÙỦŨÚỤƯỪỬỮỨỰVWXYỲỶỸÝỴZ][aàảãáạăằẳẵắặâầẩẫấậbcdđeèẻẽéẹêềểễếệfghiìỉĩíịjklmnoòỏõóọôồổỗốộơờởỡớợpqrstuùủũúụưừửữứựvwxyỳỷỹýỵz]+(?: [AÀẢÃÁẠĂẰẲẴẮẶÂẦẨẪẤẬBCDĐEÈẺẼÉẸÊỀỂỄẾỆFGHIÌỈĨÍỊJKLMNOÒỎÕÓỌÔỒỔỖỐỘƠỜỞỠỚỢPQRSTUÙỦŨÚỤƯỪỬỮỨỰVWXYỲỶỸÝỴZ][aàảãáạăằẳẵắặâầẩẫấậbcdđeèẻẽéẹêềểễếệfghiìỉĩíịjklmnoòỏõóọôồổỗốộơờởỡớợpqrstuùủũúụưừửữứựvwxyỳỷỹýỵz]*)*";
+    private CheckRegex regex = new CheckRegex();
 
     public JPanelSupplier() {
         initComponents();
@@ -29,33 +30,24 @@ public class JPanelSupplier extends javax.swing.JPanel {
         svgRefresh.setSvgImage("refresh.svg", 25, 25);
         svgSearch.setSvgImage("search.svg", 35, 35);
         modelSupplier = (DefaultTableModel) tableSupplier.getModel();
-        setJText(supplierDAO.createSupplierID(), "", "", "", "", "");
+        setJText(supplierDAO.createSupplierID(), "", "", "", "", "", 0);
         txtSupplierID.setEditable(false);
+
         loadData();
 
     }
 
-    private void setJText(String supplierID, String supplierName, String address, String contactPerson, String phone, String email) {
+    private void setJText(String supplierID, String supplierName, String address, String contactPerson, String phone, String email, int status) {
 
         txtSupplierID.setText(supplierID);
-
         txtSupplierName.setText(supplierName);
         txtAddress.setText(address);
         txtContactPerson.setText(contactPerson);
         txtSoDienThoai.setText(phone);
         txtEmail.setText(email);
+        cbStatus.setSelectedIndex(status);
+        txtSupplierIDSearch.setText("");
 
-    }
-
-    private boolean checkName(String contactPerson) {
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(contactPerson);
-        if (matcher.matches()) {
-            return true;
-        } else {
-            JOptionPane.showMessageDialog(this, "Tên người liên hệ không hơp lệ");
-            return false;
-        }
     }
 
     @SuppressWarnings("unchecked")
@@ -92,6 +84,10 @@ public class JPanelSupplier extends javax.swing.JPanel {
         jpSearch = new customLib.JPanelRounded();
         jbSearch = new javax.swing.JLabel();
         svgSearch = new customLib.SVGImage();
+        txtSupplierIDSearch = new javax.swing.JTextField();
+        lblSearch = new javax.swing.JLabel();
+        cbStatus = new javax.swing.JComboBox<>();
+        lblSearch1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         srcollSupplier = new javax.swing.JScrollPane();
         tableSupplier = new javax.swing.JTable();
@@ -257,6 +253,11 @@ public class JPanelSupplier extends javax.swing.JPanel {
         jpSearch.setRoundedBottomRight(10);
         jpSearch.setRoundedTopLeft(10);
         jpSearch.setRoundedTopRight(10);
+        jpSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jpSearchMouseClicked(evt);
+            }
+        });
         jpSearch.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jbSearch.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -266,7 +267,21 @@ public class JPanelSupplier extends javax.swing.JPanel {
         svgSearch.setText(" ");
         jpSearch.add(svgSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
 
-        jPanel2.add(jpSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 200, -1, -1));
+        jPanel2.add(jpSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 200, -1, -1));
+
+        txtSupplierIDSearch.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jPanel2.add(txtSupplierIDSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 200, 190, 40));
+
+        lblSearch.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblSearch.setText("Nhập mã:");
+        jPanel2.add(lblSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 210, 80, -1));
+
+        cbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đang hợp tác", "Ngưng hợp tác", " " }));
+        jPanel2.add(cbStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 145, 130, 30));
+
+        lblSearch1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblSearch1.setText("Trạng thái:");
+        jPanel2.add(lblSearch1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 150, 80, -1));
 
         add(jPanel2, java.awt.BorderLayout.CENTER);
 
@@ -277,11 +292,11 @@ public class JPanelSupplier extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Mã nhà cung cấp", "Tên nhà cung cấp", "Địa chỉ", "Người liên hệ", "Số điện thoại", "Email"
+                "Mã nhà cung cấp", "Tên nhà cung cấp", "Địa chỉ", "Người liên hệ", "Số điện thoại", "Email", "Trạng thái"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -321,19 +336,23 @@ public class JPanelSupplier extends javax.swing.JPanel {
         String contactPerson = txtContactPerson.getText();
         String phone = txtSoDienThoai.getText();
         String email = txtEmail.getText();
+        int status = cbStatus.getSelectedIndex();
 
         if (!"".equals(supplierID.trim()) && !"".equals(supplierName.trim()) && !"".equals(address.trim()) && !"".equals(contactPerson.trim()) && !"".equals(phone.trim()) && !"".equals(email.trim())) {
-            Supplier supplier = new Supplier(supplierID, supplierName, address, phone, email, contactPerson);
             if (!txtSupplierID.getText().equals(supplierDAO.createSupplierID())) {
                 JOptionPane.showMessageDialog(this, "Không được thêm sản phẩm đã tồn tại");
             } else {
-                if (supplierDAO.insert(supplier)) {
-                    Object[] row = {supplierID, supplierName, address, phone, email, contactPerson};
-                    modelSupplier.addRow(row);
-                    setJText(supplierDAO.createSupplierID(), "", "", "", "", "");
-                    JOptionPane.showMessageDialog(this, "Thêm thành công");
-                } else {
-                    JOptionPane.showMessageDialog(this, "Thêm không thành công");
+                Supplier supplier = new Supplier(supplierID, supplierName, address, contactPerson, phone, email, status);
+                if (regex.checkText(supplierName, "Tên nhà cung cấp không hợp lệ") && regex.checkPhone(phone, "Số điện thoại không hợp lệ") && regex.checkName(contactPerson, "Tên người liên hệ không hợp lệ") && regex.checkName(address, "Địa chỉ không hợp lệ")) {
+                    if (supplierDAO.insert(supplier)) {
+                        String statusText = status == 0 ? "Đang hợp tác" : "Ngưng hợp tác";
+                        Object[] row = {supplierID, supplierName, address, contactPerson, phone, email, statusText};
+                        modelSupplier.addRow(row);
+                        setJText(supplierDAO.createSupplierID(), "", "", "", "", "", 0);
+                        JOptionPane.showMessageDialog(this, "Thêm thành công");
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Thêm không thành công");
+                    }
                 }
             }
 
@@ -353,33 +372,34 @@ public class JPanelSupplier extends javax.swing.JPanel {
             String contactPerson = modelSupplier.getValueAt(rowIndex, 3).toString();
             String phone = modelSupplier.getValueAt(rowIndex, 4).toString();
             String email = modelSupplier.getValueAt(rowIndex, 5).toString();
-            setJText(supplierID, supplierName, address, contactPerson, phone, email);
+            int status = modelSupplier.getValueAt(rowIndex, 6).toString().equals("Đang hợp tác") ? 0 : 1;
+            setJText(supplierID, supplierName, address, contactPerson, phone, email, status);
         }
     }//GEN-LAST:event_tableSupplierMouseClicked
 
     private void jpDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpDeleteMouseClicked
-        int rowIndex = tableSupplier.getSelectedRow();
-        if (rowIndex < 0) {
-            JOptionPane.showMessageDialog(null, "Vui lòng chọn dòng muốn xóa");
-            setJText(supplierDAO.createSupplierID(), "", "", "", "", "");
-        } else {
-            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa không?", "Xác nhận", JOptionPane.YES_OPTION) == JOptionPane.YES_OPTION) {
-                if (supplierDAO.delete(txtSupplierID.getText())) {
-                    modelSupplier.removeRow(rowIndex);
-                    setJText(supplierDAO.createSupplierID(), "", "", "", "", "");
-                    JOptionPane.showMessageDialog(this, "Xoá thành công");
-                } else {
-                    JOptionPane.showMessageDialog(this, "Xoá thất bại");
-                }
-            }
-        }
+//        int rowIndex = tableSupplier.getSelectedRow();
+//        if (rowIndex < 0) {
+//            JOptionPane.showMessageDialog(null, "Vui lòng chọn dòng muốn xóa");
+//            setJText(supplierDAO.createSupplierID(), "", "", "", "", "", 0);
+//        } else {
+//            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa không?", "Xác nhận", JOptionPane.YES_OPTION) == JOptionPane.YES_OPTION) {
+//                if (supplierDAO.delete(txtSupplierID.getText())) {
+//                    modelSupplier.removeRow(rowIndex);
+//                    setJText(supplierDAO.createSupplierID(), "", "", "", "", "", 0);
+//                    JOptionPane.showMessageDialog(this, "Xoá thành công");
+//                } else {
+//                    JOptionPane.showMessageDialog(this, "Xoá thất bại");
+//                }
+//            }
+//        }
     }//GEN-LAST:event_jpDeleteMouseClicked
 
     private void jpEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpEditMouseClicked
         int rowIndex = tableSupplier.getSelectedRow();
         if (rowIndex < 0) {
             JOptionPane.showMessageDialog(null, "Vui lòng chọn dòng muốn sửa");
-            setJText(supplierDAO.createSupplierID(), "", "", "", "", "");
+            setJText(supplierDAO.createSupplierID(), "", "", "", "", "", 0);
         } else {
             if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn sửa dòng này không?", "Xác nhận", JOptionPane.YES_OPTION) == JOptionPane.YES_OPTION) {
                 String supplierID = txtSupplierID.getText();
@@ -388,15 +408,16 @@ public class JPanelSupplier extends javax.swing.JPanel {
                 String contactPerson = txtContactPerson.getText();
                 String phone = txtSoDienThoai.getText();
                 String email = txtEmail.getText();
-
+                int status = cbStatus.getSelectedIndex();
                 if (!"".equals(supplierID.trim()) && !"".equals(supplierName.trim()) && !"".equals(address.trim()) && !"".equals(contactPerson.trim()) && !"".equals(phone.trim()) && !"".equals(email.trim())) {
-                    if (checkName(contactPerson)) {
-                        Supplier supplier = new Supplier(supplierID, supplierName, address, contactPerson, phone, email);
+                    if (regex.checkText(supplierName, "Tên nhà cung cấp không hợp lệ") && regex.checkPhone(phone, "Số điện thoại không hợp lệ") && regex.checkName(contactPerson, "Tên người liên hệ không hợp lệ") && regex.checkName(address, "Địa chỉ không hợp lệ")) {
+                        Supplier supplier = new Supplier(supplierID, supplierName, address, contactPerson, phone, email, status);
                         if (supplierDAO.update(supplier)) {
                             modelSupplier.removeRow(rowIndex);
-                            Object[] row = {supplierID, supplierName, address, contactPerson, phone, email};
+                            String statusText = status == 0 ? "Đang hợp tác" : "Ngưng hợp tác";
+                            Object[] row = {supplierID, supplierName, address, contactPerson, phone, email, statusText};
                             modelSupplier.insertRow(rowIndex, row);
-                            setJText(supplierDAO.createSupplierID(), "", "", "", "", "");
+                            setJText(supplierDAO.createSupplierID(), "", "", "", "", "", 0);
                             JOptionPane.showMessageDialog(null, "Sửa thành công");
                         } else {
                             JOptionPane.showMessageDialog(null, "Sửa thất bại");
@@ -412,17 +433,38 @@ public class JPanelSupplier extends javax.swing.JPanel {
 
 
     private void jpRefreshMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpRefreshMouseClicked
-        setJText(supplierDAO.createSupplierID(), "", "", "", "", "");
+        setJText(supplierDAO.createSupplierID(), "", "", "", "", "", 0);
+        loadData();
     }//GEN-LAST:event_jpRefreshMouseClicked
+
+    private void jpSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpSearchMouseClicked
+        supplierDAO = new SupplierDAO();
+        Supplier sup = supplierDAO.searchSupplier(txtSupplierIDSearch.getText());
+        if (sup != null) {
+            String status = sup.getStatus() == 0 ? "Đang hợp tác" : "Ngưng hợp tác";
+            Object[] row = {sup.getSupplierID(), sup.getSupplierName(), sup.getAddress(), sup.getContactPerson(), sup.getPhone(), sup.getEmail(), status};
+            modelSupplier.setRowCount(0);
+            modelSupplier.addRow(row);
+            setJText(supplierDAO.createSupplierID(), "", "", "", "", "", 0);
+        } else {
+            JOptionPane.showMessageDialog(null, "Không tìm thấy đối tác có mã cần tìm");
+        }
+
+
+    }//GEN-LAST:event_jpSearchMouseClicked
 
     private void loadData() {
         supplierDAO = new SupplierDAO();
+        modelSupplier.setRowCount(0);
         for (Supplier sup : supplierDAO.getAllSupplier()) {
-            Object[] row = {sup.getSupplierID(), sup.getSupplierName(), sup.getAddress(), sup.getContactPerson(), sup.getPhone(), sup.getEmail()};
+            String status = sup.getStatus() == 0 ? "Đang hợp tác" : "Ngưng hợp tác";
+            Object[] row = {sup.getSupplierID(), sup.getSupplierName(), sup.getAddress(), sup.getContactPerson(), sup.getPhone(), sup.getEmail(), status};
+
             modelSupplier.addRow(row);
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cbStatus;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -443,6 +485,8 @@ public class JPanelSupplier extends javax.swing.JPanel {
     private javax.swing.JLabel lblContactPerson;
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblPhone;
+    private javax.swing.JLabel lblSearch;
+    private javax.swing.JLabel lblSearch1;
     private javax.swing.JScrollPane srcollSupplier;
     private customLib.SVGImage svgAdd;
     private customLib.SVGImage svgDelete;
@@ -455,6 +499,7 @@ public class JPanelSupplier extends javax.swing.JPanel {
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtSoDienThoai;
     private javax.swing.JTextField txtSupplierID;
+    private javax.swing.JTextField txtSupplierIDSearch;
     private javax.swing.JTextField txtSupplierName;
     // End of variables declaration//GEN-END:variables
 }

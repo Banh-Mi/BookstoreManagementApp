@@ -11,14 +11,16 @@ package entity;
 public class Supplier {
 
     private String supplierID, supplierName, address, contactPerson, phone, email;
+    private int status;
 
-    public Supplier(String supplierID, String supplierName, String address, String contactPerson, String phone, String email) {
+    public Supplier(String supplierID, String supplierName, String address, String contactPerson, String phone, String email, int status) {
         this.supplierID = supplierID;
         this.supplierName = supplierName;
         this.address = address;
         this.contactPerson = contactPerson;
         this.phone = phone;
         this.email = email;
+        this.status = status;
     }
 
     public String getSupplierID() {
@@ -68,6 +70,20 @@ public class Supplier {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+
+
+   
+
+   
 
    
 }
