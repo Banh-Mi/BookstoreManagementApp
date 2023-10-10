@@ -9,13 +9,13 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
-import gui.JPannelHome;
-import gui.JPannelAccount;
-import gui.JPannelDiscount;
+import gui.JPanelHome;
+import gui.JPanelAccount;
+import gui.JPanelDiscount;
 import gui.JPanelEmployee;
 import gui.JPanelSupplier;
-import gui.JPannelCustomer;
-import gui.JPannelStatistical;
+import gui.JPanelCustomer;
+import gui.JPanelStatistical;
 
 /**
  *
@@ -28,7 +28,7 @@ public class ScreenSwitch {
 
     public ScreenSwitch(JPanel jpnRoot) {
         this.root = jpnRoot;
-        this.item = new Screen("Home", new JPannelHome());
+        this.item = new Screen("Home", new JPanelHome());
     }
 
     public void setView() {
@@ -59,12 +59,12 @@ public class ScreenSwitch {
             item.setType(type);
             switch (type) {
                 case "Home" -> {
-                    node = new JPannelHome();
+                    node = new JPanelHome();
                     item.setJpn(node);
                 }
                 case "Account" -> {
                     try {
-                        node = new JPannelAccount();
+                        node = new JPanelAccount();
                         item.setJpn(node);
                     } catch (SQLException ex) {
                         Logger.getLogger(ScreenSwitch.class.getName()).log(Level.SEVERE, null, ex);
@@ -76,12 +76,12 @@ public class ScreenSwitch {
                     item.setJpn(node);
                 }
                 case "Statistical" -> {
-                    node = new JPannelStatistical();
+                    node = new JPanelStatistical();
                     item.setJpn(node);
                 }
                  case "Customer" -> {
                 try {
-                    node = new JPannelCustomer();
+                    node = new JPanelCustomer();
                 } catch (SQLException ex) {
                     Logger.getLogger(ScreenSwitch.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -89,7 +89,7 @@ public class ScreenSwitch {
                 }
                 case "Discount" -> {
                     try {
-                        node = new JPannelDiscount();
+                        node = new JPanelDiscount();
                         item.setJpn(node);
                     } catch (SQLException ex) {
                         Logger.getLogger(ScreenSwitch.class.getName()).log(Level.SEVERE, null, ex);
@@ -102,9 +102,10 @@ public class ScreenSwitch {
                 }
 
                 default -> {
-                    node = new JPannelHome();
+                    node = new JPanelHome();
                     item.setJpn(node);
                 }
+
 
             }
             root.removeAll();

@@ -327,6 +327,11 @@ public class JPanelSupplier extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAddressActionPerformed
 
+    private boolean checkNull(String item) {
+        return item.trim().equals("");
+    }
+    
+    
     private void jpAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpAddMouseClicked
         supplierDAO = new SupplierDAO();
 
@@ -338,7 +343,7 @@ public class JPanelSupplier extends javax.swing.JPanel {
         String email = txtEmail.getText();
         int status = cbStatus.getSelectedIndex();
 
-        if (!"".equals(supplierID.trim()) && !"".equals(supplierName.trim()) && !"".equals(address.trim()) && !"".equals(contactPerson.trim()) && !"".equals(phone.trim()) && !"".equals(email.trim())) {
+        if (!checkNull(supplierID) && !checkNull(supplierName) && !checkNull(address) && !checkNull(contactPerson) && !checkNull(phone) && !checkNull(email)) {
             if (!txtSupplierID.getText().equals(supplierDAO.createSupplierID())) {
                 JOptionPane.showMessageDialog(this, "Không được thêm sản phẩm đã tồn tại");
             } else {

@@ -109,8 +109,7 @@ public class SupplierDAO {
         PreparedStatement stmt = null;
         Supplier supplier = null;
         try {
-            stmt = con.prepareStatement("Select * From Suppliers\r\n"
-                    + "where supplier_id = ?");
+            stmt = con.prepareStatement("SELECT * FROM Suppliers WHERE supplier_id = ?");
             stmt.setString(1, supplierID);
 
             ResultSet rs = stmt.executeQuery();
