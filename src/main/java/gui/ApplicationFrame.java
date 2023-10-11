@@ -67,18 +67,12 @@ public final class ApplicationFrame extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
+                pnView.add(new JPanelSell());
                 pnView.repaint();
                 pnView.revalidate();
             }
         });
-        MenuItem menuEmployee5 = new MenuItem(null, "Đơn đặt hàng", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                pnView.removeAll();
-                pnView.repaint();
-                pnView.revalidate();
-            }
-        });
+        
 
         MenuItem menuCustomer1 = new MenuItem(null, "Quản lý KH", new ActionListener() {
             @Override
@@ -183,7 +177,7 @@ public final class ApplicationFrame extends javax.swing.JFrame {
             }
         });
 
-        MenuItem menuEmployee = new MenuItem(iconEmployee, "Nhân viên", null, menuEmployee1, menuEmployee2, menuEmployee3, menuEmployee4, menuEmployee5);
+        MenuItem menuEmployee = new MenuItem(iconEmployee, "Nhân viên", null, menuEmployee1, menuEmployee2, menuEmployee3, menuEmployee4);
         MenuItem menuCustomer = new MenuItem(iconCustomer, "Khách hàng", null, menuCustomer1, menuCustomer2);
         MenuItem menuProduct = new MenuItem(iconProduct, "Sản phẩm", null, menuProduct1, menuProduct2);
         MenuItem menuSupplier = new MenuItem(iconSupplier, "Nhà cung cấp", null, menuSupplier1, menuSupplier2);

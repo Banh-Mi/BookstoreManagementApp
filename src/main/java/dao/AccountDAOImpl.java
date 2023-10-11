@@ -15,7 +15,7 @@ public class AccountDAOImpl implements AccountDAO {
     public Account login(String  userName, String  password) {
         ConnectDB.getInstance();
         Connection cons = ConnectDB.getConnection();
-        String sql = "SELECT * FROM Accounts WHERE username LIKE ? AND password LIKE ?";
+        String sql = "SELECT * FROM TaiKhoan WHERE tenDangNhap LIKE ? AND matKhau LIKE ?";
         Account account = null;
         try {
             try (PreparedStatement ps = (PreparedStatement) cons.prepareStatement(sql)) {
@@ -24,10 +24,12 @@ public class AccountDAOImpl implements AccountDAO {
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
                     account = new Account();
-                    account.setAccountID(rs.getString("account_id"));
-                    account.setUserName(rs.getString("username"));
-                    account.setPassword(rs.getString("password"));
-                    account.setStatus(rs.getBoolean("status"));
+                    account.setAccountID(rs.getString("maTK"));
+                    account.setUserName(rs.getString("tenDangNhap"));
+                    account.setPassword(rs.getString("matKhau"));
+                    account.setRole(rs.getString("quyen"));
+                    account.setStatus(rs.getString("trangThaiTaiKhoan").equals("Đang hoạt động"));
+                    System.out.println(account.isStatus());
                 }
             }
             return account;
