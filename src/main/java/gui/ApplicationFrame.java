@@ -51,6 +51,7 @@ public final class ApplicationFrame extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
+                pnView.add(new JPanelStatistical());
                 pnView.repaint();
                 pnView.revalidate();
             }
@@ -72,7 +73,6 @@ public final class ApplicationFrame extends javax.swing.JFrame {
                 pnView.revalidate();
             }
         });
-        
 
         MenuItem menuCustomer1 = new MenuItem(null, "Quản lý KH", new ActionListener() {
             @Override
@@ -176,21 +176,40 @@ public final class ApplicationFrame extends javax.swing.JFrame {
                 pnView.revalidate();
             }
         });
+            MenuItem menuStatistical1 = new MenuItem(null, "Thống kê DT", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                pnView.removeAll();
+                pnView.add(new JPannelStatisticaldoanhthu());
+                pnView.repaint();
+                pnView.revalidate();
+            }
+        });
+        MenuItem menuStatistical2 = new MenuItem(null, "Thống kê KH", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                pnView.removeAll();
+                pnView.add(new JPannelStatisticalkhachhang());
+                pnView.repaint();
+                pnView.revalidate();
+            }
+        });
+        MenuItem menuStatistical3 = new MenuItem(null, "Thống kê SP", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                pnView.removeAll();
+                pnView.add(new JPanelStatisticalsanpham());
+                pnView.repaint();
+                pnView.revalidate();
+            }
+        });
 
         MenuItem menuEmployee = new MenuItem(iconEmployee, "Nhân viên", null, menuEmployee1, menuEmployee2, menuEmployee3, menuEmployee4);
         MenuItem menuCustomer = new MenuItem(iconCustomer, "Khách hàng", null, menuCustomer1, menuCustomer2);
         MenuItem menuProduct = new MenuItem(iconProduct, "Sản phẩm", null, menuProduct1, menuProduct2);
         MenuItem menuSupplier = new MenuItem(iconSupplier, "Nhà cung cấp", null, menuSupplier1, menuSupplier2);
         MenuItem menuInvoice = new MenuItem(iconInvoice, "Hoá đơn", null, menuInvoice1);
-        MenuItem menuStatistical = new MenuItem(iconStatistical, "Thống kê", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                pnView.removeAll();
-                pnView.add(new JPanelStatistical());
-                pnView.repaint();
-                pnView.revalidate();
-            }
-        });
+        MenuItem menuStatistical = new MenuItem(iconStatistical, "Thống kê",null,menuStatistical1,menuStatistical2,menuStatistical3 );  
         MenuItem menuAccount = new MenuItem(iconAccount, "Tài khoản", null, menuAccount1, menuAccount2);
         MenuItem menuDiscount = new MenuItem(iconDiscount, "Giảm giá", null, menuDiscount1, menuDiscount2);
         addMenu(menuHome, menuEmployee, menuCustomer, menuProduct, menuSupplier, menuInvoice, menuStatistical, menuAccount, menuDiscount);

@@ -1,5 +1,7 @@
 gui\JPannelAccount$3.class
+gui\JPannelStatisticaldoanhthu.class
 gui\LoginForm$2.class
+gui\JPannelStatisticaldoanhthu$1.class
 entity\Account.class
 gui\JPanelAccount$2.class
 gui\JPanelDiscount$5.class
@@ -11,9 +13,11 @@ gui\JPanelDiscount$13.class
 gui\JPannelDiscount$7.class
 gui\JPanelCustomer$25.class
 gui\ApplicationFrame$18.class
+gui\JPannelStatistical$1.class
 gui\JPanelAccount.class
 gui\JPannelAccount.class
 gui\JPanelCustomer$4.class
+gui\JPannelStatisticaldoanhthubieudo.class
 gui\JPannelCustomer$6.class
 gui\JPanelEmployee$6.class
 gui\JPannelDiscount$1.class
@@ -54,6 +58,7 @@ screenSwitch\LoginController$2.class
 gui\JPanelCustomer$8.class
 gui\JPanelCustomer$21.class
 gui\JPannelDiscount$5.class
+gui\JPannelStatisticaldoanhthu$2.class
 gui\JPanelSupplier$5.class
 gui\JPanelCustomer$16.class
 gui\ApplicationFrame$11.class
@@ -116,6 +121,7 @@ gui\JPanelCustomer$7.class
 gui\JPannelCustomer$9.class
 customLib\GetSource.class
 gui\JPannelCustomer$2.class
+gui\JPannelStatisticaldoanhthu$3.class
 gui\JPanelDiscount$3.class
 gui\JPannelStatistical.class
 model\Account.class

@@ -30,7 +30,6 @@ public class JPanelStatistical extends javax.swing.JPanel {
 
     public void showPieChart() {
 
-        //create dataset
         DefaultPieDataset barDataset = new DefaultPieDataset();
         barDataset.setValue("IPhone 5s", new Double(60));
         barDataset.setValue("SamSung Grand", new Double(20));
@@ -68,7 +67,7 @@ public class JPanelStatistical extends javax.swing.JPanel {
         dataset.setValue(250, "Amount", "june");
 
         //create chart
-        JFreeChart linechart = ChartFactory.createLineChart("contribution", "monthly", "amount",
+        JFreeChart linechart = ChartFactory.createLineChart("1111", "monthly", "amount",
                 dataset, PlotOrientation.VERTICAL, false, true, false);
 
         //create plot object

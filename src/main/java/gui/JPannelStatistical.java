@@ -3,6 +3,7 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import javax.swing.JPanel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -116,11 +117,7 @@ public class JPannelStatistical extends javax.swing.JPanel {
 
     public void showHistogram() {
 
-        double[] values = {95, 49, 14, 59, 50, 66, 47, 40, 1, 67,
-            12, 58, 28, 63, 14, 9, 31, 17, 94, 71,
-            49, 64, 73, 97, 15, 63, 10, 12, 31, 62,
-            93, 49, 74, 90, 59, 14, 15, 88, 26, 57,
-            77, 44, 58, 91, 10, 67, 57, 19, 88, 84
+            double[] values = {95, 49, 14, 59, 50, 66, 47, 40, 1, 67,
         };
 
         HistogramDataset dataset = new HistogramDataset();
@@ -149,9 +146,20 @@ public class JPannelStatistical extends javax.swing.JPanel {
         panelBarChart = new javax.swing.JPanel();
         jpanhistory = new javax.swing.JPanel();
         panelLineChart = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
+        tab2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
+
+        jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabbedPane1MouseClicked(evt);
+            }
+        });
+        jTabbedPane1.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                jTabbedPane1ComponentShown(evt);
+            }
+        });
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -195,18 +203,18 @@ public class JPannelStatistical extends javax.swing.JPanel {
 
         jTabbedPane1.addTab("tab1", jPanel1);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout tab2Layout = new javax.swing.GroupLayout(tab2);
+        tab2.setLayout(tab2Layout);
+        tab2Layout.setHorizontalGroup(
+            tab2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 1040, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 680, Short.MAX_VALUE)
+        tab2Layout.setVerticalGroup(
+            tab2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 710, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("tab2", jPanel2);
+        jTabbedPane1.addTab("tab2", tab2);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -216,7 +224,7 @@ public class JPannelStatistical extends javax.swing.JPanel {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 680, Short.MAX_VALUE)
+            .addGap(0, 710, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("tab3", jPanel3);
@@ -229,7 +237,7 @@ public class JPannelStatistical extends javax.swing.JPanel {
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 680, Short.MAX_VALUE)
+            .addGap(0, 710, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("tab4", jPanel4);
@@ -242,15 +250,23 @@ public class JPannelStatistical extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 711, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1)
         );
     }// </editor-fold>//GEN-END:initComponents
+   
+
+    private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
+      
+    }//GEN-LAST:event_jTabbedPane1MouseClicked
+
+    private void jTabbedPane1ComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jTabbedPane1ComponentShown
+        
+    }//GEN-LAST:event_jTabbedPane1ComponentShown
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPane7;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -259,5 +275,6 @@ public class JPannelStatistical extends javax.swing.JPanel {
     private javax.swing.JPanel jpanhistory;
     private javax.swing.JPanel panelBarChart;
     private javax.swing.JPanel panelLineChart;
+    private javax.swing.JPanel tab2;
     // End of variables declaration//GEN-END:variables
 }

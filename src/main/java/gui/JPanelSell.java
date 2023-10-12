@@ -32,6 +32,7 @@ public class JPanelSell extends javax.swing.JPanel {
                 () -> scanCode()
         );
         thread.start();
+       
     }
 
     public void scanCode() {
@@ -45,7 +46,8 @@ public class JPanelSell extends javax.swing.JPanel {
         webcamPanel.setMirrored(false); // Đừng đảo ngược hình ảnh
 
         jPanelScanCode.add(webcamPanel, BorderLayout.CENTER);
-
+        jPanelScanCode.repaint();
+        jPanelScanCode.revalidate();
         while (true) {
             BufferedImage image = webcam.getImage();
             Result result = decodeBarcode(image);
