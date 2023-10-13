@@ -19,7 +19,7 @@ import static util.CheckRegex.checkText;
 public class JPanelSupplier extends javax.swing.JPanel {
 
     private final DefaultTableModel modelSupplier;
-    private SupplierDAO supplierDAO = new SupplierDAO();
+    private SupplierDAO supplierDAO;
 
 
     public JPanelSupplier() {

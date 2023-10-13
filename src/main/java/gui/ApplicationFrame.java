@@ -19,12 +19,21 @@ import javax.swing.UIManager;
  * @author BanhMi88
  */
 public final class ApplicationFrame extends javax.swing.JFrame {
+    
+   
 
     public ApplicationFrame() {
         initComponents();
         svgLogo.setSvgImage("logo.svg", 154, 65);
         execute();
     }
+
+    public void setThongTin(String ten, String chucVu){
+        lbTen.setText(ten);
+        lbChucVu.setText(chucVu);
+    }
+    
+    
 
     private void execute() {
         String iconHome = "/menuItems/home.svg";
@@ -42,7 +51,7 @@ public final class ApplicationFrame extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
-                pnView.add(new JPanelEmployee());
+                pnView.add(new JPanelNhanVien());
                 pnView.repaint();
                 pnView.revalidate();
             }
@@ -78,11 +87,7 @@ public final class ApplicationFrame extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
-                try {
-                    pnView.add(new JPanelCustomer());
-                } catch (SQLException ex) {
-                    Logger.getLogger(ApplicationFrame.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                pnView.add(new JPanelKhachHang());
                 pnView.repaint();
                 pnView.revalidate();
             }
@@ -137,6 +142,11 @@ public final class ApplicationFrame extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
+                try {
+                    pnView.add(new JPanelTaiKhoan());
+                } catch (SQLException ex) {
+                    Logger.getLogger(ApplicationFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 pnView.repaint();
                 pnView.revalidate();
             }
@@ -154,6 +164,7 @@ public final class ApplicationFrame extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
+                pnView.add(new JPanelKhuyenMai());
                 pnView.repaint();
                 pnView.revalidate();
             }
@@ -180,11 +191,7 @@ public final class ApplicationFrame extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
-                try {
-                    pnView.add(new JPannelStatisticaldoanhthu());
-                } catch (SQLException ex) {
-                    Logger.getLogger(ApplicationFrame.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                pnView.add(new JPannelStatisticaldoanhthu());
                 pnView.repaint();
                 pnView.revalidate();
             }
@@ -241,6 +248,8 @@ public final class ApplicationFrame extends javax.swing.JFrame {
         panelMenu = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         menus = new javax.swing.JPanel();
+        lbTen = new javax.swing.JLabel();
+        lbChucVu = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -283,17 +292,31 @@ public final class ApplicationFrame extends javax.swing.JFrame {
         );
         panelMenuLayout.setVerticalGroup(
             panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE)
         );
+
+        lbTen.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lbTen.setForeground(new java.awt.Color(255, 255, 255));
+
+        lbChucVu.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbChucVu.setForeground(new java.awt.Color(255, 255, 255));
+        lbChucVu.setText("Chức vụ");
 
         javax.swing.GroupLayout jPanelRounded1Layout = new javax.swing.GroupLayout(jPanelRounded1);
         jPanelRounded1.setLayout(jPanelRounded1Layout);
         jPanelRounded1Layout.setHorizontalGroup(
             jPanelRounded1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelRounded1Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(svgLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addGroup(jPanelRounded1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelRounded1Layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addComponent(svgLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelRounded1Layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addGroup(jPanelRounded1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lbTen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lbChucVu, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE))))
+                .addContainerGap(27, Short.MAX_VALUE))
             .addGroup(jPanelRounded1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanelRounded1Layout.createSequentialGroup()
                     .addComponent(panelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -304,12 +327,16 @@ public final class ApplicationFrame extends javax.swing.JFrame {
             .addGroup(jPanelRounded1Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(svgLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(678, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 586, Short.MAX_VALUE)
+                .addComponent(lbTen, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbChucVu, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21))
             .addGroup(jPanelRounded1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelRounded1Layout.createSequentialGroup()
                     .addContainerGap(102, Short.MAX_VALUE)
-                    .addComponent(panelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(96, Short.MAX_VALUE)))
+                    .addComponent(panelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 543, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(115, Short.MAX_VALUE)))
         );
 
         pnMain.add(jPanelRounded1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 12, 230, 760));
@@ -335,6 +362,8 @@ public final class ApplicationFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private customLib.JPanelRounded jPanelRounded1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lbChucVu;
+    private javax.swing.JLabel lbTen;
     private javax.swing.JPanel menus;
     private javax.swing.JPanel panelMenu;
     private javax.swing.JPanel pnMain;

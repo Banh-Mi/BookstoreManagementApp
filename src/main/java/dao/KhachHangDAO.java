@@ -1,63 +1,54 @@
-
 package dao;
-import connectDB.ConnectDB;
-import entity.Discount;
-import entity.Customer;
 
+import connectDB.ConnectDB;
+import entity.KhachHang;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+
 public class KhachHangDAO {
-   public ArrayList<Customer> getAllKh()
-   {
-      ArrayList<Customer> listkh = new ArrayList<>();
-      ConnectDB.getInstance();
-      Connection con = ConnectDB.getConnection();
-      try {
-            String sql = "select * from Customers";
+
+    public ArrayList<KhachHang> getAllKhachHang() {
+        ArrayList<KhachHang> listKhachHang = new ArrayList<>();
+        Connection con = ConnectDB.getInstance().getConnection();
+        try {
+            String sql = "SELECT * FROM KhachHang";
             Statement statement = con.createStatement();
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
-                listkh.add(new Customer(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getDate(7), rs.getString(8), rs.getString(9)));
+                listKhachHang.add(new KhachHang(
+                        rs.getString("maKH"),
+                        rs.getString("tenKH"),
+                        rs.getString("soDienThoai"),
+                        rs.getString("email"),
+                        rs.getDate("ngaySinh"),
+                        rs.getString("diaChi"),
+                        rs.getString("gioiTinh")
+                ));
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
-        }
-        return listkh;
-   }
-   public void insert(Customer kh) {
-        Connection con = ConnectDB.getInstance().getConnection();
-        PreparedStatement stmt = null;
-        String sql = "insert into Customers values(?,?,?,?,?,?,?,?,?)";
-        try {
-            stmt = con.prepareStatement(sql);
-            stmt.setString(1, kh.getCustomer_id());
-            stmt.setString(2, kh.getFullName());
-            stmt.setString(3, kh.getPhone());
-            stmt.setString(4, kh.getEmail());
-            stmt.setString(5, kh.getGender());
-            stmt.setInt(6, kh.getTotal_spending());
-            stmt.setDate(7, kh.getDayOfBirth());
-            stmt.setString(8, kh.getAddress());
-            stmt.setString(9, kh.getCountry());
-            stmt.executeUpdate();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
         } finally {
-            close(stmt);
         }
-
+        return listKhachHang;
     }
-   public void delete(String customer_id) {
+
+    public void insertKhachHang(KhachHang khachHang) {
         Connection con = ConnectDB.getInstance().getConnection();
         PreparedStatement stmt = null;
-        String sql = "delete from Customers where customer_id = ?";
+        String sql = "INSERT INTO KhachHang VALUES(?,?,?,?,?,?,?,?,?)";
         try {
             stmt = con.prepareStatement(sql);
-            stmt.setString(1, customer_id);
+            stmt.setString(1, khachHang.getMaKH());
+            stmt.setString(2, khachHang.getTenKH());
+            stmt.setString(3, khachHang.getSoDienThoai());
+            stmt.setString(4, khachHang.getEmail());
+            stmt.setDate(5, new java.sql.Date(khachHang.getNgaySinh().getTime()));
+            stmt.setString(6, khachHang.getDiaChi());
+            stmt.setString(7, khachHang.getGioiTinh());
             stmt.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -65,40 +56,46 @@ public class KhachHangDAO {
             close(stmt);
         }
     }
-   public void update(Customer kh) {
+
+    public void deleteKhachHang(String maKH) {
         Connection con = ConnectDB.getInstance().getConnection();
         PreparedStatement stmt = null;
+        String sql = "DELETE FROM KhachHang WHERE maKH = ?";
         try {
-
-            stmt = con.prepareStatement("UPDATE Customers " +
-                                         "SET fullName = ?, " +
-                                          "phone = ?, " +
-                                        "email = ?, " +
-                                        "gender = ?, " +
-                                        "total_spending = ?, " +
-                                        "dayOfBirth = ?, " +
-                                         "address = ?, " +
-                                         "country = ? " +
-                                        "WHERE customer_id = ?");
-
-            
-            stmt.setString(1, kh.getFullName());
-            stmt.setString(2, kh.getPhone());
-            stmt.setString(3, kh.getEmail());
-            stmt.setString(4, kh.getGender());
-            stmt.setInt(5, kh.getTotal_spending());
-            stmt.setDate(6, kh.getDayOfBirth());
-            stmt.setString(7, kh.getAddress());
-            stmt.setString(8, kh.getCountry());
-            stmt.setString(9, kh.getCustomer_id());
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1, maKH);
             stmt.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
         } finally {
             close(stmt);
         }
-   }  
-   public void close(PreparedStatement stmt) {
+    }
+
+    public void updateKhachHang(KhachHang khachHang) {
+        Connection con = ConnectDB.getInstance().getConnection();
+        PreparedStatement stmt = null;
+        try {
+            stmt = con.prepareStatement("UPDATE KhachHang "
+                    + "SET tenKH=?, soDienThoai=?, email=?, ngaySinh=?, diaChi=?, gioiTinh=? "
+                    + "WHERE maKH=?");
+
+            stmt.setString(1, khachHang.getTenKH());
+            stmt.setString(2, khachHang.getSoDienThoai());
+            stmt.setString(3, khachHang.getEmail());
+            stmt.setDate(4, new java.sql.Date(khachHang.getNgaySinh().getTime()));
+            stmt.setString(5, khachHang.getDiaChi());
+            stmt.setString(6, khachHang.getGioiTinh());
+            stmt.setString(7, khachHang.getMaKH());
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            close(stmt);
+        }
+    }
+
+    public void close(PreparedStatement stmt) {
         if (stmt != null) {
             try {
                 stmt.close();
@@ -107,5 +104,29 @@ public class KhachHangDAO {
             }
         }
     }
-            
+
+    public String taoMaKhachHang() {
+        try {
+            String sql = "SELECT TOP 1 maKH FROM KhachHang ORDER BY maKH DESC";
+            Statement statement = ConnectDB.getInstance().getConnection().createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            if (resultSet.next()) {
+                String maKH = resultSet.getString(1);
+                int number = Integer.parseInt(maKH.substring(3));
+                number++;
+                String maKHMoi = number + "";
+                while (maKHMoi.length() < 3) {
+                    maKHMoi = "0" + maKHMoi;
+                }
+
+                return "KH" + maKHMoi;
+            } else {
+                return "KH001";
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

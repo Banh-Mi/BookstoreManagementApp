@@ -1,7 +1,8 @@
 package screenSwitch;
 
-import entity.Account;
-import service.AccountServiceImpl;
+import dao.NhanVienDAO;
+import entity.TaiKhoan;
+import entity.NhanVien;
 import gui.ApplicationFrame;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
@@ -33,7 +34,7 @@ public class LoginController {
         this.txtPassword = txtPassword;
         this.jbMessage = jbMessage;
 
-        accountService = new AccountServiceImpl();
+        accountService = new AccountService();
     }
 
     public void setEvent() {
@@ -56,20 +57,29 @@ public class LoginController {
     }
 
     private void performLogin() {
+        String userName = txtUserName.getText();
+        String password = txtPassword.getText();
+
         try {
-            if (txtUserName.getText().length() == 0
-                    || txtPassword.getText().length() == 0) {
+            if (userName.length() == 0
+                    || password.length() == 0) {
                 jbMessage.setText("Vui lòng nhập dữ liệu bắt buộc!");
             } else {
-                Account taiKhoan = accountService.login(txtUserName.getText(), txtPassword.getText());
+                TaiKhoan taiKhoan = accountService.login(userName,password );
+                System.out.println(taiKhoan.getTrangThaiTaiKhoan());
                 if (taiKhoan == null) {
                     jbMessage.setText("Tên đăng nhập và mật khẩu không đúng!");
                 } else {
-                    if (!taiKhoan.isStatus()) {
+                    if (taiKhoan.getTrangThaiTaiKhoan().equals("Tạm khoá")) {
                         jbMessage.setText("Tài khoản của bạn đang bị tạm khóa!");
                     } else {
                         frame.dispose();
-                        new ApplicationFrame().setVisible(true);
+                        ApplicationFrame aplFrame = new ApplicationFrame();
+                        NhanVienDAO nhanVienDao = new NhanVienDAO();
+                        NhanVien nhanVien = nhanVienDao.searchEmployee(userName);
+                        aplFrame.setThongTin(nhanVien.getTenNV(), nhanVien.getChucVu());
+                        aplFrame.setVisible(true);
+                        
                     }
                 }
             }

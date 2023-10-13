@@ -4,12 +4,23 @@
  */
 package service;
 
-import entity.Account;
+import entity.TaiKhoan;
+import dao.TaiKhoanDAO;
 
 /**
  *
  * @author VONG VINH LOI
  */
-public interface AccountService {
-    public Account login(String userName, String password);
+public class AccountService{
+
+    private TaiKhoanDAO accountDAO = null;
+
+    public AccountService() {
+        accountDAO = new TaiKhoanDAO();
+    }
+
+    public TaiKhoan login(String userName, String password) {
+        return accountDAO.login(userName, password);
+    }
+    
 }
