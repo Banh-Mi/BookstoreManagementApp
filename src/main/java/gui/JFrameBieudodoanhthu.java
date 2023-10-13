@@ -4,6 +4,8 @@
  */
 package gui;
 
+import dao.Doanhthudao;
+import entity.DoanhThuBieuDo;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import org.jfree.chart.ChartFactory;
@@ -13,6 +15,10 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
+import connectDB.ConnectDB;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -20,30 +26,29 @@ import org.jfree.data.category.DefaultCategoryDataset;
  */
 public class JFrameBieudodoanhthu extends javax.swing.JFrame {
 
-    /**
-     * Creates new form JFrameBieudodoanhthu
-     */
-    public JFrameBieudodoanhthu() {
+    private Doanhthudao dtbddao;
+
+    public JFrameBieudodoanhthu() throws SQLException {
         initComponents();
+        ConnectDB.getInstance().connect();
         showBarChart();
     }
 
     public void showBarChart() {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.setValue(200, "Amount", "Tháng 1");
-        dataset.setValue(150, "Amount", "Tháng 2");
-        dataset.setValue(18, "Amount", "Tháng 3");
-        dataset.setValue(100, "Amount", "Tháng 4");
-        dataset.setValue(80, "Amount", "Tháng 4");
-        dataset.setValue(250, "Amount", "Tháng 5");
-        dataset.setValue(500, "Amount", "Tháng 6");
-        dataset.setValue(230, "Amount", "Tháng 7");
-        dataset.setValue(820, "Amount", "Tháng 8");
-        dataset.setValue(100, "Amount", "Tháng 9");
-        dataset.setValue(87, "Amount", "Tháng 10");
-        dataset.setValue(92, "Amount", "Tháng 11");
-        dataset.setValue(250, "Amount", "Tháng 12");
-
+        dataset.setValue(0, "Amount", "Tháng 1");
+        dataset.setValue(0, "Amount", "Tháng 2");
+        dataset.setValue(0, "Amount", "Tháng 3");
+        dataset.setValue(0, "Amount", "Tháng 4");
+        dataset.setValue(0, "Amount", "Tháng 4");
+        dataset.setValue(0, "Amount", "Tháng 5");
+        dataset.setValue(0, "Amount", "Tháng 6");
+        dataset.setValue(0, "Amount", "Tháng 7");
+        dataset.setValue(0, "Amount", "Tháng 8");
+        dataset.setValue(0, "Amount", "Tháng 9");
+        dataset.setValue(0, "Amount", "Tháng 10");
+        dataset.setValue(0, "Amount", "Tháng 11");
+        dataset.setValue(0, "Amount", "Tháng 12");
         JFreeChart chart = ChartFactory.createBarChart("Tỷ Lệ", "Tháng", "Số Lượng",
                 dataset, PlotOrientation.VERTICAL, false, true, false);
 
@@ -58,7 +63,6 @@ public class JFrameBieudodoanhthu extends javax.swing.JFrame {
         jPane7.removeAll();
         jPane7.add(barpChartPanel, BorderLayout.CENTER);
         jPane7.validate();
-
     }
 
     @SuppressWarnings("unchecked")
@@ -70,7 +74,7 @@ public class JFrameBieudodoanhthu extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jPane7 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBoxnam = new javax.swing.JComboBox<>();
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -106,13 +110,13 @@ public class JFrameBieudodoanhthu extends javax.swing.JFrame {
         jLabel1.setText("Năm :");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 70, 30));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2023", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        jComboBoxnam.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2023", "2022", "2021", "2020","2019" }));
+        jComboBoxnam.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                jComboBoxnamActionPerformed(evt);
             }
         });
-        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 80, 70, 30));
+        getContentPane().add(jComboBoxnam, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 80, 70, 30));
 
         jButton3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton3.setText("Thoát");
@@ -127,7 +131,62 @@ public class JFrameBieudodoanhthu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        setVisible(false);
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        dtbddao = new Doanhthudao();
+        int a = Integer.parseInt(jComboBoxnam.getSelectedItem().toString());
+        for (DoanhThuBieuDo dtbd : dtbddao.getAllDoanhThuBieuDo(a)) {
+            if (dtbd.getThang() == 1) {
+                dataset.setValue(dtbd.getTongtien(), "Amount", "Tháng 1");
+            }
+            if (dtbd.getThang() == 2) {
+                dataset.setValue(dtbd.getTongtien(), "Amount", "Tháng 2");
+            }
+            if (dtbd.getThang() == 3) {
+                dataset.setValue(dtbd.getTongtien(), "Amount", "Tháng 3");
+            }
+            if (dtbd.getThang() == 4) {
+                dataset.setValue(dtbd.getTongtien(), "Amount", "Tháng 4");
+            }
+            if (dtbd.getThang() == 5) {
+                dataset.setValue(dtbd.getTongtien(), "Amount", "Tháng 5");
+            }
+            if (dtbd.getThang() == 6) {
+                dataset.setValue(dtbd.getTongtien(), "Amount", "Tháng 6");
+            }
+            if (dtbd.getThang() == 7) {
+                dataset.setValue(dtbd.getTongtien(), "Amount", "Tháng 7");
+            }
+            if (dtbd.getThang() == 8) {
+                dataset.setValue(dtbd.getTongtien(), "Amount", "Tháng 8");
+            }
+            if (dtbd.getThang() == 9) {
+                dataset.setValue(dtbd.getTongtien(), "Amount", "Tháng 9");
+            }
+            if (dtbd.getThang() == 10) {
+                dataset.setValue(dtbd.getTongtien(), "Amount", "Tháng 10");
+            }
+            if (dtbd.getThang() == 11) {
+                dataset.setValue(dtbd.getTongtien(), "Amount", "Tháng 11");
+            }
+            if (dtbd.getThang() == 12) {
+                dataset.setValue(dtbd.getTongtien(), "Amount", "Tháng 12");
+            }
+
+        }
+        JFreeChart chart = ChartFactory.createBarChart("Tỷ Lệ", "Tháng", "Số Lượng",
+                dataset, PlotOrientation.VERTICAL, false, true, false);
+
+        CategoryPlot categoryPlot = chart.getCategoryPlot();
+        //categoryPlot.setRangeGridlinePaint(Color.BLUE);
+        categoryPlot.setBackgroundPaint(Color.WHITE);
+        BarRenderer renderer = (BarRenderer) categoryPlot.getRenderer();
+        Color clr3 = new Color(204, 0, 51);
+        renderer.setSeriesPaint(0, clr3);
+
+        ChartPanel barpChartPanel = new ChartPanel(chart);
+        jPane7.removeAll();
+        jPane7.add(barpChartPanel, BorderLayout.CENTER);
+        jPane7.validate();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -138,9 +197,9 @@ public class JFrameBieudodoanhthu extends javax.swing.JFrame {
         setVisible(false);
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void jComboBoxnamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxnamActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_jComboBoxnamActionPerformed
 
     /**
      * @param args the command line arguments
@@ -172,7 +231,11 @@ public class JFrameBieudodoanhthu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JFrameBieudodoanhthu().setVisible(true);
+                try {
+                    new JFrameBieudodoanhthu().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(JFrameBieudodoanhthu.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -181,7 +244,7 @@ public class JFrameBieudodoanhthu extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBoxnam;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPane7;

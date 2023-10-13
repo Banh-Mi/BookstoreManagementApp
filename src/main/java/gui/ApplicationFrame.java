@@ -180,7 +180,11 @@ public final class ApplicationFrame extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
-                pnView.add(new JPannelStatisticaldoanhthu());
+                try {
+                    pnView.add(new JPannelStatisticaldoanhthu());
+                } catch (SQLException ex) {
+                    Logger.getLogger(ApplicationFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 pnView.repaint();
                 pnView.revalidate();
             }
