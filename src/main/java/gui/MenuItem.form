@@ -61,7 +61,7 @@
         <Property name="text" type="java.lang.String" value="Menu m&#x1edb;i"/>
       </Properties>
     </Component>
-    <Component class="customLib.SVGImage" name="iconSVG">
+    <Component class="util.SVGImage" name="iconSVG">
     </Component>
   </SubComponents>
 </Form>

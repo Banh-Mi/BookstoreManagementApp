@@ -54,7 +54,7 @@ public class MenuItem extends javax.swing.JPanel {
     private void initComponents() {
 
         lbName = new javax.swing.JLabel();
-        iconSVG = new customLib.SVGImage();
+        iconSVG = new util.SVGImage();
 
         setBackground(new java.awt.Color(0, 122, 255));
         addMouseListener(new java.awt.event.MouseAdapter() {
@@ -140,7 +140,7 @@ public class MenuItem extends javax.swing.JPanel {
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private customLib.SVGImage iconSVG;
+    private util.SVGImage iconSVG;
     private javax.swing.JLabel lbName;
     // End of variables declaration//GEN-END:variables
 }
