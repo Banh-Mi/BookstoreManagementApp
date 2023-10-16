@@ -19,8 +19,6 @@ import javax.swing.UIManager;
  * @author BanhMi88
  */
 public final class ApplicationFrame extends javax.swing.JFrame {
-    
-   
 
     public ApplicationFrame() {
         initComponents();
@@ -28,12 +26,10 @@ public final class ApplicationFrame extends javax.swing.JFrame {
         execute();
     }
 
-    public void setThongTin(String ten, String chucVu){
+    public void setThongTin(String ten, String chucVu) {
         lbTen.setText(ten);
         lbChucVu.setText(chucVu);
     }
-    
-    
 
     private void execute() {
         String iconHome = "/menuItems/home.svg";
@@ -116,6 +112,7 @@ public final class ApplicationFrame extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
+                pnView.add(new JPanelNhaCungCap());
                 pnView.repaint();
                 pnView.revalidate();
             }
@@ -125,6 +122,7 @@ public final class ApplicationFrame extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
+
                 pnView.repaint();
                 pnView.revalidate();
             }
@@ -187,7 +185,7 @@ public final class ApplicationFrame extends javax.swing.JFrame {
                 pnView.revalidate();
             }
         });
-            MenuItem menuStatistical1 = new MenuItem(null, "Thống kê DT", new ActionListener() {
+        MenuItem menuStatistical1 = new MenuItem(null, "Thống kê DT", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
@@ -220,7 +218,7 @@ public final class ApplicationFrame extends javax.swing.JFrame {
         MenuItem menuProduct = new MenuItem(iconProduct, "Sản phẩm", null, menuProduct1, menuProduct2);
         MenuItem menuSupplier = new MenuItem(iconSupplier, "Nhà cung cấp", null, menuSupplier1, menuSupplier2);
         MenuItem menuInvoice = new MenuItem(iconInvoice, "Hoá đơn", null, menuInvoice1);
-        MenuItem menuStatistical = new MenuItem(iconStatistical, "Thống kê",null,menuStatistical1,menuStatistical2,menuStatistical3 );  
+        MenuItem menuStatistical = new MenuItem(iconStatistical, "Thống kê", null, menuStatistical1, menuStatistical2, menuStatistical3);
         MenuItem menuAccount = new MenuItem(iconAccount, "Tài khoản", null, menuAccount1, menuAccount2);
         MenuItem menuDiscount = new MenuItem(iconDiscount, "Giảm giá", null, menuDiscount1, menuDiscount2);
         addMenu(menuHome, menuEmployee, menuCustomer, menuProduct, menuSupplier, menuInvoice, menuStatistical, menuAccount, menuDiscount);
@@ -348,7 +346,7 @@ public final class ApplicationFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public static void main(String args[]) {
-         FlatLaf.registerCustomDefaultsSource("resources.themes");
+        FlatLaf.registerCustomDefaultsSource("resources.themes");
 
         FlatMacLightLaf.setup();
         UIManager.put("Button.arc", 5);
