@@ -1,6 +1,7 @@
 package util;
 
 import dao.NhanVienDAO;
+import dao.TaiKhoanDAO;
 import entity.TaiKhoan;
 import entity.NhanVien;
 import gui.GiaoDienChinh;
@@ -14,7 +15,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
-import service.AccountService;
 
 public class LoginController {
 
@@ -24,8 +24,6 @@ public class LoginController {
     private final JTextField txtPassword;
     private final JLabel jbMessage;
 
-    private AccountService accountService = null;
-
     public LoginController(JFrame frame, JButton btnSubmit,
             JTextField txtUserName, JTextField txtPassword, JLabel jbMessage) {
         this.frame = frame;
@@ -33,8 +31,6 @@ public class LoginController {
         this.txtUserName = txtUserName;
         this.txtPassword = txtPassword;
         this.jbMessage = jbMessage;
-
-        accountService = new AccountService();
     }
 
     public void setEvent() {
@@ -65,7 +61,8 @@ public class LoginController {
                     || password.length() == 0) {
                 jbMessage.setText("Vui lòng nhập dữ liệu bắt buộc!");
             } else {
-                TaiKhoan taiKhoan = accountService.login(userName,password );
+                TaiKhoanDAO taiKhoanDAO = new TaiKhoanDAO();
+                TaiKhoan taiKhoan = taiKhoanDAO.login(userName,password );
                 System.out.println(taiKhoan.getTrangThaiTaiKhoan());
                 if (taiKhoan == null) {
                     jbMessage.setText("Tên đăng nhập và mật khẩu không đúng!");
