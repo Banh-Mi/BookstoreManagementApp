@@ -1,37 +1,44 @@
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\dao\KhachHangDAO.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\gui\JPannelStatisticaldoanhthu.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\gui\JPanelHome.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\gui\MenuItem.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\screen\Screen.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\gui\JPanelSupplier.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\util\CheckRegex.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\gui\JPannelDiscount.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\gui\JPannelHome.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\gui\JPanelCustomer.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\customLib\SVGImage.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\screenSwitch\ScreenSwitch.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\customLib\GetSource.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\entity\Discount.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\gui\JPannelAccount.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\gui\JPannelStatistical.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\service\AccountServiceImpl.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\connectDB\ConnectDB.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\entity\Supplier.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\entity\Account.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\gui\ApplicationFrame.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\gui\JPanelDiscount.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\gui\JPanelStatistical.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\dao\SupplierDAO.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\gui\JPanelAccount.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\gui\JPannelStatisticaldoanhthubieudo.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\dao\AccountDAOImpl.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\screenSwitch\LoginController.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\dao\DiscountDAO.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\service\AccountService.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\gui\JPanelEmployee.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\gui\LoginForm.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\customLib\JPanelRounded.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\dao\AccountDAO.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\model\Account.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\gui\JPannelCustomer.java
-C:\Users\VONG VINH LOI\Documents\NetBeansProjects\BookstoreManagementApp\src\main\java\entity\Customer.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\gui\JPanel_TaiKhoan.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\gui\BieuDoKhachHang.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\connectDB\ConnectDB.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\gui\JPanel_ThongKeKhachHang.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\gui\GiaoDienDangNhap.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\model\Account.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\dao\SanPhamDAO.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\entity\DoanhThuBieuDo.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\entity\DoanhThu.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\dao\NhanVienDAO.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\gui\JPanel_NhanVien.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\util\CheckRegex.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\gui\JPanel_ThongKeSanPham.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\dao\KhuyenMaiDAO.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\entity\SanPham.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\entity\NhaCungCap.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\gui\JPanel_KhachHang.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\dao\KhachHangDAO.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\gui\BieuDoSanPham.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\dao\TaiKhoanDAO.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\entity\HoaDon.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\entity\KhuyenMai.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\entity\KhachHang.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\gui\MenuItem.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\gui\JPanel_TrangChu.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\gui\HoaDonDoanhThu.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\util\GetSource.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\gui\JPanel_KhuyenMai.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\entity\NhanVien.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\entity\ChiTietHoaDon.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\gui\JPanel_NhaCungCap.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\util\SVGImage.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\dao\NhaCungCapDAO.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\gui\BieuDoDoanhThu.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\gui\JPhanel_HoaDon.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\gui\JPanel_SanPham.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\gui\JPanel_BanHang.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\util\LoginController.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\dao\DoanhThuDAO.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\util\JPanelRounded.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\entity\TaiKhoan.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\dao\InterfaceDAO.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\gui\GiaoDienChinh.java
+D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\gui\JPanel_ThongKeDoanhThu.java

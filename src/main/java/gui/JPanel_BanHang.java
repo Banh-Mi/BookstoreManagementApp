@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package gui;
 
 import com.github.sarxos.webcam.Webcam;
@@ -18,16 +14,19 @@ import java.awt.BorderLayout;
 import java.awt.image.BufferedImage;
 
 /**
- *
- * @author pc
+ * @author Nguyễn Thanh Nhứt
  */
 public class JPanel_BanHang extends javax.swing.JPanel {
 
-    /**
-     * Creates new form JPanelSell
-     */
     public JPanel_BanHang() {
         initComponents();
+        svgPay2.setSvgImage("pay.svg", 30, 30);
+        svgPay1.setSvgImage("pay.svg", 30, 30);
+        svgSearch.setSvgImage("search.svg", 20, 20);
+        svgCreateInvoice.setSvgImage("add.svg", 20, 20);
+        svgDelete.setSvgImage("delete.svg", 20, 20);
+        svgDeleteAll.setSvgImage("delete.svg", 20, 20);
+        
         Thread thread = new Thread(
                 () -> scanCode()
         );
@@ -107,538 +106,174 @@ public class JPanel_BanHang extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel_orderInfomation = new javax.swing.JPanel();
-        lblValueOrderId = new javax.swing.JLabel();
-        lblOrderId = new javax.swing.JLabel();
-        lblEmployeeId = new javax.swing.JLabel();
-        jComboBoxValueEmployeeId = new javax.swing.JComboBox<>();
-        lblCustomerId = new javax.swing.JLabel();
-        jComboBoxValueCustomerId = new javax.swing.JComboBox<>();
-        lblOrderDate = new javax.swing.JLabel();
-        jDateChooserValueOrderDate = new com.toedter.calendar.JDateChooser();
-        lblCustomerName = new javax.swing.JLabel();
-        lblValueCustomerName = new javax.swing.JLabel();
-        lblNote = new javax.swing.JLabel();
-        jTextFieldValueNote = new javax.swing.JTextField();
         jPanelScanCode = new javax.swing.JPanel();
         jPanelCart = new javax.swing.JPanel();
-        jScrollPaneCart = new javax.swing.JScrollPane();
-        jTableCart = new javax.swing.JTable();
-        jPanelOrderPay = new javax.swing.JPanel();
-        lblTotalAmount = new javax.swing.JLabel();
-        lblDiscount = new javax.swing.JLabel();
-        lblValueDiscount = new javax.swing.JLabel();
-        lblMustPay = new javax.swing.JLabel();
-        lblUnit5 = new javax.swing.JLabel();
-        lblReturnMoneyToCustomer = new javax.swing.JLabel();
-        lblValueReturnMoneyToCustomer = new javax.swing.JLabel();
-        lblCustomerMoneyGive = new javax.swing.JLabel();
-        jTextFieldValueCustomerMoneyGive = new javax.swing.JTextField();
-        lblValueMustPay = new javax.swing.JLabel();
-        lblUnit2 = new javax.swing.JLabel();
-        lblUnit3 = new javax.swing.JLabel();
-        lblUnit4 = new javax.swing.JLabel();
-        lblValueTotalAmount = new javax.swing.JLabel();
-        lblUnit1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButtonCancel = new javax.swing.JButton();
-        jButtonRefresh = new javax.swing.JButton();
-        jButtonCancel2 = new javax.swing.JButton();
-        jButtonRefresh2 = new javax.swing.JButton();
-        panelListProduct = new javax.swing.JPanel();
-        jScrollPaneListProduct = new javax.swing.JScrollPane();
-        jPanel1 = new javax.swing.JPanel();
-        jPanelProductItem = new javax.swing.JPanel();
-        jLabelProductImage = new javax.swing.JLabel();
-        lblValueProductId = new javax.swing.JLabel();
-        lblProductId = new javax.swing.JLabel();
-        lblProductName = new javax.swing.JLabel();
-        lblValueProductName = new javax.swing.JLabel();
-        lblProductQuantity = new javax.swing.JLabel();
-        lblValueProductQuantity = new javax.swing.JLabel();
-        lblUnit6 = new javax.swing.JLabel();
-        lblValueProductPrice = new javax.swing.JLabel();
-        jButtonRefresh1 = new javax.swing.JButton();
-        lblAuthor = new javax.swing.JLabel();
-        lblVAlueAuthor = new javax.swing.JLabel();
-        lblProductPrice = new javax.swing.JLabel();
-        jPanelProductItem1 = new javax.swing.JPanel();
-        jLabelProductImage1 = new javax.swing.JLabel();
-        lblValueProductId1 = new javax.swing.JLabel();
-        lblProductId1 = new javax.swing.JLabel();
-        lblProductName1 = new javax.swing.JLabel();
-        lblValueProductName1 = new javax.swing.JLabel();
-        lblProductQuantity1 = new javax.swing.JLabel();
-        lblValueProductQuantity1 = new javax.swing.JLabel();
-        lblUnit7 = new javax.swing.JLabel();
-        lblValueProductPrice1 = new javax.swing.JLabel();
-        jButtonRefresh4 = new javax.swing.JButton();
-        lblAuthor1 = new javax.swing.JLabel();
-        lblVAlueAuthor1 = new javax.swing.JLabel();
-        lblProductPrice1 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jTextFieldValueSearchProduct = new javax.swing.JTextField();
         lblCategory = new javax.swing.JLabel();
-        jButtonCancel1 = new javax.swing.JButton();
         lblSearchProduct = new javax.swing.JLabel();
-        jButtonCancel3 = new javax.swing.JButton();
         jComboBoxValueCategory = new javax.swing.JComboBox<>();
         jButtonRefresh3 = new javax.swing.JButton();
+        jTabbedPane2 = new javax.swing.JTabbedPane();
+        jPanelOrderPay = new javax.swing.JPanel();
+        jpPay1 = new util.JPanelRounded();
+        lblPay1 = new javax.swing.JLabel();
+        svgPay1 = new util.SVGImage();
+        jPanel2 = new javax.swing.JPanel();
+        lblTotalAmount = new javax.swing.JLabel();
+        lblDiscount = new javax.swing.JLabel();
+        lblMustPay = new javax.swing.JLabel();
+        lblCustomerMoneyGive = new javax.swing.JLabel();
+        lblReturnMoneyToCustomer = new javax.swing.JLabel();
+        jTextFieldValueCustomerMoneyGive = new javax.swing.JTextField();
+        lblValueReturnMoneyToCustomer = new javax.swing.JLabel();
+        lblUnit5 = new javax.swing.JLabel();
+        lblUnit4 = new javax.swing.JLabel();
+        lblUnit3 = new javax.swing.JLabel();
+        lblUnit2 = new javax.swing.JLabel();
+        lblUnit1 = new javax.swing.JLabel();
+        lblValueTotalAmount = new javax.swing.JLabel();
+        lblValueDiscount = new javax.swing.JLabel();
+        lblValueMustPay = new javax.swing.JLabel();
+        lblNote = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        jPanel4 = new javax.swing.JPanel();
+        lblOrderId = new javax.swing.JLabel();
+        lblValueOrderId = new javax.swing.JLabel();
+        lblOrderDate = new javax.swing.JLabel();
+        jComboBoxValueEmployeeId = new javax.swing.JComboBox<>();
+        lblEmployeeId = new javax.swing.JLabel();
+        lblCustomerId = new javax.swing.JLabel();
+        jComboBoxValueCustomerId = new javax.swing.JComboBox<>();
+        lblCustomerName = new javax.swing.JLabel();
+        lblValueCustomerName = new javax.swing.JLabel();
+        lblOrderDate1 = new javax.swing.JLabel();
+        jPanelOrderPay2 = new javax.swing.JPanel();
+        jPanel12 = new javax.swing.JPanel();
+        lblOrderId2 = new javax.swing.JLabel();
+        lblValueOrderId2 = new javax.swing.JLabel();
+        lblOrderDate2 = new javax.swing.JLabel();
+        jComboBoxValueEmployeeId2 = new javax.swing.JComboBox<>();
+        lblEmployeeId2 = new javax.swing.JLabel();
+        lblCustomerName3 = new javax.swing.JLabel();
+        jTextFieldValueCustomerMoneyGive1 = new javax.swing.JTextField();
+        lblNote3 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTextArea4 = new javax.swing.JTextArea();
+        lblOrderDate3 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        lblTotalAmount1 = new javax.swing.JLabel();
+        lblDiscount1 = new javax.swing.JLabel();
+        lblMustPay1 = new javax.swing.JLabel();
+        lblUnit10 = new javax.swing.JLabel();
+        lblUnit11 = new javax.swing.JLabel();
+        lblUnit12 = new javax.swing.JLabel();
+        lblValueTotalAmount1 = new javax.swing.JLabel();
+        lblValueDiscount1 = new javax.swing.JLabel();
+        lblValueMustPay1 = new javax.swing.JLabel();
+        lblNote2 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTextArea3 = new javax.swing.JTextArea();
+        jpPay2 = new util.JPanelRounded();
+        lblPay2 = new javax.swing.JLabel();
+        svgPay2 = new util.SVGImage();
+        pnlPay = new util.JPanelRounded();
+        lblDeleteAll = new javax.swing.JLabel();
+        svgDeleteAll = new util.SVGImage();
+        jPanel5 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
+        lblValueProductPrice1 = new javax.swing.JLabel();
+        lblProductPrice1 = new javax.swing.JLabel();
+        lblProductQuantity1 = new javax.swing.JLabel();
+        lblValueProductQuantity1 = new javax.swing.JLabel();
+        lblValueProductName1 = new javax.swing.JLabel();
+        jLabelProductImage1 = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        lblValueProductPrice2 = new javax.swing.JLabel();
+        lblProductPrice2 = new javax.swing.JLabel();
+        lblProductQuantity2 = new javax.swing.JLabel();
+        lblValueProductQuantity2 = new javax.swing.JLabel();
+        lblValueProductName2 = new javax.swing.JLabel();
+        jLabelProductImage2 = new javax.swing.JLabel();
+        jPanel9 = new javax.swing.JPanel();
+        lblValueProductPrice4 = new javax.swing.JLabel();
+        lblProductPrice4 = new javax.swing.JLabel();
+        lblProductQuantity4 = new javax.swing.JLabel();
+        lblValueProductQuantity4 = new javax.swing.JLabel();
+        lblValueProductName4 = new javax.swing.JLabel();
+        jLabelProductImage4 = new javax.swing.JLabel();
+        jPanel8 = new javax.swing.JPanel();
+        lblValueProductPrice3 = new javax.swing.JLabel();
+        lblProductPrice3 = new javax.swing.JLabel();
+        lblProductQuantity3 = new javax.swing.JLabel();
+        lblValueProductQuantity3 = new javax.swing.JLabel();
+        lblValueProductName3 = new javax.swing.JLabel();
+        jLabelProductImage3 = new javax.swing.JLabel();
+        jButtonRefresh5 = new javax.swing.JButton();
+        lblSearchProduct1 = new javax.swing.JLabel();
+        chkOrder = new javax.swing.JCheckBox();
+        jpSearch = new util.JPanelRounded();
+        lblSearch = new javax.swing.JLabel();
+        svgSearch = new util.SVGImage();
+        pnlDelete = new util.JPanelRounded();
+        lblDelete = new javax.swing.JLabel();
+        svgDelete = new util.SVGImage();
+        pnlCreateInvoice = new util.JPanelRounded();
+        lblCreateInvoice = new javax.swing.JLabel();
+        svgCreateInvoice = new util.SVGImage();
 
         setPreferredSize(new java.awt.Dimension(1040, 711));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblValueOrderId.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblValueOrderId.setText("HD001");
-
-        lblOrderId.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblOrderId.setText("Mã đơn hàng:");
-
-        lblEmployeeId.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblEmployeeId.setText("Mã nhân viên:");
-
-        jComboBoxValueEmployeeId.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBoxValueEmployeeId.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxValueEmployeeIdActionPerformed(evt);
-            }
-        });
-
-        lblCustomerId.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblCustomerId.setText("Mã khách hàng:");
-
-        jComboBoxValueCustomerId.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBoxValueCustomerId.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxValueCustomerIdActionPerformed(evt);
-            }
-        });
-
-        lblOrderDate.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblOrderDate.setText("Ngày tạo:");
-
-        lblCustomerName.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblCustomerName.setText("Tên khách hàng:");
-
-        lblValueCustomerName.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblValueCustomerName.setText("Nguyễn Văn A");
-
-        lblNote.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblNote.setText("Ghi chú:");
-
-        jTextFieldValueNote.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jTextFieldValueNote.setText("Khách vip");
-        jTextFieldValueNote.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldValueNoteActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel_orderInfomationLayout = new javax.swing.GroupLayout(jPanel_orderInfomation);
-        jPanel_orderInfomation.setLayout(jPanel_orderInfomationLayout);
-        jPanel_orderInfomationLayout.setHorizontalGroup(
-            jPanel_orderInfomationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel_orderInfomationLayout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(jPanel_orderInfomationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel_orderInfomationLayout.createSequentialGroup()
-                        .addComponent(lblEmployeeId)
-                        .addGap(15, 15, 15)
-                        .addComponent(jComboBoxValueEmployeeId, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel_orderInfomationLayout.createSequentialGroup()
-                        .addGroup(jPanel_orderInfomationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblOrderId)
-                            .addComponent(lblOrderDate))
-                        .addGroup(jPanel_orderInfomationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel_orderInfomationLayout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(lblValueOrderId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel_orderInfomationLayout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jDateChooserValueOrderDate, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(36, 36, 36)
-                .addGroup(jPanel_orderInfomationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblCustomerName)
-                    .addComponent(lblCustomerId)
-                    .addComponent(lblNote))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel_orderInfomationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jComboBoxValueCustomerId, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblValueCustomerName, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
-                    .addComponent(jTextFieldValueNote))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel_orderInfomationLayout.setVerticalGroup(
-            jPanel_orderInfomationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel_orderInfomationLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addGroup(jPanel_orderInfomationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel_orderInfomationLayout.createSequentialGroup()
-                        .addGroup(jPanel_orderInfomationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblCustomerId, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBoxValueCustomerId, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel_orderInfomationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblCustomerName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblValueCustomerName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextFieldValueNote, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel_orderInfomationLayout.createSequentialGroup()
-                        .addGroup(jPanel_orderInfomationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblValueOrderId, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblOrderId, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(19, 19, 19)
-                        .addGroup(jPanel_orderInfomationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel_orderInfomationLayout.createSequentialGroup()
-                                .addComponent(jComboBoxValueEmployeeId, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(17, 17, 17))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_orderInfomationLayout.createSequentialGroup()
-                                .addComponent(lblEmployeeId, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)))
-                        .addGroup(jPanel_orderInfomationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel_orderInfomationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                                .addComponent(lblOrderDate, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jDateChooserValueOrderDate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lblNote, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        add(jPanel_orderInfomation, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 150));
-
         jPanelScanCode.setLayout(new java.awt.BorderLayout());
-        add(jPanelScanCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 10, 270, 140));
+        add(jPanelScanCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 260, 140));
 
         jPanelCart.setLayout(new java.awt.BorderLayout());
 
-        jTableCart.setModel(new javax.swing.table.DefaultTableModel(
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Đơn giá"
+                "Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Giá", "Thành tiền"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        jScrollPaneCart.setViewportView(jTableCart);
+        jScrollPane2.setViewportView(jTable1);
 
-        jPanelCart.add(jScrollPaneCart, java.awt.BorderLayout.CENTER);
+        jPanelCart.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
-        add(jPanelCart, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 1040, 180));
+        add(jPanelCart, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 700, 190));
 
-        jPanelOrderPay.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        lblTotalAmount.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblTotalAmount.setText("Tổng tiền:");
-        jPanelOrderPay.add(lblTotalAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 30));
-
-        lblDiscount.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblDiscount.setText("Giảm giá:");
-        jPanelOrderPay.add(lblDiscount, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, 30));
-
-        lblValueDiscount.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblValueDiscount.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblValueDiscount.setText("99.999");
-        jPanelOrderPay.add(lblValueDiscount, new org.netbeans.lib.awtextra.AbsoluteConstraints(128, 50, 100, 30));
-
-        lblMustPay.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblMustPay.setText("Phải trả:");
-        jPanelOrderPay.add(lblMustPay, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, 30));
-
-        lblUnit5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblUnit5.setText("VNĐ");
-        jPanelOrderPay.add(lblUnit5, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 170, 40, 30));
-
-        lblReturnMoneyToCustomer.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblReturnMoneyToCustomer.setText("Trả lại khách:");
-        jPanelOrderPay.add(lblReturnMoneyToCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, -1, 30));
-
-        lblValueReturnMoneyToCustomer.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblValueReturnMoneyToCustomer.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblValueReturnMoneyToCustomer.setText("100.000");
-        jPanelOrderPay.add(lblValueReturnMoneyToCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 170, 100, 30));
-
-        lblCustomerMoneyGive.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblCustomerMoneyGive.setText("Tiền khách đưa:");
-        jPanelOrderPay.add(lblCustomerMoneyGive, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, 30));
-
-        jTextFieldValueCustomerMoneyGive.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jTextFieldValueCustomerMoneyGive.setText("100.000.000");
-        jTextFieldValueCustomerMoneyGive.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldValueCustomerMoneyGiveActionPerformed(evt);
-            }
-        });
-        jPanelOrderPay.add(jTextFieldValueCustomerMoneyGive, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 130, 100, 30));
-
-        lblValueMustPay.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblValueMustPay.setForeground(new java.awt.Color(255, 51, 51));
-        lblValueMustPay.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblValueMustPay.setText("99.900.000");
-        jPanelOrderPay.add(lblValueMustPay, new org.netbeans.lib.awtextra.AbsoluteConstraints(128, 90, 100, 30));
-
-        lblUnit2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblUnit2.setText("VNĐ");
-        jPanelOrderPay.add(lblUnit2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 50, 40, 30));
-
-        lblUnit3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblUnit3.setText("VNĐ");
-        jPanelOrderPay.add(lblUnit3, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 90, 40, 30));
-
-        lblUnit4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblUnit4.setText("VNĐ");
-        jPanelOrderPay.add(lblUnit4, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 130, 40, 30));
-
-        lblValueTotalAmount.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblValueTotalAmount.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblValueTotalAmount.setText("99.999.999");
-        jPanelOrderPay.add(lblValueTotalAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 100, 30));
-
-        lblUnit1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblUnit1.setText("VNĐ");
-        jPanelOrderPay.add(lblUnit1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 10, 40, 30));
-
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jButton1.setText("Thanh toán");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jPanelOrderPay.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 290, 130, 40));
-
-        jButtonCancel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButtonCancel.setText("Hủy đơn");
-        jButtonCancel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonCancelActionPerformed(evt);
-            }
-        });
-        jPanelOrderPay.add(jButtonCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, -1, -1));
-
-        jButtonRefresh.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButtonRefresh.setText("Làm mới");
-        jButtonRefresh.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonRefreshActionPerformed(evt);
-            }
-        });
-        jPanelOrderPay.add(jButtonRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 240, -1, -1));
-
-        jButtonCancel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButtonCancel2.setText("Hủy đơn");
-        jButtonCancel2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonCancel2ActionPerformed(evt);
-            }
-        });
-        jPanelOrderPay.add(jButtonCancel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, -1, -1));
-
-        jButtonRefresh2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButtonRefresh2.setText("Làm mới");
-        jButtonRefresh2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonRefresh2ActionPerformed(evt);
-            }
-        });
-        jPanelOrderPay.add(jButtonRefresh2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 240, -1, -1));
-
-        add(jPanelOrderPay, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 360, 280, 350));
-
-        jPanelProductItem.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabelProductImage.setText("Img");
-        jPanelProductItem.add(jLabelProductImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 170, 241));
-
-        lblValueProductId.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblValueProductId.setText("8900767778797");
-        jPanelProductItem.add(lblValueProductId, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 10, -1, 30));
-
-        lblProductId.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblProductId.setText("Mã sản phẩm:");
-        jPanelProductItem.add(lblProductId, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 10, -1, 30));
-
-        lblProductName.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblProductName.setText("Tên sản phẩm:");
-        jPanelProductItem.add(lblProductName, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 40, -1, 30));
-
-        lblValueProductName.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblValueProductName.setText("Đệ nhất kiếm tiền");
-        jPanelProductItem.add(lblValueProductName, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 40, 160, 30));
-
-        lblProductQuantity.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblProductQuantity.setText("Số lượng");
-        jPanelProductItem.add(lblProductQuantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 130, -1, 30));
-
-        lblValueProductQuantity.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblValueProductQuantity.setText("1.000");
-        jPanelProductItem.add(lblValueProductQuantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 130, 120, 30));
-
-        lblUnit6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblUnit6.setText("VNĐ");
-        jPanelProductItem.add(lblUnit6, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 100, -1, 30));
-
-        lblValueProductPrice.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblValueProductPrice.setText("199.000");
-        jPanelProductItem.add(lblValueProductPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 100, 120, 30));
-
-        jButtonRefresh1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButtonRefresh1.setText("Thêm");
-        jButtonRefresh1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonRefresh1ActionPerformed(evt);
-            }
-        });
-        jPanelProductItem.add(jButtonRefresh1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 190, 80, 30));
-
-        lblAuthor.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblAuthor.setText("Tác giả:");
-        jPanelProductItem.add(lblAuthor, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, -1, 30));
-
-        lblVAlueAuthor.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblVAlueAuthor.setText("Huấn Rose");
-        jPanelProductItem.add(lblVAlueAuthor, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, 160, 30));
-
-        lblProductPrice.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblProductPrice.setText("Giá:");
-        jPanelProductItem.add(lblProductPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, -1, 30));
-
-        jPanelProductItem1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabelProductImage1.setText("Img");
-        jPanelProductItem1.add(jLabelProductImage1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 170, 241));
-
-        lblValueProductId1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblValueProductId1.setText("8900767778797");
-        jPanelProductItem1.add(lblValueProductId1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 10, -1, 30));
-
-        lblProductId1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblProductId1.setText("Mã sản phẩm:");
-        jPanelProductItem1.add(lblProductId1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 10, -1, 30));
-
-        lblProductName1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblProductName1.setText("Tên sản phẩm:");
-        jPanelProductItem1.add(lblProductName1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 40, -1, 30));
-
-        lblValueProductName1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblValueProductName1.setText("Đệ nhất kiếm tiền");
-        jPanelProductItem1.add(lblValueProductName1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 40, 160, 30));
-
-        lblProductQuantity1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblProductQuantity1.setText("Số lượng");
-        jPanelProductItem1.add(lblProductQuantity1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 130, -1, 30));
-
-        lblValueProductQuantity1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblValueProductQuantity1.setText("1.000");
-        jPanelProductItem1.add(lblValueProductQuantity1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 130, 120, 30));
-
-        lblUnit7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblUnit7.setText("VNĐ");
-        jPanelProductItem1.add(lblUnit7, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 100, -1, 30));
-
-        lblValueProductPrice1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblValueProductPrice1.setText("199.000");
-        jPanelProductItem1.add(lblValueProductPrice1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 100, 120, 30));
-
-        jButtonRefresh4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButtonRefresh4.setText("Thêm");
-        jButtonRefresh4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonRefresh4ActionPerformed(evt);
-            }
-        });
-        jPanelProductItem1.add(jButtonRefresh4, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 190, 80, 30));
-
-        lblAuthor1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblAuthor1.setText("Tác giả:");
-        jPanelProductItem1.add(lblAuthor1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, -1, 30));
-
-        lblVAlueAuthor1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblVAlueAuthor1.setText("Huấn Rose");
-        jPanelProductItem1.add(lblVAlueAuthor1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, 160, 30));
-
-        lblProductPrice1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblProductPrice1.setText("Giá:");
-        jPanelProductItem1.add(lblProductPrice1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, -1, 30));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanelProductItem, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanelProductItem1, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanelProductItem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanelProductItem1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 0, 0))
-        );
-
-        jScrollPaneListProduct.setViewportView(jPanel1);
-
-        javax.swing.GroupLayout panelListProductLayout = new javax.swing.GroupLayout(panelListProduct);
-        panelListProduct.setLayout(panelListProductLayout);
-        panelListProductLayout.setHorizontalGroup(
-            panelListProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPaneListProduct, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE)
-        );
-        panelListProductLayout.setVerticalGroup(
-            panelListProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelListProductLayout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(jScrollPaneListProduct, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE))
-        );
-
-        add(panelListProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 450, 730, 260));
-
-        jTextFieldValueSearchProduct.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jTextFieldValueSearchProduct.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jTextFieldValueSearchProduct.setText("8900767778797");
         jTextFieldValueSearchProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldValueSearchProductActionPerformed(evt);
             }
         });
-        add(jTextFieldValueSearchProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 410, 170, 30));
+        add(jTextFieldValueSearchProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 380, 140, 30));
 
-        lblCategory.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblCategory.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblCategory.setText("Danh mục:");
-        add(lblCategory, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 410, -1, 30));
+        add(lblCategory, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 380, -1, 30));
 
-        jButtonCancel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButtonCancel1.setText("Xóa tất cả");
-        jButtonCancel1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonCancel1ActionPerformed(evt);
-            }
-        });
-        add(jButtonCancel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 360, 110, 30));
-
-        lblSearchProduct.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblSearchProduct.setText("Tìm kiếm sản phẩm:");
-        add(lblSearchProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 410, -1, 30));
-
-        jButtonCancel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButtonCancel3.setText("Tìm");
-        jButtonCancel3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonCancel3ActionPerformed(evt);
-            }
-        });
-        add(jButtonCancel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 410, 90, 30));
+        lblSearchProduct.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblSearchProduct.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblSearchProduct.setText("1/4");
+        add(lblSearchProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 710, 40, 30));
 
         jComboBoxValueCategory.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBoxValueCategory.addActionListener(new java.awt.event.ActionListener() {
@@ -646,16 +281,546 @@ public class JPanel_BanHang extends javax.swing.JPanel {
                 jComboBoxValueCategoryActionPerformed(evt);
             }
         });
-        add(jComboBoxValueCategory, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 410, 158, 30));
+        add(jComboBoxValueCategory, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 380, 140, 30));
 
-        jButtonRefresh3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButtonRefresh3.setText("Xóa");
+        jButtonRefresh3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButtonRefresh3.setText(">>");
         jButtonRefresh3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonRefresh3ActionPerformed(evt);
             }
         });
-        add(jButtonRefresh3, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 360, 80, 30));
+        add(jButtonRefresh3, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 710, 60, 30));
+
+        jPanelOrderPay.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jpPay1.setBackground(new java.awt.Color(255, 255, 255));
+        jpPay1.setRoundedBottomLeft(10);
+        jpPay1.setRoundedBottomRight(10);
+        jpPay1.setRoundedTopLeft(10);
+        jpPay1.setRoundedTopRight(10);
+        jpPay1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jpPay1MouseClicked(evt);
+            }
+        });
+        jpPay1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblPay1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblPay1.setText("Thanh toán");
+        jpPay1.add(lblPay1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 90, 40));
+
+        svgPay1.setText(" ");
+        jpPay1.add(svgPay1, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
+
+        jPanelOrderPay.add(jpPay1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 620, 130, 40));
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Chi tiết"));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblTotalAmount.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblTotalAmount.setText("Tổng tiền:");
+        jPanel2.add(lblTotalAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, 30));
+
+        lblDiscount.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblDiscount.setText("Giảm giá:");
+        jPanel2.add(lblDiscount, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, 30));
+
+        lblMustPay.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblMustPay.setText("Phải trả:");
+        jPanel2.add(lblMustPay, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, 30));
+
+        lblCustomerMoneyGive.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblCustomerMoneyGive.setText("Tiền khách đưa:");
+        jPanel2.add(lblCustomerMoneyGive, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, -1, 30));
+
+        lblReturnMoneyToCustomer.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblReturnMoneyToCustomer.setText("Trả lại khách:");
+        jPanel2.add(lblReturnMoneyToCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, -1, 30));
+
+        jTextFieldValueCustomerMoneyGive.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jTextFieldValueCustomerMoneyGive.setText("100.000.000");
+        jTextFieldValueCustomerMoneyGive.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldValueCustomerMoneyGiveActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jTextFieldValueCustomerMoneyGive, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 150, 100, 30));
+
+        lblValueReturnMoneyToCustomer.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblValueReturnMoneyToCustomer.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblValueReturnMoneyToCustomer.setText("100.000");
+        jPanel2.add(lblValueReturnMoneyToCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 190, 100, 30));
+
+        lblUnit5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblUnit5.setText("VNĐ");
+        jPanel2.add(lblUnit5, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 190, 30, 30));
+
+        lblUnit4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblUnit4.setText("VNĐ");
+        jPanel2.add(lblUnit4, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 150, 30, 30));
+
+        lblUnit3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblUnit3.setForeground(new java.awt.Color(255, 51, 51));
+        lblUnit3.setText("VNĐ");
+        jPanel2.add(lblUnit3, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 110, 30, 30));
+
+        lblUnit2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblUnit2.setText("VNĐ");
+        jPanel2.add(lblUnit2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 70, 30, 30));
+
+        lblUnit1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblUnit1.setText("VNĐ");
+        jPanel2.add(lblUnit1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 30, 30, 30));
+
+        lblValueTotalAmount.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblValueTotalAmount.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblValueTotalAmount.setText("99.999.999");
+        jPanel2.add(lblValueTotalAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 100, 30));
+
+        lblValueDiscount.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblValueDiscount.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblValueDiscount.setText("99.999");
+        jPanel2.add(lblValueDiscount, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 70, 100, 30));
+
+        lblValueMustPay.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblValueMustPay.setForeground(new java.awt.Color(255, 51, 51));
+        lblValueMustPay.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblValueMustPay.setText("99.900.000");
+        jPanel2.add(lblValueMustPay, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 110, 100, 30));
+
+        lblNote.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblNote.setText("Ghi chú:");
+        jPanel2.add(lblNote, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 90, 30));
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
+
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 230, 140, 100));
+
+        jPanelOrderPay.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 300, 340));
+
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin chung"));
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblOrderId.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblOrderId.setText("Mã đơn hàng:");
+        jPanel4.add(lblOrderId, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 90, 30));
+
+        lblValueOrderId.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblValueOrderId.setText("HD001");
+        jPanel4.add(lblValueOrderId, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, 160, 30));
+
+        lblOrderDate.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblOrderDate.setText("01/01/2024 15:39 AM");
+        jPanel4.add(lblOrderDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, 160, 30));
+
+        jComboBoxValueEmployeeId.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxValueEmployeeId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxValueEmployeeIdActionPerformed(evt);
+            }
+        });
+        jPanel4.add(jComboBoxValueEmployeeId, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, 160, 30));
+
+        lblEmployeeId.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblEmployeeId.setText("Mã nhân viên:");
+        jPanel4.add(lblEmployeeId, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 90, 30));
+
+        lblCustomerId.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblCustomerId.setText("Mã khách hàng:");
+        jPanel4.add(lblCustomerId, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 90, 30));
+
+        jComboBoxValueCustomerId.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxValueCustomerId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxValueCustomerIdActionPerformed(evt);
+            }
+        });
+        jPanel4.add(jComboBoxValueCustomerId, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 140, 160, 30));
+
+        lblCustomerName.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblCustomerName.setText("Tên khách hàng:");
+        jPanel4.add(lblCustomerName, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, -1, 30));
+
+        lblValueCustomerName.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblValueCustomerName.setText("Nguyễn Văn A");
+        jPanel4.add(lblValueCustomerName, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, 160, 30));
+
+        lblOrderDate1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblOrderDate1.setText("Ngày tạo:");
+        jPanel4.add(lblOrderDate1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 90, 30));
+
+        jPanelOrderPay.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 300, 250));
+
+        jTabbedPane2.addTab("Đơn hàng", jPanelOrderPay);
+
+        jPanelOrderPay2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin chung"));
+        jPanel12.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblOrderId2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblOrderId2.setText("Mã đơn hàng:");
+        jPanel12.add(lblOrderId2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 90, 30));
+
+        lblValueOrderId2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblValueOrderId2.setText("HD001");
+        jPanel12.add(lblValueOrderId2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, 160, 30));
+
+        lblOrderDate2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblOrderDate2.setText("Ngày tạo:");
+        jPanel12.add(lblOrderDate2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 90, 30));
+
+        jComboBoxValueEmployeeId2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxValueEmployeeId2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxValueEmployeeId2ActionPerformed(evt);
+            }
+        });
+        jPanel12.add(jComboBoxValueEmployeeId2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, 160, 30));
+
+        lblEmployeeId2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblEmployeeId2.setText("Mã nhân viên:");
+        jPanel12.add(lblEmployeeId2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 90, 30));
+
+        lblCustomerName3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblCustomerName3.setText("Tên khách hàng:");
+        jPanel12.add(lblCustomerName3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, 30));
+
+        jTextFieldValueCustomerMoneyGive1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jTextFieldValueCustomerMoneyGive1.setText("Bành Văn A");
+        jTextFieldValueCustomerMoneyGive1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldValueCustomerMoneyGive1ActionPerformed(evt);
+            }
+        });
+        jPanel12.add(jTextFieldValueCustomerMoneyGive1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 140, 160, 30));
+
+        lblNote3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblNote3.setText("Địa chỉ:");
+        jPanel12.add(lblNote3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 90, 30));
+
+        jTextArea4.setColumns(20);
+        jTextArea4.setRows(5);
+        jScrollPane4.setViewportView(jTextArea4);
+
+        jPanel12.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, 160, 90));
+
+        lblOrderDate3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblOrderDate3.setText("01/01/2024 15:39 AM");
+        jPanel12.add(lblOrderDate3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, 160, 30));
+
+        jPanelOrderPay2.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 300, 280));
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Chi tiết"));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblTotalAmount1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblTotalAmount1.setText("Tổng tiền:");
+        jPanel3.add(lblTotalAmount1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, 30));
+
+        lblDiscount1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblDiscount1.setText("Giảm giá:");
+        jPanel3.add(lblDiscount1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, 30));
+
+        lblMustPay1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblMustPay1.setText("Phải trả:");
+        jPanel3.add(lblMustPay1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, 30));
+
+        lblUnit10.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblUnit10.setForeground(new java.awt.Color(255, 51, 51));
+        lblUnit10.setText("VNĐ");
+        jPanel3.add(lblUnit10, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 110, 30, 30));
+
+        lblUnit11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblUnit11.setText("VNĐ");
+        jPanel3.add(lblUnit11, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 70, 30, 30));
+
+        lblUnit12.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblUnit12.setText("VNĐ");
+        jPanel3.add(lblUnit12, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 30, 30, 30));
+
+        lblValueTotalAmount1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblValueTotalAmount1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblValueTotalAmount1.setText("99.999.999");
+        jPanel3.add(lblValueTotalAmount1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 100, 30));
+
+        lblValueDiscount1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblValueDiscount1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblValueDiscount1.setText("99.999");
+        jPanel3.add(lblValueDiscount1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 70, 100, 30));
+
+        lblValueMustPay1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblValueMustPay1.setForeground(new java.awt.Color(255, 51, 51));
+        lblValueMustPay1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblValueMustPay1.setText("99.900.000");
+        jPanel3.add(lblValueMustPay1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 110, 100, 30));
+
+        lblNote2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblNote2.setText("Ghi chú:");
+        jPanel3.add(lblNote2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 90, 30));
+
+        jTextArea3.setColumns(20);
+        jTextArea3.setRows(5);
+        jScrollPane3.setViewportView(jTextArea3);
+
+        jPanel3.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 150, 140, 100));
+
+        jPanelOrderPay2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 300, 290));
+
+        jpPay2.setBackground(new java.awt.Color(255, 255, 255));
+        jpPay2.setRoundedBottomLeft(10);
+        jpPay2.setRoundedBottomRight(10);
+        jpPay2.setRoundedTopLeft(10);
+        jpPay2.setRoundedTopRight(10);
+        jpPay2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jpPay2MouseClicked(evt);
+            }
+        });
+        jpPay2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblPay2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblPay2.setText("Giao hàng");
+        jpPay2.add(lblPay2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 90, 40));
+
+        svgPay2.setText(" ");
+        jpPay2.add(svgPay2, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
+
+        jPanelOrderPay2.add(jpPay2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 620, 130, 40));
+
+        jTabbedPane2.addTab("Đặt hàng", jPanelOrderPay2);
+
+        add(jTabbedPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 10, 320, 720));
+
+        pnlPay.setBackground(new java.awt.Color(255, 255, 255));
+        pnlPay.setRoundedBottomLeft(10);
+        pnlPay.setRoundedBottomRight(10);
+        pnlPay.setRoundedTopLeft(10);
+        pnlPay.setRoundedTopRight(10);
+        pnlPay.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pnlPayMouseClicked(evt);
+            }
+        });
+        pnlPay.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblDeleteAll.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblDeleteAll.setText("Xóa tất cả");
+        pnlPay.add(lblDeleteAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 60, 30));
+
+        svgDeleteAll.setText(" ");
+        pnlPay.add(svgDeleteAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 20, 20));
+
+        add(pnlPay, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 110, 90, 30));
+
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách sản phẩm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
+        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblValueProductPrice1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblValueProductPrice1.setForeground(new java.awt.Color(255, 51, 51));
+        lblValueProductPrice1.setText("2.000.000");
+        jPanel6.add(lblValueProductPrice1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 90, 30));
+
+        lblProductPrice1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblProductPrice1.setText("Giá:");
+        jPanel6.add(lblProductPrice1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, -1, 30));
+
+        lblProductQuantity1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblProductQuantity1.setText("Số lượng:");
+        jPanel6.add(lblProductQuantity1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, -1, 30));
+
+        lblValueProductQuantity1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblValueProductQuantity1.setForeground(new java.awt.Color(255, 51, 51));
+        lblValueProductQuantity1.setText("1.000");
+        jPanel6.add(lblValueProductQuantity1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, 50, 30));
+
+        lblValueProductName1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblValueProductName1.setText("Đệ nhất kiếm tiền");
+        jPanel6.add(lblValueProductName1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 160, 30));
+
+        jLabelProductImage1.setText("Img");
+        jPanel6.add(jLabelProductImage1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 160, 150));
+
+        jPanel5.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 160, 250));
+
+        jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblValueProductPrice2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblValueProductPrice2.setForeground(new java.awt.Color(255, 51, 51));
+        lblValueProductPrice2.setText("2.000.000");
+        jPanel7.add(lblValueProductPrice2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 90, 30));
+
+        lblProductPrice2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblProductPrice2.setText("Giá:");
+        jPanel7.add(lblProductPrice2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, -1, 30));
+
+        lblProductQuantity2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblProductQuantity2.setText("Số lượng:");
+        jPanel7.add(lblProductQuantity2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, -1, 30));
+
+        lblValueProductQuantity2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblValueProductQuantity2.setForeground(new java.awt.Color(255, 51, 51));
+        lblValueProductQuantity2.setText("1.000");
+        jPanel7.add(lblValueProductQuantity2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, 50, 30));
+
+        lblValueProductName2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblValueProductName2.setText("Đệ nhất kiếm tiền");
+        jPanel7.add(lblValueProductName2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 160, 30));
+
+        jLabelProductImage2.setText("Img");
+        jPanel7.add(jLabelProductImage2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 160, 150));
+
+        jPanel5.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 20, 160, -1));
+
+        jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblValueProductPrice4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblValueProductPrice4.setForeground(new java.awt.Color(255, 51, 51));
+        lblValueProductPrice4.setText("2.000.000");
+        jPanel9.add(lblValueProductPrice4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 90, 30));
+
+        lblProductPrice4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblProductPrice4.setText("Giá:");
+        jPanel9.add(lblProductPrice4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, -1, 30));
+
+        lblProductQuantity4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblProductQuantity4.setText("Số lượng:");
+        jPanel9.add(lblProductQuantity4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, -1, 30));
+
+        lblValueProductQuantity4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblValueProductQuantity4.setForeground(new java.awt.Color(255, 51, 51));
+        lblValueProductQuantity4.setText("1.000");
+        jPanel9.add(lblValueProductQuantity4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, 50, 30));
+
+        lblValueProductName4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblValueProductName4.setText("Đệ nhất kiếm tiền");
+        jPanel9.add(lblValueProductName4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 160, 30));
+
+        jLabelProductImage4.setText("Img");
+        jPanel9.add(jLabelProductImage4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 160, 150));
+
+        jPanel5.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 20, 160, -1));
+
+        jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblValueProductPrice3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblValueProductPrice3.setForeground(new java.awt.Color(255, 51, 51));
+        lblValueProductPrice3.setText("2.000.000");
+        jPanel8.add(lblValueProductPrice3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 90, 30));
+
+        lblProductPrice3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblProductPrice3.setText("Giá:");
+        jPanel8.add(lblProductPrice3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, -1, 30));
+
+        lblProductQuantity3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblProductQuantity3.setText("Số lượng:");
+        jPanel8.add(lblProductQuantity3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, -1, 30));
+
+        lblValueProductQuantity3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblValueProductQuantity3.setForeground(new java.awt.Color(255, 51, 51));
+        lblValueProductQuantity3.setText("1.000");
+        jPanel8.add(lblValueProductQuantity3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, 50, 30));
+
+        lblValueProductName3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblValueProductName3.setText("Đệ nhất kiếm tiền");
+        jPanel8.add(lblValueProductName3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 160, 30));
+
+        jLabelProductImage3.setText("Img");
+        jPanel8.add(jLabelProductImage3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 160, 150));
+
+        jPanel5.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 20, 160, -1));
+
+        add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 420, 700, 280));
+
+        jButtonRefresh5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButtonRefresh5.setText("<<");
+        jButtonRefresh5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRefresh5ActionPerformed(evt);
+            }
+        });
+        add(jButtonRefresh5, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 710, 60, 30));
+
+        lblSearchProduct1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblSearchProduct1.setText("Tìm kiếm sản phẩm:");
+        add(lblSearchProduct1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, -1, 30));
+
+        chkOrder.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        chkOrder.setText("Đặt hàng");
+        chkOrder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkOrderActionPerformed(evt);
+            }
+        });
+        add(chkOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 50, -1, 30));
+
+        jpSearch.setBackground(new java.awt.Color(255, 255, 255));
+        jpSearch.setRoundedBottomLeft(10);
+        jpSearch.setRoundedBottomRight(10);
+        jpSearch.setRoundedTopLeft(10);
+        jpSearch.setRoundedTopRight(10);
+        jpSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jpSearchMouseClicked(evt);
+            }
+        });
+        jpSearch.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblSearch.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblSearch.setText("Tìm");
+        jpSearch.add(lblSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 30, 30));
+
+        svgSearch.setText(" ");
+        jpSearch.add(svgSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 20, 20));
+
+        add(jpSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 380, -1, 30));
+
+        pnlDelete.setBackground(new java.awt.Color(255, 255, 255));
+        pnlDelete.setRoundedBottomLeft(10);
+        pnlDelete.setRoundedBottomRight(10);
+        pnlDelete.setRoundedTopLeft(10);
+        pnlDelete.setRoundedTopRight(10);
+        pnlDelete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pnlDeleteMouseClicked(evt);
+            }
+        });
+        pnlDelete.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblDelete.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblDelete.setText("Xóa");
+        pnlDelete.add(lblDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 30, 30));
+
+        svgDelete.setText(" ");
+        pnlDelete.add(svgDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 20, 20));
+
+        add(pnlDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 110, -1, 30));
+
+        pnlCreateInvoice.setBackground(new java.awt.Color(255, 255, 255));
+        pnlCreateInvoice.setRoundedBottomLeft(10);
+        pnlCreateInvoice.setRoundedBottomRight(10);
+        pnlCreateInvoice.setRoundedTopLeft(10);
+        pnlCreateInvoice.setRoundedTopRight(10);
+        pnlCreateInvoice.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pnlCreateInvoiceMouseClicked(evt);
+            }
+        });
+        pnlCreateInvoice.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblCreateInvoice.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblCreateInvoice.setText("Tạo hóa đơn");
+        pnlCreateInvoice.add(lblCreateInvoice, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 70, 30));
+
+        svgCreateInvoice.setText(" ");
+        pnlCreateInvoice.add(svgCreateInvoice, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 20, 20));
+
+        add(pnlCreateInvoice, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 50, 110, 30));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboBoxValueEmployeeIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxValueEmployeeIdActionPerformed
@@ -670,41 +835,9 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldValueCustomerMoneyGiveActionPerformed
 
-    private void jTextFieldValueNoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldValueNoteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldValueNoteActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonCancelActionPerformed
-
-    private void jButtonRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRefreshActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonRefreshActionPerformed
-
     private void jTextFieldValueSearchProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldValueSearchProductActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldValueSearchProductActionPerformed
-
-    private void jButtonCancel2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancel2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonCancel2ActionPerformed
-
-    private void jButtonRefresh2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRefresh2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonRefresh2ActionPerformed
-
-    private void jButtonCancel1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancel1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonCancel1ActionPerformed
-
-    private void jButtonCancel3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancel3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonCancel3ActionPerformed
 
     private void jComboBoxValueCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxValueCategoryActionPerformed
         // TODO add your handling code here:
@@ -714,91 +847,164 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonRefresh3ActionPerformed
 
-    private void jButtonRefresh1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRefresh1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonRefresh1ActionPerformed
+    private void pnlPayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlPayMouseClicked
 
-    private void jButtonRefresh4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRefresh4ActionPerformed
+    }//GEN-LAST:event_pnlPayMouseClicked
+
+    private void jpPay1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpPay1MouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonRefresh4ActionPerformed
+    }//GEN-LAST:event_jpPay1MouseClicked
+
+    private void jButtonRefresh5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRefresh5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonRefresh5ActionPerformed
+
+    private void jComboBoxValueEmployeeId2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxValueEmployeeId2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxValueEmployeeId2ActionPerformed
+
+    private void jTextFieldValueCustomerMoneyGive1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldValueCustomerMoneyGive1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldValueCustomerMoneyGive1ActionPerformed
+
+    private void jpPay2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpPay2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jpPay2MouseClicked
+
+    private void chkOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkOrderActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chkOrderActionPerformed
+
+    private void jpSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpSearchMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jpSearchMouseClicked
+
+    private void pnlDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlDeleteMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pnlDeleteMouseClicked
+
+    private void pnlCreateInvoiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlCreateInvoiceMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pnlCreateInvoiceMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButtonCancel;
-    private javax.swing.JButton jButtonCancel1;
-    private javax.swing.JButton jButtonCancel2;
-    private javax.swing.JButton jButtonCancel3;
-    private javax.swing.JButton jButtonRefresh;
-    private javax.swing.JButton jButtonRefresh1;
-    private javax.swing.JButton jButtonRefresh2;
+    private javax.swing.JCheckBox chkOrder;
     private javax.swing.JButton jButtonRefresh3;
-    private javax.swing.JButton jButtonRefresh4;
+    private javax.swing.JButton jButtonRefresh5;
     private javax.swing.JComboBox<String> jComboBoxValueCategory;
     private javax.swing.JComboBox<String> jComboBoxValueCustomerId;
     private javax.swing.JComboBox<String> jComboBoxValueEmployeeId;
-    private com.toedter.calendar.JDateChooser jDateChooserValueOrderDate;
-    private javax.swing.JLabel jLabelProductImage;
+    private javax.swing.JComboBox<String> jComboBoxValueEmployeeId2;
     private javax.swing.JLabel jLabelProductImage1;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabelProductImage2;
+    private javax.swing.JLabel jLabelProductImage3;
+    private javax.swing.JLabel jLabelProductImage4;
+    private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JPanel jPanelCart;
     private javax.swing.JPanel jPanelOrderPay;
-    private javax.swing.JPanel jPanelProductItem;
-    private javax.swing.JPanel jPanelProductItem1;
+    private javax.swing.JPanel jPanelOrderPay2;
     private javax.swing.JPanel jPanelScanCode;
-    private javax.swing.JPanel jPanel_orderInfomation;
-    private javax.swing.JScrollPane jScrollPaneCart;
-    private javax.swing.JScrollPane jScrollPaneListProduct;
-    private javax.swing.JTable jTableCart;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JTabbedPane jTabbedPane2;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea jTextArea3;
+    private javax.swing.JTextArea jTextArea4;
     private javax.swing.JTextField jTextFieldValueCustomerMoneyGive;
-    private javax.swing.JTextField jTextFieldValueNote;
+    private javax.swing.JTextField jTextFieldValueCustomerMoneyGive1;
     private javax.swing.JTextField jTextFieldValueSearchProduct;
-    private javax.swing.JLabel lblAuthor;
-    private javax.swing.JLabel lblAuthor1;
+    private util.JPanelRounded jpPay1;
+    private util.JPanelRounded jpPay2;
+    private util.JPanelRounded jpSearch;
     private javax.swing.JLabel lblCategory;
+    private javax.swing.JLabel lblCreateInvoice;
     private javax.swing.JLabel lblCustomerId;
     private javax.swing.JLabel lblCustomerMoneyGive;
     private javax.swing.JLabel lblCustomerName;
+    private javax.swing.JLabel lblCustomerName3;
+    private javax.swing.JLabel lblDelete;
+    private javax.swing.JLabel lblDeleteAll;
     private javax.swing.JLabel lblDiscount;
+    private javax.swing.JLabel lblDiscount1;
     private javax.swing.JLabel lblEmployeeId;
+    private javax.swing.JLabel lblEmployeeId2;
     private javax.swing.JLabel lblMustPay;
+    private javax.swing.JLabel lblMustPay1;
     private javax.swing.JLabel lblNote;
+    private javax.swing.JLabel lblNote2;
+    private javax.swing.JLabel lblNote3;
     private javax.swing.JLabel lblOrderDate;
+    private javax.swing.JLabel lblOrderDate1;
+    private javax.swing.JLabel lblOrderDate2;
+    private javax.swing.JLabel lblOrderDate3;
     private javax.swing.JLabel lblOrderId;
-    private javax.swing.JLabel lblProductId;
-    private javax.swing.JLabel lblProductId1;
-    private javax.swing.JLabel lblProductName;
-    private javax.swing.JLabel lblProductName1;
-    private javax.swing.JLabel lblProductPrice;
+    private javax.swing.JLabel lblOrderId2;
+    private javax.swing.JLabel lblPay1;
+    private javax.swing.JLabel lblPay2;
     private javax.swing.JLabel lblProductPrice1;
-    private javax.swing.JLabel lblProductQuantity;
+    private javax.swing.JLabel lblProductPrice2;
+    private javax.swing.JLabel lblProductPrice3;
+    private javax.swing.JLabel lblProductPrice4;
     private javax.swing.JLabel lblProductQuantity1;
+    private javax.swing.JLabel lblProductQuantity2;
+    private javax.swing.JLabel lblProductQuantity3;
+    private javax.swing.JLabel lblProductQuantity4;
     private javax.swing.JLabel lblReturnMoneyToCustomer;
+    private javax.swing.JLabel lblSearch;
     private javax.swing.JLabel lblSearchProduct;
+    private javax.swing.JLabel lblSearchProduct1;
     private javax.swing.JLabel lblTotalAmount;
+    private javax.swing.JLabel lblTotalAmount1;
     private javax.swing.JLabel lblUnit1;
+    private javax.swing.JLabel lblUnit10;
+    private javax.swing.JLabel lblUnit11;
+    private javax.swing.JLabel lblUnit12;
     private javax.swing.JLabel lblUnit2;
     private javax.swing.JLabel lblUnit3;
     private javax.swing.JLabel lblUnit4;
     private javax.swing.JLabel lblUnit5;
-    private javax.swing.JLabel lblUnit6;
-    private javax.swing.JLabel lblUnit7;
-    private javax.swing.JLabel lblVAlueAuthor;
-    private javax.swing.JLabel lblVAlueAuthor1;
     private javax.swing.JLabel lblValueCustomerName;
     private javax.swing.JLabel lblValueDiscount;
+    private javax.swing.JLabel lblValueDiscount1;
     private javax.swing.JLabel lblValueMustPay;
+    private javax.swing.JLabel lblValueMustPay1;
     private javax.swing.JLabel lblValueOrderId;
-    private javax.swing.JLabel lblValueProductId;
-    private javax.swing.JLabel lblValueProductId1;
-    private javax.swing.JLabel lblValueProductName;
+    private javax.swing.JLabel lblValueOrderId2;
     private javax.swing.JLabel lblValueProductName1;
-    private javax.swing.JLabel lblValueProductPrice;
+    private javax.swing.JLabel lblValueProductName2;
+    private javax.swing.JLabel lblValueProductName3;
+    private javax.swing.JLabel lblValueProductName4;
     private javax.swing.JLabel lblValueProductPrice1;
-    private javax.swing.JLabel lblValueProductQuantity;
+    private javax.swing.JLabel lblValueProductPrice2;
+    private javax.swing.JLabel lblValueProductPrice3;
+    private javax.swing.JLabel lblValueProductPrice4;
     private javax.swing.JLabel lblValueProductQuantity1;
+    private javax.swing.JLabel lblValueProductQuantity2;
+    private javax.swing.JLabel lblValueProductQuantity3;
+    private javax.swing.JLabel lblValueProductQuantity4;
     private javax.swing.JLabel lblValueReturnMoneyToCustomer;
     private javax.swing.JLabel lblValueTotalAmount;
-    private javax.swing.JPanel panelListProduct;
+    private javax.swing.JLabel lblValueTotalAmount1;
+    private util.JPanelRounded pnlCreateInvoice;
+    private util.JPanelRounded pnlDelete;
+    private util.JPanelRounded pnlPay;
+    private util.SVGImage svgCreateInvoice;
+    private util.SVGImage svgDelete;
+    private util.SVGImage svgDeleteAll;
+    private util.SVGImage svgPay1;
+    private util.SVGImage svgPay2;
+    private util.SVGImage svgSearch;
     // End of variables declaration//GEN-END:variables
 }

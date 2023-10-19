@@ -93,6 +93,7 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
+                pnView.add(new JPanel_SanPham());
                 pnView.repaint();
                 pnView.revalidate();
             }
@@ -131,6 +132,7 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
+                pnView.add(new JPhanel_HoaDon());
                 pnView.repaint();
                 pnView.revalidate();
             }
