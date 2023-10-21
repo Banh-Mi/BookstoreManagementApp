@@ -10,7 +10,7 @@ public interface InterfaceDAO<T> {
 
     public ArrayList<T> selectAll();
 
-    public T selectbyId(String id);
+    public T selectbyId(T t);
 
     public int insert(T t);
 

@@ -28,6 +28,7 @@ public class JPanel_SanPham extends javax.swing.JPanel {
 
     private DefaultTableModel modelSanPham;
     private SanPhamDAO sanPhamDAO = new SanPhamDAO();
+    private NhaCungCapDAO nhaCungCapDAO = new NhaCungCapDAO();
     private String selectedImagePath;
 
     public JPanel_SanPham() {
@@ -37,11 +38,11 @@ public class JPanel_SanPham extends javax.swing.JPanel {
         svgDelete.setSvgImage("delete.svg", 30, 30);
         svgRefresh.setSvgImage("refresh.svg", 25, 25);
         modelSanPham = (DefaultTableModel) tbl_ListProduct.getModel();
-        loadListProduct();
+        loadData();
 
     }
 
-    public void loadListProduct() {
+    public void loadData() {
         ArrayList<SanPham> danhSachSanPham = sanPhamDAO.selectAll();
         addDataToTable(danhSachSanPham);
 
@@ -50,6 +51,7 @@ public class JPanel_SanPham extends javax.swing.JPanel {
         rightRenderer.setHorizontalAlignment(SwingConstants.RIGHT);
         tbl_ListProduct.getColumnModel().getColumn(10).setCellRenderer(rightRenderer);
 
+        cb_Category.removeAllItems();
         cb_Category.addItem("Sách");
         cb_Category.addItem("Dụng cụ học tập");
         cb_Category.addItem("Văn phòng phẩm");
@@ -57,7 +59,7 @@ public class JPanel_SanPham extends javax.swing.JPanel {
         cb_Category.addItem("Quà lưu niệm");
         cb_Category.setSelectedIndex(-1);
 
-        NhaCungCapDAO nhaCungCapDAO = new NhaCungCapDAO();
+        cb_Supplier.removeAllItems();
         for (NhaCungCap nhaCungCap : nhaCungCapDAO.getAllNhaCungCap()) {
             cb_Supplier.addItem(nhaCungCap.getTenNhaCC());
         }
@@ -69,10 +71,11 @@ public class JPanel_SanPham extends javax.swing.JPanel {
 
     public void addDataToTable(ArrayList<SanPham> danhSachSanPham) {
         modelSanPham.setRowCount(0);
-        NhaCungCapDAO nhaCungCapDAO = new NhaCungCapDAO();
         for (SanPham sanPham : danhSachSanPham) {
-            String[] data = {sanPham.getMaSanPham(), sanPham.getTenSanPham(), sanPham.getDanhMuc(), (nhaCungCapDAO.searchNhaCungCap(sanPham.getMaNhaCC())).getTenNhaCC(), sanPham.getDonViTinh(), sanPham.getTacGia(), sanPham.getNhaXuatBan(), sanPham.getNamXuatBan() + "", sanPham.getSoTrang() + "", sanPham.getSoLuong() + "", sanPham.getGia() + "", sanPham.getHinhAnh(), sanPham.getMoTa()};
-            modelSanPham.addRow(data);
+            if (sanPham.isTrangThai()) {
+                String[] data = {sanPham.getMaSanPham(), sanPham.getTenSanPham(), sanPham.getDanhMuc(), (nhaCungCapDAO.searchNhaCungCap(sanPham.getMaNhaCC())).getTenNhaCC(), sanPham.getDonViTinh(), sanPham.getTacGia(), sanPham.getNhaXuatBan(), sanPham.getNamXuatBan() == 0 ? "" : sanPham.getNamXuatBan() + "", sanPham.getSoTrang() == 0 ? "" : sanPham.getSoTrang() + "", sanPham.getSoLuong() + "", sanPham.getGia() + "", sanPham.getHinhAnh(), sanPham.getMoTa()};
+                modelSanPham.addRow(data);
+            }
         }
     }
 
@@ -326,9 +329,6 @@ public class JPanel_SanPham extends javax.swing.JPanel {
             }
         });
         scr_LisrProduct.setViewportView(tbl_ListProduct);
-        if (tbl_ListProduct.getColumnModel().getColumnCount() > 0) {
-            tbl_ListProduct.getColumnModel().getColumn(11).setHeaderValue("Hình ảnh");
-        }
 
         pnl_ProductInfomation1.add(scr_LisrProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 1010, 290));
 
@@ -464,21 +464,31 @@ public class JPanel_SanPham extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!");
             } else {
                 if (checkCondition(cb_Category.getSelectedItem() + "")) {
-                    String maSanPham = txt_ProductId.getText();
-                    String tenSanPham = txt_ProductName.getText();
-                    String danhMuc = cb_Category.getSelectedItem()+"";
-                    String maNhaCC = cb_Category.getSelectedItem()+"";
-                    double gia = Double.valueOf(txt_Price.getText());
-                    String donViTinh = txt_Unit.getText();
-                    int soLuong = Integer.valueOf(txt_Quantity.getText());
-                    String tacGia = txt_Author.getText();
-                    int soTrang = Integer.valueOf(txt_PageCount.getText());
-                    int namXuatBan = Integer.valueOf(txt_PublishingYear.getText());
-                    String nhaXuatBan = txt_Publisher.getText();
-                    String hinhAnh = selectedImagePath;
-                    String moTa = txa_Description.getText();
-                    System.out.println(hinhAnh);
-                    JOptionPane.showMessageDialog(this, "OK");
+                    if (checkDuplicateCode(txt_ProductId.getText()) && sanPhamDAO.selectbyId(new SanPham(txt_ProductId.getText())).isTrangThai() == false) {
+                        if (sanPhamDAO.update(getInfoFromView()) == 1) {
+                            JOptionPane.showMessageDialog(this, "Thêm sản phẩm thành công!");
+                            loadData();
+                            lblAdd.setText("Thêm");
+                        } else if (sanPhamDAO.update(getInfoFromView()) == 0) {
+                            JOptionPane.showMessageDialog(this, "Thêm sản phẩm thất bại vui lòng thử lại sau!");
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Hệ thống đang gặp trục trặc, Vui lòng liên hệ bộ phận kỹ thuật!");
+                        }
+                    } else if (checkDuplicateCode(txt_ProductId.getText())) {
+                        JOptionPane.showMessageDialog(this, "Sản phẩm này đã tồn tại!");
+                    } else {
+                        SanPham sanPham = getInfoFromView();
+                        int result = sanPhamDAO.insert(sanPham);
+                        if (result == 1) {
+                            lblAdd.setText("Thêm");
+                            JOptionPane.showMessageDialog(this, "Thêm sản phẩm mới thành công!");
+                            loadData();
+                        } else if (result == 0) {
+                            JOptionPane.showMessageDialog(this, "Thêm sản phẩm thất bại vui lòng thử lại sau!");
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Hệ thống đang gặp trục trặc, Vui lòng liên hệ bộ phận kỹ thuật!");
+                        }
+                    }
                 }
             }
         }
@@ -487,7 +497,7 @@ public class JPanel_SanPham extends javax.swing.JPanel {
 
     public boolean checkEmpty(String category) {
         boolean result = false;
-        if (txt_ProductId.getText().equals("") || txt_Quantity.getText().equals("") || txt_ProductName.getText().equals("") || txt_Unit.equals("") || cb_Supplier.getSelectedIndex() == -1 || txt_Price.getText().equals("")) {
+        if (txt_ProductId.getText().equals("") || cb_Category.getSelectedIndex() == -1 || txt_Quantity.getText().equals("") || txt_ProductName.getText().equals("") || txt_Unit.equals("") || cb_Supplier.getSelectedIndex() == -1 || txt_Price.getText().equals("")) {
             result = true;
         }
         if (category.equals("Sách")) {
@@ -496,6 +506,15 @@ public class JPanel_SanPham extends javax.swing.JPanel {
             }
         }
         return result;
+    }
+
+    public boolean checkDuplicateCode(String productId) {
+        for (SanPham sanPham : sanPhamDAO.selectAll()) {
+            if (sanPham.getMaSanPham().equals(productId)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean checkCondition(String category) {
@@ -533,19 +552,95 @@ public class JPanel_SanPham extends javax.swing.JPanel {
         }
         return result;
     }
-    private void jpEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpEditMouseClicked
 
+    public String searchSupplierId(String supplierName) {
+        for (NhaCungCap nhaCungCap : nhaCungCapDAO.getAllNhaCungCap()) {
+            if (nhaCungCap.getTenNhaCC().equals(supplierName)) {
+                return nhaCungCap.getMaNhaCC();
+            }
+        }
+        return null;
+    }
+
+    public SanPham getInfoFromView() {
+        String maSanPham = txt_ProductId.getText();
+        String tenSanPham = txt_ProductName.getText();
+        String danhMuc = cb_Category.getSelectedItem() + "";
+        String maNhaCC = searchSupplierId(cb_Supplier.getSelectedItem() + "");
+        System.out.println(cb_Category.getSelectedItem() + "");
+        double gia = Double.valueOf(txt_Price.getText());
+        String donViTinh = txt_Unit.getText();
+        int soLuong = Integer.valueOf(txt_Quantity.getText());
+        String hinhAnh = selectedImagePath;
+        String moTa = txa_Description.getText();
+        String tacGia = "";
+        int soTrang = 0;
+        int namXuatBan = 0;
+        String nhaXuatBan = "";
+
+        // Kiểm tra nếu là danh mục là sách thì lưu cách thông tin riêng của sách
+        if (cb_Category.getSelectedItem().equals("Sách")) {
+            tacGia = txt_Author.getText();
+            soTrang = Integer.valueOf(txt_PageCount.getText());
+            namXuatBan = Integer.valueOf(txt_PublishingYear.getText());
+            nhaXuatBan = txt_Publisher.getText();
+        }
+
+        SanPham sanPham = new SanPham(maSanPham, tenSanPham, danhMuc, maNhaCC, donViTinh, tacGia, nhaXuatBan, namXuatBan, soTrang, soLuong, gia, hinhAnh, moTa);
+        return sanPham;
+    }
+
+    private void jpEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpEditMouseClicked
+        int row = tbl_ListProduct.getSelectedRow();
+        if (row < 0) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn sản phẩm cần chỉnh sửa thông tin!");
+            return;
+        } else {
+            if (JOptionPane.showConfirmDialog(this, "Bạn chắc chắn muốn thay đổi thông tin sản phẩm này?", "Edit", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                if (checkEmpty(cb_Category.getSelectedItem() + "")) {
+                    JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!");
+                } else {
+                    if (checkCondition(cb_Category.getSelectedItem() + "")) {
+                        if (sanPhamDAO.update(getInfoFromView()) == 1) {
+                            JOptionPane.showMessageDialog(this, "Cập nhật thông tin sản phẩm thành công!");
+                            loadData();
+                        } else if (sanPhamDAO.update(getInfoFromView()) == 0) {
+                            JOptionPane.showMessageDialog(this, "Cập nhật thất bại, Vui lòng thử lại sau!");
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Hệ thống đang gặp trục trặc, Vui lòng liên hệ bộ phận kỹ thuật!");
+                        }
+                    }
+                }
+            }
+        }
     }//GEN-LAST:event_jpEditMouseClicked
 
     private void jpDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpDeleteMouseClicked
         int row = tbl_ListProduct.getSelectedRow();
         if (row < 0) {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn dòng cần xóa!");
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn sản phẩm cần xóa!");
             return;
+        } else {
+            if (JOptionPane.showConfirmDialog(this, "Bạn chắc chắn muốn xóa sản phẩm này?", "Delete", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                if (sanPhamDAO.delete(new SanPham(modelSanPham.getValueAt(row, 0) + "")) == 1) {
+                    JOptionPane.showMessageDialog(this, "Đã xóa thành công");
+                    clearInput();
+                    loadData();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Hệ thống đang gặp trục trặc, Vui lòng liên hệ bộ phận kỹ thuật!");
+                }
+            }
         }
     }//GEN-LAST:event_jpDeleteMouseClicked
 
     private void jpRefreshMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpRefreshMouseClicked
+        clearInput();
+        txt_ProductId.setEnabled(false);
+        lblAdd.setText("Thêm");
+        loadData();
+    }//GEN-LAST:event_jpRefreshMouseClicked
+
+    public void clearInput() {
         txt_ProductId.setText("");
         cb_Category.setSelectedIndex(-1);
         txt_Quantity.setText("");
@@ -560,8 +655,8 @@ public class JPanel_SanPham extends javax.swing.JPanel {
         txa_Description.setText("");
         lbl_ProductImage.setIcon(null);
         tbl_ListProduct.clearSelection();
-    }//GEN-LAST:event_jpRefreshMouseClicked
-
+    }
+    
     private void btn_chooseImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_chooseImageActionPerformed
         JFileChooser chooser = new JFileChooser();
         int returnValue = chooser.showOpenDialog(this);
@@ -588,7 +683,8 @@ public class JPanel_SanPham extends javax.swing.JPanel {
         txt_PublishingYear.setText(modelSanPham.getValueAt(row, 7) + "");
         txt_PageCount.setText(modelSanPham.getValueAt(row, 8) + "");
         txt_Quantity.setText(modelSanPham.getValueAt(row, 9) + "");
-        txt_Price.setText(modelSanPham.getValueAt(row, 10) + "");
+        String price = (modelSanPham.getValueAt(row, 10) + "").substring(0, ((modelSanPham.getValueAt(row, 10) + "").lastIndexOf(".")));
+        txt_Price.setText(price);
         lbl_ProductImage.setIcon(createImageIcon(modelSanPham.getValueAt(row, 11) + "", lbl_ProductImage));
         txa_Description.setText(modelSanPham.getValueAt(row, 12) + "");
 

@@ -5,6 +5,7 @@ package entity;
  * @author Nguyễn Thanh Nhứt
  */
 public class SanPham {
+
     private String maSanPham;
     private String tenSanPham;
     private String danhMuc;
@@ -18,8 +19,26 @@ public class SanPham {
     private double gia;
     private String hinhAnh;
     private String moTa;
+    private boolean trangThai;
 
     public SanPham() {
+    }
+
+    public SanPham(String maSanPham, String tenSanPham, String danhMuc, String maNhaCC, String donViTinh, String tacGia, String nhaXuatBan, int namXuatBan, int soTrang, int soLuong, double gia, String hinhAnh, String moTa, boolean trangThai) {
+        this.maSanPham = maSanPham;
+        this.tenSanPham = tenSanPham;
+        this.danhMuc = danhMuc;
+        this.maNhaCC = maNhaCC;
+        this.donViTinh = donViTinh;
+        this.tacGia = tacGia;
+        this.nhaXuatBan = nhaXuatBan;
+        this.namXuatBan = namXuatBan;
+        this.soTrang = soTrang;
+        this.soLuong = soLuong;
+        this.gia = gia;
+        this.hinhAnh = hinhAnh;
+        this.moTa = moTa;
+        this.trangThai = trangThai;
     }
 
     public SanPham(String maSanPham, String tenSanPham, String danhMuc, String maNhaCC, String donViTinh, String tacGia, String nhaXuatBan, int namXuatBan, int soTrang, int soLuong, double gia, String hinhAnh, String moTa) {
@@ -36,6 +55,28 @@ public class SanPham {
         this.gia = gia;
         this.hinhAnh = hinhAnh;
         this.moTa = moTa;
+        this.trangThai = true;
+    }
+
+    public SanPham(String maSanPham, String tenSanPham, String danhMuc, String maNhaCC, String donViTinh, int soLuong, double gia, String hinhAnh, String moTa, boolean trangThai) {
+        this.maSanPham = maSanPham;
+        this.tenSanPham = tenSanPham;
+        this.danhMuc = danhMuc;
+        this.maNhaCC = maNhaCC;
+        this.donViTinh = donViTinh;
+        this.soLuong = soLuong;
+        this.gia = gia;
+        this.hinhAnh = hinhAnh;
+        this.moTa = moTa;
+        this.trangThai = trangThai;
+        this.tacGia = "";
+        this.nhaXuatBan = "";
+        this.namXuatBan = 0;
+        this.soTrang = 0;
+    }
+
+    public SanPham(String maSanPham) {
+        this.maSanPham = maSanPham;
     }
 
     public String getMaSanPham() {
@@ -142,9 +183,17 @@ public class SanPham {
         this.moTa = moTa;
     }
 
+    public boolean isTrangThai() {
+        return trangThai;
+    }
+
+    public void setTrangThai(boolean trangThai) {
+        this.trangThai = trangThai;
+    }
+
     @Override
     public String toString() {
-        return "SanPham{" + "maSanPham=" + maSanPham + ", tenSanPham=" + tenSanPham + ", danhMuc=" + danhMuc + ", maNhaCC=" + maNhaCC + ", donViTinh=" + donViTinh + ", tacGia=" + tacGia + ", nhaXuatBan=" + nhaXuatBan + ", namXuatBan=" + namXuatBan + ", soTrang=" + soTrang + ", soLuong=" + soLuong + ", gia=" + gia + ", hinhAnh=" + hinhAnh + ", moTa=" + moTa + '}';
+        return "SanPham{" + "maSanPham=" + maSanPham + ", tenSanPham=" + tenSanPham + ", danhMuc=" + danhMuc + ", maNhaCC=" + maNhaCC + ", donViTinh=" + donViTinh + ", tacGia=" + tacGia + ", nhaXuatBan=" + nhaXuatBan + ", namXuatBan=" + namXuatBan + ", soTrang=" + soTrang + ", soLuong=" + soLuong + ", gia=" + gia + ", hinhAnh=" + hinhAnh + ", moTa=" + moTa + ", trangThai=" + trangThai + '}';
     }
 
 }
