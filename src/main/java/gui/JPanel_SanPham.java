@@ -9,7 +9,9 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -30,6 +32,7 @@ public class JPanel_SanPham extends javax.swing.JPanel {
     private SanPhamDAO sanPhamDAO = new SanPhamDAO();
     private NhaCungCapDAO nhaCungCapDAO = new NhaCungCapDAO();
     private String selectedImagePath;
+    private NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
 
     public JPanel_SanPham() {
         initComponents();
@@ -73,7 +76,7 @@ public class JPanel_SanPham extends javax.swing.JPanel {
         modelSanPham.setRowCount(0);
         for (SanPham sanPham : danhSachSanPham) {
             if (sanPham.isTrangThai()) {
-                String[] data = {sanPham.getMaSanPham(), sanPham.getTenSanPham(), sanPham.getDanhMuc(), (nhaCungCapDAO.searchNhaCungCap(sanPham.getMaNhaCC())).getTenNhaCC(), sanPham.getDonViTinh(), sanPham.getTacGia(), sanPham.getNhaXuatBan(), sanPham.getNamXuatBan() == 0 ? "" : sanPham.getNamXuatBan() + "", sanPham.getSoTrang() == 0 ? "" : sanPham.getSoTrang() + "", sanPham.getSoLuong() + "", sanPham.getGia() + "", sanPham.getHinhAnh(), sanPham.getMoTa()};
+                String[] data = {sanPham.getMaSanPham(), sanPham.getTenSanPham(), sanPham.getDanhMuc(), (nhaCungCapDAO.searchNhaCungCap(sanPham.getMaNhaCC())).getTenNhaCC(), sanPham.getDonViTinh(), sanPham.getTacGia(), sanPham.getNhaXuatBan(), sanPham.getNamXuatBan() == 0 ? "" : sanPham.getNamXuatBan() + "", sanPham.getSoTrang() == 0 ? "" : sanPham.getSoTrang() + "", sanPham.getSoLuong() + "", nf.format(sanPham.getGia()), sanPham.getHinhAnh(), sanPham.getMoTa()};
                 modelSanPham.addRow(data);
             }
         }
@@ -683,8 +686,8 @@ public class JPanel_SanPham extends javax.swing.JPanel {
         txt_PublishingYear.setText(modelSanPham.getValueAt(row, 7) + "");
         txt_PageCount.setText(modelSanPham.getValueAt(row, 8) + "");
         txt_Quantity.setText(modelSanPham.getValueAt(row, 9) + "");
-        String price = (modelSanPham.getValueAt(row, 10) + "").substring(0, ((modelSanPham.getValueAt(row, 10) + "").lastIndexOf(".")));
-        txt_Price.setText(price);
+        String price = sanPhamDAO.selectbyId(new SanPham(modelSanPham.getValueAt(row, 0)+"")).getGia()+"";
+        txt_Price.setText(price.substring(0, price.lastIndexOf(".")));
         lbl_ProductImage.setIcon(createImageIcon(modelSanPham.getValueAt(row, 11) + "", lbl_ProductImage));
         txa_Description.setText(modelSanPham.getValueAt(row, 12) + "");
 
