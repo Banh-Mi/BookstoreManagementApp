@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import connectDB.ConnectDB;
 
 public class NhanVienDAO {
+
     public ArrayList<NhanVien> getAllNhanVien() {
         ArrayList<NhanVien> listNhanVien = new ArrayList<>();
         Connection con = ConnectDB.getConnection();
@@ -43,7 +44,7 @@ public class NhanVienDAO {
         return listNhanVien;
     }
 
-    public boolean insertEmployee(NhanVien nhanVien) {
+    public boolean themNhanVien(NhanVien nhanVien) {
         Connection con = ConnectDB.getInstance().getConnection();
         PreparedStatement stmt = null;
         String sql = "INSERT INTO NhanVien VALUES(?,?,?,?,?,?,?,?,?,?,?)";
@@ -53,7 +54,7 @@ public class NhanVienDAO {
             stmt.setString(2, nhanVien.getTenNV());
             stmt.setString(3, nhanVien.getSoDienThoai());
             stmt.setString(4, nhanVien.getEmail());
-            stmt.setDate(5, new java.sql.Date(nhanVien.getNgaySinh().getTime()));
+            stmt.setDate(5, nhanVien.getNgaySinh());
             stmt.setString(6, nhanVien.getMaLichLamViec());
             stmt.setString(7, nhanVien.getMaTK());
             stmt.setString(8, nhanVien.getDiaChi());
@@ -69,25 +70,24 @@ public class NhanVienDAO {
         return false;
     }
 
-    public boolean updateEmployee(NhanVien nhanVien) {
+    public boolean capNhatNhanVien(NhanVien nhanVien) {
         Connection con = ConnectDB.getInstance().getConnection();
         PreparedStatement stmt = null;
         try {
             stmt = con.prepareStatement("UPDATE NhanVien SET "
-                    + "tenNV=?, soDienThoai=?, email=?, ngaySinh=?, maLichLamViec=?, maTK=?, diaChi=?, gioiTinh=?, chucVu=?, trangThai=? "
+                    + "tenNV=?, soDienThoai=?, email=?, ngaySinh=?, diaChi=?, gioiTinh=?, chucVu=?, trangThai=? "
                     + "WHERE maNV=?");
 
             stmt.setString(1, nhanVien.getTenNV());
             stmt.setString(2, nhanVien.getSoDienThoai());
             stmt.setString(3, nhanVien.getEmail());
             stmt.setDate(4, new java.sql.Date(nhanVien.getNgaySinh().getTime()));
-            stmt.setString(5, nhanVien.getMaLichLamViec());
-            stmt.setString(6, nhanVien.getMaTK());
-            stmt.setString(7, nhanVien.getDiaChi());
-            stmt.setString(8, nhanVien.getGioiTinh());
-            stmt.setString(9, nhanVien.getChucVu());
-            stmt.setString(10, nhanVien.getTrangThai());
-            stmt.setString(11, nhanVien.getMaNV());
+
+            stmt.setString(5, nhanVien.getDiaChi());
+            stmt.setString(6, nhanVien.getGioiTinh());
+            stmt.setString(7, nhanVien.getChucVu());
+            stmt.setString(8, nhanVien.getTrangThai());
+            stmt.setString(9, nhanVien.getMaNV());
 
             return stmt.executeUpdate() > 0;
         } catch (SQLException ex) {
@@ -97,18 +97,17 @@ public class NhanVienDAO {
         return false;
     }
 
-
     public NhanVien searchEmployee(String maNV) {
         Connection con = ConnectDB.getInstance().getConnection();
         PreparedStatement stmt = null;
-        NhanVien nhanVien= null;
+        NhanVien nhanVien = null;
         try {
             stmt = con.prepareStatement("SELECT * FROM NhanVien WHERE maNV = ?");
             stmt.setString(1, maNV);
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                nhanVien= new NhanVien(
+                nhanVien = new NhanVien(
                         rs.getString(1),
                         rs.getString(2),
                         rs.getString(3),

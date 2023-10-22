@@ -63,11 +63,11 @@ public class LoginController {
             } else {
                 TaiKhoanDAO taiKhoanDAO = new TaiKhoanDAO();
                 TaiKhoan taiKhoan = taiKhoanDAO.login(userName,password );
-                System.out.println(taiKhoan.getTrangThaiTaiKhoan());
                 if (taiKhoan == null) {
                     jbMessage.setText("Tên đăng nhập và mật khẩu không đúng!");
                 } else {
-                    if (taiKhoan.getTrangThaiTaiKhoan().equals("Tạm khóa")) {
+                    System.out.println(taiKhoan.getTrangThaiTaiKhoan());
+                    if (taiKhoan.getTrangThaiTaiKhoan().equals("Khoá")) {
                         jbMessage.setText("Tài khoản của bạn đang bị tạm khóa!");
                     } else {
                         frame.dispose();
@@ -81,6 +81,7 @@ public class LoginController {
                 }
             }
         } catch (Exception ex) {
+            System.out.println(ex);
             jbMessage.setText(ex.toString());
         }
     }

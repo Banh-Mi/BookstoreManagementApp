@@ -55,7 +55,7 @@ public class TaiKhoanDAO {
 
     }
 
-    public void insert(TaiKhoan account) {
+    public boolean insert(TaiKhoan account) {
         Connection con = ConnectDB.getInstance().getConnection();
         PreparedStatement stmt = null;
         String sql = "insert into TaiKhoan values(?,?,?,?,?)";
@@ -64,15 +64,42 @@ public class TaiKhoanDAO {
             stmt.setString(1, account.getMaTK());
             stmt.setString(2, account.getTenDangNhap());
             stmt.setString(3, account.getMatKhau());
-            stmt.setString(3, account.getQuyen());
-            stmt.setString(4, account.getTrangThaiTaiKhoan());
+            stmt.setString(4, account.getQuyen());
+            stmt.setString(5, account.getTrangThaiTaiKhoan());
             stmt.executeUpdate();
+            return true;
         } catch (SQLException ex) {
             ex.printStackTrace();
+            return false;
+
         } finally {
             close(stmt);
         }
+    }
 
+    public String taMaTK() {
+        try {
+            String sql = "SELECT TOP 1 maTK FROM TaiKhoan ORDER BY maTK DESC";
+            Statement statement = ConnectDB.getInstance().getConnection().createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            if (resultSet.next()) {
+                String maTK = resultSet.getString(1);
+                int number = Integer.parseInt(maTK.substring(3));
+                number++;
+                String maTKMoi = number + "";
+                while (maTKMoi.length() < 3) {
+                    maTKMoi = "0" + maTKMoi;
+                }
+
+                return "TK" + maTKMoi;
+            } else {
+                return "TK001";
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 //    public void xoa(String mahocvien) 
 //	{
@@ -90,7 +117,6 @@ public class TaiKhoanDAO {
 //			close(stmt);
 //		}
 //	}
-    
 
     public void close(PreparedStatement stmt) {
         if (stmt != null) {
@@ -101,6 +127,5 @@ public class TaiKhoanDAO {
             }
         }
     }
-    
 
 }

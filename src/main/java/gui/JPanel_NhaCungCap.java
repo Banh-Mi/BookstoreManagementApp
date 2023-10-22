@@ -11,6 +11,7 @@ import javax.swing.table.DefaultTableModel;
 import static util.CheckRegex.checkName;
 import static util.CheckRegex.checkPhone;
 import static util.CheckRegex.checkText;
+import static util.CheckRegex.checkNull;
 
 /**
  *
@@ -29,18 +30,18 @@ public class JPanel_NhaCungCap extends javax.swing.JPanel {
         svgRefresh.setSvgImage("refresh.svg", 25, 25);
         modelNhaCungCap = (DefaultTableModel) tableSupplier.getModel();
         nhaCungCapDAO = new NhaCungCapDAO();
-        setJText(nhaCungCapDAO.taoMaNCC(), "", 0, "", "", "", "");
+        setValue(nhaCungCapDAO.taoMaNCC(), "", "Đang làm", "", "", "", "");
         txtSupplierID.setEditable(false);
 
         loadData();
 
     }
 
-    private void setJText(String maNCC, String tenNCC, int trangThai, String diaChi, String email, String soDienThoai, String nguoiLienHe) {
+    private void setValue(String maNCC, String tenNCC, String trangThai, String diaChi, String email, String soDienThoai, String nguoiLienHe) {
 
         txtSupplierID.setText(maNCC);
         txtSupplierName.setText(tenNCC);
-        cbStatus.setSelectedIndex(trangThai);
+        cbStatus.setSelectedItem(trangThai);
         txtAddress.setText(diaChi);
         txtEmail.setText(email);
         txtSoDienThoai.setText(soDienThoai);
@@ -292,10 +293,6 @@ public class JPanel_NhaCungCap extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAddressActionPerformed
 
-    private boolean checkNull(String item) {
-        return item.trim().equals("");
-    }
-
 
     private void jpAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpAddMouseClicked
         nhaCungCapDAO = new NhaCungCapDAO();
@@ -309,16 +306,13 @@ public class JPanel_NhaCungCap extends javax.swing.JPanel {
         String nguoiLienHe = txtContactPerson.getText();
 
         if (!checkNull(maNCC) && !checkNull(tenNCC) && !checkNull(diaChi) && !checkNull(nguoiLienHe) && !checkNull(soDienThoai) && !checkNull(email)) {
-            if (!txtSupplierID.getText().equals(nhaCungCapDAO.taoMaNCC())) {
+            if (!maNCC.equals(nhaCungCapDAO.taoMaNCC())) {
                 JOptionPane.showMessageDialog(this, "Không được thêm sản phẩm đã tồn tại");
             } else {
                 NhaCungCap nhaCungCap = new NhaCungCap(maNCC, tenNCC, trangThai, diaChi, email, soDienThoai, nguoiLienHe);
                 if (checkText(tenNCC, "Tên nhà cung cấp không hợp lệ") && checkPhone(soDienThoai, "Số điện thoại không hợp lệ") && checkName(nguoiLienHe, "Tên người liên hệ không hợp lệ") && checkName(diaChi, "Địa chỉ không hợp lệ")) {
                     if (nhaCungCapDAO.insert(nhaCungCap)) {
-                        String trangThaiText = trangThai ? "Đang hợp tác" : "Ngưng hợp tác";
-                        Object[] row = {maNCC, tenNCC, trangThaiText, diaChi, email, soDienThoai, nguoiLienHe};
-                        modelNhaCungCap.addRow(row);
-                        setJText(nhaCungCapDAO.taoMaNCC(), "", 0, "", "", "", "");
+                        loadData();
                         JOptionPane.showMessageDialog(this, "Thêm thành công");
                     } else {
                         JOptionPane.showMessageDialog(this, "Thêm không thành công");
@@ -338,12 +332,12 @@ public class JPanel_NhaCungCap extends javax.swing.JPanel {
         if (rowIndex >= 0) {
             String maNCC = modelNhaCungCap.getValueAt(rowIndex, 0).toString();
             String tenNCC = modelNhaCungCap.getValueAt(rowIndex, 1).toString();
-            int trangThai = modelNhaCungCap.getValueAt(rowIndex, 2).toString().equals("Đang hợp tác") ? 0 : 1;
+            String trangThai = modelNhaCungCap.getValueAt(rowIndex, 2).toString();
             String diaChi = modelNhaCungCap.getValueAt(rowIndex, 3).toString();
             String email = modelNhaCungCap.getValueAt(rowIndex, 4).toString();
             String soDienThoai = modelNhaCungCap.getValueAt(rowIndex, 5).toString();
             String nguoiLienHe = modelNhaCungCap.getValueAt(rowIndex, 6).toString();
-            setJText(maNCC, tenNCC, trangThai, diaChi, email, soDienThoai, nguoiLienHe);
+            setValue(maNCC, tenNCC, trangThai, diaChi, email, soDienThoai, nguoiLienHe);
         }
     }//GEN-LAST:event_tableSupplierMouseClicked
 
@@ -351,12 +345,12 @@ public class JPanel_NhaCungCap extends javax.swing.JPanel {
 //        int rowIndex = tableSupplier.getSelectedRow();
 //        if (rowIndex < 0) {
 //            JOptionPane.showMessageDialog(null, "Vui lòng chọn dòng muốn xóa");
-//            setJText(nhaCungCapDAO.createSupplierID(), "", "", "", "", "", 0);
+//            setValue(nhaCungCapDAO.createSupplierID(), "", "", "", "", "", 0);
 //        } else {
 //            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa không?", "Xác nhận", JOptionPane.YES_OPTION) == JOptionPane.YES_OPTION) {
 //                if (nhaCungCapDAO.delete(txtSupplierID.getText())) {
 //                    modelNhaCungCap.removeRow(rowIndex);
-//                    setJText(nhaCungCapDAO.createSupplierID(), "", "", "", "", "", 0);
+//                    setValue(nhaCungCapDAO.createSupplierID(), "", "", "", "", "", 0);
 //                    JOptionPane.showMessageDialog(this, "Xoá thành công");
 //                } else {
 //                    JOptionPane.showMessageDialog(this, "Xoá thất bại");
@@ -369,7 +363,7 @@ public class JPanel_NhaCungCap extends javax.swing.JPanel {
         int rowIndex = tableSupplier.getSelectedRow();
         if (rowIndex < 0) {
             JOptionPane.showMessageDialog(null, "Vui lòng chọn dòng muốn sửa");
-            setJText(nhaCungCapDAO.taoMaNCC(), "", 0, "", "", "", "");
+            setValue(nhaCungCapDAO.taoMaNCC(), "", "Đang làm", "", "", "", "");
         } else {
             if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn sửa dòng này không?", "Xác nhận", JOptionPane.YES_OPTION) == JOptionPane.YES_OPTION) {
                 String maNCC = txtSupplierID.getText();
@@ -383,12 +377,7 @@ public class JPanel_NhaCungCap extends javax.swing.JPanel {
                     if (checkText(tenNCC, "Tên nhà cung cấp không hợp lệ") && checkPhone(soDienThoai, "Số điện thoại không hợp lệ") && checkName(nguoiLienHe, "Tên người liên hệ không hợp lệ") && checkName(diaChi, "Địa chỉ không hợp lệ")) {
                         NhaCungCap supplier = new NhaCungCap(maNCC, tenNCC, trangThai, diaChi, email, soDienThoai, nguoiLienHe);
                         if (nhaCungCapDAO.update(supplier)) {
-                            modelNhaCungCap.removeRow(rowIndex);
-                            String trangThaiText = trangThai ? "Đang hợp tác" : "Ngưng hợp tác";
-                            Object[] row = {maNCC, tenNCC, trangThaiText, diaChi, email, soDienThoai, nguoiLienHe};
-                      
-                            modelNhaCungCap.insertRow(rowIndex, row);
-                            setJText(nhaCungCapDAO.taoMaNCC(), "", 0, "", "", "", "");
+                            loadData();
                             JOptionPane.showMessageDialog(null, "Sửa thành công");
                         } else {
                             JOptionPane.showMessageDialog(null, "Sửa thất bại");
@@ -404,7 +393,7 @@ public class JPanel_NhaCungCap extends javax.swing.JPanel {
 
 
     private void jpRefreshMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpRefreshMouseClicked
-        setJText(nhaCungCapDAO.taoMaNCC(), "", 0, "", "", "", "");
+        setValue(nhaCungCapDAO.taoMaNCC(), "", "Đang làm", "", "", "", "");
         loadData();
     }//GEN-LAST:event_jpRefreshMouseClicked
 

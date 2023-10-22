@@ -5,17 +5,30 @@
 package gui;
 
 import dao.NhanVienDAO;
+import dao.TaiKhoanDAO;
 import entity.NhanVien;
+import entity.TaiKhoan;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
 import javax.swing.table.DefaultTableModel;
-
+import static util.CheckRegex.checkName;
+import static util.CheckRegex.checkPhone;
+import static util.CheckRegex.checkText;
+import static util.CheckRegex.checkNull;
 
 /**
  *
  * @author pc
  */
 public class JPanel_NhanVien extends javax.swing.JPanel {
+
     private final DefaultTableModel modelNhanVien;
     private NhanVienDAO nhanVienDao;
+    private TaiKhoanDAO taiKhoanDao;
 
     public JPanel_NhanVien() {
         initComponents();
@@ -23,23 +36,54 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
         svgEdit.setSvgImage("edit.svg", 25, 25);
         svgDelete.setSvgImage("delete.svg", 30, 30);
         svgRefresh.setSvgImage("refresh.svg", 25, 25);
-        modelNhanVien = (DefaultTableModel) tableEmployee.getModel();
+        modelNhanVien = (DefaultTableModel) tableNhanVien.getModel();
+        nhanVienDao = new NhanVienDAO();
+        setValue(nhanVienDao.taoMaNhanVien(), "", "", "", "", "", radNam, "Nhân Viên bán hàng", "Đang làm");
+        txtMaNV.setEditable(false);
         loadData();
+    }
+
+    private void setValue(String maNV, String tenNV, String soDienThoai, String email, String ngaySinh, String diaChi, JRadioButton gioiTinh, String chucVu, String trangThai) {
+
+        txtMaNV.setText(maNV);
+        txtTenNV.setText(tenNV);
+        txtSoDienThoai.setText(soDienThoai);
+        txtEmail.setText(email);
+        txtDiaChi.setText(diaChi);
+        if (ngaySinh.trim().equals("")) {
+            jdNgaySinh.setDate(null);
+        } else {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+            java.sql.Date defaultDate;
+            try {
+                defaultDate = new java.sql.Date(dateFormat.parse(ngaySinh).getTime());
+                jdNgaySinh.setDate(defaultDate);
+            } catch (ParseException ex) {
+                Logger.getLogger(JPanel_NhanVien.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        gioiTinh.setSelected(true);
+        cbChucVu.setSelectedItem(chucVu);
+        cbTrangThai.setSelectedItem(trangThai);
+
     }
 
     private void loadData() {
         nhanVienDao = new NhanVienDAO();
         modelNhanVien.setRowCount(0);
-        for (NhanVien nv: nhanVienDao.getAllNhanVien()) {
-            Object[] row = {nv.getMaNV(), nv.getTenNV(), nv.getGioiTinh(), nv.getNgaySinh(), nv.getDiaChi(), nv.getSoDienThoai(), nv.getEmail(), nv.getChucVu(), nv.getTrangThai() };
+        for (NhanVien nv : nhanVienDao.getAllNhanVien()) {
+            Object[] row = {nv.getMaNV(), nv.getTenNV(), nv.getGioiTinh(), nv.getNgaySinh(), nv.getDiaChi(), nv.getSoDienThoai(), nv.getEmail(), nv.getChucVu(), nv.getTrangThai()};
             modelNhanVien.addRow(row);
         }
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        gioiTinh = new javax.swing.ButtonGroup();
+        btnGroupGioiTinh = new javax.swing.ButtonGroup();
         jpTitle = new javax.swing.JPanel();
         jbEmployeeManagerment = new javax.swing.JLabel();
         jpFunction = new javax.swing.JPanel();
@@ -47,37 +91,37 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
         lblFullName = new javax.swing.JLabel();
         txtSoDienThoai = new javax.swing.JTextField();
         lblGender = new javax.swing.JLabel();
-        radFemale = new javax.swing.JRadioButton();
-        radMale = new javax.swing.JRadioButton();
+        radNu = new javax.swing.JRadioButton();
+        radNam = new javax.swing.JRadioButton();
         lblPhone = new javax.swing.JLabel();
         lblStatus = new javax.swing.JLabel();
         lblDob = new javax.swing.JLabel();
-        txtAddress = new javax.swing.JTextField();
-        comboboxPosition = new javax.swing.JComboBox<>();
+        txtDiaChi = new javax.swing.JTextField();
+        cbTrangThai = new javax.swing.JComboBox<>();
         lblPosition = new javax.swing.JLabel();
         lblAddress = new javax.swing.JLabel();
-        txtFullName = new javax.swing.JTextField();
-        txtEmployeeID1 = new javax.swing.JTextField();
-        jDateChooserDob = new com.toedter.calendar.JDateChooser();
+        txtTenNV = new javax.swing.JTextField();
+        txtMaNV = new javax.swing.JTextField();
+        jdNgaySinh = new com.toedter.calendar.JDateChooser();
         lblEmail = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
-        jpAdd = new util.JPanelRounded();
+        jpThem = new util.JPanelRounded();
         jbAdd = new javax.swing.JLabel();
         svgAdd = new util.SVGImage();
-        jpEdit = new util.JPanelRounded();
+        jbSua = new util.JPanelRounded();
         jbEdit = new javax.swing.JLabel();
         svgEdit = new util.SVGImage();
-        jpDelete = new util.JPanelRounded();
+        jbXoa = new util.JPanelRounded();
         jbDelete = new javax.swing.JLabel();
         svgDelete = new util.SVGImage();
-        jpRefresh = new util.JPanelRounded();
+        jbLamMoi = new util.JPanelRounded();
         jbRefresh = new javax.swing.JLabel();
         svgRefresh = new util.SVGImage();
-        comboboxPosition1 = new javax.swing.JComboBox<>();
+        cbChucVu = new javax.swing.JComboBox<>();
         comboboxPosition2 = new javax.swing.JComboBox<>();
         jPanelEmployeeDetail = new javax.swing.JPanel();
         scrollEmployee = new javax.swing.JScrollPane();
-        tableEmployee = new javax.swing.JTable();
+        tableNhanVien = new javax.swing.JTable();
 
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setPreferredSize(new java.awt.Dimension(1040, 760));
@@ -110,26 +154,16 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
         lblGender.setText("Giới tính");
         jpFunction.add(lblGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 70, -1, 30));
 
-        gioiTinh.add(radFemale);
-        radFemale.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        radFemale.setText("Nữ");
-        radFemale.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radFemaleActionPerformed(evt);
-            }
-        });
-        jpFunction.add(radFemale, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 70, -1, 30));
+        btnGroupGioiTinh.add(radNu);
+        radNu.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        radNu.setText("Nữ");
+        jpFunction.add(radNu, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 70, -1, 30));
 
-        gioiTinh.add(radMale);
-        radMale.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        radMale.setSelected(true);
-        radMale.setText("Nam");
-        radMale.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radMaleActionPerformed(evt);
-            }
-        });
-        jpFunction.add(radMale, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 70, -1, 30));
+        btnGroupGioiTinh.add(radNam);
+        radNam.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        radNam.setSelected(true);
+        radNam.setText("Nam");
+        jpFunction.add(radNam, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 70, -1, 30));
 
         lblPhone.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblPhone.setText("Số điện thoại:");
@@ -143,17 +177,12 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
         lblDob.setText("Ngày sinh:");
         jpFunction.add(lblDob, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 20, -1, 30));
 
-        txtAddress.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jpFunction.add(txtAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 70, 300, 30));
+        txtDiaChi.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jpFunction.add(txtDiaChi, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 70, 300, 30));
 
-        comboboxPosition.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        comboboxPosition.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đang làm", "Đã nghĩ" }));
-        comboboxPosition.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboboxPositionActionPerformed(evt);
-            }
-        });
-        jpFunction.add(comboboxPosition, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 20, 180, 30));
+        cbTrangThai.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cbTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đang làm", "Đã nghĩ" }));
+        jpFunction.add(cbTrangThai, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 20, 180, 30));
 
         lblPosition.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblPosition.setText("Chức vụ:");
@@ -163,22 +192,12 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
         lblAddress.setText("Địa chỉ:");
         jpFunction.add(lblAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 70, -1, 30));
 
-        txtFullName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtFullName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFullNameActionPerformed(evt);
-            }
-        });
-        jpFunction.add(txtFullName, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 70, 180, 30));
+        txtTenNV.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jpFunction.add(txtTenNV, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 70, 180, 30));
 
-        txtEmployeeID1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtEmployeeID1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEmployeeID1ActionPerformed(evt);
-            }
-        });
-        jpFunction.add(txtEmployeeID1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 180, 30));
-        jpFunction.add(jDateChooserDob, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 20, 180, 30));
+        txtMaNV.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jpFunction.add(txtMaNV, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 180, 30));
+        jpFunction.add(jdNgaySinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 20, 180, 30));
 
         lblEmail.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblEmail.setText("Email:");
@@ -187,78 +206,88 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
         txtEmail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jpFunction.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 120, 220, 30));
 
-        jpAdd.setBackground(new java.awt.Color(255, 255, 255));
-        jpAdd.setRoundedBottomLeft(10);
-        jpAdd.setRoundedBottomRight(10);
-        jpAdd.setRoundedTopLeft(10);
-        jpAdd.setRoundedTopRight(10);
-        jpAdd.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jpThem.setBackground(new java.awt.Color(255, 255, 255));
+        jpThem.setRoundedBottomLeft(10);
+        jpThem.setRoundedBottomRight(10);
+        jpThem.setRoundedTopLeft(10);
+        jpThem.setRoundedTopRight(10);
+        jpThem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jpThemMouseClicked(evt);
+            }
+        });
+        jpThem.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jbAdd.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jbAdd.setText("Thêm");
-        jpAdd.add(jbAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 60, 40));
+        jpThem.add(jbAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 60, 40));
 
         svgAdd.setText(" ");
-        jpAdd.add(svgAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
+        jpThem.add(svgAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
 
-        jpFunction.add(jpAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 100, 40));
+        jpFunction.add(jpThem, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 100, 40));
 
-        jpEdit.setBackground(new java.awt.Color(255, 255, 255));
-        jpEdit.setRoundedBottomLeft(10);
-        jpEdit.setRoundedBottomRight(10);
-        jpEdit.setRoundedTopLeft(10);
-        jpEdit.setRoundedTopRight(10);
-        jpEdit.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jbSua.setBackground(new java.awt.Color(255, 255, 255));
+        jbSua.setRoundedBottomLeft(10);
+        jbSua.setRoundedBottomRight(10);
+        jbSua.setRoundedTopLeft(10);
+        jbSua.setRoundedTopRight(10);
+        jbSua.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbSuaMouseClicked(evt);
+            }
+        });
+        jbSua.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jbEdit.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jbEdit.setText("Sửa");
-        jpEdit.add(jbEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 60, 40));
+        jbSua.add(jbEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 60, 40));
 
         svgEdit.setText(" ");
-        jpEdit.add(svgEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
+        jbSua.add(svgEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
 
-        jpFunction.add(jpEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 170, 100, 40));
+        jpFunction.add(jbSua, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 170, 100, 40));
 
-        jpDelete.setBackground(new java.awt.Color(255, 255, 255));
-        jpDelete.setRoundedBottomLeft(10);
-        jpDelete.setRoundedBottomRight(10);
-        jpDelete.setRoundedTopLeft(10);
-        jpDelete.setRoundedTopRight(10);
-        jpDelete.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jbXoa.setBackground(new java.awt.Color(255, 255, 255));
+        jbXoa.setRoundedBottomLeft(10);
+        jbXoa.setRoundedBottomRight(10);
+        jbXoa.setRoundedTopLeft(10);
+        jbXoa.setRoundedTopRight(10);
+        jbXoa.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jbDelete.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jbDelete.setText("Xoá");
-        jpDelete.add(jbDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 60, 40));
+        jbXoa.add(jbDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 60, 40));
 
         svgDelete.setText(" ");
-        jpDelete.add(svgDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
+        jbXoa.add(svgDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
 
-        jpFunction.add(jpDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 170, 100, 40));
+        jpFunction.add(jbXoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 170, 100, 40));
 
-        jpRefresh.setBackground(new java.awt.Color(255, 255, 255));
-        jpRefresh.setRoundedBottomLeft(10);
-        jpRefresh.setRoundedBottomRight(10);
-        jpRefresh.setRoundedTopLeft(10);
-        jpRefresh.setRoundedTopRight(10);
-        jpRefresh.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jbLamMoi.setBackground(new java.awt.Color(255, 255, 255));
+        jbLamMoi.setRoundedBottomLeft(10);
+        jbLamMoi.setRoundedBottomRight(10);
+        jbLamMoi.setRoundedTopLeft(10);
+        jbLamMoi.setRoundedTopRight(10);
+        jbLamMoi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbLamMoiMouseClicked(evt);
+            }
+        });
+        jbLamMoi.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jbRefresh.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jbRefresh.setText("Làm mới");
-        jpRefresh.add(jbRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 60, 40));
+        jbLamMoi.add(jbRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 60, 40));
 
         svgRefresh.setText(" ");
-        jpRefresh.add(svgRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
+        jbLamMoi.add(svgRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
 
-        jpFunction.add(jpRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 170, 110, 40));
+        jpFunction.add(jbLamMoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 170, 110, 40));
 
-        comboboxPosition1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        comboboxPosition1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nhân viên bán hàng", "Quản lý" }));
-        comboboxPosition1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboboxPosition1ActionPerformed(evt);
-            }
-        });
-        jpFunction.add(comboboxPosition1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, 180, 30));
+        cbChucVu.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cbChucVu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nhân viên bán hàng", "Quản lý" }));
+        jpFunction.add(cbChucVu, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, 180, 30));
 
         comboboxPosition2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         comboboxPosition2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -269,7 +298,7 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
         jPanelEmployeeDetail.setPreferredSize(new java.awt.Dimension(458, 450));
         jPanelEmployeeDetail.setLayout(new java.awt.BorderLayout());
 
-        tableEmployee.setModel(new javax.swing.table.DefaultTableModel(
+        tableNhanVien.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -285,55 +314,128 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
-        scrollEmployee.setViewportView(tableEmployee);
+        tableNhanVien.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableNhanVienMouseClicked(evt);
+            }
+        });
+        scrollEmployee.setViewportView(tableNhanVien);
 
         jPanelEmployeeDetail.add(scrollEmployee, java.awt.BorderLayout.CENTER);
 
         add(jPanelEmployeeDetail, java.awt.BorderLayout.PAGE_END);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void radFemaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radFemaleActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_radFemaleActionPerformed
+    private void jpThemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpThemMouseClicked
+        nhanVienDao = new NhanVienDAO();
+        String maNV = txtMaNV.getText();
+        String tenNV = txtTenNV.getText();
+        String trangThai = (String) cbTrangThai.getSelectedItem();
+        String diaChi = txtDiaChi.getText();
+        String email = txtEmail.getText();
+        String soDienThoai = txtSoDienThoai.getText();
+        String gioiTinh = radNam.isSelected() ? "Nam" : "Nữ";
+        String chucVu = (String) cbChucVu.getSelectedItem();
+        java.sql.Date ngaySinh = new java.sql.Date(jdNgaySinh.getDate().getTime());
+        if (!checkNull(maNV) && !checkNull(tenNV) && !checkNull(diaChi) && !checkNull(soDienThoai) && !checkNull(email) && !checkNull(ngaySinh.toString())) {
 
-    private void radMaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radMaleActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_radMaleActionPerformed
+            taiKhoanDao = new TaiKhoanDAO();
+            TaiKhoan taiKhoan = new TaiKhoan(taiKhoanDao.taMaTK(), maNV, "1111", "User", "Đang hoạt động");
+            if (taiKhoanDao.insert(taiKhoan)) {
+                if (checkText(tenNV, "Tên nhân viên không hợp lệ") && checkPhone(soDienThoai, "Số điện thoại không hợp lệ") && checkName(diaChi, "Địa chỉ không hợp lệ")) {
+                    NhanVien nhanVien = new NhanVien(maNV, tenNV, soDienThoai, email, ngaySinh, null, taiKhoan.getMaTK(), diaChi, gioiTinh, chucVu, trangThai);
+                    if (nhanVienDao.themNhanVien(nhanVien)) {
+                        loadData();
 
-    private void txtFullNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFullNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFullNameActionPerformed
+                        JOptionPane.showMessageDialog(this, "Thêm thành công");
+                        setValue(nhanVienDao.taoMaNhanVien(), "", "", "", "", "", radNam, "Nhân Viên bán hàng", "Đang làm");
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Thêm không thành công");
+                    }
+                }
+            }
 
-    private void txtEmployeeID1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmployeeID1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtEmployeeID1ActionPerformed
+        } else {
+            JOptionPane.showMessageDialog(this, "Không được để dữ liệu bị trống");
+        }
+    }//GEN-LAST:event_jpThemMouseClicked
 
-    private void comboboxPositionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboboxPositionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboboxPositionActionPerformed
+    private void jbLamMoiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbLamMoiMouseClicked
+        setValue(nhanVienDao.taoMaNhanVien(), "", "", "", "", "", radNam, "Nhân Viên bán hàng", "Đang làm");
+        loadData();
+    }//GEN-LAST:event_jbLamMoiMouseClicked
 
-    private void comboboxPosition1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboboxPosition1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboboxPosition1ActionPerformed
+    private void tableNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableNhanVienMouseClicked
+        int rowIndex = tableNhanVien.getSelectedRow();
+        if (rowIndex >= 0) {
+            String maNV = modelNhanVien.getValueAt(rowIndex, 0).toString();
+            String tenNV = modelNhanVien.getValueAt(rowIndex, 1).toString();
+            String gioiTinh = modelNhanVien.getValueAt(rowIndex, 2).toString();
+            String ngaySinh = modelNhanVien.getValueAt(rowIndex, 3).toString();
+            String diaChi = modelNhanVien.getValueAt(rowIndex, 4).toString();
+            String soDienThoai = modelNhanVien.getValueAt(rowIndex, 5).toString();
+            String email = modelNhanVien.getValueAt(rowIndex, 6).toString();
+            String chucVu = modelNhanVien.getValueAt(rowIndex, 7).toString();
+            String trangThai = modelNhanVien.getValueAt(rowIndex, 8).toString();
+            setValue(maNV, tenNV, soDienThoai, email, ngaySinh, diaChi, gioiTinh.equals("Nam") ? radNam : radNu, chucVu, trangThai);
+        }
+    }//GEN-LAST:event_tableNhanVienMouseClicked
+
+    private void jbSuaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbSuaMouseClicked
+        int rowIndex = tableNhanVien.getSelectedRow();
+        if (rowIndex < 0) {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn dòng muốn sửa");
+            setValue(nhanVienDao.taoMaNhanVien(), "", "", "", "", "", radNam, "Nhân Viên bán hàng", "Đang làm");
+        } else {
+            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn sửa dòng này không?", "Xác nhận", JOptionPane.YES_OPTION) == JOptionPane.YES_OPTION) {
+                String maNV = txtMaNV.getText();
+                String tenNV = txtTenNV.getText();
+                String trangThai = (String) cbTrangThai.getSelectedItem();
+                String diaChi = txtDiaChi.getText();
+                String email = txtEmail.getText();
+                String soDienThoai = txtSoDienThoai.getText();
+                String gioiTinh = radNam.isSelected() ? "Nam" : "Nữ";
+                String chucVu = (String) cbChucVu.getSelectedItem();
+                java.sql.Date ngaySinh = new java.sql.Date(jdNgaySinh.getDate().getTime());
+                if (!checkNull(maNV) && !checkNull(tenNV) && !checkNull(diaChi) && !checkNull(soDienThoai) && !checkNull(email) && !checkNull(ngaySinh.toString())) {
+
+                    if (checkText(tenNV, "Tên nhân viên không hợp lệ") && checkPhone(soDienThoai, "Số điện thoại không hợp lệ") && checkName(diaChi, "Địa chỉ không hợp lệ")) {
+                        NhanVien nhanVien = new NhanVien(maNV, tenNV, soDienThoai, email, ngaySinh, diaChi, gioiTinh, chucVu, trangThai);
+                        if (nhanVienDao.capNhatNhanVien(nhanVien)) {
+                            loadData();
+                            JOptionPane.showMessageDialog(this, "Cập nhật thành công");
+                            setValue(nhanVienDao.taoMaNhanVien(), "", "", "", "", "", radNam, "Nhân Viên bán hàng", "Đang làm");
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Cập nhật không thành công");
+                        }
+
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(this, "Không được để dữ liệu bị trống");
+                }
+            }
+        }
+    }//GEN-LAST:event_jbSuaMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> comboboxPosition;
-    private javax.swing.JComboBox<String> comboboxPosition1;
+    private javax.swing.ButtonGroup btnGroupGioiTinh;
+    private javax.swing.JComboBox<String> cbChucVu;
+    private javax.swing.JComboBox<String> cbTrangThai;
     private javax.swing.JComboBox<String> comboboxPosition2;
-    private javax.swing.ButtonGroup gioiTinh;
-    private com.toedter.calendar.JDateChooser jDateChooserDob;
     private javax.swing.JPanel jPanelEmployeeDetail;
     private javax.swing.JLabel jbAdd;
     private javax.swing.JLabel jbDelete;
     private javax.swing.JLabel jbEdit;
     private javax.swing.JLabel jbEmployeeManagerment;
+    private util.JPanelRounded jbLamMoi;
     private javax.swing.JLabel jbRefresh;
-    private util.JPanelRounded jpAdd;
-    private util.JPanelRounded jpDelete;
-    private util.JPanelRounded jpEdit;
+    private util.JPanelRounded jbSua;
+    private util.JPanelRounded jbXoa;
+    private com.toedter.calendar.JDateChooser jdNgaySinh;
     private javax.swing.JPanel jpFunction;
-    private util.JPanelRounded jpRefresh;
+    private util.JPanelRounded jpThem;
     private javax.swing.JPanel jpTitle;
     private javax.swing.JLabel lblAddress;
     private javax.swing.JLabel lblDob;
@@ -344,18 +446,18 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
     private javax.swing.JLabel lblPhone;
     private javax.swing.JLabel lblPosition;
     private javax.swing.JLabel lblStatus;
-    private javax.swing.JRadioButton radFemale;
-    private javax.swing.JRadioButton radMale;
+    private javax.swing.JRadioButton radNam;
+    private javax.swing.JRadioButton radNu;
     private javax.swing.JScrollPane scrollEmployee;
     private util.SVGImage svgAdd;
     private util.SVGImage svgDelete;
     private util.SVGImage svgEdit;
     private util.SVGImage svgRefresh;
-    private javax.swing.JTable tableEmployee;
-    private javax.swing.JTextField txtAddress;
+    private javax.swing.JTable tableNhanVien;
+    private javax.swing.JTextField txtDiaChi;
     private javax.swing.JTextField txtEmail;
-    private javax.swing.JTextField txtEmployeeID1;
-    private javax.swing.JTextField txtFullName;
+    private javax.swing.JTextField txtMaNV;
     private javax.swing.JTextField txtSoDienThoai;
+    private javax.swing.JTextField txtTenNV;
     // End of variables declaration//GEN-END:variables
 }

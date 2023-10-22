@@ -10,9 +10,8 @@ import java.sql.Date;
  *
  * @author BanhMi88
  */
-
-
 public class NhanVien {
+
     private String maNV;
     private String tenNV;
     private String soDienThoai;
@@ -27,8 +26,8 @@ public class NhanVien {
 
     // Constructor
     public NhanVien(String maNV, String tenNV, String soDienThoai, String email, Date ngaySinh,
-                    String maLichLamViec, String maTK, String diaChi, String gioiTinh,
-                    String chucVu, String trangThai) {
+            String maLichLamViec, String maTK, String diaChi, String gioiTinh,
+            String chucVu, String trangThai) {
         this.maNV = maNV;
         this.tenNV = tenNV;
         this.soDienThoai = soDienThoai;
@@ -36,6 +35,21 @@ public class NhanVien {
         this.ngaySinh = ngaySinh;
         this.maLichLamViec = maLichLamViec;
         this.maTK = maTK;
+        this.diaChi = diaChi;
+        this.gioiTinh = gioiTinh;
+        this.chucVu = chucVu;
+        this.trangThai = trangThai;
+    }
+
+    public NhanVien(String maNV, String tenNV, String soDienThoai, String email, Date ngaySinh,
+            String diaChi, String gioiTinh,
+            String chucVu, String trangThai) {
+        this.maNV = maNV;
+        this.tenNV = tenNV;
+        this.soDienThoai = soDienThoai;
+        this.email = email;
+        this.ngaySinh = ngaySinh;
+
         this.diaChi = diaChi;
         this.gioiTinh = gioiTinh;
         this.chucVu = chucVu;
@@ -131,4 +145,3 @@ public class NhanVien {
         this.trangThai = trangThai;
     }
 }
-
