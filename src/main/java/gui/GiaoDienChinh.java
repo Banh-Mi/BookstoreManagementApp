@@ -87,7 +87,15 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
                 pnView.revalidate();
             }
         });
-        MenuItem menuCustomer2 = new MenuItem(null, "Tìm kiếm KH", null);
+        MenuItem menuCustomer2 = new MenuItem(null, "Tìm kiếm KH", new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                pnView.removeAll(); 
+                pnView.add(new JPanel_KhachHangTK());
+                pnView.repaint();
+                pnView.revalidate();
+            }
+        });
 
         MenuItem menuProduct1 = new MenuItem(null, "Quản lý SP", new ActionListener() {
             @Override
@@ -173,6 +181,7 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
+                pnView.add(new JPanel_KhuyenMaiTK());
                 pnView.repaint();
                 pnView.revalidate();
             }

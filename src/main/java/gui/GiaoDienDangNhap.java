@@ -11,16 +11,8 @@ import java.util.logging.Logger;
 import javax.swing.UIManager;
 
 
-/**
- *
- * @author ME1
- */
 public class GiaoDienDangNhap extends javax.swing.JFrame {
 
-    /**
-     * Creates new form login
-     */
-    //Tạo biến hiện ẩn password
     private boolean setShow = false;
     public static int ngongu;
     public GiaoDienDangNhap() throws SQLException {

@@ -26,7 +26,9 @@ public class KhachHangDAO {
                         rs.getString("email"),
                         rs.getDate("ngaySinh"),
                         rs.getString("diaChi"),
-                        rs.getString("gioiTinh")
+                        rs.getString("gioiTinh"),
+                        rs.getString("theVip"),
+                        rs.getDate("ngayDangKy")
                 ));
             }
         } catch (SQLException e) {
@@ -42,13 +44,15 @@ public class KhachHangDAO {
         String sql = "INSERT INTO KhachHang VALUES(?,?,?,?,?,?,?,?,?)";
         try {
             stmt = con.prepareStatement(sql);
-            stmt.setString(1, khachHang.getMaKH());
+            stmt.setString(1, taoMaKhachHang());
             stmt.setString(2, khachHang.getTenKH());
             stmt.setString(3, khachHang.getSoDienThoai());
             stmt.setString(4, khachHang.getEmail());
             stmt.setDate(5, new java.sql.Date(khachHang.getNgaySinh().getTime()));
             stmt.setString(6, khachHang.getDiaChi());
             stmt.setString(7, khachHang.getGioiTinh());
+            stmt.setString(8, khachHang.getTheVip());
+            stmt.setDate(9, new java.sql.Date(khachHang.getNgayDangKy().getTime()));
             stmt.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -77,7 +81,7 @@ public class KhachHangDAO {
         PreparedStatement stmt = null;
         try {
             stmt = con.prepareStatement("UPDATE KhachHang "
-                    + "SET tenKH=?, soDienThoai=?, email=?, ngaySinh=?, diaChi=?, gioiTinh=? "
+                    + "SET tenKH=?, soDienThoai=?, email=?, ngaySinh=?, diaChi=?, gioiTinh=?, theVip=?, ngayDangKy=? "
                     + "WHERE maKH=?");
 
             stmt.setString(1, khachHang.getTenKH());
@@ -86,7 +90,9 @@ public class KhachHangDAO {
             stmt.setDate(4, new java.sql.Date(khachHang.getNgaySinh().getTime()));
             stmt.setString(5, khachHang.getDiaChi());
             stmt.setString(6, khachHang.getGioiTinh());
-            stmt.setString(7, khachHang.getMaKH());
+            stmt.setString(7, khachHang.getTheVip());
+            stmt.setDate(8, new java.sql.Date(khachHang.getNgayDangKy().getTime()));
+            stmt.setString(9, khachHang.getMaKH());
             stmt.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -129,7 +135,7 @@ public class KhachHangDAO {
         }
         return null;
     }
-    public KhachHang searchCustomer(String maKH) {
+    public KhachHang search(String maKH) {
         Connection con = ConnectDB.getInstance().getConnection();
         PreparedStatement stmt = null;
         KhachHang khachHang= null;
@@ -146,7 +152,9 @@ public class KhachHangDAO {
                         rs.getString(4),
                         rs.getDate(5),
                         rs.getString(6),
-                        rs.getString(7)
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getDate(9)
                 );
             }
         } catch (SQLException e) {

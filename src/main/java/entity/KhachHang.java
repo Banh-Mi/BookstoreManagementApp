@@ -4,8 +4,8 @@
  */
 package entity;
 
-import java.sql.Date;
-
+import java.util.Date;
+import java.util.Objects;
 
 public class KhachHang {
     private String maKH;
@@ -15,8 +15,10 @@ public class KhachHang {
     private Date ngaySinh;
     private String diaChi;
     private String gioiTinh;
+    private String theVip;
+    private Date ngayDangKy;
 
-    public KhachHang(String maKH, String tenKH, String soDienThoai, String email, Date ngaySinh, String diaChi, String gioiTinh) {
+    public KhachHang(String maKH, String tenKH, String soDienThoai, String email, Date ngaySinh, String diaChi, String gioiTinh, String theVip, Date ngayDangKy) {
         this.maKH = maKH;
         this.tenKH = tenKH;
         this.soDienThoai = soDienThoai;
@@ -24,11 +26,9 @@ public class KhachHang {
         this.ngaySinh = ngaySinh;
         this.diaChi = diaChi;
         this.gioiTinh = gioiTinh;
+        this.theVip = theVip;
+        this.ngayDangKy = ngayDangKy;
     }
-
-   
-
-    // Getters and setters (generated automatically)
 
     public String getMaKH() {
         return maKH;
@@ -85,6 +85,22 @@ public class KhachHang {
     public void setGioiTinh(String gioiTinh) {
         this.gioiTinh = gioiTinh;
     }
+
+    public String getTheVip() {
+        return theVip;
+    }
+
+    public void setTheVip(String theVip) {
+        this.theVip = theVip;
+    }
+
+    public Date getNgayDangKy() {
+        return ngayDangKy;
+    }
+
+    public void setNgayDangKy(Date ngayDangKy) {
+        this.ngayDangKy = ngayDangKy;
+    }
+    
+    
 }
-
-
