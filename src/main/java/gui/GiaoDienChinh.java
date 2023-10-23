@@ -38,12 +38,12 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
         String iconProduct = "/menuItems/product.svg";
         String iconSupplier = "/menuItems/supplier.svg";
         String iconInvoice = "/menuItems/invoice.svg";
-        String iconStatistical = "/menuItems/statistical.svg";
+//        String iconStatistical = "/menuItems/statistical.svg";
         String iconAccount = "/menuItems/account.svg";
         String iconDiscount = "/menuItems/discount.svg";
         pnView.add(new JPanel_TrangChu());
 
-        MenuItem menuEmployee1 = new MenuItem(null, "Quản lý NV", new ActionListener() {
+        MenuItem menuQuanLyNV = new MenuItem(null, "Quản lý NV", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
@@ -52,7 +52,7 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
                 pnView.revalidate();
             }
         });
-        MenuItem menuEmployee2 = new MenuItem(null, "Tìm kiếm NV", new ActionListener() {
+        MenuItem menuTimNV = new MenuItem(null, "Tìm kiếm NV", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
@@ -60,7 +60,7 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
                 pnView.revalidate();
             }
         });
-        MenuItem menuEmployee3 = new MenuItem(null, "Phân ca", new ActionListener() {
+        MenuItem menuPhanCa = new MenuItem(null, "Phân ca", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
@@ -68,7 +68,7 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
                 pnView.revalidate();
             }
         });
-        MenuItem menuEmployee4 = new MenuItem(null, "Bán hàng", new ActionListener() {
+        MenuItem menuBanHang = new MenuItem(null, "Bán hàng", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
@@ -78,7 +78,7 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
             }
         });
 
-        MenuItem menuCustomer1 = new MenuItem(null, "Quản lý KH", new ActionListener() {
+        MenuItem menuQuanLyKH = new MenuItem(null, "Quản lý KH", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
@@ -87,17 +87,17 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
                 pnView.revalidate();
             }
         });
-        MenuItem menuCustomer2 = new MenuItem(null, "Tìm kiếm KH", new ActionListener(){
+        MenuItem menuTimKiemKH = new MenuItem(null, "Tìm kiếm KH", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                pnView.removeAll(); 
+                pnView.removeAll();
                 pnView.add(new JPanel_KhachHangTK());
                 pnView.repaint();
                 pnView.revalidate();
             }
         });
 
-        MenuItem menuProduct1 = new MenuItem(null, "Quản lý SP", new ActionListener() {
+        MenuItem menuQuanLySP = new MenuItem(null, "Quản lý SP", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
@@ -107,7 +107,7 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
             }
         });
 
-        MenuItem menuProduct2 = new MenuItem(null, "Tìm kiếm SP", new ActionListener() {
+        MenuItem menuTimKiemSP = new MenuItem(null, "Tìm kiếm SP", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
@@ -116,7 +116,7 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
             }
         });
 
-        MenuItem menuSupplier1 = new MenuItem(null, "Quản lý NCC", new ActionListener() {
+        MenuItem menuQLNhaCC = new MenuItem(null, "Quản lý NCC", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
@@ -126,7 +126,7 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
             }
         });
 
-        MenuItem menuSupplier2 = new MenuItem(null, "Tìm kiếm NCC", new ActionListener() {
+        MenuItem menuTimKiemNCC = new MenuItem(null, "Tìm kiếm NCC", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
@@ -136,7 +136,7 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
             }
         });
 
-        MenuItem menuInvoice1 = new MenuItem(null, "Quản lý HĐ", new ActionListener() {
+        MenuItem menuQuanLyHD = new MenuItem(null, "Quản lý HĐ", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
@@ -145,7 +145,7 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
                 pnView.revalidate();
             }
         });
-        MenuItem menuAccount1 = new MenuItem(null, "Quản lý tài khoản", new ActionListener() {
+        MenuItem menuQuanLyTK = new MenuItem(null, "Quản lý tài khoản", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
@@ -158,7 +158,7 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
                 pnView.revalidate();
             }
         });
-        MenuItem menuAccount2 = new MenuItem(null, "Tìm kiếm tài khoản", new ActionListener() {
+        MenuItem menuTimKiemTK = new MenuItem(null, "Tìm kiếm tài khoản", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
@@ -167,7 +167,7 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
             }
         });
 
-        MenuItem menuDiscount1 = new MenuItem(null, "Quản lý giảm giá", new ActionListener() {
+        MenuItem menuQuanLyKM = new MenuItem(null, "Quản lý khuyến mãi", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
@@ -177,7 +177,7 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
             }
         });
 
-        MenuItem menuDiscount2 = new MenuItem(null, "Tìm kiếm giảm giá", new ActionListener() {
+        MenuItem menuTimKiemKM = new MenuItem(null, "Tìm kiếm khuyến mãi", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
@@ -195,7 +195,7 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
                 pnView.revalidate();
             }
         });
-        MenuItem menuStatistical1 = new MenuItem(null, "Thống kê DT", new ActionListener() {
+        MenuItem menuThongKeDT = new MenuItem(null, "Thống kê DT", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
@@ -208,7 +208,7 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
                 pnView.revalidate();
             }
         });
-        MenuItem menuStatistical2 = new MenuItem(null, "Thống kê KH", new ActionListener() {
+        MenuItem menuThongKeKH = new MenuItem(null, "Thống kê KH", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
@@ -217,7 +217,7 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
                 pnView.revalidate();
             }
         });
-        MenuItem menuStatistical3 = new MenuItem(null, "Thống kê SP", new ActionListener() {
+        MenuItem menuThongKeSP = new MenuItem(null, "Thống kê SP", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
@@ -226,16 +226,15 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
                 pnView.revalidate();
             }
         });
+        MenuItem menuEmployee = new MenuItem(iconEmployee, "Nhân viên", null, menuQuanLyNV, menuTimNV, menuPhanCa, menuBanHang, menuThongKeDT, menuThongKeKH, menuThongKeSP);
+        MenuItem menuCustomer = new MenuItem(iconCustomer, "Khách hàng", null, menuQuanLyKH, menuTimKiemKH);
+        MenuItem menuProduct = new MenuItem(iconProduct, "Sản phẩm", null, menuQuanLySP, menuTimKiemSP);
+        MenuItem menuSupplier = new MenuItem(iconSupplier, "Nhà cung cấp", null, menuQLNhaCC, menuTimKiemNCC);
+        MenuItem menuInvoice = new MenuItem(iconInvoice, "Hoá đơn", null, menuQuanLyHD);
 
-        MenuItem menuEmployee = new MenuItem(iconEmployee, "Nhân viên", null, menuEmployee1, menuEmployee2, menuEmployee3, menuEmployee4);
-        MenuItem menuCustomer = new MenuItem(iconCustomer, "Khách hàng", null, menuCustomer1, menuCustomer2);
-        MenuItem menuProduct = new MenuItem(iconProduct, "Sản phẩm", null, menuProduct1, menuProduct2);
-        MenuItem menuSupplier = new MenuItem(iconSupplier, "Nhà cung cấp", null, menuSupplier1, menuSupplier2);
-        MenuItem menuInvoice = new MenuItem(iconInvoice, "Hoá đơn", null, menuInvoice1);
-        MenuItem menuStatistical = new MenuItem(iconStatistical, "Thống kê", null, menuStatistical1, menuStatistical2, menuStatistical3);
-        MenuItem menuAccount = new MenuItem(iconAccount, "Tài khoản", null, menuAccount1, menuAccount2);
-        MenuItem menuDiscount = new MenuItem(iconDiscount, "Giảm giá", null, menuDiscount1, menuDiscount2);
-        addMenu(menuHome, menuEmployee, menuCustomer, menuProduct, menuSupplier, menuInvoice, menuStatistical, menuAccount, menuDiscount);
+        MenuItem menuAccount = new MenuItem(iconAccount, "Tài khoản", null, menuQuanLyTK, menuTimKiemTK);
+        MenuItem menuDiscount = new MenuItem(iconDiscount, "Giảm giá", null, menuQuanLyKM, menuTimKiemKM);
+        addMenu(menuHome, menuEmployee, menuCustomer, menuProduct, menuSupplier, menuInvoice, menuAccount, menuDiscount);
     }
 
     private void addMenu(MenuItem... menu) {
