@@ -8,10 +8,8 @@ import dao.NhaCungCapDAO;
 import entity.NhaCungCap;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import static util.CheckRegex.checkName;
-import static util.CheckRegex.checkPhone;
-import static util.CheckRegex.checkText;
-import static util.CheckRegex.checkNull;
+import static util.Validator.checkName;
+import static util.Validator.*;
 
 /**
  *
@@ -304,13 +302,12 @@ public class JPanel_NhaCungCap extends javax.swing.JPanel {
         String email = txtEmail.getText();
         String soDienThoai = txtSoDienThoai.getText();
         String nguoiLienHe = txtContactPerson.getText();
-
-        if (!checkNull(maNCC) && !checkNull(tenNCC) && !checkNull(diaChi) && !checkNull(nguoiLienHe) && !checkNull(soDienThoai) && !checkNull(email)) {
+        if (!checkEmpty(tenNCC) && !checkEmpty(diaChi) && !checkEmpty(nguoiLienHe) && !checkEmpty(soDienThoai) && !checkEmpty(email)) {
             if (!maNCC.equals(nhaCungCapDAO.taoMaNCC())) {
                 JOptionPane.showMessageDialog(this, "Không được thêm sản phẩm đã tồn tại");
             } else {
                 NhaCungCap nhaCungCap = new NhaCungCap(maNCC, tenNCC, trangThai, diaChi, email, soDienThoai, nguoiLienHe);
-                if (checkText(tenNCC, "Tên nhà cung cấp không hợp lệ") && checkPhone(soDienThoai, "Số điện thoại không hợp lệ") && checkName(nguoiLienHe, "Tên người liên hệ không hợp lệ") && checkName(diaChi, "Địa chỉ không hợp lệ")) {
+                if (checkText(tenNCC, "Tên nhà cung cấp không hợp lệ") && checkPhone(soDienThoai, "Số điện thoại không hợp lệ") && checkName(nguoiLienHe, "Tên người liên hệ không hợp lệ") && checkName(diaChi, "Địa chỉ không hợp lệ") && checkMail(email, "Email không hợp lệ")) {
                     if (nhaCungCapDAO.insert(nhaCungCap)) {
                         loadData();
                         JOptionPane.showMessageDialog(this, "Thêm thành công");
@@ -320,8 +317,6 @@ public class JPanel_NhaCungCap extends javax.swing.JPanel {
                 }
             }
 
-        } else {
-            JOptionPane.showMessageDialog(this, "Không được để dữ liệu bị trống");
         }
 
 
@@ -373,8 +368,8 @@ public class JPanel_NhaCungCap extends javax.swing.JPanel {
                 String email = txtEmail.getText();
                 String soDienThoai = txtSoDienThoai.getText();
                 String nguoiLienHe = txtContactPerson.getText();
-                if (!"".equals(maNCC.trim()) && !"".equals(tenNCC.trim()) && !"".equals(diaChi.trim()) && !"".equals(nguoiLienHe.trim()) && !"".equals(soDienThoai.trim()) && !"".equals(email.trim())) {
-                    if (checkText(tenNCC, "Tên nhà cung cấp không hợp lệ") && checkPhone(soDienThoai, "Số điện thoại không hợp lệ") && checkName(nguoiLienHe, "Tên người liên hệ không hợp lệ") && checkName(diaChi, "Địa chỉ không hợp lệ")) {
+                if (!checkEmpty(tenNCC) && !checkEmpty(diaChi) && !checkEmpty(nguoiLienHe) && !checkEmpty(soDienThoai) && !checkEmpty(email)) {
+                    if (checkText(tenNCC, "Tên nhà cung cấp không hợp lệ") && checkPhone(soDienThoai, "Số điện thoại không hợp lệ") && checkName(nguoiLienHe, "Tên người liên hệ không hợp lệ") && checkName(diaChi, "Địa chỉ không hợp lệ") && checkMail(email, "Email không hợp lệ")) {
                         NhaCungCap supplier = new NhaCungCap(maNCC, tenNCC, trangThai, diaChi, email, soDienThoai, nguoiLienHe);
                         if (nhaCungCapDAO.update(supplier)) {
                             loadData();
@@ -383,8 +378,6 @@ public class JPanel_NhaCungCap extends javax.swing.JPanel {
                             JOptionPane.showMessageDialog(null, "Sửa thất bại");
                         }
                     }
-                } else {
-                    JOptionPane.showMessageDialog(this, "Không được để dữ liệu bị trống");
                 }
 
             }

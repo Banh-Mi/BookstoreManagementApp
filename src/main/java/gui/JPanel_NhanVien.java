@@ -15,10 +15,9 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.table.DefaultTableModel;
-import static util.CheckRegex.checkName;
-import static util.CheckRegex.checkPhone;
-import static util.CheckRegex.checkText;
-import static util.CheckRegex.checkNull;
+import static util.Validator.*;
+
+import static util.Validator.checkDate;
 
 /**
  *
@@ -336,13 +335,12 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
         String soDienThoai = txtSoDienThoai.getText();
         String gioiTinh = radNam.isSelected() ? "Nam" : "Nữ";
         String chucVu = (String) cbChucVu.getSelectedItem();
-        java.sql.Date ngaySinh = new java.sql.Date(jdNgaySinh.getDate().getTime());
-        if (!checkNull(maNV) && !checkNull(tenNV) && !checkNull(diaChi) && !checkNull(soDienThoai) && !checkNull(email) && !checkNull(ngaySinh.toString())) {
-
+        if (!checkEmpty(tenNV) && !checkEmpty(diaChi) && !checkEmpty(soDienThoai) && !checkEmpty(email) && !checkNull(jdNgaySinh.getDate())) {
+            java.sql.Date ngaySinh = new java.sql.Date(jdNgaySinh.getDate().getTime());
             taiKhoanDao = new TaiKhoanDAO();
             TaiKhoan taiKhoan = new TaiKhoan(taiKhoanDao.taMaTK(), maNV, "1111", "User", "Đang hoạt động");
             if (taiKhoanDao.insert(taiKhoan)) {
-                if (checkText(tenNV, "Tên nhân viên không hợp lệ") && checkPhone(soDienThoai, "Số điện thoại không hợp lệ") && checkName(diaChi, "Địa chỉ không hợp lệ")) {
+                if (checkText(tenNV, "Tên nhân viên không hợp lệ") && checkPhone(soDienThoai, "Số điện thoại không hợp lệ") && checkName(diaChi, "Địa chỉ không hợp lệ") && checkDate(ngaySinh, "Chưa đủ 18 tuổi") && checkMail(email, "Email không hợp lệ")) {
                     NhanVien nhanVien = new NhanVien(maNV, tenNV, soDienThoai, email, ngaySinh, null, taiKhoan.getMaTK(), diaChi, gioiTinh, chucVu, trangThai);
                     if (nhanVienDao.themNhanVien(nhanVien)) {
                         loadData();
@@ -396,10 +394,10 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
                 String soDienThoai = txtSoDienThoai.getText();
                 String gioiTinh = radNam.isSelected() ? "Nam" : "Nữ";
                 String chucVu = (String) cbChucVu.getSelectedItem();
-                java.sql.Date ngaySinh = new java.sql.Date(jdNgaySinh.getDate().getTime());
-                if (!checkNull(maNV) && !checkNull(tenNV) && !checkNull(diaChi) && !checkNull(soDienThoai) && !checkNull(email) && !checkNull(ngaySinh.toString())) {
-
-                    if (checkText(tenNV, "Tên nhân viên không hợp lệ") && checkPhone(soDienThoai, "Số điện thoại không hợp lệ") && checkName(diaChi, "Địa chỉ không hợp lệ")) {
+   
+                if (!checkEmpty(tenNV) && !checkEmpty(diaChi) && !checkEmpty(soDienThoai) && !checkEmpty(email) && !checkNull(jdNgaySinh.getDate())) {
+                    java.sql.Date ngaySinh = new java.sql.Date(jdNgaySinh.getDate().getTime());
+                    if (checkText(tenNV, "Tên nhân viên không hợp lệ") && checkPhone(soDienThoai, "Số điện thoại không hợp lệ") && checkName(diaChi, "Địa chỉ không hợp lệ") && checkDate(ngaySinh, "Chưa đủ 18 tuổi") && checkMail(email, "Email không hợp lệ")) {
                         NhanVien nhanVien = new NhanVien(maNV, tenNV, soDienThoai, email, ngaySinh, diaChi, gioiTinh, chucVu, trangThai);
                         if (nhanVienDao.capNhatNhanVien(nhanVien)) {
                             loadData();

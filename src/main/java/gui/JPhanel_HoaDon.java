@@ -53,7 +53,7 @@ public class JPhanel_HoaDon extends javax.swing.JPanel {
         modelOrder.setRowCount(0);
         modelOrderDetail.setRowCount(0);
         for (HoaDon hoaDon : hoaDonDAO.selectAll()) {
-            String[] data = {hoaDon.getMaHoaDon(), hoaDon.getNgayLapHoaDon() + "", hoaDon.getMaNV(), nhanVienDAO.searchEmployee(hoaDon.getMaNV()).getTenNV(), hoaDon.getMaKH(), khachHangDAO.searchCustomer(hoaDon.getMaKH()).getTenKH(), hoaDon.getLoaiHoaDon(), hoaDon.getPhuongThucThanhToan(), "", nf.format(hoaDon.getTongTien()), hoaDon.getTrangThai(), hoaDon.getGhiChu()};
+            String[] data = {hoaDon.getMaHoaDon(), hoaDon.getNgayLapHoaDon() + "", hoaDon.getMaNV(), nhanVienDAO.searchEmployee(hoaDon.getMaNV()).getTenNV(), hoaDon.getMaKH(), khachHangDAO.search(hoaDon.getMaKH()).getTenKH(), hoaDon.getLoaiHoaDon(), hoaDon.getPhuongThucThanhToan(), "", nf.format(hoaDon.getTongTien()), hoaDon.getTrangThai(), hoaDon.getGhiChu()};
             modelOrder.addRow(data);
         }
     }
@@ -62,7 +62,7 @@ public class JPhanel_HoaDon extends javax.swing.JPanel {
         modelOrder.setRowCount(0);
         modelOrderDetail.setRowCount(0);
         for (HoaDon hoaDon : danhSachHoaDon) {
-            String[] data = {hoaDon.getMaHoaDon(), hoaDon.getNgayLapHoaDon() + "", hoaDon.getMaNV(), nhanVienDAO.searchEmployee(hoaDon.getMaNV()).getTenNV(), hoaDon.getMaKH(), khachHangDAO.searchCustomer(hoaDon.getMaKH()).getTenKH(), hoaDon.getLoaiHoaDon(), hoaDon.getPhuongThucThanhToan(), "", nf.format(hoaDon.getTongTien()), hoaDon.getTrangThai(), hoaDon.getGhiChu()};
+            String[] data = {hoaDon.getMaHoaDon(), hoaDon.getNgayLapHoaDon() + "", hoaDon.getMaNV(), nhanVienDAO.searchEmployee(hoaDon.getMaNV()).getTenNV(), hoaDon.getMaKH(), khachHangDAO.search(hoaDon.getMaKH()).getTenKH(), hoaDon.getLoaiHoaDon(), hoaDon.getPhuongThucThanhToan(), "", nf.format(hoaDon.getTongTien()), hoaDon.getTrangThai(), hoaDon.getGhiChu()};
             modelOrder.addRow(data);
         }
     }
