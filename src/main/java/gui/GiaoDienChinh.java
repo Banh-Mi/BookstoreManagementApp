@@ -233,7 +233,7 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
         MenuItem menuInvoice = new MenuItem(iconInvoice, "Hoá đơn", null, menuQuanLyHD);
 
         MenuItem menuAccount = new MenuItem(iconAccount, "Tài khoản", null, menuQuanLyTK, menuTimKiemTK);
-        MenuItem menuDiscount = new MenuItem(iconDiscount, "Giảm giá", null, menuQuanLyKM, menuTimKiemKM);
+        MenuItem menuDiscount = new MenuItem(iconDiscount, "Khuyến mãi", null, menuQuanLyKM, menuTimKiemKM);
         addMenu(menuHome, menuEmployee, menuCustomer, menuProduct, menuSupplier, menuInvoice, menuAccount, menuDiscount);
     }
 
