@@ -328,33 +328,38 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
     private void jpThemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpThemMouseClicked
         nhanVienDao = new NhanVienDAO();
         String maNV = txtMaNV.getText();
-        String tenNV = txtTenNV.getText();
-        String trangThai = (String) cbTrangThai.getSelectedItem();
-        String diaChi = txtDiaChi.getText();
-        String email = txtEmail.getText();
-        String soDienThoai = txtSoDienThoai.getText();
-        String gioiTinh = radNam.isSelected() ? "Nam" : "Nữ";
-        String chucVu = (String) cbChucVu.getSelectedItem();
-        if (!checkEmpty(tenNV) && !checkEmpty(diaChi) && !checkEmpty(soDienThoai) && !checkEmpty(email) && !checkNull(jdNgaySinh.getDate())) {
-            java.sql.Date ngaySinh = new java.sql.Date(jdNgaySinh.getDate().getTime());
-            taiKhoanDao = new TaiKhoanDAO();
-            TaiKhoan taiKhoan = new TaiKhoan(taiKhoanDao.taMaTK(), maNV, "1111", "User", "Đang hoạt động");
-            if (taiKhoanDao.insert(taiKhoan)) {
-                if (checkText(tenNV, "Tên nhân viên không hợp lệ") && checkPhone(soDienThoai, "Số điện thoại không hợp lệ") && checkName(diaChi, "Địa chỉ không hợp lệ") && checkDate(ngaySinh, "Chưa đủ 18 tuổi") && checkMail(email, "Email không hợp lệ")) {
-                    NhanVien nhanVien = new NhanVien(maNV, tenNV, soDienThoai, email, ngaySinh, null, taiKhoan.getMaTK(), diaChi, gioiTinh, chucVu, trangThai);
-                    if (nhanVienDao.themNhanVien(nhanVien)) {
-                        loadData();
+        if (maNV.equals(nhanVienDao.taoMaNhanVien())) {
+            String tenNV = txtTenNV.getText();
+            String trangThai = (String) cbTrangThai.getSelectedItem();
+            String diaChi = txtDiaChi.getText();
+            String email = txtEmail.getText();
+            String soDienThoai = txtSoDienThoai.getText();
+            String gioiTinh = radNam.isSelected() ? "Nam" : "Nữ";
+            String chucVu = (String) cbChucVu.getSelectedItem();
 
-                        JOptionPane.showMessageDialog(this, "Thêm thành công");
-                        setValue(nhanVienDao.taoMaNhanVien(), "", "", "", "", "", radNam, "Nhân Viên bán hàng", "Đang làm");
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Thêm không thành công");
+            if (!checkEmpty(tenNV) && !checkEmpty(diaChi) && !checkEmpty(soDienThoai) && !checkEmpty(email) && !checkNull(jdNgaySinh.getDate())) {
+
+                java.sql.Date ngaySinh = new java.sql.Date(jdNgaySinh.getDate().getTime());
+                taiKhoanDao = new TaiKhoanDAO();
+                TaiKhoan taiKhoan = new TaiKhoan(taiKhoanDao.taMaTK(), maNV, "1111", "User", "Đang hoạt động");
+
+                if (checkText(tenNV, "Tên nhân viên không hợp lệ") && checkPhone(soDienThoai, "Số điện thoại không hợp lệ") && checkName(diaChi, "Địa chỉ không hợp lệ") && checkDate(ngaySinh, "Chưa đủ 18 tuổi") && checkMail(email, "Email không hợp lệ")) {
+                    if (taiKhoanDao.insert(taiKhoan)) {
+                        NhanVien nhanVien = new NhanVien(maNV, tenNV, soDienThoai, email, ngaySinh, null, taiKhoan.getMaTK(), diaChi, gioiTinh, chucVu, trangThai);
+                        if (nhanVienDao.themNhanVien(nhanVien)) {
+                            loadData();
+                            JOptionPane.showMessageDialog(this, "Thêm thành công");
+                            setValue(nhanVienDao.taoMaNhanVien(), "", "", "", "", "", radNam, "Nhân Viên bán hàng", "Đang làm");
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Thêm không thành công");
+                        }
                     }
                 }
+            } else {
+                JOptionPane.showMessageDialog(this, "Không được để dữ liệu bị trống");
             }
-
         } else {
-            JOptionPane.showMessageDialog(this, "Không được để dữ liệu bị trống");
+            JOptionPane.showMessageDialog(this, "Nhân viên đã tồn tại");
         }
     }//GEN-LAST:event_jpThemMouseClicked
 
@@ -385,8 +390,8 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Vui lòng chọn dòng muốn sửa");
             setValue(nhanVienDao.taoMaNhanVien(), "", "", "", "", "", radNam, "Nhân Viên bán hàng", "Đang làm");
         } else {
-            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn sửa dòng này không?", "Xác nhận", JOptionPane.YES_OPTION) == JOptionPane.YES_OPTION) {
-                String maNV = txtMaNV.getText();
+            String maNV = txtMaNV.getText();
+            if (!maNV.equals(nhanVienDao.taoMaNhanVien())) {
                 String tenNV = txtTenNV.getText();
                 String trangThai = (String) cbTrangThai.getSelectedItem();
                 String diaChi = txtDiaChi.getText();
@@ -394,21 +399,22 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
                 String soDienThoai = txtSoDienThoai.getText();
                 String gioiTinh = radNam.isSelected() ? "Nam" : "Nữ";
                 String chucVu = (String) cbChucVu.getSelectedItem();
-   
+
                 if (!checkEmpty(tenNV) && !checkEmpty(diaChi) && !checkEmpty(soDienThoai) && !checkEmpty(email) && !checkNull(jdNgaySinh.getDate())) {
                     java.sql.Date ngaySinh = new java.sql.Date(jdNgaySinh.getDate().getTime());
                     if (checkText(tenNV, "Tên nhân viên không hợp lệ") && checkPhone(soDienThoai, "Số điện thoại không hợp lệ") && checkName(diaChi, "Địa chỉ không hợp lệ") && checkDate(ngaySinh, "Chưa đủ 18 tuổi") && checkMail(email, "Email không hợp lệ")) {
                         NhanVien nhanVien = new NhanVien(maNV, tenNV, soDienThoai, email, ngaySinh, diaChi, gioiTinh, chucVu, trangThai);
                         if (nhanVienDao.capNhatNhanVien(nhanVien)) {
-                            loadData();
-                            JOptionPane.showMessageDialog(this, "Cập nhật thành công");
-                            setValue(nhanVienDao.taoMaNhanVien(), "", "", "", "", "", radNam, "Nhân Viên bán hàng", "Đang làm");
+                            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn sửa dòng này không?", "Xác nhận", JOptionPane.YES_OPTION) == JOptionPane.YES_OPTION) {
+                                loadData();
+                                JOptionPane.showMessageDialog(this, "Cập nhật thành công");
+                                setValue(nhanVienDao.taoMaNhanVien(), "", "", "", "", "", radNam, "Nhân Viên bán hàng", "Đang làm");
+                            }
                         } else {
                             JOptionPane.showMessageDialog(this, "Cập nhật không thành công");
                         }
 
                     }
-
                 } else {
                     JOptionPane.showMessageDialog(this, "Không được để dữ liệu bị trống");
                 }

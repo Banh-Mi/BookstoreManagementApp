@@ -113,10 +113,10 @@ public class JPanel_ThongKeDoanhThu extends javax.swing.JPanel {
         add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 400, 240, -1));
 
         txtdoanhthu.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        add(txtdoanhthu, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 450, 110, -1));
+        add(txtdoanhthu, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 450, 110, 30));
 
         txtsoluonghoadon.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        add(txtsoluonghoadon, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 400, 30, -1));
+        add(txtsoluonghoadon, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 400, 30, 30));
 
         tabledoanhthu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

@@ -6,6 +6,7 @@ package gui;
 
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
+import entity.NhanVien;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -20,15 +21,20 @@ import javax.swing.UIManager;
  */
 public final class GiaoDienChinh extends javax.swing.JFrame {
 
-    public GiaoDienChinh() {
+    private NhanVien nhanVien;
+
+    public GiaoDienChinh(NhanVien nhanVien) {
+        this.nhanVien = nhanVien;
         initComponents();
+        setThongTin();
         svgLogo.setSvgImage("logo.svg", 154, 65);
         execute();
+
     }
 
-    public void setThongTin(String ten, String chucVu) {
-        lbTen.setText(ten);
-        lbChucVu.setText(chucVu);
+    public void setThongTin() {
+        lbTen.setText(nhanVien.getTenNV());
+        lbChucVu.setText(nhanVien.getChucVu());
     }
 
     private void execute() {
@@ -38,7 +44,7 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
         String iconProduct = "/menuItems/product.svg";
         String iconSupplier = "/menuItems/supplier.svg";
         String iconInvoice = "/menuItems/invoice.svg";
-//        String iconStatistical = "/menuItems/statistical.svg";
+        String iconLogout= "/menuItems/logout.svg";
         String iconAccount = "/menuItems/account.svg";
         String iconDiscount = "/menuItems/discount.svg";
         pnView.add(new JPanel_TrangChu());
@@ -167,7 +173,7 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
             }
         });
 
-        MenuItem menuQuanLyKM = new MenuItem(null, "Quản lý khuyến mãi", new ActionListener() {
+        MenuItem menuQuanLyKM = new MenuItem(null, "Quản lý KM", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
@@ -177,7 +183,7 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
             }
         });
 
-        MenuItem menuTimKiemKM = new MenuItem(null, "Tìm kiếm khuyến mãi", new ActionListener() {
+        MenuItem menuTimKiemKM = new MenuItem(null, "Tìm kiếm KM", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
@@ -195,46 +201,67 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
                 pnView.revalidate();
             }
         });
-        MenuItem menuThongKeDT = new MenuItem(null, "Thống kê DT", new ActionListener() {
+        MenuItem menuThongKe = new MenuItem(null, "Thống kê", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
+                pnView.add(new JPanel_ThongKe());
+                pnView.repaint();
+                pnView.revalidate();
+            }
+        });
+
+        MenuItem menuDangXuat = new MenuItem(iconLogout, "Đăng Xuất", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
                 try {
-                    pnView.add(new JPanel_ThongKeDoanhThu());
+                    dangXuat();
+                    new GiaoDienDangNhap().setVisible(true);
                 } catch (SQLException ex) {
                     Logger.getLogger(GiaoDienChinh.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                pnView.repaint();
-                pnView.revalidate();
             }
         });
-        MenuItem menuThongKeKH = new MenuItem(null, "Thống kê KH", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                pnView.removeAll();
-                pnView.add(new JPanel_ThongKeKhachHang());
-                pnView.repaint();
-                pnView.revalidate();
-            }
-        });
-        MenuItem menuThongKeSP = new MenuItem(null, "Thống kê SP", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                pnView.removeAll();
-                pnView.add(new JPanel_ThongKeSanPham());
-                pnView.repaint();
-                pnView.revalidate();
-            }
-        });
-        MenuItem menuEmployee = new MenuItem(iconEmployee, "Nhân viên", null, menuQuanLyNV, menuTimNV, menuPhanCa, menuBanHang, menuThongKeDT, menuThongKeKH, menuThongKeSP);
+
+//        MenuItem menuThongKeDT = new MenuItem(null, "Thống kê DT", new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent ae) {
+//                pnView.removeAll();
+//                pnView.add(new JPanel_ThongKe());
+//                pnView.repaint();
+//                pnView.revalidate();
+//            }
+//        });
+//        MenuItem menuThongKeKH = new MenuItem(null, "Thống kê KH", new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent ae) {
+//                pnView.removeAll();
+//                pnView.add(new JPanel_ThongKeKhachHang());
+//                pnView.repaint();
+//                pnView.revalidate();
+//            }
+//        });
+//        MenuItem menuThongKeSP = new MenuItem(null, "Thống kê SP", new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent ae) {
+//                pnView.removeAll();
+//                pnView.add(new JPanel_ThongKeSanPham());
+//                pnView.repaint();
+//                pnView.revalidate();
+//            }
+//        });
+        MenuItem menuEmployee = new MenuItem(iconEmployee, "Nhân viên", null, menuQuanLyNV, menuTimNV, menuPhanCa, menuBanHang, menuThongKe,menuQuanLyKM, menuTimKiemKM);
         MenuItem menuCustomer = new MenuItem(iconCustomer, "Khách hàng", null, menuQuanLyKH, menuTimKiemKH);
         MenuItem menuProduct = new MenuItem(iconProduct, "Sản phẩm", null, menuQuanLySP, menuTimKiemSP);
         MenuItem menuSupplier = new MenuItem(iconSupplier, "Nhà cung cấp", null, menuQLNhaCC, menuTimKiemNCC);
         MenuItem menuInvoice = new MenuItem(iconInvoice, "Hoá đơn", null, menuQuanLyHD);
 
         MenuItem menuAccount = new MenuItem(iconAccount, "Tài khoản", null, menuQuanLyTK, menuTimKiemTK);
-        MenuItem menuDiscount = new MenuItem(iconDiscount, "Khuyến mãi", null, menuQuanLyKM, menuTimKiemKM);
-        addMenu(menuHome, menuEmployee, menuCustomer, menuProduct, menuSupplier, menuInvoice, menuAccount, menuDiscount);
+        addMenu(menuHome, menuEmployee, menuCustomer, menuProduct, menuSupplier, menuInvoice, menuAccount, menuDangXuat);
+    }
+
+    private void dangXuat() {
+        this.setVisible(false);
     }
 
     private void addMenu(MenuItem... menu) {
@@ -363,11 +390,11 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
 
         FlatMacLightLaf.setup();
         UIManager.put("Button.arc", 5);
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new GiaoDienChinh().setVisible(true);
-            }
-        });
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new GiaoDienChinh().setVisible(true);
+//            }
+//        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
