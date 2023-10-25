@@ -209,12 +209,12 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JButton" name="btnBieuDoDT">
+                <Component class="javax.swing.JButton" name="btnXuatExcel">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="BI&#x1ec2;U &#x110;&#x1ed2; DOANH THU"/>
+                    <Property name="text" type="java.lang.String" value="XU&#x1ea4;T RA FILE EXCEL"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnBieuDoDTMouseClicked"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnXuatExcelMouseClicked"/>
                   </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
