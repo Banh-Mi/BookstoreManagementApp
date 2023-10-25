@@ -6,12 +6,21 @@ package gui;
 
 import dao.DoanhThuDAO;
 import entity.DoanhThu;
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import static util.ExcelExporter.exportToExcel;
 
 /**
  *
@@ -83,9 +92,6 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         lblTuNgay = new javax.swing.JLabel();
         btnBieuDoDT = new javax.swing.JButton();
         jcbLuaChonDoanhThu = new javax.swing.JComboBox<>();
-        jpInBaoCao = new util.JPanelRounded();
-        lblInBaoCao = new javax.swing.JLabel();
-        svgInBaoCao = new util.SVGImage();
         lblLuaChonDoanhThu = new javax.swing.JLabel();
         jpThongKeDT = new util.JPanelRounded();
         lblThongKeDoanhThu = new javax.swing.JLabel();
@@ -239,27 +245,6 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         });
         jpChucNangDoanhThu.add(jcbLuaChonDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, 150, 30));
 
-        jpInBaoCao.setBackground(new java.awt.Color(255, 255, 255));
-        jpInBaoCao.setRoundedBottomLeft(10);
-        jpInBaoCao.setRoundedBottomRight(10);
-        jpInBaoCao.setRoundedTopLeft(10);
-        jpInBaoCao.setRoundedTopRight(10);
-        jpInBaoCao.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jpInBaoCaoMouseClicked(evt);
-            }
-        });
-        jpInBaoCao.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        lblInBaoCao.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblInBaoCao.setText("In báo cáo");
-        jpInBaoCao.add(lblInBaoCao, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 80, 40));
-
-        svgInBaoCao.setText(" ");
-        jpInBaoCao.add(svgInBaoCao, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
-
-        jpChucNangDoanhThu.add(jpInBaoCao, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 250, 120, 40));
-
         lblLuaChonDoanhThu.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblLuaChonDoanhThu.setText("Thống kê theo:");
         jpChucNangDoanhThu.add(lblLuaChonDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, 30));
@@ -304,7 +289,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         svgLamMoiDoanhThu.setText(" ");
         jbLamMoiDoanhThu.add(svgLamMoiDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
 
-        jpChucNangDoanhThu.add(jbLamMoiDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 310, 110, 40));
+        jpChucNangDoanhThu.add(jbLamMoiDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 250, 110, 40));
         jpChucNangDoanhThu.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, 280, 10));
 
         lblNamDoanhThu.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -671,9 +656,13 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         int soHoaDon = 0;
         double tong = 0;
         java.util.Date currDate = new java.util.Date();
+        ArrayList<DoanhThu> doanhThuList = new ArrayList<>();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd_MM_yyyy_HH_mm_ss");
+        String formattedDate = dateFormat.format(currDate);
         switch (selectedItem) {
             case "Theo ngày":
-                for (DoanhThu doanhThu : doanhThuDAO.getHoaDon(new java.sql.Date(currDate.getTime()), new java.sql.Date(currDate.getTime()))) {
+                doanhThuList = doanhThuDAO.getHoaDon(new java.sql.Date(currDate.getTime()), new java.sql.Date(currDate.getTime()));
+                for (DoanhThu doanhThu : doanhThuList) {
                     Object row[] = {doanhThu.getMahoadon(), doanhThu.getTennv(), doanhThu.getTenkh(), doanhThu.getNgaylaphoadon(), doanhThu.getTongtien()};
                     modelDoanhThu.addRow(row);
                     tong += doanhThu.getTongtien();
@@ -685,7 +674,8 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
                 calendar.setTime(currDate);
                 calendar.add(Calendar.DAY_OF_MONTH, -7);
                 java.util.Date weekAgo = calendar.getTime();
-                for (DoanhThu doanhThu : doanhThuDAO.getHoaDon(new java.sql.Date(weekAgo.getTime()), new java.sql.Date(currDate.getTime()))) {
+                doanhThuList = doanhThuDAO.getHoaDon(new java.sql.Date(weekAgo.getTime()), new java.sql.Date(currDate.getTime()));
+                for (DoanhThu doanhThu : doanhThuList) {
                     Object row[] = {doanhThu.getMahoadon(), doanhThu.getTennv(), doanhThu.getTenkh(), doanhThu.getNgaylaphoadon(), doanhThu.getTongtien()};
                     modelDoanhThu.addRow(row);
                     tong += doanhThu.getTongtien();
@@ -693,7 +683,8 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
                 }
                 break;
             case "Theo tháng":
-                for (DoanhThu doanhThu : doanhThuDAO.getDoanhThuThangNam(Integer.parseInt(jcbThangDoanhThu.getSelectedItem().toString()), Integer.parseInt(jcbNamDoanhThu.getSelectedItem().toString()))) {
+                doanhThuList = doanhThuDAO.getDoanhThuThangNam(Integer.parseInt(jcbThangDoanhThu.getSelectedItem().toString()), Integer.parseInt(jcbNamDoanhThu.getSelectedItem().toString()));
+                for (DoanhThu doanhThu : doanhThuList) {
                     Object row[] = {doanhThu.getMahoadon(), doanhThu.getTennv(), doanhThu.getTenkh(), doanhThu.getNgaylaphoadon(), doanhThu.getTongtien()};
                     modelDoanhThu.addRow(row);
                     tong += doanhThu.getTongtien();
@@ -703,7 +694,8 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
             case "Tuỳ chỉnh":
                 java.sql.Date tuNgay = jdTuNgayDoanhThu.getDate() == null ? null : new java.sql.Date(jdTuNgayDoanhThu.getDate().getTime());
                 java.sql.Date denNgay = jdDenNgayDoanhThu.getDate() == null ? null : new java.sql.Date(jdDenNgayDoanhThu.getDate().getTime());
-                for (DoanhThu doanhThu : doanhThuDAO.getHoaDon(tuNgay, denNgay)) {
+                doanhThuList = doanhThuDAO.getHoaDon(tuNgay, denNgay);
+                for (DoanhThu doanhThu : doanhThuList) {
                     Object row[] = {doanhThu.getMahoadon(), doanhThu.getTennv(), doanhThu.getTenkh(), doanhThu.getNgaylaphoadon(), doanhThu.getTongtien()};
                     modelDoanhThu.addRow(row);
                     tong += doanhThu.getTongtien();
@@ -712,7 +704,8 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
                 break;
 
             case "Theo năm":
-                for (DoanhThu doanhThu : doanhThuDAO.getDoanhThuThangNam(0, Integer.parseInt(jcbNamDoanhThu.getSelectedItem().toString()))) {
+                doanhThuList = doanhThuDAO.getDoanhThuThangNam(0, Integer.parseInt(jcbNamDoanhThu.getSelectedItem().toString()));
+                for (DoanhThu doanhThu : doanhThuList) {
                     Object row[] = {doanhThu.getMahoadon(), doanhThu.getTennv(), doanhThu.getTenkh(), doanhThu.getNgaylaphoadon(), doanhThu.getTongtien()};
                     modelDoanhThu.addRow(row);
                     tong += doanhThu.getTongtien();
@@ -725,11 +718,17 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         BigDecimal tongTien = new BigDecimal(tong);
         txtSoLuongHoaDon.setText(soHoaDon + "");
         txtDoanhThu.setText(tongTien + "");
+        if (modelDoanhThu.getRowCount() > 0) {
+            if (JOptionPane.showConfirmDialog(null, "Bạn có muốn xuất excel không", "Xác nhận", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                String filePath = "D:\\DoanhThu_" + selectedItem + "_" + formattedDate + ".xlsx";
+                if (exportToExcel(doanhThuList, filePath)) {
+                    JOptionPane.showMessageDialog(this, "Xuất file thành công: " + filePath);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Xuất file không thành công: " + filePath);
+                }
+            }
+        }
     }//GEN-LAST:event_jpThongKeDTMouseClicked
-
-    private void jpInBaoCaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpInBaoCaoMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jpInBaoCaoMouseClicked
 
     private void jbLamMoiDoanhThuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbLamMoiDoanhThuMouseClicked
         loadDuLieuDoanhThu();
@@ -834,7 +833,6 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
     private javax.swing.JPanel jpChucNangDoanhThu;
     private javax.swing.JPanel jpChucNangKH;
     private javax.swing.JPanel jpChucNangSanPham;
-    private util.JPanelRounded jpInBaoCao;
     private util.JPanelRounded jpInBaoCaoKH;
     private util.JPanelRounded jpInBaoCaoSP;
     private util.JPanelRounded jpThongKeDT;
@@ -846,7 +844,6 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
     private javax.swing.JLabel lblDoanhThu;
     private javax.swing.JLabel lblDoanhThuKH;
     private javax.swing.JLabel lblDoanhThuSanPham;
-    private javax.swing.JLabel lblInBaoCao;
     private javax.swing.JLabel lblInBaoCaoKH;
     private javax.swing.JLabel lblInBaoCaoSP;
     private javax.swing.JLabel lblLamMoiDoanhThu;
@@ -876,7 +873,6 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
     private javax.swing.JScrollPane scrollDoanhThu;
     private javax.swing.JScrollPane scrollKhachHang;
     private javax.swing.JScrollPane scrollSanPham;
-    private util.SVGImage svgInBaoCao;
     private util.SVGImage svgInBaoCaoKH;
     private util.SVGImage svgInBaoCaoSP;
     private util.SVGImage svgLamMoiDoanhThu;

@@ -56,6 +56,7 @@ gui\JPanel_KhuyenMai$20.class
 gui\JPanel_KhachHangTK$1.class
 gui\JPanel_KhachHang$6.class
 gui\GiaoDienChinh$13.class
+util\ExcelExporter.class
 gui\JPanel_ThongKe$4.class
 util\SVGImage.class
 gui\JPanel_ThongKe$14.class
