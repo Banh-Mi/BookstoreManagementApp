@@ -10,6 +10,7 @@ package dao;
  */
 import connectDB.ConnectDB;
 import entity.NhaCungCap;
+import java.sql.CallableStatement;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -81,7 +82,7 @@ public class NhaCungCapDAO {
         return false;
     }
 
-    public NhaCungCap searchNhaCungCap(String nhaCungCapID) {
+    public NhaCungCap timNhaCungCapTheoID(String nhaCungCapID) {
         Connection con = ConnectDB.getInstance().getConnection();
         PreparedStatement stmt = null;
         NhaCungCap nhaCungCap = null;
@@ -99,6 +100,32 @@ public class NhaCungCapDAO {
             e.printStackTrace();
         }
         return nhaCungCap;
+    }
+
+    public ArrayList<NhaCungCap> timNhaCungCap(String maNhaCC, String tenNhaCC, String email ,String soDienThoai, boolean trangThai) {
+        ArrayList<NhaCungCap> danhSachNhaCungCap = new ArrayList<>();
+        ConnectDB.getInstance();
+        Connection con = ConnectDB.getConnection();
+
+        CallableStatement cstmt = null;
+        try {
+            String sql = "{call TimNhaCungCap(?,?,?,?,?)}";
+            cstmt = con.prepareCall(sql);
+            cstmt.setString(1, maNhaCC);
+            cstmt.setString(2, tenNhaCC);
+            cstmt.setString(3, email);
+            cstmt.setString(4, soDienThoai);
+            cstmt.setBoolean(5, trangThai);
+            ResultSet rs = cstmt.executeQuery();
+            while (rs.next()) {
+                danhSachNhaCungCap.add(new NhaCungCap(rs.getString("maNhaCC"), rs.getString("tenNhaCC"),
+                        rs.getBoolean("trangThai"), rs.getString("diaChi"), rs.getString("email"),
+                        rs.getString("soDienThoai"), rs.getString("tenNguoiLienHe")));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return danhSachNhaCungCap;
     }
 
     public String taoMaNCC() {

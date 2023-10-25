@@ -36,7 +36,6 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         initComponents();
         modelDoanhThu = (DefaultTableModel) tableDoanhThu.getModel();
         svgThongKeDoanhThu.setSvgImage("statistical.svg", 25, 25);
-        svgInBaoCao.setSvgImage("print.svg", 25, 25);
         svgLamMoiDoanhThu.setSvgImage("refresh.svg", 25, 25);
         loadDuLieuDoanhThu();
     }

@@ -44,7 +44,7 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
         String iconProduct = "/menuItems/product.svg";
         String iconSupplier = "/menuItems/supplier.svg";
         String iconInvoice = "/menuItems/invoice.svg";
-        String iconLogout= "/menuItems/logout.svg";
+        String iconLogout = "/menuItems/logout.svg";
         String iconAccount = "/menuItems/account.svg";
         String iconDiscount = "/menuItems/discount.svg";
         pnView.add(new JPanel_TrangChu());
@@ -136,7 +136,7 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
-
+                pnView.add(new JPanel_TimKiemNhaCungCap());
                 pnView.repaint();
                 pnView.revalidate();
             }
@@ -250,7 +250,7 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
 //                pnView.revalidate();
 //            }
 //        });
-        MenuItem menuEmployee = new MenuItem(iconEmployee, "Nhân viên", null, menuQuanLyNV, menuTimNV, menuPhanCa, menuBanHang, menuThongKe,menuQuanLyKM, menuTimKiemKM);
+        MenuItem menuEmployee = new MenuItem(iconEmployee, "Nhân viên", null, menuQuanLyNV, menuTimNV, menuPhanCa, menuBanHang, menuThongKe, menuQuanLyKM, menuTimKiemKM);
         MenuItem menuCustomer = new MenuItem(iconCustomer, "Khách hàng", null, menuQuanLyKH, menuTimKiemKH);
         MenuItem menuProduct = new MenuItem(iconProduct, "Sản phẩm", null, menuQuanLySP, menuTimKiemSP);
         MenuItem menuSupplier = new MenuItem(iconSupplier, "Nhà cung cấp", null, menuQLNhaCC, menuTimKiemNCC);

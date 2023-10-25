@@ -3,6 +3,7 @@ gui\JPanel_KhachHang$5.class
 gui\BieuDoKhachHang.class
 gui\JPhanel_HoaDon$8.class
 gui\JPanel_ThongKeSanPham$3.class
+gui\JPanel_TimKiemNhaCungCap.class
 gui\JPanel_KhachHang$10.class
 gui\JPanel_SanPham$18.class
 gui\GiaoDienChinh.class
@@ -12,6 +13,7 @@ dao\TaiKhoanDAO.class
 util\JPanelRounded.class
 gui\BieuDoKhachHang$2.class
 entity\NhanVien.class
+gui\JPanel_TimKiemNhaCungCap$2.class
 gui\JPanel_KhuyenMai$18.class
 gui\JPanel_KhuyenMai.class
 gui\JPanel_BanHang$11.class
@@ -85,11 +87,11 @@ gui\JPanel_SanPham$5.class
 gui\JPanel_ThongKe$2.class
 gui\JPanel_KhachHang$11.class
 gui\JPanel_SanPham$17.class
-gui\JPanel_ThongKe$19.class
 gui\JPanel_SanPham$8.class
 gui\BieuDoKhachHang$1.class
 gui\GiaoDienChinh$14.class
 gui\JPanel_KhuyenMai$14.class
+gui\JPanel_TimKiemNhaCungCap$1.class
 connectDB\ConnectDB.class
 gui\GiaoDienDangNhap$2.class
 gui\HoaDonDoanhThu.class
@@ -108,6 +110,7 @@ gui\JPanel_SanPham$16.class
 gui\GiaoDienDangNhap$1.class
 dao\SanPhamDAO.class
 gui\BieuDoKhachHang$3.class
+gui\JPanel_TimKiemNhaCungCap$3.class
 gui\JPanel_KhuyenMai$12.class
 dao\HoaDonDAO.class
 gui\JPhanel_HoaDon$11.class

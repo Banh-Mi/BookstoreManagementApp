@@ -76,7 +76,7 @@ public class JPanel_SanPham extends javax.swing.JPanel {
         modelSanPham.setRowCount(0);
         for (SanPham sanPham : danhSachSanPham) {
             if (sanPham.isTrangThai()) {
-                String[] data = {sanPham.getMaSanPham(), sanPham.getTenSanPham(), sanPham.getDanhMuc(), (nhaCungCapDAO.searchNhaCungCap(sanPham.getMaNhaCC())).getTenNhaCC(), sanPham.getDonViTinh(), sanPham.getTacGia(), sanPham.getNhaXuatBan(), sanPham.getNamXuatBan() == 0 ? "" : sanPham.getNamXuatBan() + "", sanPham.getSoTrang() == 0 ? "" : sanPham.getSoTrang() + "", sanPham.getSoLuong() + "", nf.format(sanPham.getGia()), sanPham.getHinhAnh(), sanPham.getMoTa()};
+                String[] data = {sanPham.getMaSanPham(), sanPham.getTenSanPham(), sanPham.getDanhMuc(), (nhaCungCapDAO.timNhaCungCapTheoID(sanPham.getMaNhaCC())).getTenNhaCC(), sanPham.getDonViTinh(), sanPham.getTacGia(), sanPham.getNhaXuatBan(), sanPham.getNamXuatBan() == 0 ? "" : sanPham.getNamXuatBan() + "", sanPham.getSoTrang() == 0 ? "" : sanPham.getSoTrang() + "", sanPham.getSoLuong() + "", nf.format(sanPham.getGia()), sanPham.getHinhAnh(), sanPham.getMoTa()};
                 modelSanPham.addRow(data);
             }
         }
