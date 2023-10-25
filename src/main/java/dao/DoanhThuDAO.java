@@ -3,44 +3,63 @@ package dao;
 import connectDB.ConnectDB;
 import entity.DoanhThu;
 import entity.DoanhThuBieuDo;
+import java.sql.CallableStatement;
 
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 public class DoanhThuDAO {
 
-    public ArrayList<DoanhThu> getAllDoanhThu(Date ngaybatdau, Date ngayketthuc) {
-        ArrayList<DoanhThu> listdt = new ArrayList<>();
+    public ArrayList<DoanhThu> getHoaDon(Date ngayBatDau, Date ngayKetThuc) {
+        ArrayList<DoanhThu> danhSachHoaDon = new ArrayList<>();
         ConnectDB.getInstance();
         Connection con = ConnectDB.getConnection();
-        PreparedStatement stmt = null;
+
+        CallableStatement cstmt = null;
         try {
-            String sql = "SELECT HD.maHoaDon, NV.tenNV, KH.tenKH, HD.ngayLapHoaDon, "
-                    + "SUM(CH.soLuong * SP.gia) AS TongTien "
-                    + "FROM HoaDon HD "
-                    + "JOIN NhanVien NV ON HD.maNV = NV.maNV "
-                    + "JOIN KhachHang KH ON HD.maKH = KH.maKH "
-                    + "JOIN ChiTietHoaDon CH ON HD.maHoaDon = CH.maHoaDon "
-                    + "JOIN SanPham SP ON CH.maSanPham = SP.maSanPham "
-                    + "WHERE HD.ngayLapHoaDon BETWEEN ? AND ? "
-                    + "GROUP BY HD.maHoaDon, NV.tenNV, KH.tenKH, HD.ngayLapHoaDon";
-            stmt = con.prepareStatement(sql);
-            stmt.setDate(1, ngaybatdau);
-            stmt.setDate(2, ngayketthuc);
-            ResultSet rs = stmt.executeQuery();
+            String sql = "{call DoanhThuTuyChinh(?,?)}";
+            cstmt = con.prepareCall(sql);
+            cstmt.setDate(1, ngayBatDau);
+            cstmt.setDate(2, ngayKetThuc);
+            ResultSet rs = cstmt.executeQuery();
             while (rs.next()) {
-                listdt.add(new DoanhThu(rs.getString(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getDouble(5)));
+                danhSachHoaDon.add(new DoanhThu(rs.getString(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getDouble(5)));
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return listdt;
+        return danhSachHoaDon;
     }
+
+    
+
+    public ArrayList<DoanhThu> getDoanhThuThangNam(int month, int year) {
+        ArrayList<DoanhThu> danhSachHoaDon = new ArrayList<>();
+        ConnectDB.getInstance();
+        Connection con = ConnectDB.getConnection();
+
+        CallableStatement cstmt = null;
+        try {
+            String sql = "{call DoanhThuThangNam(?,?)}";
+            cstmt = con.prepareCall(sql);
+            cstmt.setInt(1, month);
+            cstmt.setInt(2, year);
+            ResultSet rs = cstmt.executeQuery();
+            while (rs.next()) {
+                danhSachHoaDon.add(new DoanhThu(rs.getString(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getDouble(5)));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return danhSachHoaDon;
+    }
+
+    
+    
+    
 
     public ArrayList<DoanhThuBieuDo> getAllDoanhThuBieuDo(int nam) {
         ArrayList<DoanhThuBieuDo> listdtbd = new ArrayList<>();

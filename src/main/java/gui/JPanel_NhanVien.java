@@ -53,7 +53,6 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
             jdNgaySinh.setDate(null);
         } else {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
             java.sql.Date defaultDate;
             try {
                 defaultDate = new java.sql.Date(dateFormat.parse(ngaySinh).getTime());

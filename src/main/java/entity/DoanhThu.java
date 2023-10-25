@@ -8,7 +8,7 @@ public class DoanhThu {
     private String tennv;
     private String tenkh;
     private Date ngaylaphoadon;
-    private  double tongtien;
+    private double tongtien;
 
     public DoanhThu(String mahoadon, String tennv, String tenkh, Date ngaylaphoadon, double tongtien) {
         this.mahoadon = mahoadon;

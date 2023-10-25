@@ -26,7 +26,7 @@ public class JPanel_ThongKeDoanhThu extends javax.swing.JPanel {
         int soluongdon=0;
         double doanhthu=0;
         doanhThuDao = new DoanhThuDAO();
-        for (DoanhThu dt : doanhThuDao.getAllDoanhThu(ngaybatdau, ngayketthuc)) {
+        for (DoanhThu dt : doanhThuDao.getHoaDon(ngaybatdau, ngayketthuc)) {
             Object[] row = {dt.getMahoadon(), dt.getTennv(), dt.getTenkh(), dt.getNgaylaphoadon(), dt.getTongtien()};
             soluongdon++;
             doanhthu+=dt.getTongtien();
