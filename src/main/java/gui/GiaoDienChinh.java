@@ -250,14 +250,22 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
 //                pnView.revalidate();
 //            }
 //        });
-        MenuItem menuEmployee = new MenuItem(iconEmployee, "Nhân viên", null, menuQuanLyNV, menuTimNV, menuPhanCa, menuBanHang, menuThongKe, menuQuanLyKM, menuTimKiemKM);
-        MenuItem menuCustomer = new MenuItem(iconCustomer, "Khách hàng", null, menuQuanLyKH, menuTimKiemKH);
-        MenuItem menuProduct = new MenuItem(iconProduct, "Sản phẩm", null, menuQuanLySP, menuTimKiemSP);
-        MenuItem menuSupplier = new MenuItem(iconSupplier, "Nhà cung cấp", null, menuQLNhaCC, menuTimKiemNCC);
-        MenuItem menuInvoice = new MenuItem(iconInvoice, "Hoá đơn", null, menuQuanLyHD);
+        if (nhanVien.getChucVu().equals("Quản lý")) {
+            MenuItem menuEmployee = new MenuItem(iconEmployee, "Nhân viên", null, menuQuanLyNV, menuTimNV, menuPhanCa, menuBanHang, menuThongKe, menuQuanLyKM, menuTimKiemKM);
+            MenuItem menuCustomer = new MenuItem(iconCustomer, "Khách hàng", null, menuQuanLyKH, menuTimKiemKH);
+            MenuItem menuProduct = new MenuItem(iconProduct, "Sản phẩm", null, menuQuanLySP, menuTimKiemSP);
+            MenuItem menuSupplier = new MenuItem(iconSupplier, "Nhà cung cấp", null, menuQLNhaCC, menuTimKiemNCC);
+            MenuItem menuInvoice = new MenuItem(iconInvoice, "Hoá đơn", null, menuQuanLyHD);
+            MenuItem menuAccount = new MenuItem(iconAccount, "Tài khoản", null, menuQuanLyTK, menuTimKiemTK);
+            addMenu(menuHome, menuEmployee, menuCustomer, menuProduct, menuSupplier, menuInvoice, menuAccount, menuDangXuat);
+        } else {
+            MenuItem menuEmployee = new MenuItem(iconEmployee, "Nhân viên", null, menuBanHang, menuThongKe, menuQuanLyKM, menuTimKiemKM);
+            MenuItem menuCustomer = new MenuItem(iconCustomer, "Khách hàng", null, menuQuanLyKH, menuTimKiemKH);
+            MenuItem menuProduct = new MenuItem(iconProduct, "Sản phẩm", null, menuTimKiemSP);
+            MenuItem menuInvoice = new MenuItem(iconInvoice, "Hoá đơn", null, menuQuanLyHD);
+            addMenu(menuHome, menuEmployee, menuCustomer, menuProduct, menuInvoice, menuDangXuat);
+        }
 
-        MenuItem menuAccount = new MenuItem(iconAccount, "Tài khoản", null, menuQuanLyTK, menuTimKiemTK);
-        addMenu(menuHome, menuEmployee, menuCustomer, menuProduct, menuSupplier, menuInvoice, menuAccount, menuDangXuat);
     }
 
     private void dangXuat() {

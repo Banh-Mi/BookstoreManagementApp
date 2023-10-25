@@ -54,7 +54,8 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         modelDoanhThu.setRowCount(0);
         int soHoaDon = 0;
         double tong = 0;
-        for (DoanhThu doanhThu : doanhThuDAO.getHoaDon(null, null)) {
+        doanhThuList = doanhThuDAO.getHoaDon(null, null);
+        for (DoanhThu doanhThu : doanhThuList) {
             Object row[] = {doanhThu.getMahoadon(), doanhThu.getTennv(), doanhThu.getTenkh(), doanhThu.getNgaylaphoadon(), new BigDecimal(doanhThu.getTongtien())};
             modelDoanhThu.addRow(row);
             tong += doanhThu.getTongtien();

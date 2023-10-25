@@ -194,7 +194,6 @@ public class JPanel_TimKiemNhaCungCap extends javax.swing.JPanel {
         String soDienThoai = txtSoDienThoai.getText();
         boolean trangThai = (cbStatus.getSelectedIndex() == 0);
         modelNhaCungCap.setRowCount(0);
-        System.out.println(maNhaCC.trim().equals("") );
         for (NhaCungCap ncc : nhaCungCapDAO.timNhaCungCap(maNhaCC.trim().equals("") ? "" : maNhaCC, tenNhaCC.trim().equals("") ? "" : tenNhaCC, email.trim().equals("") ? "" : email, soDienThoai.trim().equals("") ? "" : soDienThoai, trangThai)) {
             Object[] row = {ncc.getMaNhaCC(), ncc.getTenNhaCC(), ncc.isTrangThai() == true ? "Đang hợp tác" : "Ngưng hợp tác", ncc.getDiaChi(), ncc.getEmail(), ncc.getSoDienThoai(), ncc.getTenNguoiLienHe()};
             modelNhaCungCap.addRow(row);
