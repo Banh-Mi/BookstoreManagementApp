@@ -53,8 +53,8 @@ public class LoginController {
     }
 
     private void performLogin() {
-        String userName = txtUserName.getText();
-        String password = txtPassword.getText();
+        String userName = txtUserName.getText().trim();
+        String password = txtPassword.getText().trim();
 
         try {
             if (userName.length() == 0

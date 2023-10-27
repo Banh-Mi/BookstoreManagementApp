@@ -344,7 +344,7 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
 
                 if (checkText(tenNV, "Tên nhân viên không hợp lệ") && checkPhone(soDienThoai, "Số điện thoại không hợp lệ") && checkName(diaChi, "Địa chỉ không hợp lệ") && checkDate(ngaySinh, "Chưa đủ 18 tuổi") && checkMail(email, "Email không hợp lệ")) {
                     if (taiKhoanDao.insert(taiKhoan)) {
-                        NhanVien nhanVien = new NhanVien(maNV, tenNV, soDienThoai, email, ngaySinh, null, taiKhoan.getMaTK(), diaChi, gioiTinh, chucVu, trangThai);
+                        NhanVien nhanVien = new NhanVien(maNV, tenNV, soDienThoai, email, ngaySinh, taiKhoan.getMaTK(), diaChi, gioiTinh, chucVu, trangThai);
                         if (nhanVienDao.themNhanVien(nhanVien)) {
                             loadData();
                             JOptionPane.showMessageDialog(this, "Thêm thành công");

@@ -17,7 +17,6 @@ public class NhanVien {
     private String soDienThoai;
     private String email;
     private Date ngaySinh;
-    private String maLichLamViec;
     private String maTK;
     private String diaChi;
     private String gioiTinh;
@@ -26,14 +25,13 @@ public class NhanVien {
 
     // Constructor
     public NhanVien(String maNV, String tenNV, String soDienThoai, String email, Date ngaySinh,
-            String maLichLamViec, String maTK, String diaChi, String gioiTinh,
+             String maTK, String diaChi, String gioiTinh,
             String chucVu, String trangThai) {
         this.maNV = maNV;
         this.tenNV = tenNV;
         this.soDienThoai = soDienThoai;
         this.email = email;
         this.ngaySinh = ngaySinh;
-        this.maLichLamViec = maLichLamViec;
         this.maTK = maTK;
         this.diaChi = diaChi;
         this.gioiTinh = gioiTinh;
@@ -95,14 +93,6 @@ public class NhanVien {
 
     public void setNgaySinh(Date ngaySinh) {
         this.ngaySinh = ngaySinh;
-    }
-
-    public String getMaLichLamViec() {
-        return maLichLamViec;
-    }
-
-    public void setMaLichLamViec(String maLichLamViec) {
-        this.maLichLamViec = maLichLamViec;
     }
 
     public String getMaTK() {

@@ -33,8 +33,7 @@ public class NhanVienDAO {
                         rs.getString(7),
                         rs.getString(8),
                         rs.getString(9),
-                        rs.getString(10),
-                        rs.getString(11)
+                        rs.getString(10)
                 ));
             }
         } catch (SQLException e) {
@@ -55,12 +54,11 @@ public class NhanVienDAO {
             stmt.setString(3, nhanVien.getSoDienThoai());
             stmt.setString(4, nhanVien.getEmail());
             stmt.setDate(5, nhanVien.getNgaySinh());
-            stmt.setString(6, nhanVien.getMaLichLamViec());
-            stmt.setString(7, nhanVien.getMaTK());
-            stmt.setString(8, nhanVien.getDiaChi());
-            stmt.setString(9, nhanVien.getGioiTinh());
-            stmt.setString(10, nhanVien.getChucVu());
-            stmt.setString(11, nhanVien.getTrangThai());
+            stmt.setString(6, nhanVien.getMaTK());
+            stmt.setString(7, nhanVien.getDiaChi());
+            stmt.setString(8, nhanVien.getGioiTinh());
+            stmt.setString(9, nhanVien.getChucVu());
+            stmt.setString(10, nhanVien.getTrangThai());
 
             return stmt.executeUpdate() > 0;
         } catch (SQLException ex) {
@@ -117,8 +115,7 @@ public class NhanVienDAO {
                         rs.getString(7),
                         rs.getString(8),
                         rs.getString(9),
-                        rs.getString(10),
-                        rs.getString(11)
+                        rs.getString(10)
                 );
             }
         } catch (SQLException e) {
