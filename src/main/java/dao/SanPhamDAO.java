@@ -4,6 +4,7 @@ import entity.SanPham;
 import java.sql.Connection;
 import java.util.ArrayList;
 import connectDB.ConnectDB;
+import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Types;
@@ -155,6 +156,40 @@ public class SanPhamDAO implements InterfaceDAO<SanPham> {
             e.printStackTrace();
             return -1;
         }
+    }
+
+    public ArrayList<SanPham> layTheoDanhMuc(String danhMuc) {
+        ArrayList<SanPham> danhSachSanPham = new ArrayList<>();
+        ConnectDB.getInstance();
+        Connection con = ConnectDB.getConnection();
+        CallableStatement cstmt = null;
+        try {
+            String sql = "{call DanhSachTheoDanhMuc(?)}";
+            cstmt = con.prepareCall(sql);
+            cstmt.setString(1, danhMuc);
+            ResultSet rs = cstmt.executeQuery();
+            while (rs.next()) {
+                String maSanPham = rs.getString("maSanPham");
+                String tenSanPham = rs.getString("tenSanPham");
+                String danhMucSP = rs.getString("danhMuc");
+                String maNhaCC = rs.getString("maNhaCC");
+                double gia = rs.getDouble("gia");
+                String donViTinh = rs.getString("donViTinh");
+                int soLuong = rs.getInt("soLuong");
+                String tacGia = rs.getString("tacGia");
+                int soTrang = rs.getInt("soTrang");
+                int namXuatBan = rs.getInt("namXuatBan");
+                String nhaXuatBan = rs.getString("nhaXuatBan");
+                String hinhAnh = rs.getString("hinhAnh");
+                String moTa = rs.getString("moTa");
+                boolean trangThai = rs.getBoolean("trangThai");
+                SanPham sanPham = new SanPham(maSanPham, tenSanPham, danhMucSP, maNhaCC, donViTinh, tacGia, nhaXuatBan, namXuatBan, soTrang, soLuong, gia, hinhAnh, moTa, trangThai);
+                danhSachSanPham.add(sanPham);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return danhSachSanPham;
     }
 
     @Override

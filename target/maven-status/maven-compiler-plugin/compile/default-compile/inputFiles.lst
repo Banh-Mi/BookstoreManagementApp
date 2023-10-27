@@ -1,4 +1,5 @@
 C:\Users\thuan\Desktop\Git\BookstoreManagementApp\src\main\java\gui\BieuDoKhachHang.java
+C:\Users\thuan\Desktop\Git\BookstoreManagementApp\src\main\java\gui\JPanel_TimKiemSanPham.java
 C:\Users\thuan\Desktop\Git\BookstoreManagementApp\src\main\java\gui\JPanel_ThongKeDoanhThu.java
 C:\Users\thuan\Desktop\Git\BookstoreManagementApp\src\main\java\gui\JPanel_KhuyenMaiTK.java
 C:\Users\thuan\Desktop\Git\BookstoreManagementApp\src\main\java\gui\GiaoDienChinh.java
@@ -22,6 +23,7 @@ C:\Users\thuan\Desktop\Git\BookstoreManagementApp\src\main\java\dao\HoaDonDAO.ja
 C:\Users\thuan\Desktop\Git\BookstoreManagementApp\src\main\java\util\GetSource.java
 C:\Users\thuan\Desktop\Git\BookstoreManagementApp\src\main\java\gui\JPanel_KhachHangTK.java
 C:\Users\thuan\Desktop\Git\BookstoreManagementApp\src\main\java\gui\JPanel_ThongKeSanPham.java
+C:\Users\thuan\Desktop\Git\BookstoreManagementApp\src\main\java\entity\ThongTinPhanCaLamViec.java
 C:\Users\thuan\Desktop\Git\BookstoreManagementApp\src\main\java\gui\BieuDoSanPham.java
 C:\Users\thuan\Desktop\Git\BookstoreManagementApp\src\main\java\entity\DoanhThuBieuDo.java
 C:\Users\thuan\Desktop\Git\BookstoreManagementApp\src\main\java\gui\JPhanel_HoaDon.java
@@ -30,6 +32,7 @@ C:\Users\thuan\Desktop\Git\BookstoreManagementApp\src\main\java\gui\HoaDonDoanhT
 C:\Users\thuan\Desktop\Git\BookstoreManagementApp\src\main\java\gui\JPanel_ThongKe.java
 C:\Users\thuan\Desktop\Git\BookstoreManagementApp\src\main\java\entity\HoaDon.java
 C:\Users\thuan\Desktop\Git\BookstoreManagementApp\src\main\java\dao\KhachHangDAO.java
+C:\Users\thuan\Desktop\Git\BookstoreManagementApp\src\main\java\entity\PhanCaLamViec.java
 C:\Users\thuan\Desktop\Git\BookstoreManagementApp\src\main\java\gui\BieuDoDoanhThu.java
 C:\Users\thuan\Desktop\Git\BookstoreManagementApp\src\main\java\entity\ChiTietHoaDon.java
 C:\Users\thuan\Desktop\Git\BookstoreManagementApp\src\main\java\entity\KhuyenMai.java
@@ -44,6 +47,7 @@ C:\Users\thuan\Desktop\Git\BookstoreManagementApp\src\main\java\gui\MenuItem.jav
 C:\Users\thuan\Desktop\Git\BookstoreManagementApp\src\main\java\entity\NhaCungCap.java
 C:\Users\thuan\Desktop\Git\BookstoreManagementApp\src\main\java\entity\NhanVien.java
 C:\Users\thuan\Desktop\Git\BookstoreManagementApp\src\main\java\util\LoginController.java
+C:\Users\thuan\Desktop\Git\BookstoreManagementApp\src\main\java\dao\PhanCaLamViecDAO.java
 C:\Users\thuan\Desktop\Git\BookstoreManagementApp\src\main\java\gui\JPanel_NhaCungCap.java
 C:\Users\thuan\Desktop\Git\BookstoreManagementApp\src\main\java\entity\DoanhThu.java
 C:\Users\thuan\Desktop\Git\BookstoreManagementApp\src\main\java\util\JPanelRounded.java
