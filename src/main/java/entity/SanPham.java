@@ -75,6 +75,29 @@ public class SanPham {
         this.soTrang = 0;
     }
 
+    public SanPham(String maSanPham, String tenSanPham, String danhMuc, String tacGia, String nhaXuatBan, int namXuatBan, int soTrang, double gia, boolean trangThai) {
+        this.maSanPham = maSanPham;
+        this.tenSanPham = tenSanPham;
+        this.danhMuc = danhMuc;
+        this.tacGia = tacGia;
+        this.nhaXuatBan = nhaXuatBan;
+        this.namXuatBan = namXuatBan;
+        this.soTrang = soTrang;
+        this.gia = gia;
+        this.trangThai = trangThai;
+    }
+    
+     public SanPham(String maSanPham, String tenSanPham, String danhMuc, String tacGia, String nhaXuatBan, int namXuatBan, int soTrang, double gia) {
+        this.maSanPham = maSanPham;
+        this.tenSanPham = tenSanPham;
+        this.danhMuc = danhMuc;
+        this.tacGia = tacGia;
+        this.nhaXuatBan = nhaXuatBan;
+        this.namXuatBan = namXuatBan;
+        this.soTrang = soTrang;
+        this.gia = gia;
+    }
+    
     public SanPham(String maSanPham) {
         this.maSanPham = maSanPham;
     }

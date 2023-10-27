@@ -118,7 +118,6 @@ dao\SanPhamDAO.class
 gui\BieuDoKhachHang$3.class
 gui\JPanel_TimKiemNhaCungCap$3.class
 gui\JPanel_KhuyenMai$12.class
-gui\JPanel_TimKiemSanPham$5.class
 dao\HoaDonDAO.class
 gui\JPhanel_HoaDon$11.class
 gui\JPanel_ThongKeDoanhThu.class

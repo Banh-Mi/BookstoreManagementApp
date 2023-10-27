@@ -8,10 +8,15 @@ import dao.NhaCungCapDAO;
 import dao.SanPhamDAO;
 import entity.SanPham;
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import javax.swing.table.DefaultTableModel;
+
+import static util.Validator.checkEmpty;
 
 /**
  *
@@ -30,54 +35,67 @@ public class JPanel_TimKiemSanPham extends javax.swing.JPanel {
         initComponents();
         svgDelete.setSvgImage("search.svg", 30, 30);
         svgRefresh.setSvgImage("refresh.svg", 25, 25);
-        loadComboboxDanhMuc();
+        loadCombobox();
         loadData();
-
     }
 
-    private void loadComboboxDanhMuc() {
+    private void lamMoi() {
+        jcbNamXuatBan.setSelectedIndex(0);
+        jcbTrangThai.setSelectedIndex(0);
+        txtMa.setText("");
+        txtTen.setText("");
+        txtGia.setText("");
+        txtNhaXuatBan.setText("");
+        txtSoTrang.setText("");
+        txtTacGia.setText("");
+    }
+
+    private void loadCombobox() {
         sanPhamDAO = new SanPhamDAO();
         Set<String> uniqueDanhMuc = new HashSet<>();
-        jcbDanhMuc.removeAllItems();
-        jcbDanhMuc.addItem("Mặc định");
+        List<Integer> uniqueNam = new ArrayList<>();
+        jcbTuyChon.removeAllItems();
+        jcbNamXuatBan.removeAllItems();
         for (SanPham sanPham : sanPhamDAO.selectAll()) {
-            if (!sanPham.getDanhMuc().equals("Sách")) {
-                uniqueDanhMuc.add(sanPham.getDanhMuc());
+            uniqueDanhMuc.add(sanPham.getDanhMuc());
+            if (sanPham.getDanhMuc().equals("Sách")) {
+                uniqueNam.add(sanPham.getNamXuatBan());
             }
-
         }
         for (String danhMuc : uniqueDanhMuc) {
-            jcbDanhMuc.addItem(danhMuc);
+            jcbTuyChon.addItem(danhMuc);
         }
 
+        Collections.sort(uniqueNam);
+        jcbNamXuatBan.addItem("Mặc định");
+        for (int nam : uniqueNam) {
+            jcbNamXuatBan.addItem(nam + "");
+        }
     }
 
-    private void loadTuyChon(boolean componentSach) {
+    private void loadTuyChon(boolean componentSach, String item) {
 //        lblNamXuatBan.setVisible(componentSach);
         jcbNamXuatBan.setEnabled(componentSach);
 //        lblSoTrang.setVisible(componentSach);
         txtSoTrang.setEnabled(componentSach);
-        jcbLocSoTrang.setEnabled(componentSach);
 //        lblNhaXuatBan.setVisible(componentSach);
         txtNhaXuatBan.setEnabled(componentSach);
 //        lblTacGia.setVisible(componentSach);
         txtTacGia.setEnabled(componentSach);
 //        lblDanhMuc.setVisible(!componentSach);
 
-        jcbDanhMuc.setEnabled(!componentSach);
-
-        setTieuDeBang(componentSach);
+        setTieuDeBang(componentSach, item);
     }
 
-    private void setTieuDeBang(boolean timSach) {
+    private void setTieuDeBang(boolean timSach, String item) {
+        lblTieuDe.setText("TÌM KIẾM " + item);
         if (timSach) {
             modelTimKiem = new DefaultTableModel(new Object[][]{}, this.timSach);
             tableSanPham.setModel(modelTimKiem);
-            lblTieuDe.setText("TÌM KIẾM SÁCH");
+
             lblMa.setText("Mã sách:");
             lblTen.setText("Tên sách:");
         } else {
-            lblTieuDe.setText("TÌM KIẾM SẢN PHẨM");
             lblMa.setText("Mã SP:");
             lblTen.setText("Tên SP:");
             modelTimKiem = new DefaultTableModel(new Object[][]{}, timSanPham);
@@ -89,21 +107,21 @@ public class JPanel_TimKiemSanPham extends javax.swing.JPanel {
     private void loadData() {
         sanPhamDAO = new SanPhamDAO();
         String item = jcbTuyChon.getSelectedItem().toString();
+        loadTuyChon(item.equals("Sách"), item.toUpperCase());
+        modelTimKiem = (DefaultTableModel) tableSanPham.getModel();
+        //{"Mã sách", "Tên sách", "Danh mục", "Nhà cung cấp", "Đơn vị tính", "Tác giả", "Nhà xuất bản", "Năm xuất bản", "Số trang", "Số lượng", "Giá", "Mô tả"};
         if (item.equals("Sách")) {
-            loadTuyChon(true);
-            modelTimKiem = (DefaultTableModel) tableSanPham.getModel();
             for (SanPham sanPham : sanPhamDAO.layTheoDanhMuc(item)) {
                 String[] data = {sanPham.getMaSanPham(), sanPham.getTenSanPham(), sanPham.getDanhMuc(), (nhaCungCapDAO.timNhaCungCapTheoID(sanPham.getMaNhaCC())).getTenNhaCC(), sanPham.getDonViTinh(), sanPham.getTacGia(), sanPham.getNhaXuatBan(), sanPham.getNamXuatBan() + "", sanPham.getSoTrang() + "", sanPham.getSoLuong() + "", nf.format(sanPham.getGia()), sanPham.getMoTa()};
                 modelTimKiem.addRow(data);
             }
         } else {
-            loadTuyChon(false);
-            modelTimKiem = (DefaultTableModel) tableSanPham.getModel();
-            for (SanPham sanPham : sanPhamDAO.layTheoDanhMuc(null)) {
+            for (SanPham sanPham : sanPhamDAO.layTheoDanhMuc(item)) {
                 String[] data = {sanPham.getMaSanPham(), sanPham.getTenSanPham(), sanPham.getDanhMuc(), (nhaCungCapDAO.timNhaCungCapTheoID(sanPham.getMaNhaCC())).getTenNhaCC(), sanPham.getDonViTinh(), sanPham.getSoLuong() + "", nf.format(sanPham.getGia()), sanPham.getMoTa()};
                 modelTimKiem.addRow(data);
             }
         }
+
     }
 
     @SuppressWarnings("unchecked")
@@ -125,14 +143,11 @@ public class JPanel_TimKiemSanPham extends javax.swing.JPanel {
         jbRefresh = new javax.swing.JLabel();
         svgRefresh = new util.SVGImage();
         jcbTrangThai = new javax.swing.JComboBox<>();
-        lblDanhMuc = new javax.swing.JLabel();
         txtNhaXuatBan = new javax.swing.JTextField();
         lblTacGia = new javax.swing.JLabel();
-        jcbDanhMuc = new javax.swing.JComboBox<>();
         lblTim = new javax.swing.JLabel();
         txtSoTrang = new javax.swing.JTextField();
         lblNamXuatBan = new javax.swing.JLabel();
-        jcbLocSoTrang = new javax.swing.JComboBox<>();
         jcbNamXuatBan = new javax.swing.JComboBox<>();
         lblNhaXuatBan = new javax.swing.JLabel();
         txtTacGia = new javax.swing.JTextField();
@@ -140,7 +155,6 @@ public class JPanel_TimKiemSanPham extends javax.swing.JPanel {
         txtGia = new javax.swing.JTextField();
         lblSoTrang = new javax.swing.JLabel();
         lblEmail2 = new javax.swing.JLabel();
-        jcbLocGia1 = new javax.swing.JComboBox<>();
         jPanel4 = new javax.swing.JPanel();
         scrollSanPham = new javax.swing.JScrollPane();
         tableSanPham = new javax.swing.JTable();
@@ -162,14 +176,14 @@ public class JPanel_TimKiemSanPham extends javax.swing.JPanel {
 
         lblTen.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblTen.setText("Tên sách:");
-        jpChucNang.add(lblTen, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 20, 70, 30));
+        jpChucNang.add(lblTen, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 20, 70, 30));
 
         lblMa.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblMa.setText("Mã sách:");
         jpChucNang.add(lblMa, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 20, 80, 30));
 
         txtTen.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jpChucNang.add(txtTen, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 20, 220, 30));
+        jpChucNang.add(txtTen, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 20, 210, 30));
 
         txtMa.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jpChucNang.add(txtMa, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 20, 150, 30));
@@ -220,52 +234,38 @@ public class JPanel_TimKiemSanPham extends javax.swing.JPanel {
 
         jpChucNang.add(jpLamMoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 170, 110, 40));
 
-        jcbTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Còn hàng", "Hết hàng", " " }));
+        jcbTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Đang bán", "Ngưng bán" }));
         jpChucNang.add(jcbTrangThai, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 20, 110, 30));
 
-        lblDanhMuc.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblDanhMuc.setText("Danh mục:");
-        jpChucNang.add(lblDanhMuc, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 70, 80, 30));
-
         txtNhaXuatBan.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jpChucNang.add(txtNhaXuatBan, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 120, 200, 30));
+        jpChucNang.add(txtNhaXuatBan, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 70, 190, 30));
 
         lblTacGia.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblTacGia.setText("Tác giả:");
-        jpChucNang.add(lblTacGia, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 120, 60, 30));
-
-        jcbDanhMuc.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jcbDanhMucActionPerformed(evt);
-            }
-        });
-        jpChucNang.add(jcbDanhMuc, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 70, 150, 30));
+        jpChucNang.add(lblTacGia, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 60, 30));
 
         lblTim.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblTim.setText("Tìm theo:");
         jpChucNang.add(lblTim, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 70, 30));
 
         txtSoTrang.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jpChucNang.add(txtSoTrang, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 70, 140, 30));
+        jpChucNang.add(txtSoTrang, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 70, 90, 30));
 
         lblNamXuatBan.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblNamXuatBan.setText("Năm xuất bản:");
-        jpChucNang.add(lblNamXuatBan, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 120, 100, 30));
-
-        jcbLocSoTrang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lớn hơn", "Nhỏ hơn" }));
-        jpChucNang.add(jcbLocSoTrang, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 70, 110, 30));
+        jpChucNang.add(lblNamXuatBan, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 70, 100, 30));
 
         jcbNamXuatBan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
-        jpChucNang.add(jcbNamXuatBan, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 120, 110, 30));
+        jcbNamXuatBan.setSelectedIndex(-1);
+        jpChucNang.add(jcbNamXuatBan, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 70, 140, 30));
 
         lblNhaXuatBan.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblNhaXuatBan.setText("Nhà xuất bản:");
-        jpChucNang.add(lblNhaXuatBan, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 100, 30));
+        jpChucNang.add(lblNhaXuatBan, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 70, 100, 30));
 
         txtTacGia.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jpChucNang.add(txtTacGia, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 120, 200, 30));
+        jpChucNang.add(txtTacGia, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 120, 200, 30));
 
-        jcbTuyChon.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sách", "Sản phẩm khác" }));
         jcbTuyChon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcbTuyChonActionPerformed(evt);
@@ -274,18 +274,15 @@ public class JPanel_TimKiemSanPham extends javax.swing.JPanel {
         jpChucNang.add(jcbTuyChon, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 140, 30));
 
         txtGia.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jpChucNang.add(txtGia, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 170, 30));
+        jpChucNang.add(txtGia, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 200, 30));
 
         lblSoTrang.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblSoTrang.setText("Số trang:");
-        jpChucNang.add(lblSoTrang, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 70, 70, 30));
+        jpChucNang.add(lblSoTrang, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 70, 70, 30));
 
         lblEmail2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblEmail2.setText("Giá:");
         jpChucNang.add(lblEmail2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 30, 30));
-
-        jcbLocGia1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lớn hơn", "Nhỏ hơn" }));
-        jpChucNang.add(jcbLocGia1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 70, 110, 30));
 
         add(jpChucNang, java.awt.BorderLayout.CENTER);
 
@@ -315,35 +312,48 @@ public class JPanel_TimKiemSanPham extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jpTimMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpTimMouseClicked
+        sanPhamDAO = new SanPhamDAO();
+        SanPham sanPhamLoc;
+        String item = jcbTuyChon.getSelectedItem().toString();
+        String danhMuc = jcbTuyChon.getSelectedItem().toString();
+        String ma = checkEmpty(txtMa.getText()) ? null : txtMa.getText();
+        String ten = checkEmpty(txtTen.getText()) ? null : txtTen.getText();
+        boolean trangThai = jcbTrangThai.getSelectedItem().equals("Đang bán");
+        double gia = checkEmpty(txtGia.getText()) ? -1 : Double.parseDouble(txtGia.getText());
+        modelTimKiem = (DefaultTableModel) tableSanPham.getModel();
+        modelTimKiem.setRowCount(0);
+        if (item.equals("Sách")) {
+            String nhaXuatBan = checkEmpty(txtNhaXuatBan.getText().trim()) ? null : txtNhaXuatBan.getText();
+            int soTrang = checkEmpty(txtSoTrang.getText()) ? -1 : Integer.parseInt(txtSoTrang.getText());
+            int namXuatBan = jcbNamXuatBan.getSelectedItem().equals("Mặc định") ? -1 : Integer.parseInt(jcbNamXuatBan.getSelectedItem().toString());
+            String tacGia = checkEmpty(txtTacGia.getText()) ? null : txtTacGia.getText();
+            sanPhamLoc = new SanPham(ma, ten, danhMuc, tacGia, nhaXuatBan, namXuatBan, soTrang, gia, trangThai);
+            for (SanPham sanPham : jcbTrangThai.getSelectedItem().toString().equals("Tất cả") ? sanPhamDAO.timSanPham(sanPhamLoc, 0) : sanPhamDAO.timSanPham(sanPhamLoc, 1)) {
+                String[] data = {sanPham.getMaSanPham(), sanPham.getTenSanPham(), sanPham.getDanhMuc(), (nhaCungCapDAO.timNhaCungCapTheoID(sanPham.getMaNhaCC())).getTenNhaCC(), sanPham.getDonViTinh(), sanPham.getTacGia(), sanPham.getNhaXuatBan(), sanPham.getNamXuatBan() + "", sanPham.getSoTrang() + "", sanPham.getSoLuong() + "", nf.format(sanPham.getGia()), sanPham.getMoTa()};
+                modelTimKiem.addRow(data);
+            }
+        } else {
+            sanPhamLoc = new SanPham(ma, ten, danhMuc, null, null, -1, -1, gia, trangThai);
+            for (SanPham sanPham : jcbTrangThai.getSelectedItem().toString().equals("Tất cả") ? sanPhamDAO.timSanPham(sanPhamLoc, 0) : sanPhamDAO.timSanPham(sanPhamLoc, 1)) {
+                String[] data = {sanPham.getMaSanPham(), sanPham.getTenSanPham(), sanPham.getDanhMuc(), (nhaCungCapDAO.timNhaCungCapTheoID(sanPham.getMaNhaCC())).getTenNhaCC(), sanPham.getDonViTinh(), sanPham.getSoLuong() + "", nf.format(sanPham.getGia()), sanPham.getMoTa()};
+                modelTimKiem.addRow(data);
+            }
+        }
+
 
     }//GEN-LAST:event_jpTimMouseClicked
 
     private void jpLamMoiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpLamMoiMouseClicked
-
+        lamMoi();
+        loadData();
     }//GEN-LAST:event_jpLamMoiMouseClicked
 
     private void tableSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableSanPhamMouseClicked
 
     }//GEN-LAST:event_tableSanPhamMouseClicked
 
-    private void jcbDanhMucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbDanhMucActionPerformed
-        sanPhamDAO = new SanPhamDAO();
-        String item = jcbDanhMuc.getSelectedItem().toString();
-        loadTuyChon(false);
-        modelTimKiem = (DefaultTableModel) tableSanPham.getModel();
-        if (item.equals("Mặc định")) {
-            loadData();
-        } else {
-            for (SanPham sanPham : sanPhamDAO.layTheoDanhMuc(item)) {
-                String[] data = {sanPham.getMaSanPham(), sanPham.getTenSanPham(), sanPham.getDanhMuc(), (nhaCungCapDAO.timNhaCungCapTheoID(sanPham.getMaNhaCC())).getTenNhaCC(), sanPham.getDonViTinh(), sanPham.getSoLuong() + "", nf.format(sanPham.getGia()), sanPham.getMoTa()};
-                modelTimKiem.addRow(data);
-            }
-        }
-
-    }//GEN-LAST:event_jcbDanhMucActionPerformed
-
     private void jcbTuyChonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbTuyChonActionPerformed
-        loadData();        // TODO add your handling code here:
+        loadData();
     }//GEN-LAST:event_jcbTuyChonActionPerformed
 
 
@@ -352,16 +362,12 @@ public class JPanel_TimKiemSanPham extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JLabel jbDelete;
     private javax.swing.JLabel jbRefresh;
-    private javax.swing.JComboBox<String> jcbDanhMuc;
-    private javax.swing.JComboBox<String> jcbLocGia1;
-    private javax.swing.JComboBox<String> jcbLocSoTrang;
     private javax.swing.JComboBox<String> jcbNamXuatBan;
     private javax.swing.JComboBox<String> jcbTrangThai;
     private javax.swing.JComboBox<String> jcbTuyChon;
     private javax.swing.JPanel jpChucNang;
     private util.JPanelRounded jpLamMoi;
     private util.JPanelRounded jpTim;
-    private javax.swing.JLabel lblDanhMuc;
     private javax.swing.JLabel lblEmail2;
     private javax.swing.JLabel lblMa;
     private javax.swing.JLabel lblNamXuatBan;

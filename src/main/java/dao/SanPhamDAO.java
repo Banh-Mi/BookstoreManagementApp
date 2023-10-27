@@ -164,9 +164,51 @@ public class SanPhamDAO implements InterfaceDAO<SanPham> {
         Connection con = ConnectDB.getConnection();
         CallableStatement cstmt = null;
         try {
-            String sql = "{call DanhSachTheoDanhMuc(?)}";
+            String sql = "{call TimSanPham(@danhMuc = ?)}";
             cstmt = con.prepareCall(sql);
             cstmt.setString(1, danhMuc);
+            ResultSet rs = cstmt.executeQuery();
+            while (rs.next()) {
+                String maSanPham = rs.getString("maSanPham");
+                String tenSanPham = rs.getString("tenSanPham");
+                String danhMucSP = rs.getString("danhMuc");
+                String maNhaCC = rs.getString("maNhaCC");
+                double gia = rs.getDouble("gia");
+                String donViTinh = rs.getString("donViTinh");
+                int soLuong = rs.getInt("soLuong");
+                String tacGia = rs.getString("tacGia");
+                int soTrang = rs.getInt("soTrang");
+                int namXuatBan = rs.getInt("namXuatBan");
+                String nhaXuatBan = rs.getString("nhaXuatBan");
+                String hinhAnh = rs.getString("hinhAnh");
+                String moTa = rs.getString("moTa");
+                boolean trangThai = rs.getBoolean("trangThai");
+                SanPham sanPham = new SanPham(maSanPham, tenSanPham, danhMucSP, maNhaCC, donViTinh, tacGia, nhaXuatBan, namXuatBan, soTrang, soLuong, gia, hinhAnh, moTa, trangThai);
+                danhSachSanPham.add(sanPham);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return danhSachSanPham;
+    }
+
+    public ArrayList<SanPham> timSanPham(SanPham sanPhamLoc, int luaChon) {
+        ArrayList<SanPham> danhSachSanPham = new ArrayList<>();
+        ConnectDB.getInstance();
+        Connection con = ConnectDB.getConnection();
+        CallableStatement cstmt = null;
+        try {
+            String sql = "{call TimSanPham(?,?,?,?,?,?,?,?,?)}";
+            cstmt = con.prepareCall(sql);
+            cstmt.setString(1, sanPhamLoc.getMaSanPham());
+            cstmt.setString(2, sanPhamLoc.getTenSanPham());
+            cstmt.setString(3, sanPhamLoc.getDanhMuc());
+            cstmt.setString(4, luaChon == 0 ? null : sanPhamLoc.isTrangThai() == true ? "1" : "0");
+            cstmt.setString(5, sanPhamLoc.getGia() == -1 ? null : sanPhamLoc.getGia() + "");
+            cstmt.setString(6, sanPhamLoc.getNhaXuatBan());
+            cstmt.setString(7, sanPhamLoc.getSoTrang() == -1 ? null : sanPhamLoc.getSoTrang() + "");
+            cstmt.setString(8, sanPhamLoc.getNamXuatBan() == -1 ? null : sanPhamLoc.getNamXuatBan() + "");
+            cstmt.setString(9, sanPhamLoc.getTacGia());
             ResultSet rs = cstmt.executeQuery();
             while (rs.next()) {
                 String maSanPham = rs.getString("maSanPham");

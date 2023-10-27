@@ -9,15 +9,15 @@ import entity.DoanhThu;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -33,6 +33,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
     private ArrayList<DoanhThu> doanhThuList = new ArrayList<>();
     private DoanhThuDAO doanhThuDAO;
 
+    private NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
     public JPanel_ThongKe() {
         initComponents();
         modelDoanhThu = (DefaultTableModel) tableDoanhThu.getModel();
@@ -56,7 +57,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         double tong = 0;
         doanhThuList = doanhThuDAO.getHoaDon(null, null);
         for (DoanhThu doanhThu : doanhThuList) {
-            Object row[] = {doanhThu.getMahoadon(), doanhThu.getTennv(), doanhThu.getTenkh(), doanhThu.getNgaylaphoadon(), new BigDecimal(doanhThu.getTongtien())};
+            Object row[] = {doanhThu.getMahoadon(), doanhThu.getTenkh(), doanhThu.getTennv(), doanhThu.getNgaylaphoadon(), nf.format(doanhThu.getTongtien())};
             modelDoanhThu.addRow(row);
             tong += doanhThu.getTongtien();
             soHoaDon++;
@@ -66,9 +67,8 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         for (Integer year : uniqueYears) {
             jcbNamDoanhThu.addItem(year.toString());
         }
-        BigDecimal tongTien = new BigDecimal(tong);
         txtSoLuongHoaDon.setText(soHoaDon + "");
-        txtDoanhThu.setText(tongTien + "");
+        txtDoanhThu.setText(nf.format(tong));
 
     }
 
@@ -699,14 +699,14 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         }
         //Load table
         for (DoanhThu doanhThu : doanhThuList) {
-            Object row[] = {doanhThu.getMahoadon(), doanhThu.getTennv(), doanhThu.getTenkh(), doanhThu.getNgaylaphoadon(), new BigDecimal(doanhThu.getTongtien())};
+            Object row[] = {doanhThu.getMahoadon(), doanhThu.getTenkh(), doanhThu.getTennv(), doanhThu.getNgaylaphoadon(), nf.format(doanhThu.getTongtien())};
             modelDoanhThu.addRow(row);
             tong += doanhThu.getTongtien();
             soHoaDon++;
         }
-        BigDecimal tongTien = new BigDecimal(tong);
+        
         txtSoLuongHoaDon.setText(soHoaDon + "");
-        txtDoanhThu.setText(tongTien + "");
+        txtDoanhThu.setText(nf.format(tong));
     }//GEN-LAST:event_jpThongKeDTMouseClicked
 
     private void jbLamMoiDoanhThuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbLamMoiDoanhThuMouseClicked
