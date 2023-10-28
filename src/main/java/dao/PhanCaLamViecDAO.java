@@ -23,10 +23,10 @@ public class PhanCaLamViecDAO {
         ArrayList<ThongTinPhanCaLamViec> listThongTinCaLamViec = new ArrayList<>();
         Connection con = ConnectDB.getConnection();
         try {
-            String sql = "SELECT nv.maNV, nv.tenNV, nv.soDienThoai , clv.tenCa, clv.thoiGianVao, clv.thoiGianRa, pc.Ngay "
+            String sql = "SELECT nv.maNV, nv.tenNV, nv.soDienThoai , clv.tenCa, clv.thoiGianVao, clv.thoiGianRa, llv.Ngay "
                     + "FROM NhanVien nv "
-                    + "JOIN PhanCaLamViec pc ON nv.maNV = pc.maNV "
-                    + "JOIN CaLamViec clv ON pc.maCaLamViec = clv.maCaLamViec ORDER BY pc.Ngay DESC";
+                    + "JOIN LichLamViec llv ON nv.maNV = llv.maNV "
+                    + "JOIN CaLamViec clv ON llv.maCaLamViec = clv.maCaLamViec ORDER BY llv.Ngay DESC";
             Statement statement = con.createStatement();
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
@@ -72,7 +72,7 @@ public class PhanCaLamViecDAO {
         Connection con = ConnectDB.getInstance().getConnection();
         PreparedStatement stmt = null;
         try {
-            stmt = con.prepareStatement("DELETE FROM PhanCaLamViec WHERE maNV = ? and maCaLamViec = ? and ngay = ? ");
+            stmt = con.prepareStatement("DELETE FROM LichLamViec WHERE maNV = ? and maCaLamViec = ? and ngay = ? ");
             stmt.setString(1, phanCaLamViec.getMaNV());
             stmt.setString(2, phanCaLamViec.getMaCaLamViec());
             stmt.setDate(3, phanCaLamViec.getNgay());

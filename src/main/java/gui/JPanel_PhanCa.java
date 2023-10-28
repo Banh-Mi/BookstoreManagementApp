@@ -270,11 +270,13 @@ public class JPanel_PhanCa extends javax.swing.JPanel {
             if (ngayLam.after(ngayHienTai) || ngayLam.toString().equals(ngayHienTai.toString())) {
                 PhanCaLamViec phanCa = new PhanCaLamViec(maNV, maCa, ngayLam);
                 int kiemTra = phanCaLamViecDAO.phanCaLamViec(phanCa);
+
                 switch (kiemTra) {
                     case 0:
                         JOptionPane.showMessageDialog(null, "Phân ca thất bại");
                         break;
                     case 1:
+                        lamMoi();
                         JOptionPane.showMessageDialog(null, "Phân ca thành công");
                         break;
 
@@ -287,7 +289,7 @@ public class JPanel_PhanCa extends javax.swing.JPanel {
                     default:
                         throw new AssertionError();
                 }
-                lamMoi();
+
             } else {
                 JOptionPane.showMessageDialog(null, "Ngày làm không được nhỏ hơn ngày hiện tại");
             }
@@ -340,12 +342,12 @@ public class JPanel_PhanCa extends javax.swing.JPanel {
                     System.out.println(ex);
                 }
             }
-            lamMoi();
-            if(count==0) {
-                    JOptionPane.showMessageDialog(null, "Xóa thất bại");
-            }
-            else {
-                 JOptionPane.showMessageDialog(null, "Xóa thành công !");
+
+            if (count == 0) {
+                JOptionPane.showMessageDialog(null, "Xóa thất bại");
+            } else {
+                lamMoi();
+                JOptionPane.showMessageDialog(null, "Xóa thành công !");
             }
 
         } else {
