@@ -2,8 +2,8 @@ package gui;
 
 import javax.swing.JFrame;
 import connectDB.ConnectDB;
-import dao.DoanhThuDAO;
-import entity.DoanhThu;
+import dao.ThongKeDTDAO;
+import entity.ThongKeDT;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -13,7 +13,7 @@ import javax.swing.table.DefaultTableModel;
 public class JPanel_ThongKeDoanhThu extends javax.swing.JPanel {
 
     private DefaultTableModel modaldoanhthu;
-    private DoanhThuDAO doanhThuDao;
+    private ThongKeDTDAO doanhThuDao;
 
     public JPanel_ThongKeDoanhThu() throws SQLException {
         initComponents();
@@ -25,8 +25,8 @@ public class JPanel_ThongKeDoanhThu extends javax.swing.JPanel {
         refesh();
         int soluongdon=0;
         double doanhthu=0;
-        doanhThuDao = new DoanhThuDAO();
-        for (DoanhThu dt : doanhThuDao.getHoaDon(ngaybatdau, ngayketthuc)) {
+        doanhThuDao = new ThongKeDTDAO();
+        for (ThongKeDT dt : doanhThuDao.getHoaDon(ngaybatdau, ngayketthuc)) {
             Object[] row = {dt.getMahoadon(), dt.getTennv(), dt.getTenkh(), dt.getNgaylaphoadon(), dt.getTongtien()};
             soluongdon++;
             doanhthu+=dt.getTongtien();

@@ -4,7 +4,7 @@
  */
 package gui;
 
-import dao.DoanhThuDAO;
+import dao.ThongKeDTDAO;
 import entity.DoanhThuBieuDo;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -26,7 +26,7 @@ import java.util.logging.Logger;
  */
 public class BieuDoDoanhThu extends javax.swing.JFrame {
 
-    private DoanhThuDAO dtbddao;
+    private ThongKeDTDAO dtbddao;
 
     public BieuDoDoanhThu() throws SQLException {
         initComponents();
@@ -131,7 +131,7 @@ public class BieuDoDoanhThu extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dtbddao = new DoanhThuDAO();
+        dtbddao = new ThongKeDTDAO();
         int a = Integer.parseInt(jComboBoxnam.getSelectedItem().toString());
         for (DoanhThuBieuDo dtbd : dtbddao.getAllDoanhThuBieuDo(a)) {
             if (dtbd.getThang() == 1) {
