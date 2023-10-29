@@ -4,7 +4,7 @@
  */
 package util;
 
-import entity.DoanhThu;
+import entity.ThongKeDoanhThu;
 
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -15,7 +15,7 @@ import java.util.List;
 
 public class ExcelExporter {
 
-    public static boolean exportToExcel(List<DoanhThu> doanhThuList, String filePath) {
+    public static boolean exportToExcel(List<ThongKeDoanhThu> doanhThuList, String filePath) {
         try (Workbook workbook = new XSSFWorkbook()) {
             Sheet sheet = workbook.createSheet("DanhSachHoaDon");
             Font boldFont = workbook.createFont();
@@ -37,7 +37,7 @@ public class ExcelExporter {
             // Đổ dữ liệu từ danh sách vào Excel
             int rowNum = 1;
             double totalAmount = 0; 
-            for (DoanhThu doanhThu : doanhThuList) {
+            for (ThongKeDoanhThu doanhThu : doanhThuList) {
                 Row row = sheet.createRow(rowNum++);
 
                 row.createCell(0).setCellValue(doanhThu.getMahoadon());
