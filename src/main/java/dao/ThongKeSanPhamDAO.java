@@ -28,7 +28,7 @@ public class ThongKeSanPhamDAO {
             cstmt.setDate(2, ngayKetThuc);
             ResultSet rs = cstmt.executeQuery();
             while (rs.next()) {
-                ds.add(new ThongKeSanPham(rs.getString(1), rs.getString(2), rs.getDouble(3), rs.getDouble(4)));
+                ds.add(new ThongKeSanPham(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getDouble(4)));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -51,7 +51,7 @@ public class ThongKeSanPhamDAO {
             cstmt.setInt(2, year);
             ResultSet rs = cstmt.executeQuery();
             while (rs.next()) {
-                ds.add(new ThongKeSanPham(rs.getString(1), rs.getString(2), rs.getDouble(3), rs.getDouble(4)));
+                ds.add(new ThongKeSanPham(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getDouble(4)));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -73,7 +73,7 @@ public class ThongKeSanPhamDAO {
             cstmt.setDate(2, ngayKetThuc);
             ResultSet rs = cstmt.executeQuery();
             while (rs.next()) {
-                ds.add(new ThongKeSanPham(rs.getString(1), rs.getString(2), rs.getDouble(3), rs.getDouble(4)));
+                ds.add(new ThongKeSanPham(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getDouble(4)));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -93,7 +93,7 @@ public class ThongKeSanPhamDAO {
             cstmt.setInt(2, year);
             ResultSet rs = cstmt.executeQuery();
             while (rs.next()) {
-                ds.add(new ThongKeSanPham(rs.getString(1), rs.getString(2), rs.getDouble(3), rs.getDouble(4)));
+                ds.add(new ThongKeSanPham(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getDouble(4)));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -116,7 +116,7 @@ public class ThongKeSanPhamDAO {
             cstmt.setDate(2, ngayKetThuc);
             ResultSet rs = cstmt.executeQuery();
             while (rs.next()) {
-                ds.add(new ThongKeSanPham(rs.getString(1), rs.getString(2), rs.getDouble(3), rs.getDouble(4)));
+                ds.add(new ThongKeSanPham(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getDouble(4)));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -136,7 +136,7 @@ public class ThongKeSanPhamDAO {
             cstmt.setInt(2, year);
             ResultSet rs = cstmt.executeQuery();
             while (rs.next()) {
-                ds.add(new ThongKeSanPham(rs.getString(1), rs.getString(2), rs.getDouble(3), rs.getDouble(4)));
+                ds.add(new ThongKeSanPham(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getDouble(4)));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -159,7 +159,7 @@ public class ThongKeSanPhamDAO {
             cstmt.setDate(2, ngayKetThuc);
             ResultSet rs = cstmt.executeQuery();
             while (rs.next()) {
-                ds.add(new ThongKeSanPham(rs.getString(1), rs.getString(2), rs.getDouble(3), rs.getDouble(4)));
+                ds.add(new ThongKeSanPham(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getDouble(4)));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -179,7 +179,7 @@ public class ThongKeSanPhamDAO {
             cstmt.setInt(2, year);
             ResultSet rs = cstmt.executeQuery();
             while (rs.next()) {
-                ds.add(new ThongKeSanPham(rs.getString(1), rs.getString(2), rs.getDouble(3), rs.getDouble(4)));
+                ds.add(new ThongKeSanPham(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getDouble(4)));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -202,7 +202,7 @@ public class ThongKeSanPhamDAO {
             cstmt.setDate(2, ngayKetThuc);
             ResultSet rs = cstmt.executeQuery();
             while (rs.next()) {
-                ds.add(new ThongKeSanPham(rs.getString(1), rs.getString(2), rs.getDouble(3), rs.getDouble(4)));
+                ds.add(new ThongKeSanPham(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getDouble(4)));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -222,7 +222,7 @@ public class ThongKeSanPhamDAO {
             cstmt.setInt(2, year);
             ResultSet rs = cstmt.executeQuery();
             while (rs.next()) {
-                ds.add(new ThongKeSanPham(rs.getString(1), rs.getString(2), rs.getDouble(3), rs.getDouble(4)));
+                ds.add(new ThongKeSanPham(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getDouble(4)));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -241,7 +241,7 @@ public class ThongKeSanPhamDAO {
             Statement statement = con.createStatement();
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
-                ds.add(new ThongKeSanPham(rs.getString(1), rs.getString(2), rs.getDouble(3), rs.getDouble(4)));
+                ds.add(new ThongKeSanPham(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getDouble(4)));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -260,7 +260,7 @@ public class ThongKeSanPhamDAO {
             Statement statement = con.createStatement();
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
-                ds.add(new ThongKeSanPham(rs.getString(1), rs.getString(2), rs.getDouble(3), rs.getDouble(4)));
+                ds.add(new ThongKeSanPham(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getDouble(4)));
             }
         } catch (Exception e) {
             e.printStackTrace();

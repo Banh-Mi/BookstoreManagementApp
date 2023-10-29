@@ -26,15 +26,14 @@ public class ThongKeDoanhThuDAO {
             cstmt.setDate(2, ngayKetThuc);
             ResultSet rs = cstmt.executeQuery();
             while (rs.next()) {
-                danhSachHoaDon.add(new ThongKeDoanhThu(rs.getString(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getDouble(5)));
+
+                danhSachHoaDon.add(new ThongKeDoanhThu(rs.getString(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getDouble(5), rs.getDouble(6), rs.getDouble(7)));
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return danhSachHoaDon;
     }
-
-    
 
     public ArrayList<ThongKeDoanhThu> getDoanhThuThangNam(int month, int year) {
         ArrayList<ThongKeDoanhThu> danhSachHoaDon = new ArrayList<>();
@@ -49,17 +48,13 @@ public class ThongKeDoanhThuDAO {
             cstmt.setInt(2, year);
             ResultSet rs = cstmt.executeQuery();
             while (rs.next()) {
-                danhSachHoaDon.add(new ThongKeDoanhThu(rs.getString(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getDouble(5)));
+                danhSachHoaDon.add(new ThongKeDoanhThu(rs.getString(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getDouble(5), rs.getDouble(6), rs.getDouble(7)));
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return danhSachHoaDon;
     }
-
-    
-    
-    
 
     public ArrayList<DoanhThuBieuDo> getAllDoanhThuBieuDo(int nam) {
         ArrayList<DoanhThuBieuDo> listdtbd = new ArrayList<>();

@@ -212,7 +212,7 @@ public class GiaoDienDangNhap extends javax.swing.JFrame {
 
         jbNotification.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         jbNotification.setForeground(new java.awt.Color(255, 255, 255));
-        jpRight.add(jbNotification, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 365, 230, 30));
+        jpRight.add(jbNotification, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 365, 340, 30));
 
         comboxngonngu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tiếng Việt", "English"}));
         comboxngonngu.addItemListener(new java.awt.event.ItemListener() {

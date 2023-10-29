@@ -1,4 +1,3 @@
-
 package dao;
 
 import connectDB.ConnectDB;
@@ -10,10 +9,16 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class ThongKeKhachHangDAO {
-     public ArrayList<ThongKeKhachHang> getKHTuyChinh(Date ngayBatDau, Date ngayKetThuc) {
+
+    private NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+
+    public ArrayList<ThongKeKhachHang> getKHTuyChinh(Date ngayBatDau, Date ngayKetThuc) {
         ArrayList<ThongKeKhachHang> danhSachKhachHang = new ArrayList<>();
         ConnectDB.getInstance();
         Connection con = ConnectDB.getConnection();
@@ -26,15 +31,16 @@ public class ThongKeKhachHangDAO {
             cstmt.setDate(2, ngayKetThuc);
             ResultSet rs = cstmt.executeQuery();
             while (rs.next()) {
+
                 danhSachKhachHang.add(new ThongKeKhachHang(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDate(5), rs.getInt(6), rs.getDouble(7), rs.getInt(8)));
+
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
         return danhSachKhachHang;
     }
-
-    
 
     public ArrayList<ThongKeKhachHang> getKHThangNam(int month, int year) {
         ArrayList<ThongKeKhachHang> danhSachKH = new ArrayList<>();
@@ -57,6 +63,7 @@ public class ThongKeKhachHangDAO {
         return danhSachKH;
     }
 /////////////////////////////////////////////////////////////////////Top 5 khách hàng tổng chi cao nhất
+
     public ArrayList<ThongKeKhachHang> getKHTuyChinhTongChiCaoNhat(Date ngayBatDau, Date ngayKetThuc) {
         ArrayList<ThongKeKhachHang> danhSachKhachHang = new ArrayList<>();
         ConnectDB.getInstance();
@@ -77,8 +84,6 @@ public class ThongKeKhachHangDAO {
         }
         return danhSachKhachHang;
     }
-
-    
 
     public ArrayList<ThongKeKhachHang> getKHThangNamTongChiCaoNhat(int month, int year) {
         ArrayList<ThongKeKhachHang> danhSachKH = new ArrayList<>();
@@ -101,6 +106,7 @@ public class ThongKeKhachHangDAO {
         return danhSachKH;
     }
 /////////////////////////////////////////////////////////////////////Top 5 khách hàng tổng chi thấp nhất
+
     public ArrayList<ThongKeKhachHang> getKHTuyChinhTongChiThapNhat(Date ngayBatDau, Date ngayKetThuc) {
         ArrayList<ThongKeKhachHang> danhSachKhachHang = new ArrayList<>();
         ConnectDB.getInstance();
@@ -122,8 +128,6 @@ public class ThongKeKhachHangDAO {
         return danhSachKhachHang;
     }
 
-    
-
     public ArrayList<ThongKeKhachHang> getKHThangNamTongChiThapNhat(int month, int year) {
         ArrayList<ThongKeKhachHang> danhSachKH = new ArrayList<>();
         ConnectDB.getInstance();
@@ -143,7 +147,8 @@ public class ThongKeKhachHangDAO {
             e.printStackTrace();
         }
         return danhSachKH;
-    }    
+    }
+
     /////////////////////////////////////////////////////////////////////Top 5 khách hàng mua hàng nhiều nhất
     public ArrayList<ThongKeKhachHang> getKHTuyChinhMuaHangNhieuNhat(Date ngayBatDau, Date ngayKetThuc) {
         ArrayList<ThongKeKhachHang> danhSachKhachHang = new ArrayList<>();
@@ -166,8 +171,6 @@ public class ThongKeKhachHangDAO {
         return danhSachKhachHang;
     }
 
-    
-
     public ArrayList<ThongKeKhachHang> getKHThangNamMuaHangNhieuNhat(int month, int year) {
         ArrayList<ThongKeKhachHang> danhSachKH = new ArrayList<>();
         ConnectDB.getInstance();
@@ -188,7 +191,8 @@ public class ThongKeKhachHangDAO {
         }
         return danhSachKH;
     }
-     /////////////////////////////////////////////////////////////////////Top 5 khách hàng mua hàng ít nhất
+    /////////////////////////////////////////////////////////////////////Top 5 khách hàng mua hàng ít nhất
+
     public ArrayList<ThongKeKhachHang> getKHTuyChinhMuaHangItNhat(Date ngayBatDau, Date ngayKetThuc) {
         ArrayList<ThongKeKhachHang> danhSachKhachHang = new ArrayList<>();
         ConnectDB.getInstance();
@@ -229,7 +233,8 @@ public class ThongKeKhachHangDAO {
             e.printStackTrace();
         }
         return danhSachKH;
-    }  
+    }
+
     /////////////////////////////////////////////////////////////////////Top 5 khách hàng thường xuyên mua hàng
     public ArrayList<ThongKeKhachHang> getKHTuyChinhThuongXuyenMuaHang(Date ngayBatDau, Date ngayKetThuc) {
         ArrayList<ThongKeKhachHang> danhSachKhachHang = new ArrayList<>();
@@ -271,7 +276,8 @@ public class ThongKeKhachHangDAO {
             e.printStackTrace();
         }
         return danhSachKH;
-    }   
+    }
+
     /////////////////////////////////////////////////////////////////////Top 5 khách hàng không thường xuyên mua hàng
     public ArrayList<ThongKeKhachHang> getKHTuyChinhKhongThuongXuyenMuaHang(Date ngayBatDau, Date ngayKetThuc) {
         ArrayList<ThongKeKhachHang> danhSachKhachHang = new ArrayList<>();
@@ -313,9 +319,8 @@ public class ThongKeKhachHangDAO {
             e.printStackTrace();
         }
         return danhSachKH;
-    }   
+    }
 
-    
     public void close(PreparedStatement stmt) {
         if (stmt != null) {
             try {

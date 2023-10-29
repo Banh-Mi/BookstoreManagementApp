@@ -11,10 +11,10 @@ package entity;
 public class ThongKeSanPham {
     private String ma;
     private String ten;
-    private Double soLuong;
-    private Double thanhtien;
+    private int soLuong;
+    private double thanhtien;
 
-    public ThongKeSanPham(String ma, String ten, Double soLuong, Double thanhtien) {
+    public ThongKeSanPham(String ma, String ten, int soLuong, double thanhtien) {
         this.ma = ma;
         this.ten = ten;
         this.soLuong = soLuong;
@@ -37,19 +37,19 @@ public class ThongKeSanPham {
         this.ten = ten;
     }
 
-    public Double getSoLuong() {
+    public double getSoLuong() {
         return soLuong;
     }
 
-    public void setSoLuong(Double soLuong) {
+    public void setSoLuong(int soLuong) {
         this.soLuong = soLuong;
     }
 
-    public Double getThanhtien() {
+    public double getThanhtien() {
         return thanhtien;
     }
 
-    public void setThanhtien(Double thanhtien) {
+    public void setThanhtien(double thanhtien) {
         this.thanhtien = thanhtien;
     }
     

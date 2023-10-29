@@ -4,58 +4,78 @@ package entity;
 import java.sql.Date;
 
 public class ThongKeDoanhThu {
-    private String mahoadon;
-    private String tennv;
-    private String tenkh;
-    private Date ngaylaphoadon;
-    private double tongtien;
+       private String maHoaDon;
+    private String tenNV;
+    private String tenKH;
+    private Date ngayLapHoaDon;
+    private double tongTien;
+    private double giamGia;
+    private double thanhTien;
 
-    public ThongKeDoanhThu(String mahoadon, String tennv, String tenkh, Date ngaylaphoadon, double tongtien) {
-        this.mahoadon = mahoadon;
-        this.tennv = tennv;
-        this.tenkh = tenkh;
-        this.ngaylaphoadon = ngaylaphoadon;
-        this.tongtien = tongtien;
+    public ThongKeDoanhThu(String maHoaDon, String tenNV, String tenKH, Date ngayLapHoaDon, double tongTien, double giamGia, double thanhTien) {
+        this.maHoaDon = maHoaDon;
+        this.tenNV = tenNV;
+        this.tenKH = tenKH;
+        this.ngayLapHoaDon = ngayLapHoaDon;
+        this.tongTien = tongTien;
+        this.giamGia = giamGia;
+        this.thanhTien = thanhTien;
     }
 
-    public String getMahoadon() {
-        return mahoadon;
+    public String getMaHoaDon() {
+        return maHoaDon;
     }
 
-    public void setMahoadon(String mahoadon) {
-        this.mahoadon = mahoadon;
+    public void setMaHoaDon(String maHoaDon) {
+        this.maHoaDon = maHoaDon;
     }
 
-    public String getTennv() {
-        return tennv;
+    public String getTenNV() {
+        return tenNV;
     }
 
-    public void setTennv(String tennv) {
-        this.tennv = tennv;
+    public void setTenNV(String tenNV) {
+        this.tenNV = tenNV;
     }
 
-    public String getTenkh() {
-        return tenkh;
+    public String getTenKH() {
+        return tenKH;
     }
 
-    public void setTenkh(String tenkh) {
-        this.tenkh = tenkh;
+    public void setTenKH(String tenKH) {
+        this.tenKH = tenKH;
     }
 
-    public Date getNgaylaphoadon() {
-        return ngaylaphoadon;
+    public Date getNgayLapHoaDon() {
+        return ngayLapHoaDon;
     }
 
-    public void setNgaylaphoadon(Date ngaylaphoadon) {
-        this.ngaylaphoadon = ngaylaphoadon;
+    public void setNgayLapHoaDon(Date ngayLapHoaDon) {
+        this.ngayLapHoaDon = ngayLapHoaDon;
     }
 
-    public double getTongtien() {
-        return tongtien;
+    public double getTongTien() {
+        return tongTien;
     }
 
-    public void setTongtien(double tongtien) {
-        this.tongtien = tongtien;
+    public void setTongTien(double tongTien) {
+        this.tongTien = tongTien;
+    }
+
+    public double getGiamGia() {
+        return giamGia;
+    }
+
+    public void setGiamGia(double giamGia) {
+        this.giamGia = giamGia;
+    }
+
+    public double getThanhTien() {
+        return thanhTien;
+    }
+
+    public void setThanhTien(double thanhTien) {
+        this.thanhTien = thanhTien;
     }
     
 }

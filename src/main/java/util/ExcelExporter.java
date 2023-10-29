@@ -27,7 +27,7 @@ public class ExcelExporter {
 
             // Tạo title
             Row titleRow = sheet.createRow(0);
-            String[] columns = {"Mã Hóa Đơn", "Tên Nhân Viên", "Tên Khách Hàng", "Ngày Lập Hóa Đơn", "Tổng Tiền"};
+            String[] columns = {"Mã Hóa Đơn", "Tên Nhân Viên", "Tên Khách Hàng", "Ngày Lập Hóa Đơn", "Tổng Tiền", "Giảm giá", "Thành Tiền"};
             for (int i = 0; i < columns.length; i++) {
                 Cell cell = titleRow.createCell(i);
                 cell.setCellValue(columns[i]);
@@ -36,32 +36,34 @@ public class ExcelExporter {
 
             // Đổ dữ liệu từ danh sách vào Excel
             int rowNum = 1;
-            double totalAmount = 0; 
+            double totalAmount = 0;
             for (ThongKeDoanhThu doanhThu : doanhThuList) {
                 Row row = sheet.createRow(rowNum++);
 
-                row.createCell(0).setCellValue(doanhThu.getMahoadon());
-                row.createCell(1).setCellValue(doanhThu.getTennv());
-                row.createCell(2).setCellValue(doanhThu.getTenkh());
-                row.createCell(3).setCellValue(doanhThu.getNgaylaphoadon().toString());
-                row.createCell(4).setCellValue(doanhThu.getTongtien());
+                row.createCell(0).setCellValue(doanhThu.getMaHoaDon());
+                row.createCell(1).setCellValue(doanhThu.getTenNV());
+                row.createCell(2).setCellValue(doanhThu.getTenKH());
+                row.createCell(3).setCellValue(doanhThu.getNgayLapHoaDon().toString());
+                row.createCell(4).setCellValue(doanhThu.getTongTien());
+                row.createCell(5).setCellValue(doanhThu.getGiamGia());
+                row.createCell(6).setCellValue(doanhThu.getThanhTien());
 
-                totalAmount += doanhThu.getTongtien();
+                totalAmount += doanhThu.getThanhTien();
             }
 
             // Tạo dòng cuối cùng để in tổng tiền
             Row totalRow = sheet.createRow(rowNum);
-            Cell totalLabelCell = totalRow.createCell(columns.length-2);
+            Cell totalLabelCell = totalRow.createCell(columns.length - 2);
             totalLabelCell.setCellValue("Doanh Thu");
             totalLabelCell.setCellStyle(boldCellStyle);
 
-            Cell totalAmountCell = totalRow.createCell(columns.length-1);
+            Cell totalAmountCell = totalRow.createCell(columns.length - 1);
             totalAmountCell.setCellValue(totalAmount);
             totalAmountCell.setCellStyle(boldCellStyle);
 
             try (FileOutputStream fileOut = new FileOutputStream(filePath)) {
                 workbook.write(fileOut);
-                return true; 
+                return true;
             }
         } catch (IOException e) {
             e.printStackTrace();
