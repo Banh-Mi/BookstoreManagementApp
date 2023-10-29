@@ -6,32 +6,37 @@ import dao.ThongKeSanPhamDAO;
 import entity.ThongKeDoanhThu;
 import entity.ThongKeKhachHang;
 import entity.ThongKeSanPham;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.sql.SQLException;
-import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
-import java.util.Locale;
+import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import static util.ExcelExporter.exportToExcel;
 
+
 public class JPanel_ThongKeDoanhThu extends javax.swing.JPanel {
 
     private final DefaultTableModel modelDoanhThu;
     private final DefaultTableModel modelSanPham;
     private final DefaultTableModel modelKhachHang;
-    private ArrayList<ThongKeDoanhThu> doanhThuList = new ArrayList<>();
+     private ArrayList<ThongKeDoanhThu> doanhThuList = new ArrayList<>();
     private ArrayList<ThongKeSanPham> sanPhamList = new ArrayList<>();
     private ArrayList<ThongKeKhachHang> khachHangList = new ArrayList<>();
-    private ThongKeDoanhThuDAO doanhThuDAO;
+      private ThongKeDoanhThuDAO doanhThuDAO;
     private ThongKeSanPhamDAO sanPhamDAO;
     private ThongKeKhachHangDAO khachHangDAO;
-    private final NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
 
     public JPanel_ThongKeDoanhThu() {
         initComponents();
@@ -58,15 +63,15 @@ public class JPanel_ThongKeDoanhThu extends javax.swing.JPanel {
     private void loadDuLieuDoanhThu() {
         //Tạo mảng không trùng bằng set và sử dụng HashSet để lọc
         Set<Integer> uniqueYears = new HashSet<>();
-        doanhThuDAO = new ThongKeDoanhThuDAO();
+          doanhThuDAO = new ThongKeDoanhThuDAO();
         modelDoanhThu.setRowCount(0);
         int soHoaDon = 0;
-        double tongTien = 0;
+        double tong = 0;
         doanhThuList = doanhThuDAO.getHoaDon(null, null);
         for (ThongKeDoanhThu doanhThu : doanhThuList) {
-            Object row[] = {doanhThu.getMahoadon(), doanhThu.getTennv(), doanhThu.getTenkh(), doanhThu.getNgaylaphoadon(), nf.format(doanhThu.getTongtien())};
+            Object row[] = {doanhThu.getMahoadon(), doanhThu.getTennv(), doanhThu.getTenkh(), doanhThu.getNgaylaphoadon(), new BigDecimal(doanhThu.getTongtien())};
             modelDoanhThu.addRow(row);
-            tongTien += doanhThu.getTongtien();
+            tong += doanhThu.getTongtien();
             soHoaDon++;
             uniqueYears.add(doanhThu.getNgaylaphoadon().toLocalDate().getYear());
         }
@@ -74,9 +79,9 @@ public class JPanel_ThongKeDoanhThu extends javax.swing.JPanel {
         for (Integer year : uniqueYears) {
             jcbNamDoanhThu.addItem(year.toString());
         }
-
+        BigDecimal tongTien = new BigDecimal(tong);
         txtSoLuongHoaDon.setText(soHoaDon + "");
-        txtDoanhThu.setText(nf.format(tongTien));
+        txtDoanhThu.setText(tongTien + "");
 
     }
 
@@ -87,19 +92,20 @@ public class JPanel_ThongKeDoanhThu extends javax.swing.JPanel {
         modelKhachHang.setRowCount(0);
         int soLuongSanPham = 0;
         int soHoaDon = 0;
-        double tongTien = 0;
+        double tong = 0;
         int soLuongNDK = 0;
         khachHangList = khachHangDAO.getKHTuyChinh(null, null);
         for (ThongKeKhachHang kh : khachHangList) {
-            Object row[] = {kh.getMaKhachHang(), kh.getTenKhachHang(), kh.getsDT(), kh.getGioiTinh(), kh.getNgayDangKy(), kh.getSoLuongDonHang(), nf.format(kh.getTongTien()), kh.getTongSoLuongSP()};
+            Object row[] = {kh.getMaKhachHang(), kh.getTenKhachHang(), kh.getsDT(), kh.getGioiTinh(), kh.getNgayDangKy(), kh.getSoLuongDonHang(), new BigDecimal(kh.getTongTien()), kh.getTongSoLuongSP()};
             modelKhachHang.addRow(row);
             soLuongSanPham += kh.getTongSoLuongSP();
-            tongTien += kh.getTongTien();
+            tong += kh.getTongTien();
             soHoaDon += kh.getSoLuongDonHang();
             soLuongNDK++;
         }
+        BigDecimal tongTien = new BigDecimal(tong);
         txtSoLuongDHKH.setText(soHoaDon + "");
-        txtTongTienKH.setText(nf.format(tongTien));
+        txtTongTienKH.setText(tongTien + "");
         txtSoLuongSPKH.setText(soLuongSanPham + "");
         txtsoLuongNDK.setText(soLuongNDK + "");
 
@@ -761,10 +767,10 @@ public class JPanel_ThongKeDoanhThu extends javax.swing.JPanel {
 
     private void jpThongKeDTMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpThongKeDTMouseClicked
         String selectedItem = (String) jcbLuaChonDoanhThu.getSelectedItem();
-        doanhThuDAO = new ThongKeDoanhThuDAO();
+         doanhThuDAO = new ThongKeDoanhThuDAO();
         modelDoanhThu.setRowCount(0);
         int soHoaDon = 0;
-        double tongTien = 0;
+        double tong = 0;
         java.util.Date currDate = new java.util.Date();
         switch (selectedItem) {
             case "Theo ngày":
@@ -794,13 +800,14 @@ public class JPanel_ThongKeDoanhThu extends javax.swing.JPanel {
         }
         //Load table
         for (ThongKeDoanhThu doanhThu : doanhThuList) {
-            Object row[] = {doanhThu.getMahoadon(), doanhThu.getTennv(), doanhThu.getTenkh(), doanhThu.getNgaylaphoadon(), nf.format(doanhThu.getTongtien())};
+            Object row[] = {doanhThu.getMahoadon(), doanhThu.getTennv(), doanhThu.getTenkh(), doanhThu.getNgaylaphoadon(), new BigDecimal(doanhThu.getTongtien())};
             modelDoanhThu.addRow(row);
-            tongTien += doanhThu.getTongtien();
+            tong += doanhThu.getTongtien();
             soHoaDon++;
         }
+        BigDecimal tongTien = new BigDecimal(tong);
         txtSoLuongHoaDon.setText(soHoaDon + "");
-        txtDoanhThu.setText(nf.format(tongTien));
+        txtDoanhThu.setText(tongTien + "");
     }//GEN-LAST:event_jpThongKeDTMouseClicked
 
     private void jbLamMoiDoanhThuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbLamMoiDoanhThuMouseClicked
@@ -870,17 +877,18 @@ public class JPanel_ThongKeDoanhThu extends javax.swing.JPanel {
         sanPhamDAO = new ThongKeSanPhamDAO();
         modelSanPham.setRowCount(0);
         int soHoaDon = 0;
-        double tongTien = 0;
+        double tong = 0;
         sanPhamList = sanPhamDAO.getSanPham(null, null);
         for (ThongKeSanPham dtsp : sanPhamList) {
-            Object row[] = {dtsp.getMa(), dtsp.getTen(), dtsp.getSoLuong(), nf.format(dtsp.getThanhtien())};
+            Object row[] = {dtsp.getMa(), dtsp.getTen(), dtsp.getSoLuong(), new BigDecimal(dtsp.getThanhtien())};
             modelSanPham.addRow(row);
-            tongTien += dtsp.getThanhtien();
+            tong += dtsp.getThanhtien();
             soHoaDon += dtsp.getSoLuong();
         }
 
+        BigDecimal tongTien = new BigDecimal(tong);
         txtSoLuongHoaDon1.setText(soHoaDon + "");
-        txtDoanhThu1.setText(nf.format(tongTien));
+        txtDoanhThu1.setText(tongTien + "");
     }
 
     //xu li su kien cua sanpham khi an thong ke
@@ -892,7 +900,7 @@ public class JPanel_ThongKeDoanhThu extends javax.swing.JPanel {
             sanPhamDAO = new ThongKeSanPhamDAO();
             modelSanPham.setRowCount(0);
             int sosanpham = 0;
-            double tongTien = 0;
+            double tongtien = 0;
             java.util.Date currDate = new java.util.Date();
             switch (selectedItem) {
                 case "Theo ngày":
@@ -922,19 +930,20 @@ public class JPanel_ThongKeDoanhThu extends javax.swing.JPanel {
             }
             //Load table
             for (ThongKeSanPham dtSanPham : sanPhamList) {
-                Object row[] = {dtSanPham.getMa(), dtSanPham.getTen(), dtSanPham.getSoLuong(), nf.format(dtSanPham.getThanhtien())};
+                Object row[] = {dtSanPham.getMa(), dtSanPham.getTen(), dtSanPham.getSoLuong(), new BigDecimal(dtSanPham.getThanhtien())};
                 modelSanPham.addRow(row);
-                tongTien += dtSanPham.getThanhtien();
+                tongtien += dtSanPham.getThanhtien();
                 sosanpham += dtSanPham.getSoLuong();
             }
+            BigDecimal tongTien1 = new BigDecimal(tongtien);
             txtSoLuongHoaDon1.setText(sosanpham + "");
-            txtDoanhThu1.setText(nf.format(tongTien));
+            txtDoanhThu1.setText(tongTien1 + "");
         } else if (luaChon.equals("Top 5 sản phẩm được bán nhiều nhất")) {
             String selectedItem = (String) jcbLuaChonDoanhThu1.getSelectedItem();
             sanPhamDAO = new ThongKeSanPhamDAO();
             modelSanPham.setRowCount(0);
             int sosanpham = 0;
-            double tongTien = 0;
+            double tongtien = 0;
             java.util.Date currDate = new java.util.Date();
             switch (selectedItem) {
                 case "Theo ngày":
@@ -964,20 +973,20 @@ public class JPanel_ThongKeDoanhThu extends javax.swing.JPanel {
             }
             //Load table
             for (ThongKeSanPham dtSanPham : sanPhamList) {
-                Object row[] = {dtSanPham.getMa(), dtSanPham.getTen(), dtSanPham.getSoLuong(), nf.format(dtSanPham.getThanhtien())};
+                Object row[] = {dtSanPham.getMa(), dtSanPham.getTen(), dtSanPham.getSoLuong(), new BigDecimal(dtSanPham.getThanhtien())};
                 modelSanPham.addRow(row);
-                tongTien += dtSanPham.getThanhtien();
+                tongtien += dtSanPham.getThanhtien();
                 sosanpham += dtSanPham.getSoLuong();
             }
-
+            BigDecimal tongTien1 = new BigDecimal(tongtien);
             txtSoLuongHoaDon1.setText(sosanpham + "");
-            txtDoanhThu1.setText(nf.format(tongTien));
+            txtDoanhThu1.setText(tongTien1 + "");
         } else if (luaChon.equals("Top 5 sản phẩm được bán ít nhất")) {
             String selectedItem = (String) jcbLuaChonDoanhThu1.getSelectedItem();
             sanPhamDAO = new ThongKeSanPhamDAO();
             modelSanPham.setRowCount(0);
             int sosanpham = 0;
-            double tongTien = 0;
+            double tongtien = 0;
             java.util.Date currDate = new java.util.Date();
             switch (selectedItem) {
                 case "Theo ngày":
@@ -1007,21 +1016,21 @@ public class JPanel_ThongKeDoanhThu extends javax.swing.JPanel {
             }
             //Load table
             for (ThongKeSanPham dtSanPham : sanPhamList) {
-                Object row[] = {dtSanPham.getMa(), dtSanPham.getTen(), dtSanPham.getSoLuong(), nf.format(dtSanPham.getThanhtien())};
+                Object row[] = {dtSanPham.getMa(), dtSanPham.getTen(), dtSanPham.getSoLuong(), new BigDecimal(dtSanPham.getThanhtien())};
                 modelSanPham.addRow(row);
-                tongTien += dtSanPham.getThanhtien();
+                tongtien += dtSanPham.getThanhtien();
                 sosanpham += dtSanPham.getSoLuong();
             }
-        
+            BigDecimal tongTien1 = new BigDecimal(tongtien);
             txtSoLuongHoaDon1.setText(sosanpham + "");
-            txtDoanhThu1.setText(nf.format(tongTien));
+            txtDoanhThu1.setText(tongTien1 + "");
 
         } else if (luaChon.equals("Top 5 sản phẩm có doanh thu cao nhất")) {
             String selectedItem = (String) jcbLuaChonDoanhThu1.getSelectedItem();
             sanPhamDAO = new ThongKeSanPhamDAO();
             modelSanPham.setRowCount(0);
             int sosanpham = 0;
-            double tongTien = 0;
+            double tongtien = 0;
             java.util.Date currDate = new java.util.Date();
             switch (selectedItem) {
                 case "Theo ngày":
@@ -1051,20 +1060,20 @@ public class JPanel_ThongKeDoanhThu extends javax.swing.JPanel {
             }
             //Load table
             for (ThongKeSanPham dtSanPham : sanPhamList) {
-                Object row[] = {dtSanPham.getMa(), dtSanPham.getTen(), dtSanPham.getSoLuong(), nf.format(dtSanPham.getThanhtien())};
+                Object row[] = {dtSanPham.getMa(), dtSanPham.getTen(), dtSanPham.getSoLuong(), new BigDecimal(dtSanPham.getThanhtien())};
                 modelSanPham.addRow(row);
-                tongTien += dtSanPham.getThanhtien();
+                tongtien += dtSanPham.getThanhtien();
                 sosanpham += dtSanPham.getSoLuong();
             }
-
+            BigDecimal tongTien1 = new BigDecimal(tongtien);
             txtSoLuongHoaDon1.setText(sosanpham + "");
-            txtDoanhThu1.setText(nf.format(tongTien));
+            txtDoanhThu1.setText(tongTien1 + "");
         } else if (luaChon.equals("Top 5 sản phẩm có doanh thu thấp nhất")) {
             String selectedItem = (String) jcbLuaChonDoanhThu1.getSelectedItem();
             sanPhamDAO = new ThongKeSanPhamDAO();
             modelSanPham.setRowCount(0);
             int sosanpham = 0;
-            double tongTien = 0;
+            double tongtien = 0;
             java.util.Date currDate = new java.util.Date();
             switch (selectedItem) {
                 case "Theo ngày":
@@ -1094,43 +1103,44 @@ public class JPanel_ThongKeDoanhThu extends javax.swing.JPanel {
             }
             //Load table
             for (ThongKeSanPham dtSanPham : sanPhamList) {
-                Object row[] = {dtSanPham.getMa(), dtSanPham.getTen(), dtSanPham.getSoLuong(), nf.format(dtSanPham.getThanhtien())};
+                Object row[] = {dtSanPham.getMa(), dtSanPham.getTen(), dtSanPham.getSoLuong(), new BigDecimal(dtSanPham.getThanhtien())};
                 modelSanPham.addRow(row);
-                tongTien += dtSanPham.getThanhtien();
+                tongtien += dtSanPham.getThanhtien();
                 sosanpham += dtSanPham.getSoLuong();
             }
-           
+            BigDecimal tongTien1 = new BigDecimal(tongtien);
             txtSoLuongHoaDon1.setText(sosanpham + "");
-            txtDoanhThu1.setText(nf.format(tongTien));
+            txtDoanhThu1.setText(tongTien1 + "");
         } else if (luaChon.equals("Top 5 sản phẩm tồn kho nhiều nhất")) {
             sanPhamDAO = new ThongKeSanPhamDAO();
             modelSanPham.setRowCount(0);
             int sosanpham = 0;
-            double tongTien = 0;
+            double tongtien = 0;
             sanPhamList = sanPhamDAO.getSanPhamTonKhoNhieu();
             for (ThongKeSanPham dtSanPham : sanPhamList) {
-                Object row[] = {dtSanPham.getMa(), dtSanPham.getTen(), dtSanPham.getSoLuong(), nf.format(dtSanPham.getThanhtien())};
+                Object row[] = {dtSanPham.getMa(), dtSanPham.getTen(), dtSanPham.getSoLuong(), new BigDecimal(dtSanPham.getThanhtien())};
                 modelSanPham.addRow(row);
-                tongTien += dtSanPham.getThanhtien();
+                tongtien += dtSanPham.getThanhtien();
                 sosanpham += dtSanPham.getSoLuong();
             }
+            BigDecimal tongTien1 = new BigDecimal(tongtien);
             txtSoLuongHoaDon1.setText(sosanpham + "");
-            txtDoanhThu1.setText(nf.format(tongTien));
+            txtDoanhThu1.setText(tongTien1 + "");
         } else if (luaChon.equals("Top 5 sản phẩm tồn kho ít nhất")) {
             sanPhamDAO = new ThongKeSanPhamDAO();
             modelSanPham.setRowCount(0);
             int sosanpham = 0;
-            double tongTien = 0;
+            double tongtien = 0;
             sanPhamList = sanPhamDAO.getSanPhamTonKhoIt();
             for (ThongKeSanPham dtSanPham : sanPhamList) {
-                Object row[] = {dtSanPham.getMa(), dtSanPham.getTen(), dtSanPham.getSoLuong(), nf.format(dtSanPham.getThanhtien())};
+                Object row[] = {dtSanPham.getMa(), dtSanPham.getTen(), dtSanPham.getSoLuong(), new BigDecimal(dtSanPham.getThanhtien())};
                 modelSanPham.addRow(row);
-                tongTien += dtSanPham.getThanhtien();
+                tongtien += dtSanPham.getThanhtien();
                 sosanpham += dtSanPham.getSoLuong();
             }
-           
+            BigDecimal tongTien1 = new BigDecimal(tongtien);
             txtSoLuongHoaDon1.setText(sosanpham + "");
-            txtDoanhThu1.setText(nf.format(tongTien));
+            txtDoanhThu1.setText(tongTien1 + "");
         }
 
     }//GEN-LAST:event_jpThongKeSPMouseClicked
@@ -1186,7 +1196,7 @@ public class JPanel_ThongKeDoanhThu extends javax.swing.JPanel {
             modelKhachHang.setRowCount(0);
             int soLuongSanPham = 0;
             int soHoaDon = 0;
-            double tongTien = 0;
+            double tong = 0;
             int soLuongNDK = 0;
             java.util.Date currDate = new java.util.Date();
             switch (selectedItem) {
@@ -1217,15 +1227,16 @@ public class JPanel_ThongKeDoanhThu extends javax.swing.JPanel {
             }
             //Load table
             for (ThongKeKhachHang kh : khachHangList) {
-                Object row[] = {kh.getMaKhachHang(), kh.getTenKhachHang(), kh.getsDT(), kh.getGioiTinh(), kh.getNgayDangKy(), kh.getSoLuongDonHang(), nf.format(kh.getTongTien()), kh.getTongSoLuongSP()};
+                Object row[] = {kh.getMaKhachHang(), kh.getTenKhachHang(), kh.getsDT(), kh.getGioiTinh(), kh.getNgayDangKy(), kh.getSoLuongDonHang(), new BigDecimal(kh.getTongTien()), kh.getTongSoLuongSP()};
                 modelKhachHang.addRow(row);
                 soLuongSanPham += kh.getTongSoLuongSP();
-                tongTien += kh.getTongTien();
+                tong += kh.getTongTien();
                 soHoaDon += kh.getSoLuongDonHang();
                 soLuongNDK++;
             }
+            BigDecimal tong1= new BigDecimal(tong);
             txtSoLuongDHKH.setText(soHoaDon + "");
-            txtTongTienKH.setText(nf.format(tongTien));
+            txtTongTienKH.setText(tong1 + "");
             txtSoLuongSPKH.setText(soLuongSanPham + "");
             txtsoLuongNDK.setText(soLuongNDK + "");
         } else if (luaChon.equals("Top 5 khách hàng tổng chi cao nhất")) {
@@ -1234,7 +1245,7 @@ public class JPanel_ThongKeDoanhThu extends javax.swing.JPanel {
             modelKhachHang.setRowCount(0);
             int soLuongSanPham = 0;
             int soHoaDon = 0;
-            double tongTien = 0;
+            double tong = 0;
             int soLuongNDK = 0;
             java.util.Date currDate = new java.util.Date();
             switch (selectedItem) {
@@ -1265,15 +1276,16 @@ public class JPanel_ThongKeDoanhThu extends javax.swing.JPanel {
             }
             //Load table
             for (ThongKeKhachHang kh : khachHangList) {
-                Object row[] = {kh.getMaKhachHang(), kh.getTenKhachHang(), kh.getsDT(), kh.getGioiTinh(), kh.getNgayDangKy(), kh.getSoLuongDonHang(),nf.format(kh.getTongTien()), kh.getTongSoLuongSP()};
+                Object row[] = {kh.getMaKhachHang(), kh.getTenKhachHang(), kh.getsDT(), kh.getGioiTinh(), kh.getNgayDangKy(), kh.getSoLuongDonHang(), new BigDecimal(kh.getTongTien()), kh.getTongSoLuongSP()};
                 modelKhachHang.addRow(row);
                 soLuongSanPham += kh.getTongSoLuongSP();
-                tongTien += kh.getTongTien();
+                tong += kh.getTongTien();
                 soHoaDon += kh.getSoLuongDonHang();
                 soLuongNDK++;
             }
+            BigDecimal tong1= new BigDecimal(tong);
             txtSoLuongDHKH.setText(soHoaDon + "");
-            txtTongTienKH.setText(nf.format(tongTien));
+            txtTongTienKH.setText(tong1 + "");
             txtSoLuongSPKH.setText(soLuongSanPham + "");
             txtsoLuongNDK.setText(soLuongNDK + "");
 
@@ -1283,7 +1295,7 @@ public class JPanel_ThongKeDoanhThu extends javax.swing.JPanel {
             modelKhachHang.setRowCount(0);
             int soLuongSanPham = 0;
             int soHoaDon = 0;
-            double tongTien = 0;
+            double tong = 0;
             int soLuongNDK = 0;
             java.util.Date currDate = new java.util.Date();
             switch (selectedItem) {
@@ -1314,15 +1326,16 @@ public class JPanel_ThongKeDoanhThu extends javax.swing.JPanel {
             }
             //Load table
             for (ThongKeKhachHang kh : khachHangList) {
-                Object row[] = {kh.getMaKhachHang(), kh.getTenKhachHang(), kh.getsDT(), kh.getGioiTinh(), kh.getNgayDangKy(), kh.getSoLuongDonHang(), nf.format(kh.getTongTien()), kh.getTongSoLuongSP()};
+                Object row[] = {kh.getMaKhachHang(), kh.getTenKhachHang(), kh.getsDT(), kh.getGioiTinh(), kh.getNgayDangKy(), kh.getSoLuongDonHang(), new BigDecimal(kh.getTongTien()), kh.getTongSoLuongSP()};
                 modelKhachHang.addRow(row);
                 soLuongSanPham += kh.getTongSoLuongSP();
-                tongTien += kh.getTongTien();
+                tong += kh.getTongTien();
                 soHoaDon += kh.getSoLuongDonHang();
                 soLuongNDK++;
             }
+            BigDecimal tong1= new BigDecimal(tong);
             txtSoLuongDHKH.setText(soHoaDon + "");
-            txtTongTienKH.setText(nf.format(tongTien));
+            txtTongTienKH.setText(tong1 + "");
             txtSoLuongSPKH.setText(soLuongSanPham + "");
             txtsoLuongNDK.setText(soLuongNDK + "");
         } else if (luaChon.equals("Top 5 khách hàng mua hàng nhiều nhất")) {
@@ -1331,7 +1344,7 @@ public class JPanel_ThongKeDoanhThu extends javax.swing.JPanel {
             modelKhachHang.setRowCount(0);
             int soLuongSanPham = 0;
             int soHoaDon = 0;
-            double tongTien = 0;
+            double tong = 0;
             int soLuongNDK = 0;
             java.util.Date currDate = new java.util.Date();
             switch (selectedItem) {
@@ -1362,15 +1375,16 @@ public class JPanel_ThongKeDoanhThu extends javax.swing.JPanel {
             }
             //Load table
             for (ThongKeKhachHang kh : khachHangList) {
-                Object row[] = {kh.getMaKhachHang(), kh.getTenKhachHang(), kh.getsDT(), kh.getGioiTinh(), kh.getNgayDangKy(), kh.getSoLuongDonHang(), nf.format(kh.getTongTien()), kh.getTongSoLuongSP()};
+                Object row[] = {kh.getMaKhachHang(), kh.getTenKhachHang(), kh.getsDT(), kh.getGioiTinh(), kh.getNgayDangKy(), kh.getSoLuongDonHang(), new BigDecimal(kh.getTongTien()), kh.getTongSoLuongSP()};
                 modelKhachHang.addRow(row);
                 soLuongSanPham += kh.getTongSoLuongSP();
-                tongTien += kh.getTongTien();
+                tong += kh.getTongTien();
                 soHoaDon += kh.getSoLuongDonHang();
                 soLuongNDK++;
             }
+            BigDecimal tong1= new BigDecimal(tong);
             txtSoLuongDHKH.setText(soHoaDon + "");
-            txtTongTienKH.setText(nf.format(tongTien));
+            txtTongTienKH.setText(tong1 + "");
             txtSoLuongSPKH.setText(soLuongSanPham + "");
             txtsoLuongNDK.setText(soLuongNDK + "");
         } else if (luaChon.equals("Top 5 khách hàng mua hàng ít nhất")) {
@@ -1379,7 +1393,7 @@ public class JPanel_ThongKeDoanhThu extends javax.swing.JPanel {
             modelKhachHang.setRowCount(0);
             int soLuongSanPham = 0;
             int soHoaDon = 0;
-            double tongTien = 0;
+            double tong = 0;
             int soLuongNDK = 0;
             java.util.Date currDate = new java.util.Date();
             switch (selectedItem) {
@@ -1410,16 +1424,16 @@ public class JPanel_ThongKeDoanhThu extends javax.swing.JPanel {
             }
             //Load table
             for (ThongKeKhachHang kh : khachHangList) {
-                Object row[] = {kh.getMaKhachHang(), kh.getTenKhachHang(), kh.getsDT(), kh.getGioiTinh(), kh.getNgayDangKy(), kh.getSoLuongDonHang(), nf.format(kh.getTongTien()), kh.getTongSoLuongSP()};
+                Object row[] = {kh.getMaKhachHang(), kh.getTenKhachHang(), kh.getsDT(), kh.getGioiTinh(), kh.getNgayDangKy(), kh.getSoLuongDonHang(), new BigDecimal(kh.getTongTien()), kh.getTongSoLuongSP()};
                 modelKhachHang.addRow(row);
                 soLuongSanPham += kh.getTongSoLuongSP();
-                tongTien += kh.getTongTien();
+                tong += kh.getTongTien();
                 soHoaDon += kh.getSoLuongDonHang();
                 soLuongNDK++;
             }
-          
+            BigDecimal tong1= new BigDecimal(tong);
             txtSoLuongDHKH.setText(soHoaDon + "");
-            txtTongTienKH.setText(nf.format(tongTien));
+            txtTongTienKH.setText(tong1 + "");
             txtSoLuongSPKH.setText(soLuongSanPham + "");
             txtsoLuongNDK.setText(soLuongNDK + "");
         } else if (luaChon.equals("Top 5 khách hàng thường xuyên mua hàng nhất")) {
@@ -1428,7 +1442,7 @@ public class JPanel_ThongKeDoanhThu extends javax.swing.JPanel {
             modelKhachHang.setRowCount(0);
             int soLuongSanPham = 0;
             int soHoaDon = 0;
-            double tongTien = 0;
+            double tong = 0;
             int soLuongNDK = 0;
             java.util.Date currDate = new java.util.Date();
             switch (selectedItem) {
@@ -1459,16 +1473,16 @@ public class JPanel_ThongKeDoanhThu extends javax.swing.JPanel {
             }
             //Load table
             for (ThongKeKhachHang kh : khachHangList) {
-                Object row[] = {kh.getMaKhachHang(), kh.getTenKhachHang(), kh.getsDT(), kh.getGioiTinh(), kh.getNgayDangKy(), kh.getSoLuongDonHang(), nf.format(kh.getTongTien()), kh.getTongSoLuongSP()};
+                Object row[] = {kh.getMaKhachHang(), kh.getTenKhachHang(), kh.getsDT(), kh.getGioiTinh(), kh.getNgayDangKy(), kh.getSoLuongDonHang(), new BigDecimal(kh.getTongTien()), kh.getTongSoLuongSP()};
                 modelKhachHang.addRow(row);
                 soLuongSanPham += kh.getTongSoLuongSP();
-                tongTien += kh.getTongTien();
+                tong += kh.getTongTien();
                 soHoaDon += kh.getSoLuongDonHang();
                 soLuongNDK++;
             }
-          
+            BigDecimal tong1= new BigDecimal(tong);
             txtSoLuongDHKH.setText(soHoaDon + "");
-            txtTongTienKH.setText(nf.format(tongTien));
+            txtTongTienKH.setText(tong1 + "");
             txtSoLuongSPKH.setText(soLuongSanPham + "");
             txtsoLuongNDK.setText(soLuongNDK + "");
         } else if (luaChon.equals("Top 5 khách hàng không thường xuyên mua hàng nhất")) {
@@ -1477,7 +1491,7 @@ public class JPanel_ThongKeDoanhThu extends javax.swing.JPanel {
             modelKhachHang.setRowCount(0);
             int soLuongSanPham = 0;
             int soHoaDon = 0;
-            double tongTien = 0;
+            double tong = 0;
             int soLuongNDK = 0;
             java.util.Date currDate = new java.util.Date();
             switch (selectedItem) {
@@ -1508,18 +1522,19 @@ public class JPanel_ThongKeDoanhThu extends javax.swing.JPanel {
             }
             //Load table
             for (ThongKeKhachHang kh : khachHangList) {
-                Object row[] = {kh.getMaKhachHang(), kh.getTenKhachHang(), kh.getsDT(), kh.getGioiTinh(), kh.getNgayDangKy(), kh.getSoLuongDonHang(), nf.format(kh.getTongTien()), kh.getTongSoLuongSP()};
+                Object row[] = {kh.getMaKhachHang(), kh.getTenKhachHang(), kh.getsDT(), kh.getGioiTinh(), kh.getNgayDangKy(), kh.getSoLuongDonHang(), new BigDecimal(kh.getTongTien()), kh.getTongSoLuongSP()};
                 modelKhachHang.addRow(row);
                 soLuongSanPham += kh.getTongSoLuongSP();
-                tongTien += kh.getTongTien();
+                tong += kh.getTongTien();
                 soHoaDon += kh.getSoLuongDonHang();
                 soLuongNDK++;
             }
+            BigDecimal tong1= new BigDecimal(tong);
             txtSoLuongDHKH.setText(soHoaDon + "");
-            txtTongTienKH.setText(nf.format(tongTien));
+            txtTongTienKH.setText(tong1 + "");
             txtSoLuongSPKH.setText(soLuongSanPham + "");
             txtsoLuongNDK.setText(soLuongNDK + "");
-        }
+        } 
     }//GEN-LAST:event_jpThongKeKHMouseClicked
 
     private void jbLamMoiKHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbLamMoiKHMouseClicked
@@ -1560,7 +1575,7 @@ public class JPanel_ThongKeDoanhThu extends javax.swing.JPanel {
         try {
             jf = new BieuDoDoanhThu();
         } catch (SQLException ex) {
-            System.out.println(ex);
+            Logger.getLogger(JPanel_ThongKeDoanhThu.class.getName()).log(Level.SEVERE, null, ex);
         }
         jf.setLocationRelativeTo(null);
         jf.setVisible(true);
