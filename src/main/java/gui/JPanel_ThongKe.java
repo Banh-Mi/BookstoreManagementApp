@@ -46,12 +46,12 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         modelDoanhThu = (DefaultTableModel) tableDoanhThu.getModel();
         modelSanPham = (DefaultTableModel) tableSanPham.getModel();
         modelKhachHang = (DefaultTableModel) tableKhachHang.getModel();
-        svgThongKeKH.setSvgImage("statistical.svg", 25, 25);
-        svgLamMoiKH.setSvgImage("refresh.svg", 25, 25);
-        svgThongKeDoanhThu.setSvgImage("statistical.svg", 25, 25);
-        svgLamMoiDoanhThu.setSvgImage("refresh.svg", 25, 25);
-        svgThongKeSP.setSvgImage("statistical.svg", 25, 25);
-        svgLamMoiSP.setSvgImage("refresh.svg", 25, 25);
+        svgThongKeKH.setSvgImage("statistical.svg", 35, 35);
+        svgLamMoiKH.setSvgImage("refresh.svg", 35, 35);
+        svgThongKeDoanhThu.setSvgImage("statistical.svg", 35, 35);
+        svgLamMoiDoanhThu.setSvgImage("refresh.svg", 35, 35);
+        svgThongKeSP.setSvgImage("statistical.svg", 35, 35);
+        svgLamMoiSP.setSvgImage("refresh.svg", 35,35);
         loadDuLieuDoanhThu();
         loadDuLieuSanPham();
         loadDuLieuKhachHang();
@@ -207,9 +207,6 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         lblTuNgayKH = new javax.swing.JLabel();
         btnBieuDoKH = new javax.swing.JButton();
         jcbLuaChonKH = new javax.swing.JComboBox<>();
-        jpInBaoCaoKH = new util.JPanelRounded();
-        lblInBaoCaoKH = new javax.swing.JLabel();
-        svgInBaoCaoKH = new util.SVGImage();
         lblLuaChonKH = new javax.swing.JLabel();
         jpThongKeKH = new util.JPanelRounded();
         lblThongKeKH = new javax.swing.JLabel();
@@ -228,16 +225,19 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         lblDoanhThuKH1 = new javax.swing.JLabel();
         txtsoLuongNDK = new javax.swing.JLabel();
 
-        setPreferredSize(new java.awt.Dimension(1040, 760));
+        setPreferredSize(new java.awt.Dimension(1040, 950));
         setLayout(new java.awt.BorderLayout());
 
-        jTab.setPreferredSize(new java.awt.Dimension(100, 760));
+        jTab.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTab.setPreferredSize(new java.awt.Dimension(1200, 950));
 
-        tabDoanhThu.setPreferredSize(new java.awt.Dimension(1061, 760));
+        tabDoanhThu.setPreferredSize(new java.awt.Dimension(1061, 950));
         tabDoanhThu.setLayout(new java.awt.BorderLayout());
 
-        scrollDoanhThu.setPreferredSize(new java.awt.Dimension(452, 395));
+        scrollDoanhThu.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        scrollDoanhThu.setPreferredSize(new java.awt.Dimension(420, 395));
 
+        tableDoanhThu.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         tableDoanhThu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -259,39 +259,42 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         tabDoanhThu.add(scrollDoanhThu, java.awt.BorderLayout.CENTER);
 
         jpChucNangDoanhThu.setMinimumSize(new java.awt.Dimension(310, 715));
-        jpChucNangDoanhThu.setPreferredSize(new java.awt.Dimension(310, 710));
+        jpChucNangDoanhThu.setPreferredSize(new java.awt.Dimension(400, 710));
         jpChucNangDoanhThu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jpChucNangDoanhThu.add(jdDenNgayDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 120, 180, 30));
-        jpChucNangDoanhThu.add(jdTuNgayDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 180, 30));
+        jpChucNangDoanhThu.add(jdDenNgayDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 170, 240, 40));
 
-        lblDenNgay.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jdTuNgayDoanhThu.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jpChucNangDoanhThu.add(jdTuNgayDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 100, 240, 40));
+
+        lblDenNgay.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblDenNgay.setText("Đến ngày:");
-        jpChucNangDoanhThu.add(lblDenNgay, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 70, 30));
+        jpChucNangDoanhThu.add(lblDenNgay, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, -1, 40));
 
-        lblDoanhThu.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblDoanhThu.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblDoanhThu.setText("Doanh thu:");
-        jpChucNangDoanhThu.add(lblDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 520, 80, 30));
+        jpChucNangDoanhThu.add(lblDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 660, -1, 40));
 
-        lblTongDoanhThu.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblTongDoanhThu.setFont(new java.awt.Font("Segoe UI", 1, 28)); // NOI18N
         lblTongDoanhThu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTongDoanhThu.setText("TỔNG DOANH THU");
-        jpChucNangDoanhThu.add(lblTongDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 310, 200, -1));
+        lblTongDoanhThu.setText("THỐNG KÊ");
+        jpChucNangDoanhThu.add(lblTongDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 410, 220, -1));
 
-        lblSoLuongHoaDon.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblSoLuongHoaDon.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblSoLuongHoaDon.setText("Số lượng hóa đơn bán được:");
-        jpChucNangDoanhThu.add(lblSoLuongHoaDon, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, 200, 30));
+        jpChucNangDoanhThu.add(lblSoLuongHoaDon, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 480, -1, 40));
 
         txtDoanhThu.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jpChucNangDoanhThu.add(txtDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 520, 110, 30));
+        jpChucNangDoanhThu.add(txtDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 660, 110, 40));
 
         txtSoLuongHoaDon.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jpChucNangDoanhThu.add(txtSoLuongHoaDon, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 370, 80, 30));
+        jpChucNangDoanhThu.add(txtSoLuongHoaDon, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 480, 80, 40));
 
-        lblTuNgay.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblTuNgay.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblTuNgay.setText("Từ ngày:");
-        jpChucNangDoanhThu.add(lblTuNgay, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 80, 30));
+        jpChucNangDoanhThu.add(lblTuNgay, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, -1, 40));
 
-        btnXuatExcel.setText("XUẤT RA FILE EXCEL");
+        btnXuatExcel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnXuatExcel.setText("XUẤT EXCEL");
         btnXuatExcel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnXuatExcelMouseClicked(evt);
@@ -302,20 +305,20 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
                 btnXuatExcelActionPerformed(evt);
             }
         });
-        jpChucNangDoanhThu.add(btnXuatExcel, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 580, 170, 50));
+        jpChucNangDoanhThu.add(btnXuatExcel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 730, 140, 50));
 
-        jcbLuaChonDoanhThu.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jcbLuaChonDoanhThu.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jcbLuaChonDoanhThu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tuỳ chỉnh", "Theo ngày", "Theo tuần", "Theo tháng", "Theo năm" }));
         jcbLuaChonDoanhThu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcbLuaChonDoanhThuActionPerformed(evt);
             }
         });
-        jpChucNangDoanhThu.add(jcbLuaChonDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, 150, 30));
+        jpChucNangDoanhThu.add(jcbLuaChonDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 30, 200, 40));
 
-        lblLuaChonDoanhThu.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblLuaChonDoanhThu.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblLuaChonDoanhThu.setText("Thống kê theo:");
-        jpChucNangDoanhThu.add(lblLuaChonDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, 30));
+        jpChucNangDoanhThu.add(lblLuaChonDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, 40));
 
         jpThongKeDT.setBackground(new java.awt.Color(255, 255, 255));
         jpThongKeDT.setRoundedBottomLeft(10);
@@ -332,14 +335,14 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         });
         jpThongKeDT.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblThongKeDoanhThu.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblThongKeDoanhThu.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblThongKeDoanhThu.setText("Thống kê");
-        jpThongKeDT.add(lblThongKeDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 70, 40));
+        jpThongKeDT.add(lblThongKeDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 100, 50));
 
         svgThongKeDoanhThu.setText(" ");
-        jpThongKeDT.add(svgThongKeDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
+        jpThongKeDT.add(svgThongKeDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 40, 40));
 
-        jpChucNangDoanhThu.add(jpThongKeDT, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, 110, 40));
+        jpChucNangDoanhThu.add(jpThongKeDT, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, 150, 50));
 
         jbLamMoiDoanhThu.setBackground(new java.awt.Color(255, 255, 255));
         jbLamMoiDoanhThu.setRoundedBottomLeft(10);
@@ -353,32 +356,35 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         });
         jbLamMoiDoanhThu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblLamMoiDoanhThu.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblLamMoiDoanhThu.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblLamMoiDoanhThu.setText("Làm mới");
-        jbLamMoiDoanhThu.add(lblLamMoiDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 60, 40));
+        jbLamMoiDoanhThu.add(lblLamMoiDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 100, 50));
 
         svgLamMoiDoanhThu.setText(" ");
-        jbLamMoiDoanhThu.add(svgLamMoiDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
+        jbLamMoiDoanhThu.add(svgLamMoiDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 40, 40));
 
-        jpChucNangDoanhThu.add(jbLamMoiDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 250, 110, 40));
-        jpChucNangDoanhThu.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, 280, 10));
+        jpChucNangDoanhThu.add(jbLamMoiDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 310, 150, 50));
+        jpChucNangDoanhThu.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 450, 340, 10));
 
-        lblNamDoanhThu.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblNamDoanhThu.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblNamDoanhThu.setText("Năm :");
-        jpChucNangDoanhThu.add(lblNamDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 170, -1, 30));
+        jpChucNangDoanhThu.add(lblNamDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 240, -1, 40));
 
-        lblThangDoanhThu.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblThangDoanhThu.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblThangDoanhThu.setText("Tháng :");
-        jpChucNangDoanhThu.add(lblThangDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 60, 30));
+        jpChucNangDoanhThu.add(lblThangDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, -1, 40));
 
+        jcbThangDoanhThu.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jcbThangDoanhThu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", " " }));
         jcbThangDoanhThu.setEnabled(false);
-        jpChucNangDoanhThu.add(jcbThangDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 170, 60, 30));
+        jpChucNangDoanhThu.add(jcbThangDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 240, 80, 40));
 
+        jcbNamDoanhThu.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jcbNamDoanhThu.setEnabled(false);
-        jpChucNangDoanhThu.add(jcbNamDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 170, 90, 30));
+        jpChucNangDoanhThu.add(jcbNamDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 240, 110, 40));
 
-        jButton3.setText("Biểu đồ tổng quát");
+        jButton3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jButton3.setText("XEM BIỂU ĐỒ");
         jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton3MouseClicked(evt);
@@ -389,21 +395,21 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
                 jButton3ActionPerformed(evt);
             }
         });
-        jpChucNangDoanhThu.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 640, 170, 50));
+        jpChucNangDoanhThu.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 730, 150, 50));
 
-        lblTongTien.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblTongTien.setText("Tổng tiền");
-        jpChucNangDoanhThu.add(lblTongTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 420, 80, 30));
+        lblTongTien.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblTongTien.setText("Tổng tiền:");
+        jpChucNangDoanhThu.add(lblTongTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 540, -1, 40));
 
         txtTongTien.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jpChucNangDoanhThu.add(txtTongTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 420, 110, 30));
+        jpChucNangDoanhThu.add(txtTongTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 540, 110, 40));
 
-        lblGiamGia.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblGiamGia.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblGiamGia.setText("Giảm giá:");
-        jpChucNangDoanhThu.add(lblGiamGia, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 470, 80, 30));
+        jpChucNangDoanhThu.add(lblGiamGia, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 600, -1, 40));
 
         txtGiamGia.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jpChucNangDoanhThu.add(txtGiamGia, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 470, 110, 30));
+        jpChucNangDoanhThu.add(txtGiamGia, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 600, 110, 40));
 
         tabDoanhThu.add(jpChucNangDoanhThu, java.awt.BorderLayout.WEST);
 
@@ -432,39 +438,44 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         tabSanPham.add(scrollSanPham, java.awt.BorderLayout.CENTER);
 
         jpChucNangSanPham.setMinimumSize(new java.awt.Dimension(310, 715));
-        jpChucNangSanPham.setPreferredSize(new java.awt.Dimension(310, 710));
+        jpChucNangSanPham.setPreferredSize(new java.awt.Dimension(400, 710));
         jpChucNangSanPham.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jpChucNangSanPham.add(jdTuNgayDoanhThu1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, 180, 30));
-        jpChucNangSanPham.add(jdDenNgayDoanhThu1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, 180, 30));
 
-        lblDenNgaySanPham.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jdTuNgayDoanhThu1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jpChucNangSanPham.add(jdTuNgayDoanhThu1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 140, 250, 40));
+
+        jdDenNgayDoanhThu1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jpChucNangSanPham.add(jdDenNgayDoanhThu1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 200, 250, 40));
+
+        lblDenNgaySanPham.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblDenNgaySanPham.setText("Đến ngày:");
-        jpChucNangSanPham.add(lblDenNgaySanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 70, 30));
+        jpChucNangSanPham.add(lblDenNgaySanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, -1, 40));
 
-        lblDoanhThuSanPham.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblDoanhThuSanPham.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblDoanhThuSanPham.setText("Tổng tiền:");
-        jpChucNangSanPham.add(lblDoanhThuSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 490, 80, 30));
+        jpChucNangSanPham.add(lblDoanhThuSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 620, -1, 40));
 
-        lblTongDoanhThuSanPham.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblTongDoanhThuSanPham.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
         lblTongDoanhThuSanPham.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTongDoanhThuSanPham.setText("TỔNG SẢN PHẨM");
-        jpChucNangSanPham.add(lblTongDoanhThuSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 390, 200, -1));
+        lblTongDoanhThuSanPham.setText("THỐNG KÊ");
+        jpChucNangSanPham.add(lblTongDoanhThuSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 500, 200, -1));
 
-        lblSoLuongHoaDonSP.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblSoLuongHoaDonSP.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblSoLuongHoaDonSP.setText("Số lượng sản phẩm đã bán được:");
-        jpChucNangSanPham.add(lblSoLuongHoaDonSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, 240, 30));
+        jpChucNangSanPham.add(lblSoLuongHoaDonSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 570, -1, 40));
 
         txtDoanhThu1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jpChucNangSanPham.add(txtDoanhThu1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 490, 110, 30));
+        jpChucNangSanPham.add(txtDoanhThu1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 620, 110, 40));
 
         txtSoLuongHoaDon1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jpChucNangSanPham.add(txtSoLuongHoaDon1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 450, 80, 30));
+        jpChucNangSanPham.add(txtSoLuongHoaDon1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 570, 60, 40));
 
-        lblTuNgaySP.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblTuNgaySP.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblTuNgaySP.setText("Từ ngày:");
-        jpChucNangSanPham.add(lblTuNgaySP, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 80, 30));
+        jpChucNangSanPham.add(lblTuNgaySP, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, 40));
 
-        btnBieuDoSP.setText("BIỂU ĐỒ SẢN PHẨM");
+        btnBieuDoSP.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnBieuDoSP.setText("XEM BIỂU ĐỒ");
         btnBieuDoSP.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnBieuDoSPMouseClicked(evt);
@@ -475,9 +486,9 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
                 btnBieuDoSPActionPerformed(evt);
             }
         });
-        jpChucNangSanPham.add(btnBieuDoSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 550, 170, 50));
+        jpChucNangSanPham.add(btnBieuDoSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 680, 170, 50));
 
-        jcbLuaChonDoanhThu1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jcbLuaChonDoanhThu1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jcbLuaChonDoanhThu1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tuỳ chỉnh", "Theo ngày", "Theo tuần", "Theo tháng", "Theo năm" }));
         jcbLuaChonDoanhThu1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -489,7 +500,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
                 jcbLuaChonDoanhThu1ActionPerformed(evt);
             }
         });
-        jpChucNangSanPham.add(jcbLuaChonDoanhThu1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, 160, 30));
+        jpChucNangSanPham.add(jcbLuaChonDoanhThu1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 20, 200, 40));
 
         jpInBaoCaoSP.setBackground(new java.awt.Color(255, 255, 255));
         jpInBaoCaoSP.setRoundedBottomLeft(10);
@@ -503,18 +514,18 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         });
         jpInBaoCaoSP.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblInBaoCaoSP.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblInBaoCaoSP.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblInBaoCaoSP.setText("In báo cáo");
-        jpInBaoCaoSP.add(lblInBaoCaoSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 80, 40));
+        jpInBaoCaoSP.add(lblInBaoCaoSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 100, 50));
 
         svgInBaoCaoSP.setText(" ");
-        jpInBaoCaoSP.add(svgInBaoCaoSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
+        jpInBaoCaoSP.add(svgInBaoCaoSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 40, 40));
 
-        jpChucNangSanPham.add(jpInBaoCaoSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 260, 120, 40));
+        jpChucNangSanPham.add(jpInBaoCaoSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 340, 150, 50));
 
-        lblLuaChonSP.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblLuaChonSP.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblLuaChonSP.setText("Thống kê theo:");
-        jpChucNangSanPham.add(lblLuaChonSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, 30));
+        jpChucNangSanPham.add(lblLuaChonSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, 40));
 
         jpThongKeSP.setBackground(new java.awt.Color(255, 255, 255));
         jpThongKeSP.setRoundedBottomLeft(10);
@@ -528,14 +539,14 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         });
         jpThongKeSP.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblThongKeSP.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblThongKeSP.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblThongKeSP.setText("Thống kê");
-        jpThongKeSP.add(lblThongKeSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 70, 40));
+        jpThongKeSP.add(lblThongKeSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 100, 50));
 
         svgThongKeSP.setText(" ");
-        jpThongKeSP.add(svgThongKeSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
+        jpThongKeSP.add(svgThongKeSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 40, 40));
 
-        jpChucNangSanPham.add(jpThongKeSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 110, 40));
+        jpChucNangSanPham.add(jpThongKeSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 340, 150, 50));
 
         jbLamMoiSP.setBackground(new java.awt.Color(255, 255, 255));
         jbLamMoiSP.setRoundedBottomLeft(10);
@@ -549,40 +560,42 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         });
         jbLamMoiSP.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblLamMoiSP.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblLamMoiSP.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblLamMoiSP.setText("Làm mới");
-        jbLamMoiSP.add(lblLamMoiSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 60, 40));
+        jbLamMoiSP.add(lblLamMoiSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 100, 50));
 
         svgLamMoiSP.setText(" ");
-        jbLamMoiSP.add(svgLamMoiSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
+        jbLamMoiSP.add(svgLamMoiSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 40, 40));
 
-        jpChucNangSanPham.add(jbLamMoiSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 320, 110, 40));
-        jpChucNangSanPham.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, 280, 10));
+        jpChucNangSanPham.add(jbLamMoiSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 410, 150, 50));
+        jpChucNangSanPham.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 550, 350, 10));
 
-        lblNamSP.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblNamSP.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblNamSP.setText("Năm :");
-        jpChucNangSanPham.add(lblNamSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 200, -1, 30));
+        jpChucNangSanPham.add(lblNamSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 260, -1, 40));
 
-        lblThangSP.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblThangSP.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblThangSP.setText("Tháng :");
-        jpChucNangSanPham.add(lblThangSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 60, 30));
+        jpChucNangSanPham.add(lblThangSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, -1, 40));
 
+        jcbThangDoanhThu1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jcbThangDoanhThu1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", " " }));
         jcbThangDoanhThu1.setEnabled(false);
-        jpChucNangSanPham.add(jcbThangDoanhThu1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 200, 60, 30));
+        jpChucNangSanPham.add(jcbThangDoanhThu1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 260, 80, 40));
 
+        jcbNamDoanhThu1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jcbNamDoanhThu1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2019", "2020", "2021", "2022", "2023", " " }));
         jcbNamDoanhThu1.setEnabled(false);
-        jpChucNangSanPham.add(jcbNamDoanhThu1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 200, 90, 30));
+        jpChucNangSanPham.add(jcbNamDoanhThu1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 260, 120, 40));
 
-        jcbchonsanpham.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jcbchonsanpham.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jcbchonsanpham.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sản phẩm đã bán", "Top 5 sản phẩm được bán nhiều nhất", "Top 5 sản phẩm được bán ít nhất", "Top 5 sản phẩm có doanh thu cao nhất", "Top 5 sản phẩm có doanh thu thấp nhất", "Top 5 sản phẩm tồn kho nhiều nhất", "Top 5 sản phẩm tồn kho ít nhất" }));
         jcbchonsanpham.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcbchonsanphamActionPerformed(evt);
             }
         });
-        jpChucNangSanPham.add(jcbchonsanpham, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 280, 30));
+        jpChucNangSanPham.add(jcbchonsanpham, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 350, 40));
 
         tabSanPham.add(jpChucNangSanPham, java.awt.BorderLayout.WEST);
 
@@ -614,79 +627,68 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         tabKhachHang.add(scrollKhachHang, java.awt.BorderLayout.CENTER);
 
         jpChucNangKH.setMinimumSize(new java.awt.Dimension(310, 715));
-        jpChucNangKH.setPreferredSize(new java.awt.Dimension(310, 710));
+        jpChucNangKH.setPreferredSize(new java.awt.Dimension(400, 710));
         jpChucNangKH.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jpChucNangKH.add(jdDenNgayKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 160, 180, 30));
-        jpChucNangKH.add(jdTuNgayKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, 180, 30));
 
-        lblDenNgayKH.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jdDenNgayKH.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jpChucNangKH.add(jdDenNgayKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 210, 260, 40));
+
+        jdTuNgayKH.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jpChucNangKH.add(jdTuNgayKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 140, 260, 40));
+
+        lblDenNgayKH.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblDenNgayKH.setText("Đến ngày:");
-        jpChucNangKH.add(lblDenNgayKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 70, 30));
+        jpChucNangKH.add(lblDenNgayKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, -1, 40));
 
-        lblDoanhThuKH.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblDoanhThuKH.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblDoanhThuKH.setText("Tổng tiền:");
-        jpChucNangKH.add(lblDoanhThuKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 530, 80, 30));
+        jpChucNangKH.add(lblDoanhThuKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 630, -1, 40));
 
-        lblTongDoanhThuKH.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblTongDoanhThuKH.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
         lblTongDoanhThuKH.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTongDoanhThuKH.setText("TỔNG DOANH THU");
-        jpChucNangKH.add(lblTongDoanhThuKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 390, 200, -1));
+        lblTongDoanhThuKH.setText("THỐNG KÊ");
+        jpChucNangKH.add(lblTongDoanhThuKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 450, 200, -1));
 
-        lblSoLuongHoaDonKH.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblSoLuongHoaDonKH.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblSoLuongHoaDonKH.setText("Số lượng sản phẩm:");
-        jpChucNangKH.add(lblSoLuongHoaDonKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, 200, 30));
+        jpChucNangKH.add(lblSoLuongHoaDonKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 530, -1, 40));
 
         txtTongTienKH.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jpChucNangKH.add(txtTongTienKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 530, 110, 30));
+        jpChucNangKH.add(txtTongTienKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 630, 110, 40));
 
         txtSoLuongSPKH.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jpChucNangKH.add(txtSoLuongSPKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 450, 80, 30));
+        jpChucNangKH.add(txtSoLuongSPKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 530, 100, 40));
 
-        lblTuNgayKH.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblTuNgayKH.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblTuNgayKH.setText("Từ ngày:");
-        jpChucNangKH.add(lblTuNgayKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 80, 30));
+        jpChucNangKH.add(lblTuNgayKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, 40));
 
-        btnBieuDoKH.setText("BIỂU ĐỒ KHÁCH HÀNG");
+        btnBieuDoKH.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnBieuDoKH.setText("XEM BIỂU ĐỒ");
         btnBieuDoKH.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnBieuDoKHMouseClicked(evt);
             }
         });
-        jpChucNangKH.add(btnBieuDoKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 630, 170, 50));
+        btnBieuDoKH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBieuDoKHActionPerformed(evt);
+            }
+        });
+        jpChucNangKH.add(btnBieuDoKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 740, 170, 50));
 
-        jcbLuaChonKH.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jcbLuaChonKH.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jcbLuaChonKH.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tuỳ chỉnh", "Theo ngày", "Theo tuần", "Theo tháng", "Theo năm" }));
         jcbLuaChonKH.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcbLuaChonKHActionPerformed(evt);
             }
         });
-        jpChucNangKH.add(jcbLuaChonKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, 150, 30));
+        jpChucNangKH.add(jcbLuaChonKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 20, 210, 40));
 
-        jpInBaoCaoKH.setBackground(new java.awt.Color(255, 255, 255));
-        jpInBaoCaoKH.setRoundedBottomLeft(10);
-        jpInBaoCaoKH.setRoundedBottomRight(10);
-        jpInBaoCaoKH.setRoundedTopLeft(10);
-        jpInBaoCaoKH.setRoundedTopRight(10);
-        jpInBaoCaoKH.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jpInBaoCaoKHMouseClicked(evt);
-            }
-        });
-        jpInBaoCaoKH.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        lblInBaoCaoKH.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblInBaoCaoKH.setText("In báo cáo");
-        jpInBaoCaoKH.add(lblInBaoCaoKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 80, 40));
-
-        svgInBaoCaoKH.setText(" ");
-        jpInBaoCaoKH.add(svgInBaoCaoKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
-
-        jpChucNangKH.add(jpInBaoCaoKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 250, 120, 40));
-
-        lblLuaChonKH.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblLuaChonKH.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblLuaChonKH.setText("Thống kê theo:");
-        jpChucNangKH.add(lblLuaChonKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, 30));
+        jpChucNangKH.add(lblLuaChonKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, 40));
 
         jpThongKeKH.setBackground(new java.awt.Color(255, 255, 255));
         jpThongKeKH.setRoundedBottomLeft(10);
@@ -700,14 +702,14 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         });
         jpThongKeKH.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblThongKeKH.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblThongKeKH.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblThongKeKH.setText("Thống kê");
-        jpThongKeKH.add(lblThongKeKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 70, 40));
+        jpThongKeKH.add(lblThongKeKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 100, 50));
 
         svgThongKeKH.setText(" ");
-        jpThongKeKH.add(svgThongKeKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
+        jpThongKeKH.add(svgThongKeKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 40, 40));
 
-        jpChucNangKH.add(jpThongKeKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, 110, 40));
+        jpChucNangKH.add(jpThongKeKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 150, 50));
 
         jbLamMoiKH.setBackground(new java.awt.Color(255, 255, 255));
         jbLamMoiKH.setRoundedBottomLeft(10);
@@ -721,54 +723,56 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         });
         jbLamMoiKH.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblLamMoiKH.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblLamMoiKH.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblLamMoiKH.setText("Làm mới");
-        jbLamMoiKH.add(lblLamMoiKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 60, 40));
+        jbLamMoiKH.add(lblLamMoiKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 100, 50));
 
         svgLamMoiKH.setText(" ");
-        jbLamMoiKH.add(svgLamMoiKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
+        jbLamMoiKH.add(svgLamMoiKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 40, 40));
 
-        jpChucNangKH.add(jbLamMoiKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 310, 110, 40));
-        jpChucNangKH.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, 280, 10));
+        jpChucNangKH.add(jbLamMoiKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 350, 150, 50));
+        jpChucNangKH.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 500, 360, 10));
 
-        lblNamKH.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblNamKH.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblNamKH.setText("Năm :");
-        jpChucNangKH.add(lblNamKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, -1, 30));
+        jpChucNangKH.add(lblNamKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 280, -1, 40));
 
-        lblThangKH.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblThangKH.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblThangKH.setText("Tháng :");
-        jpChucNangKH.add(lblThangKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 60, 30));
+        jpChucNangKH.add(lblThangKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, -1, 40));
 
+        jcbThangKH.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jcbThangKH.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", " " }));
         jcbThangKH.setEnabled(false);
-        jpChucNangKH.add(jcbThangKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 210, 60, 30));
+        jpChucNangKH.add(jcbThangKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 280, 90, 40));
 
+        jcbNamKH.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jcbNamKH.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2019", "2020", "2021", "2022", "2023", " " }));
         jcbNamKH.setEnabled(false);
-        jpChucNangKH.add(jcbNamKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 210, 90, 30));
+        jpChucNangKH.add(jcbNamKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 280, 120, 40));
 
-        jCBTieuChi.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jCBTieuChi.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jCBTieuChi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Khách hàng đã mua hàng", "Top 5 khách hàng tổng chi cao nhất", "Top 5 khách hàng tổng chi thấp nhất", "Top 5 khách hàng mua hàng nhiều nhất", "Top 5 khách hàng mua hàng ít nhất", "Top 5 khách hàng thường xuyên mua hàng nhất", "Top 5 khách hàng không thường xuyên mua hàng nhất" }));
         jCBTieuChi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCBTieuChiActionPerformed(evt);
             }
         });
-        jpChucNangKH.add(jCBTieuChi, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 270, 30));
+        jpChucNangKH.add(jCBTieuChi, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 360, 40));
 
-        lblSoLuongHoaDonKH1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblSoLuongHoaDonKH1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblSoLuongHoaDonKH1.setText("Số lượng đơn hàng:");
-        jpChucNangKH.add(lblSoLuongHoaDonKH1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 490, 200, 30));
+        jpChucNangKH.add(lblSoLuongHoaDonKH1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 580, -1, 40));
 
         txtSoLuongDHKH.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jpChucNangKH.add(txtSoLuongDHKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 490, 80, 30));
+        jpChucNangKH.add(txtSoLuongDHKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 580, 80, 40));
 
-        lblDoanhThuKH1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblDoanhThuKH1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblDoanhThuKH1.setText("Số lượng người đăng ký:");
-        jpChucNangKH.add(lblDoanhThuKH1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 570, 170, 30));
+        jpChucNangKH.add(lblDoanhThuKH1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 680, -1, 40));
 
         txtsoLuongNDK.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jpChucNangKH.add(txtsoLuongNDK, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 570, 50, 30));
+        jpChucNangKH.add(txtsoLuongNDK, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 680, 80, 40));
 
         tabKhachHang.add(jpChucNangKH, java.awt.BorderLayout.WEST);
 
@@ -1220,10 +1224,6 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jcbLuaChonKHActionPerformed
 
-    private void jpInBaoCaoKHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpInBaoCaoKHMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jpInBaoCaoKHMouseClicked
-
     private void jpThongKeKHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpThongKeKHMouseClicked
         //code Khach Hang o day
         String luaChon = jCBTieuChi.getSelectedItem().toString();
@@ -1639,6 +1639,10 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
 
     }//GEN-LAST:event_jCBTieuChiActionPerformed
 
+    private void btnBieuDoKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBieuDoKHActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnBieuDoKHActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBieuDoKH;
@@ -1672,7 +1676,6 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
     private javax.swing.JPanel jpChucNangDoanhThu;
     private javax.swing.JPanel jpChucNangKH;
     private javax.swing.JPanel jpChucNangSanPham;
-    private util.JPanelRounded jpInBaoCaoKH;
     private util.JPanelRounded jpInBaoCaoSP;
     private util.JPanelRounded jpThongKeDT;
     private util.JPanelRounded jpThongKeKH;
@@ -1685,7 +1688,6 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
     private javax.swing.JLabel lblDoanhThuKH1;
     private javax.swing.JLabel lblDoanhThuSanPham;
     private javax.swing.JLabel lblGiamGia;
-    private javax.swing.JLabel lblInBaoCaoKH;
     private javax.swing.JLabel lblInBaoCaoSP;
     private javax.swing.JLabel lblLamMoiDoanhThu;
     private javax.swing.JLabel lblLamMoiKH;
@@ -1716,7 +1718,6 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
     private javax.swing.JScrollPane scrollDoanhThu;
     private javax.swing.JScrollPane scrollKhachHang;
     private javax.swing.JScrollPane scrollSanPham;
-    private util.SVGImage svgInBaoCaoKH;
     private util.SVGImage svgInBaoCaoSP;
     private util.SVGImage svgLamMoiDoanhThu;
     private util.SVGImage svgLamMoiKH;

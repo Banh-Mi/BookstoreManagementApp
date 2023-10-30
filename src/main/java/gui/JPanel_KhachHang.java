@@ -23,10 +23,10 @@ public class JPanel_KhachHang extends javax.swing.JPanel {
 
     public JPanel_KhachHang() {
         initComponents();
-        svgAdd.setSvgImage("add.svg", 30, 30);
-        svgEdit.setSvgImage("edit.svg", 25, 25);
-        svgDelete.setSvgImage("delete.svg", 30, 30);
-        svgRefresh.setSvgImage("refresh.svg", 25, 25);
+        svgAdd.setSvgImage("add.svg", 40, 40);
+        svgEdit.setSvgImage("edit.svg", 35, 35);
+        svgDelete.setSvgImage("delete.svg", 40, 40);
+        svgRefresh.setSvgImage("refresh.svg", 35, 35);
         modelKhachHang = (DefaultTableModel) tableCustomer.getModel();
         loadData();
         DefaultListSelectionModel selectionModel = new DefaultListSelectionModel();
@@ -125,9 +125,10 @@ public class JPanel_KhachHang extends javax.swing.JPanel {
 
         jpTitle.setLayout(new java.awt.BorderLayout());
 
-        jbCustomerManagerment.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jbCustomerManagerment.setFont(new java.awt.Font("Segoe UI", 1, 40)); // NOI18N
         jbCustomerManagerment.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jbCustomerManagerment.setText("QUẢN LÝ KHÁCH HÀNG");
+        jbCustomerManagerment.setPreferredSize(new java.awt.Dimension(409, 70));
         jpTitle.add(jbCustomerManagerment, java.awt.BorderLayout.CENTER);
 
         add(jpTitle, java.awt.BorderLayout.PAGE_START);
@@ -135,33 +136,33 @@ public class JPanel_KhachHang extends javax.swing.JPanel {
         jpFunction.setPreferredSize(new java.awt.Dimension(1010, 350));
         jpFunction.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblCustomerID.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblCustomerID.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblCustomerID.setText("Mã khách hàng:");
-        jpFunction.add(lblCustomerID, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 130, 30));
+        jpFunction.add(lblCustomerID, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, 40));
 
-        lblFullName.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblFullName.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblFullName.setText("Họ và tên:");
-        jpFunction.add(lblFullName, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, 30));
+        jpFunction.add(lblFullName, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, 40));
 
-        txtSDT.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jpFunction.add(txtSDT, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 20, 210, 30));
+        txtSDT.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jpFunction.add(txtSDT, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 20, 310, 40));
 
-        lblGender.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblGender.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblGender.setText("Thẻ TV:");
-        jpFunction.add(lblGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(596, 120, 70, 30));
+        jpFunction.add(lblGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 160, -1, 40));
 
         gioiTinh.add(radnu);
-        radnu.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        radnu.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         radnu.setText("Nữ");
         radnu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radnuActionPerformed(evt);
             }
         });
-        jpFunction.add(radnu, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 120, 50, 30));
+        jpFunction.add(radnu, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 90, 50, 40));
 
         gioiTinh.add(radnam);
-        radnam.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        radnam.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         radnam.setSelected(true);
         radnam.setText("Nam");
         radnam.addActionListener(new java.awt.event.ActionListener() {
@@ -169,47 +170,49 @@ public class JPanel_KhachHang extends javax.swing.JPanel {
                 radnamActionPerformed(evt);
             }
         });
-        jpFunction.add(radnam, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 120, 70, 30));
+        jpFunction.add(radnam, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 90, 70, 40));
 
-        lblPhone.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblPhone.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblPhone.setText("SĐT:");
-        jpFunction.add(lblPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 20, 40, 30));
+        jpFunction.add(lblPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 20, -1, 40));
 
-        lblDob.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblDob.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblDob.setText("Ngày sinh:");
-        jpFunction.add(lblDob, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 20, -1, 30));
+        jpFunction.add(lblDob, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 20, -1, 40));
 
-        txtDiaChi.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jpFunction.add(txtDiaChi, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 70, 540, 30));
+        txtDiaChi.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jpFunction.add(txtDiaChi, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 90, 340, 40));
 
-        lblAddress.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblAddress.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblAddress.setText("Địa chỉ:");
-        jpFunction.add(lblAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 70, -1, 30));
+        jpFunction.add(lblAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 90, -1, 40));
 
-        txtHoTen.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtHoTen.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtHoTen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtHoTenActionPerformed(evt);
             }
         });
-        jpFunction.add(txtHoTen, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 70, 240, 30));
+        jpFunction.add(txtHoTen, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 90, 240, 40));
 
-        txtmaKhachHang.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtmaKhachHang.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtmaKhachHang.setEnabled(false);
         txtmaKhachHang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtmaKhachHangActionPerformed(evt);
             }
         });
-        jpFunction.add(txtmaKhachHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 120, 30));
-        jpFunction.add(txtNgayDangKy, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 120, 150, 30));
+        jpFunction.add(txtmaKhachHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, 220, 40));
 
-        lblEmail.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtNgayDangKy.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jpFunction.add(txtNgayDangKy, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 160, 250, 40));
+
+        lblEmail.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblEmail.setText("Email:");
-        jpFunction.add(lblEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 50, 30));
+        jpFunction.add(lblEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, -1, 40));
 
-        txtEmail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jpFunction.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, 220, 30));
+        txtEmail.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jpFunction.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 160, 240, 40));
 
         jpAdd.setBackground(new java.awt.Color(255, 255, 255));
         jpAdd.setRoundedBottomLeft(10);
@@ -223,14 +226,14 @@ public class JPanel_KhachHang extends javax.swing.JPanel {
         });
         jpAdd.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jbAdd.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jbAdd.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jbAdd.setText("Thêm");
-        jpAdd.add(jbAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 60, 40));
+        jpAdd.add(jbAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 100, 50));
 
         svgAdd.setText(" ");
-        jpAdd.add(svgAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
+        jpAdd.add(svgAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 40, 40));
 
-        jpFunction.add(jpAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 100, 40));
+        jpFunction.add(jpAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 150, 50));
 
         jpEdit.setBackground(new java.awt.Color(255, 255, 255));
         jpEdit.setRoundedBottomLeft(10);
@@ -244,14 +247,14 @@ public class JPanel_KhachHang extends javax.swing.JPanel {
         });
         jpEdit.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jbEdit.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jbEdit.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jbEdit.setText("Sửa");
-        jpEdit.add(jbEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 60, 40));
+        jpEdit.add(jbEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 100, 50));
 
         svgEdit.setText(" ");
-        jpEdit.add(svgEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
+        jpEdit.add(svgEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 40, 40));
 
-        jpFunction.add(jpEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 170, 100, 40));
+        jpFunction.add(jpEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 240, 150, 50));
 
         jpDelete.setBackground(new java.awt.Color(255, 255, 255));
         jpDelete.setRoundedBottomLeft(10);
@@ -265,14 +268,14 @@ public class JPanel_KhachHang extends javax.swing.JPanel {
         });
         jpDelete.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jbDelete.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jbDelete.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jbDelete.setText("Xoá");
-        jpDelete.add(jbDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 60, 40));
+        jpDelete.add(jbDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 100, 50));
 
         svgDelete.setText(" ");
-        jpDelete.add(svgDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
+        jpDelete.add(svgDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 40, 40));
 
-        jpFunction.add(jpDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 170, 100, 40));
+        jpFunction.add(jpDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 240, 150, 50));
 
         jpRefresh.setBackground(new java.awt.Color(255, 255, 255));
         jpRefresh.setRoundedBottomLeft(10);
@@ -286,36 +289,41 @@ public class JPanel_KhachHang extends javax.swing.JPanel {
         });
         jpRefresh.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jbRefresh.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jbRefresh.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jbRefresh.setText("Làm mới");
-        jpRefresh.add(jbRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 60, 40));
+        jpRefresh.add(jbRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 100, 50));
 
         svgRefresh.setText(" ");
-        jpRefresh.add(svgRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
+        jpRefresh.add(svgRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 40, 40));
 
-        jpFunction.add(jpRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 170, 110, 40));
+        jpFunction.add(jpRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 240, 150, 50));
 
-        lblGender1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblGender1.setText("Ngày Đăng ký:");
-        jpFunction.add(lblGender1, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 120, -1, 30));
+        lblGender1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblGender1.setText("Ngày đăng ký:");
+        jpFunction.add(lblGender1, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 160, -1, 40));
 
+        cboboxthe.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         cboboxthe.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đồng", "Bạc", "Vàng", "Kim cương", "Ruby", " " }));
         cboboxthe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboboxtheActionPerformed(evt);
             }
         });
-        jpFunction.add(cboboxthe, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 120, 90, 30));
+        jpFunction.add(cboboxthe, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 160, 170, 40));
 
-        lblGender2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblGender2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblGender2.setText("Giới tính:");
-        jpFunction.add(lblGender2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 120, -1, 30));
-        jpFunction.add(txtNgaySinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 20, 190, 30));
+        jpFunction.add(lblGender2, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 90, -1, 40));
+
+        txtNgaySinh.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jpFunction.add(txtNgaySinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 20, 240, 40));
 
         add(jpFunction, java.awt.BorderLayout.CENTER);
 
-        jPanelCustomerDetail.setPreferredSize(new java.awt.Dimension(458, 450));
+        jPanelCustomerDetail.setPreferredSize(new java.awt.Dimension(458, 490));
         jPanelCustomerDetail.setLayout(new java.awt.BorderLayout());
+
+        scrollCustomer.setPreferredSize(new java.awt.Dimension(452, 460));
 
         tableCustomer.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

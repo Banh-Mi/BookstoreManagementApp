@@ -28,7 +28,6 @@ gui\JPhanel_HoaDon$2.class
 gui\JPanel_KhachHangTK$6.class
 gui\GiaoDienChinh$5.class
 gui\JPanel_BanHang$3.class
-gui\GiaoDienChinh$18.class
 gui\JPanel_KhachHang.class
 gui\JPanel_KhuyenMai$6.class
 gui\JPanel_ThongKe$21.class
@@ -36,6 +35,7 @@ Dao\ThongKeDoanhThuDAO.class
 gui\BieuDoKhachHang$8.class
 entity\ThongTinPhanCaLamViec.class
 gui\JPanel_SanPham$1.class
+gui\JPanel_TaiKhoan$4.class
 entity\DoanhThuBieuDo.class
 gui\JPanel_ThongKe$3.class
 gui\GiaoDienChinh$12.class

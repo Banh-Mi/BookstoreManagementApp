@@ -19,8 +19,8 @@ public class JPanel_TimKiemNhaCungCap extends javax.swing.JPanel {
 
     public JPanel_TimKiemNhaCungCap() {
         initComponents();
-        svgDelete.setSvgImage("search.svg", 30, 30);
-        svgRefresh.setSvgImage("refresh.svg", 25, 25);
+        svgDelete.setSvgImage("search.svg", 40, 40);
+        svgRefresh.setSvgImage("refresh.svg", 35, 35);
         modelNhaCungCap = (DefaultTableModel) tableSupplier.getModel();
         loadData();
     }
@@ -64,9 +64,10 @@ public class JPanel_TimKiemNhaCungCap extends javax.swing.JPanel {
 
         jPanel1.setLayout(new java.awt.BorderLayout());
 
-        lbTitle.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        lbTitle.setFont(new java.awt.Font("Segoe UI", 1, 40)); // NOI18N
         lbTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbTitle.setText("TÌM KIẾM NHÀ CUNG CẤP");
+        lbTitle.setPreferredSize(new java.awt.Dimension(499, 70));
         jPanel1.add(lbTitle, java.awt.BorderLayout.CENTER);
 
         add(jPanel1, java.awt.BorderLayout.PAGE_START);
@@ -75,26 +76,26 @@ public class JPanel_TimKiemNhaCungCap extends javax.swing.JPanel {
         jPanel2.setPreferredSize(new java.awt.Dimension(1040, 100));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lbSupplierName.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbSupplierName.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lbSupplierName.setText("Tên nhà cung cấp:");
-        jPanel2.add(lbSupplierName, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 20, 130, 30));
+        jPanel2.add(lbSupplierName, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 30, 170, 40));
 
-        lbSupplierID.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbSupplierID.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lbSupplierID.setText("Mã nhà cung cấp:");
-        jPanel2.add(lbSupplierID, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 130, 30));
+        jPanel2.add(lbSupplierID, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, 40));
 
-        txtSupplierName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jPanel2.add(txtSupplierName, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 20, 180, 30));
+        txtSupplierName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jPanel2.add(txtSupplierName, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 30, 210, 40));
 
-        txtSupplierID.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jPanel2.add(txtSupplierID, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 20, 160, 30));
+        txtSupplierID.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jPanel2.add(txtSupplierID, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, 200, 40));
 
-        txtSoDienThoai.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jPanel2.add(txtSoDienThoai, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 20, 190, 30));
+        txtSoDienThoai.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jPanel2.add(txtSoDienThoai, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 30, 220, 40));
 
-        lblPhone.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblPhone.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblPhone.setText("Số điện thoại:");
-        jPanel2.add(lblPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 20, 100, 30));
+        jPanel2.add(lblPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 30, -1, 40));
 
         jbTim.setBackground(new java.awt.Color(255, 255, 255));
         jbTim.setRoundedBottomLeft(10);
@@ -108,14 +109,14 @@ public class JPanel_TimKiemNhaCungCap extends javax.swing.JPanel {
         });
         jbTim.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jbDelete.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jbDelete.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jbDelete.setText("Tìm");
-        jbTim.add(jbDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 60, 40));
+        jbTim.add(jbDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 100, 50));
 
         svgDelete.setText(" ");
-        jbTim.add(svgDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
+        jbTim.add(svgDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 40, 40));
 
-        jPanel2.add(jbTim, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 100, 40));
+        jPanel2.add(jbTim, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, 150, 50));
 
         jpRefresh.setBackground(new java.awt.Color(255, 255, 255));
         jpRefresh.setRoundedBottomLeft(10);
@@ -129,32 +130,33 @@ public class JPanel_TimKiemNhaCungCap extends javax.swing.JPanel {
         });
         jpRefresh.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jbRefresh.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jbRefresh.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jbRefresh.setText("Làm mới");
-        jpRefresh.add(jbRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 60, 40));
+        jpRefresh.add(jbRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 100, 50));
 
         svgRefresh.setText(" ");
-        jpRefresh.add(svgRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
+        jpRefresh.add(svgRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 40, 40));
 
-        jPanel2.add(jpRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, 110, 40));
+        jPanel2.add(jpRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 180, 150, 50));
 
-        cbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đang hợp tác", "Ngưng hợp tác", " " }));
-        jPanel2.add(cbStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 130, 30));
+        cbStatus.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        cbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đang hợp tác", "Ngưng hợp tác" }));
+        jPanel2.add(cbStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 210, 40));
 
-        lblSearch1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblSearch1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblSearch1.setText("Trạng thái:");
-        jPanel2.add(lblSearch1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 80, 30));
+        jPanel2.add(lblSearch1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, -1, 40));
 
-        txtEmail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jPanel2.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 70, 180, 30));
+        txtEmail.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jPanel2.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 100, 240, 40));
 
-        lblEmail.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblEmail.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblEmail.setText("Email:");
-        jPanel2.add(lblEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 70, 50, 30));
+        jPanel2.add(lblEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 100, -1, 40));
 
         add(jPanel2, java.awt.BorderLayout.CENTER);
 
-        jPanel3.setPreferredSize(new java.awt.Dimension(452, 500));
+        jPanel3.setPreferredSize(new java.awt.Dimension(452, 520));
         jPanel3.setLayout(new java.awt.BorderLayout());
 
         tableSupplier.setModel(new javax.swing.table.DefaultTableModel(

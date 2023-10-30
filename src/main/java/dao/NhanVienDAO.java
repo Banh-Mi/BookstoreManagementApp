@@ -46,7 +46,7 @@ public class NhanVienDAO {
     public boolean themNhanVien(NhanVien nhanVien) {
         Connection con = ConnectDB.getInstance().getConnection();
         PreparedStatement stmt = null;
-        String sql = "INSERT INTO NhanVien VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO NhanVien VALUES(?,?,?,?,?,?,?,?,?,?)";
         try {
             stmt = con.prepareStatement(sql);
             stmt.setString(1, nhanVien.getMaNV());

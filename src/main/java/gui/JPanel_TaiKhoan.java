@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package gui;
+
 import dao.TaiKhoanDAO;
 import entity.TaiKhoan;
 import connectDB.ConnectDB;
@@ -15,19 +16,21 @@ import javax.swing.table.DefaultTableModel;
  * @author VONG VINH LOI
  */
 public class JPanel_TaiKhoan extends javax.swing.JPanel {
+
     private ButtonGroup btgroup;
     private final DefaultTableModel modelAccount;
     private TaiKhoanDAO accountDao;
 
     public JPanel_TaiKhoan() throws SQLException {
-        
+
         initComponents();
         ConnectDB.getInstance().connect();
         modelAccount = (DefaultTableModel) tableAccount.getModel();
         loadData();
-        svgAdd.setSvgImage("add.svg", 30, 30);
-        svgEdit.setSvgImage("edit.svg", 25, 25);
-        svgDelete.setSvgImage("delete.svg", 30, 30);
+        svgEdit.setSvgImage("edit.svg", 35, 35);
+        svgDelete.setSvgImage("delete.svg", 40, 40);
+
+        svgRefresh.setSvgImage("refresh.svg", 35, 35);
     }
 
     /**
@@ -45,25 +48,23 @@ public class JPanel_TaiKhoan extends javax.swing.JPanel {
         jbFunction = new javax.swing.JPanel();
         jbStatus = new javax.swing.JLabel();
         jbEmployeeId = new javax.swing.JLabel();
-        jbUserName = new javax.swing.JLabel();
         jbPassword = new javax.swing.JLabel();
         jbRole = new javax.swing.JLabel();
         radLock = new javax.swing.JRadioButton();
         btgroup = new ButtonGroup();
         radNormal = new javax.swing.JRadioButton();
         jcbEmployeeId = new javax.swing.JComboBox<>();
-        txtUserName = new javax.swing.JTextField();
         txtPassword = new javax.swing.JPasswordField();
         jcbRole = new javax.swing.JComboBox<>();
-        jpAdd = new util.JPanelRounded();
-        jbAdd = new javax.swing.JLabel();
-        svgAdd = new util.SVGImage();
         jpEdit = new util.JPanelRounded();
         jbEdit = new javax.swing.JLabel();
         svgEdit = new util.SVGImage();
         jpDelete = new util.JPanelRounded();
         jbDelete = new javax.swing.JLabel();
         svgDelete = new util.SVGImage();
+        jbLamMoi = new util.JPanelRounded();
+        jbRefresh = new javax.swing.JLabel();
+        svgRefresh = new util.SVGImage();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableAccount = new javax.swing.JTable();
 
@@ -75,85 +76,62 @@ public class JPanel_TaiKhoan extends javax.swing.JPanel {
         jpAccountManagerment.setLayout(new java.awt.BorderLayout());
 
         jbAccountManagerment.setBackground(new java.awt.Color(255, 255, 255));
-        jbAccountManagerment.setFont(new java.awt.Font("Roboto Black", 0, 36)); // NOI18N
+        jbAccountManagerment.setFont(new java.awt.Font("Roboto Black", 0, 40)); // NOI18N
         jbAccountManagerment.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jbAccountManagerment.setText("QUẢN LÝ TÀI KHOẢN");
-        jbAccountManagerment.setPreferredSize(new java.awt.Dimension(351, 55));
+        jbAccountManagerment.setPreferredSize(new java.awt.Dimension(351, 70));
         jpAccountManagerment.add(jbAccountManagerment, java.awt.BorderLayout.CENTER);
 
         add(jpAccountManagerment, java.awt.BorderLayout.PAGE_START);
 
         jbFunction.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jbStatus.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jbStatus.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jbStatus.setText("Trạng thái:");
-        jbFunction.add(jbStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 70, -1, 30));
+        jbFunction.add(jbStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, -1, 40));
 
-        jbEmployeeId.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jbEmployeeId.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jbEmployeeId.setText("Mã nhân viên:");
-        jbFunction.add(jbEmployeeId, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 100, 30));
+        jbFunction.add(jbEmployeeId, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, -1, 40));
 
-        jbUserName.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jbUserName.setText("Tên đăng nhập:");
-        jbFunction.add(jbUserName, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, -1, 30));
-
-        jbPassword.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jbPassword.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jbPassword.setText("Mật khẩu:");
-        jbFunction.add(jbPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 20, -1, 30));
+        jbFunction.add(jbPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 30, -1, 40));
 
-        jbRole.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jbRole.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jbRole.setText("Quyền:");
-        jbFunction.add(jbRole, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 20, -1, 30));
+        jbFunction.add(jbRole, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, -1, 40));
 
-        radLock.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        radLock.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         radLock.setText("Khoá");
-        jbFunction.add(radLock, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 70, -1, 30));
+        jbFunction.add(radLock, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 90, -1, 40));
 
         btgroup.add(radLock);
         btgroup.add(radNormal);
-        radNormal.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        radNormal.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         radNormal.setText("Bình thường");
         radNormal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radNormalActionPerformed(evt);
             }
         });
-        jbFunction.add(radNormal, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 70, -1, 30));
+        jbFunction.add(radNormal, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 90, -1, 40));
 
-        jcbEmployeeId.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jcbEmployeeId.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jcbEmployeeId.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jbFunction.add(jcbEmployeeId, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, 180, 30));
+        jbFunction.add(jcbEmployeeId, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 30, 180, 40));
 
-        txtUserName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jbFunction.add(txtUserName, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, 180, 30));
+        txtPassword.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jbFunction.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 30, 300, 40));
 
-        txtPassword.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jbFunction.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 20, 180, 30));
-
-        jcbRole.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jcbRole.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jcbRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nhân viên", "Quản lí"}));
         jcbRole.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcbRoleActionPerformed(evt);
             }
         });
-        jbFunction.add(jcbRole, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 20, 180, 30));
-
-        jpAdd.setBackground(new java.awt.Color(255, 255, 255));
-        jpAdd.setRoundedBottomLeft(10);
-        jpAdd.setRoundedBottomRight(10);
-        jpAdd.setRoundedTopLeft(10);
-        jpAdd.setRoundedTopRight(10);
-        jpAdd.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jbAdd.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jbAdd.setText("Thêm");
-        jpAdd.add(jbAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 60, 40));
-
-        svgAdd.setText(" ");
-        jpAdd.add(svgAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
-
-        jbFunction.add(jpAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, 100, 40));
+        jbFunction.add(jcbRole, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 30, 230, 40));
 
         jpEdit.setBackground(new java.awt.Color(255, 255, 255));
         jpEdit.setRoundedBottomLeft(10);
@@ -162,14 +140,14 @@ public class JPanel_TaiKhoan extends javax.swing.JPanel {
         jpEdit.setRoundedTopRight(10);
         jpEdit.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jbEdit.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jbEdit.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jbEdit.setText("Sửa");
-        jpEdit.add(jbEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 60, 40));
+        jpEdit.add(jbEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 100, 50));
 
         svgEdit.setText(" ");
-        jpEdit.add(svgEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
+        jpEdit.add(svgEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 40, 40));
 
-        jbFunction.add(jpEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 120, 100, 40));
+        jbFunction.add(jpEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 150, 50));
 
         jpDelete.setBackground(new java.awt.Color(255, 255, 255));
         jpDelete.setRoundedBottomLeft(10);
@@ -178,18 +156,39 @@ public class JPanel_TaiKhoan extends javax.swing.JPanel {
         jpDelete.setRoundedTopRight(10);
         jpDelete.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jbDelete.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jbDelete.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jbDelete.setText("Xoá");
-        jpDelete.add(jbDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 60, 40));
+        jpDelete.add(jbDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 100, 50));
 
         svgDelete.setText(" ");
-        jpDelete.add(svgDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
+        jpDelete.add(svgDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 40, 40));
 
-        jbFunction.add(jpDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 120, 100, 40));
+        jbFunction.add(jpDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 160, 150, 50));
+
+        jbLamMoi.setBackground(new java.awt.Color(255, 255, 255));
+        jbLamMoi.setRoundedBottomLeft(10);
+        jbLamMoi.setRoundedBottomRight(10);
+        jbLamMoi.setRoundedTopLeft(10);
+        jbLamMoi.setRoundedTopRight(10);
+        jbLamMoi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbLamMoiMouseClicked(evt);
+            }
+        });
+        jbLamMoi.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jbRefresh.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jbRefresh.setText("Làm mới");
+        jbLamMoi.add(jbRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 100, 50));
+
+        svgRefresh.setText(" ");
+        jbLamMoi.add(svgRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 40, 40));
+
+        jbFunction.add(jbLamMoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 160, 150, 50));
 
         add(jbFunction, java.awt.BorderLayout.CENTER);
 
-        jScrollPane1.setPreferredSize(new java.awt.Dimension(452, 500));
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(452, 520));
 
         tableAccount.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -219,12 +218,14 @@ public class JPanel_TaiKhoan extends javax.swing.JPanel {
     private void jcbRoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbRoleActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jcbRoleActionPerformed
-    private void loadData()
-    {
+
+    private void jbLamMoiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbLamMoiMouseClicked
+
+    }//GEN-LAST:event_jbLamMoiMouseClicked
+    private void loadData() {
         accountDao = new TaiKhoanDAO();
-        for(TaiKhoan tk : accountDao.getAllTaiKhoan())
-        {
-            Object[] row = {tk.getMaTK(),tk.getTenDangNhap(),tk.getMatKhau(),tk.getQuyen(), tk.getTrangThaiTaiKhoan()};
+        for (TaiKhoan tk : accountDao.getAllTaiKhoan()) {
+            Object[] row = {tk.getMaTK(), tk.getTenDangNhap(), tk.getMatKhau(), tk.getQuyen(), tk.getTrangThaiTaiKhoan()};
             modelAccount.addRow(row);
         }
     }
@@ -234,28 +235,26 @@ public class JPanel_TaiKhoan extends javax.swing.JPanel {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel jbAccountManagerment;
-    private javax.swing.JLabel jbAdd;
     private javax.swing.JLabel jbDelete;
     private javax.swing.JLabel jbEdit;
     private javax.swing.JLabel jbEmployeeId;
     private javax.swing.JPanel jbFunction;
+    private util.JPanelRounded jbLamMoi;
     private javax.swing.JLabel jbPassword;
+    private javax.swing.JLabel jbRefresh;
     private javax.swing.JLabel jbRole;
     private javax.swing.JLabel jbStatus;
-    private javax.swing.JLabel jbUserName;
     private javax.swing.JComboBox<String> jcbEmployeeId;
     private javax.swing.JComboBox<String> jcbRole;
     private javax.swing.JPanel jpAccountManagerment;
-    private util.JPanelRounded jpAdd;
     private util.JPanelRounded jpDelete;
     private util.JPanelRounded jpEdit;
     private javax.swing.JRadioButton radLock;
     private javax.swing.JRadioButton radNormal;
-    private util.SVGImage svgAdd;
     private util.SVGImage svgDelete;
     private util.SVGImage svgEdit;
+    private util.SVGImage svgRefresh;
     private javax.swing.JTable tableAccount;
     private javax.swing.JPasswordField txtPassword;
-    private javax.swing.JTextField txtUserName;
     // End of variables declaration//GEN-END:variables
 }

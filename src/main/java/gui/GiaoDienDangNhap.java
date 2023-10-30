@@ -165,6 +165,7 @@ public class GiaoDienDangNhap extends javax.swing.JFrame {
         txtUserName.setBackground(new java.awt.Color(0, 133, 255));
         txtUserName.setFont(txtUserName.getFont().deriveFont(txtUserName.getFont().getSize()+2f));
         txtUserName.setForeground(new java.awt.Color(255, 255, 255));
+        txtUserName.setText("nv001");
         txtUserName.setBorder(null);
         txtUserName.setCaretColor(new java.awt.Color(255, 255, 255));
         jpRight.add(txtUserName, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, 290, 30));
@@ -181,6 +182,7 @@ public class GiaoDienDangNhap extends javax.swing.JFrame {
         txtPassword.setBackground(new java.awt.Color(0, 133, 255));
         txtPassword.setFont(txtPassword.getFont().deriveFont(txtPassword.getFont().getSize()+2f));
         txtPassword.setForeground(new java.awt.Color(255, 255, 255));
+        txtPassword.setText("anhyeuem");
         txtPassword.setBorder(null);
         txtPassword.setCaretColor(new java.awt.Color(255, 255, 255));
         jpRight.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 320, 290, 30));
@@ -212,7 +214,7 @@ public class GiaoDienDangNhap extends javax.swing.JFrame {
 
         jbNotification.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         jbNotification.setForeground(new java.awt.Color(255, 255, 255));
-        jpRight.add(jbNotification, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 365, 340, 30));
+        jpRight.add(jbNotification, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 365, 230, 30));
 
         comboxngonngu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tiếng Việt", "English"}));
         comboxngonngu.addItemListener(new java.awt.event.ItemListener() {
