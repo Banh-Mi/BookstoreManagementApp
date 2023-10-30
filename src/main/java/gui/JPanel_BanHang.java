@@ -1052,7 +1052,13 @@ public class JPanel_BanHang extends javax.swing.JPanel {
     }//GEN-LAST:event_cb_categoryActionPerformed
 
     private void btn_nextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_nextActionPerformed
-        // TODO add your handling code here:
+        if (cb_category.getSelectedIndex() < 0) {
+            this.infoPage = this.infoPage + 1;
+            loadData();
+        } else {
+            this.infoPageCategory = this.infoPageCategory + 1;
+            loadDataByCategory();
+        }
     }//GEN-LAST:event_btn_nextActionPerformed
 
     private void pnl_deleteAllMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnl_deleteAllMouseClicked
