@@ -276,7 +276,7 @@ public class JPanel_BanHang extends javax.swing.JPanel {
 
     private void addProductToCart(SanPham sanPham, int quantity) {
         totalAmount = (int) (totalAmount + sanPham.getGia() * quantity);
-        lbl_totalAmountSale.setText(totalAmount + "");
+        lbl_totalAmountSale.setText(decimalFormat.format(totalAmount));
         for (int i = 0; i < modelCart.getRowCount(); i++) {
             if (sanPham.getMaSanPham().equals(modelCart.getValueAt(i, 1))) {
                 modelCart.setValueAt(quantity + Integer.valueOf(modelCart.getValueAt(i, 3) + "") + "", i, 3);
@@ -1110,7 +1110,7 @@ public class JPanel_BanHang extends javax.swing.JPanel {
             SanPham sanPham = sanPhamDAO.selectbyId(new SanPham(modelCart.getValueAt(row, 1) + ""));
             sanPham.setSoLuong(sanPham.getSoLuong() + Integer.valueOf((modelCart.getValueAt(row, 3) + "")));
             totalAmount = (int) (totalAmount - (int)Integer.valueOf((modelCart.getValueAt(row, 3) + ""))*sanPham.getGia());
-            lbl_totalAmountSale.setText(totalAmount + "");
+            lbl_totalAmountSale.setText(decimalFormat.format(totalAmount));
             sanPhamDAO.update(sanPham);
             if (row + 1 == modelCart.getRowCount()) {
                 modelCart.removeRow(row);

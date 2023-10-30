@@ -13,6 +13,7 @@ util\JPanelRounded.class
 gui\BieuDoKhachHang$2.class
 Dao\NhaCungCapDAO.class
 entity\NhanVien.class
+entity\SanPhamBieuDo.class
 gui\JPanel_TimKiemNhaCungCap$2.class
 gui\JPanel_KhuyenMai$18.class
 gui\JPanel_KhuyenMai.class
@@ -40,6 +41,7 @@ gui\JPanel_ThongKe$3.class
 gui\GiaoDienChinh$12.class
 gui\JPanel_ThongKe$15.class
 gui\MenuItem.class
+Dao\BieuDoSanPhamDAO.class
 gui\MenuItem$1.class
 gui\JPanel_BanHang$12.class
 gui\JPanel_KhuyenMai$1.class
@@ -77,6 +79,7 @@ gui\JPanel_ThongKe$23.class
 gui\GiaoDienChinh$17.class
 entity\KhachHang.class
 gui\JPanel_NhaCungCap$8.class
+gui\BieuDoSanPham$5.class
 Dao\SanPhamDAO.class
 entity\HoaDon.class
 gui\JPhanel_HoaDon$1.class
