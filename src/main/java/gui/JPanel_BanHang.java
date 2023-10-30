@@ -426,10 +426,12 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pnl_scanCode.setLayout(new java.awt.BorderLayout());
-        add(pnl_scanCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 260, 140));
+        add(pnl_scanCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 260, 140));
+        pnl_scanCode.getAccessibleContext().setAccessibleName("");
 
         jPanelCart.setLayout(new java.awt.BorderLayout());
 
+        tbl_Cart.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         tbl_Cart.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -453,9 +455,9 @@ public class JPanel_BanHang extends javax.swing.JPanel {
 
         jPanelCart.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
-        add(jPanelCart, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 700, 190));
+        add(jPanelCart, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 850, 230));
 
-        txt_SearchProduct.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txt_SearchProduct.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txt_SearchProduct.setText("8900767778797");
         txt_SearchProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -467,17 +469,18 @@ public class JPanel_BanHang extends javax.swing.JPanel {
                 txt_SearchProductKeyReleased(evt);
             }
         });
-        add(txt_SearchProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 380, 140, 30));
+        add(txt_SearchProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 420, 130, 30));
 
-        lblCategory.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblCategory.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblCategory.setText("Danh mục:");
-        add(lblCategory, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 380, -1, 30));
+        add(lblCategory, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 420, -1, 30));
 
-        lbl_infoPage.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lbl_infoPage.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl_infoPage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_infoPage.setText("1/4");
-        add(lbl_infoPage, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 710, 40, 30));
+        add(lbl_infoPage, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 820, 40, 30));
 
+        cb_category.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cb_category.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sách", "Dụng cụ học tập", "Văn phòng phẩm", "Đồ chơi", "Quà lưu niệm" }));
         cb_category.setSelectedIndex(-1);
         cb_category.addItemListener(new java.awt.event.ItemListener() {
@@ -490,16 +493,18 @@ public class JPanel_BanHang extends javax.swing.JPanel {
                 cb_categoryActionPerformed(evt);
             }
         });
-        add(cb_category, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 380, 140, 30));
+        add(cb_category, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 420, 150, 30));
 
-        btn_next.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btn_next.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btn_next.setText(">>");
         btn_next.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_nextActionPerformed(evt);
             }
         });
-        add(btn_next, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 710, 60, 30));
+        add(btn_next, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 820, 60, 30));
+
+        jTabbedPane2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         pnl_salePay.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -522,30 +527,31 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         svgPay1.setText(" ");
         jpPaySale.add(svgPay1, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
 
-        pnl_salePay.add(jpPaySale, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 620, 130, 40));
+        pnl_salePay.add(jpPaySale, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 730, 130, 40));
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Chi tiết"));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Chi tiết", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14))); // NOI18N
+        jPanel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblTotalAmount.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblTotalAmount.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblTotalAmount.setText("Tổng tiền:");
-        jPanel2.add(lblTotalAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, 30));
+        jPanel2.add(lblTotalAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 110, 30));
 
-        lblDiscount.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblDiscount.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblDiscount.setText("Giảm giá:");
-        jPanel2.add(lblDiscount, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, 30));
+        jPanel2.add(lblDiscount, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 110, 30));
 
-        lblMustPay.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblMustPay.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblMustPay.setText("Phải trả:");
-        jPanel2.add(lblMustPay, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, 30));
+        jPanel2.add(lblMustPay, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 110, 30));
 
-        lblCustomerMoneyGive.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblCustomerMoneyGive.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblCustomerMoneyGive.setText("Tiền khách đưa:");
-        jPanel2.add(lblCustomerMoneyGive, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, -1, 30));
+        jPanel2.add(lblCustomerMoneyGive, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, -1, 30));
 
-        lblReturnMoneyToCustomer.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblReturnMoneyToCustomer.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblReturnMoneyToCustomer.setText("Trả lại khách:");
-        jPanel2.add(lblReturnMoneyToCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, -1, 30));
+        jPanel2.add(lblReturnMoneyToCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 110, 30));
 
         txt_customerMoneyGive.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         txt_customerMoneyGive.setText("0");
@@ -554,73 +560,86 @@ public class JPanel_BanHang extends javax.swing.JPanel {
                 txt_customerMoneyGiveActionPerformed(evt);
             }
         });
-        jPanel2.add(txt_customerMoneyGive, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 150, 100, 30));
+        jPanel2.add(txt_customerMoneyGive, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 190, 140, 30));
 
+        lblValueReturnMoneyToCustomer.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblValueReturnMoneyToCustomer.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblValueReturnMoneyToCustomer.setText("0");
-        jPanel2.add(lblValueReturnMoneyToCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 190, 100, 30));
+        jPanel2.add(lblValueReturnMoneyToCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, 140, 30));
 
+        lblUnit5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblUnit5.setText("VNĐ");
-        jPanel2.add(lblUnit5, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 190, 30, 30));
+        jPanel2.add(lblUnit5, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 240, 30, 30));
 
+        lblUnit4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblUnit4.setText("VNĐ");
-        jPanel2.add(lblUnit4, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 150, 30, 30));
+        jPanel2.add(lblUnit4, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 190, 30, 30));
 
-        lblUnit3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblUnit3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblUnit3.setForeground(new java.awt.Color(255, 51, 51));
         lblUnit3.setText("VNĐ");
-        jPanel2.add(lblUnit3, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 110, 30, 30));
+        jPanel2.add(lblUnit3, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 140, 40, 30));
 
+        lblUnit2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblUnit2.setText("VNĐ");
-        jPanel2.add(lblUnit2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 70, 30, 30));
+        jPanel2.add(lblUnit2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 90, 30, 30));
 
+        lblUnit1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblUnit1.setText("VNĐ");
-        jPanel2.add(lblUnit1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 30, 30, 30));
+        jPanel2.add(lblUnit1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 40, 30, 30));
 
-        lbl_totalAmountSale.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lbl_totalAmountSale.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl_totalAmountSale.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lbl_totalAmountSale.setText("0");
-        jPanel2.add(lbl_totalAmountSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 100, 30));
+        jPanel2.add(lbl_totalAmountSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 40, 140, 30));
 
+        lblValueDiscount.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblValueDiscount.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblValueDiscount.setText("0");
-        jPanel2.add(lblValueDiscount, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 70, 100, 30));
+        jPanel2.add(lblValueDiscount, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 90, 140, 30));
 
-        lblValueMustPay.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblValueMustPay.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         lblValueMustPay.setForeground(new java.awt.Color(255, 51, 51));
         lblValueMustPay.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblValueMustPay.setText("0");
-        jPanel2.add(lblValueMustPay, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 110, 100, 30));
+        jPanel2.add(lblValueMustPay, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 140, 140, 30));
 
-        lblNote.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblNote.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblNote.setText("Ghi chú:");
-        jPanel2.add(lblNote, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 90, 30));
+        jPanel2.add(lblNote, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, 110, 30));
 
         txa_noteSale.setColumns(20);
+        txa_noteSale.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txa_noteSale.setRows(5);
         jScrollPane1.setViewportView(txa_noteSale);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 230, 140, 100));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 290, 180, 100));
 
-        pnl_salePay.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 300, 340));
+        pnl_salePay.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 340, 410));
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin chung"));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin chung", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14))); // NOI18N
+        jPanel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblOrderId.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblOrderId.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblOrderId.setText("Mã đơn hàng:");
-        jPanel4.add(lblOrderId, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 90, 30));
-        jPanel4.add(lbl_orderIdSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, 160, 30));
-        jPanel4.add(lblEmployeeIdSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, 160, 30));
+        jPanel4.add(lblOrderId, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 120, 30));
 
-        lblEmployeeId.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lbl_orderIdSale.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jPanel4.add(lbl_orderIdSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, 160, 30));
+
+        lblEmployeeIdSale.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jPanel4.add(lblEmployeeIdSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 130, 160, 30));
+
+        lblEmployeeId.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblEmployeeId.setText("Mã nhân viên:");
-        jPanel4.add(lblEmployeeId, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 90, 30));
+        jPanel4.add(lblEmployeeId, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 120, 30));
 
-        lblCustomerId.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblCustomerId.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblCustomerId.setText("Mã khách hàng:");
-        jPanel4.add(lblCustomerId, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 90, 30));
+        jPanel4.add(lblCustomerId, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 120, 30));
 
+        cb_customerIdSale.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cb_customerIdSale.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cb_customerIdSaleItemStateChanged(evt);
@@ -631,123 +650,140 @@ public class JPanel_BanHang extends javax.swing.JPanel {
                 cb_customerIdSaleActionPerformed(evt);
             }
         });
-        jPanel4.add(cb_customerIdSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 140, 160, 30));
+        jPanel4.add(cb_customerIdSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 180, 160, 30));
 
-        lblCustomerName.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblCustomerName.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblCustomerName.setText("Tên khách hàng:");
-        jPanel4.add(lblCustomerName, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, -1, 30));
-        jPanel4.add(lbl_customerNameSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, 160, 30));
+        jPanel4.add(lblCustomerName, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 120, 30));
 
-        lblOrderDate1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lbl_customerNameSale.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jPanel4.add(lbl_customerNameSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 230, 160, 30));
+
+        lblOrderDate1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblOrderDate1.setText("Ngày tạo:");
-        jPanel4.add(lblOrderDate1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 90, 30));
-        jPanel4.add(lblOrderDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, 160, 30));
+        jPanel4.add(lblOrderDate1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 120, 30));
 
-        pnl_salePay.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 300, 250));
+        lblOrderDate.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jPanel4.add(lblOrderDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, 160, 30));
+
+        pnl_salePay.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 340, 290));
 
         jTabbedPane2.addTab("Đơn hàng", pnl_salePay);
 
         pnl_orderPage.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin chung"));
+        jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin chung", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14))); // NOI18N
         jPanel12.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblOrderId2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblOrderId2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblOrderId2.setText("Mã đơn hàng:");
-        jPanel12.add(lblOrderId2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 90, 30));
-        jPanel12.add(lbl_orderIdOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, 160, 30));
+        jPanel12.add(lblOrderId2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 120, 30));
 
-        lblOrderDate2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lbl_orderIdOrder.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jPanel12.add(lbl_orderIdOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 170, 30));
+
+        lblOrderDate2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblOrderDate2.setText("Ngày tạo:");
-        jPanel12.add(lblOrderDate2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 90, 30));
+        jPanel12.add(lblOrderDate2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 120, 30));
 
-        lblEmployeeId2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblEmployeeId2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblEmployeeId2.setText("Mã nhân viên:");
-        jPanel12.add(lblEmployeeId2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 90, 30));
+        jPanel12.add(lblEmployeeId2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 120, 30));
 
-        lblCustomerName3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblCustomerName3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblCustomerName3.setText("Tên khách hàng:");
-        jPanel12.add(lblCustomerName3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, 30));
+        jPanel12.add(lblCustomerName3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 120, 30));
 
-        lblNote3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblNote3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblNote3.setText("Địa chỉ:");
-        jPanel12.add(lblNote3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 90, 30));
+        jPanel12.add(lblNote3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 120, 30));
 
         txa_customerDeliveryAddress.setColumns(20);
+        txa_customerDeliveryAddress.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txa_customerDeliveryAddress.setRows(5);
         jScrollPane4.setViewportView(txa_customerDeliveryAddress);
 
-        jPanel12.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 220, 160, 90));
-        jPanel12.add(lbl_orderDateOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, 160, 30));
+        jPanel12.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 280, 170, 90));
 
-        lblCustomerName4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lbl_orderDateOrder.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jPanel12.add(lbl_orderDateOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, 170, 30));
+
+        lblCustomerName4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblCustomerName4.setText("Số điện thoại:");
-        jPanel12.add(lblCustomerName4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, -1, 30));
+        jPanel12.add(lblCustomerName4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 120, 30));
 
-        txt_customerPhone.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txt_customerPhone.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txt_customerPhone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_customerPhoneActionPerformed(evt);
             }
         });
-        jPanel12.add(txt_customerPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, 160, 30));
-        jPanel12.add(lblEmployeeIdOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, 160, 30));
-        jPanel12.add(lblOrderDate4, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 140, 160, 30));
+        jPanel12.add(txt_customerPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 230, 170, 30));
 
-        pnl_orderPage.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 300, 320));
+        lblEmployeeIdOrder.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jPanel12.add(lblEmployeeIdOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 130, 170, 30));
 
-        s.setBorder(javax.swing.BorderFactory.createTitledBorder("Chi tiết"));
+        lblOrderDate4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jPanel12.add(lblOrderDate4, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, 170, 30));
+
+        pnl_orderPage.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 340, 380));
+
+        s.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Chi tiết", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14))); // NOI18N
         s.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblTotalAmount1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblTotalAmount1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblTotalAmount1.setText("Tổng tiền:");
-        s.add(lblTotalAmount1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, 30));
+        s.add(lblTotalAmount1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, 30));
 
-        lblDiscount1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblDiscount1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblDiscount1.setText("Giảm giá:");
-        s.add(lblDiscount1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, 30));
+        s.add(lblDiscount1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, 30));
 
-        lblMustPay1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblMustPay1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblMustPay1.setText("Phải trả:");
-        s.add(lblMustPay1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, 30));
+        s.add(lblMustPay1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, 30));
 
-        lblUnit10.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblUnit10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblUnit10.setForeground(new java.awt.Color(255, 51, 51));
         lblUnit10.setText("VNĐ");
-        s.add(lblUnit10, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 110, 30, 30));
+        s.add(lblUnit10, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 130, 40, 30));
 
+        lblUnit11.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblUnit11.setText("VNĐ");
-        s.add(lblUnit11, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 70, 30, 30));
+        s.add(lblUnit11, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 80, 30, 30));
 
+        lblUnit12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblUnit12.setText("VNĐ");
-        s.add(lblUnit12, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 30, 30, 30));
+        s.add(lblUnit12, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 30, 30, 30));
 
-        lblValueTotalAmount1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblValueTotalAmount1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblValueTotalAmount1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblValueTotalAmount1.setText("0");
-        s.add(lblValueTotalAmount1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 100, 30));
+        s.add(lblValueTotalAmount1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 120, 30));
 
+        lblValueDiscount1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblValueDiscount1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblValueDiscount1.setText("0");
-        s.add(lblValueDiscount1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 70, 100, 30));
+        s.add(lblValueDiscount1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, 120, 30));
 
-        lblValueMustPay1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblValueMustPay1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         lblValueMustPay1.setForeground(new java.awt.Color(255, 51, 51));
         lblValueMustPay1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblValueMustPay1.setText("0");
-        s.add(lblValueMustPay1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 110, 100, 30));
+        s.add(lblValueMustPay1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 130, 120, 30));
 
-        lblNote2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblNote2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblNote2.setText("Ghi chú:");
-        s.add(lblNote2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 90, 30));
+        s.add(lblNote2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 90, 30));
 
         txa_noteOrder.setColumns(20);
+        txa_noteOrder.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txa_noteOrder.setRows(5);
         jScrollPane3.setViewportView(txa_noteOrder);
 
-        s.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 150, 140, 100));
+        s.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, 170, 100));
 
-        pnl_orderPage.add(s, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 300, 260));
+        pnl_orderPage.add(s, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, 340, 300));
 
         jpDelivery.setBackground(new java.awt.Color(255, 255, 255));
         jpDelivery.setRoundedBottomLeft(10);
@@ -768,11 +804,11 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         svgPay2.setText(" ");
         jpDelivery.add(svgPay2, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
 
-        pnl_orderPage.add(jpDelivery, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 620, 130, 40));
+        pnl_orderPage.add(jpDelivery, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 720, 130, 40));
 
         jTabbedPane2.addTab("Đặt hàng", pnl_orderPage);
 
-        add(jTabbedPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 10, 320, 720));
+        add(jTabbedPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 10, 360, 820));
 
         pnl_deleteAll.setBackground(new java.awt.Color(255, 255, 255));
         pnl_deleteAll.setRoundedBottomLeft(10);
@@ -786,173 +822,177 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         });
         pnl_deleteAll.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblDeleteAll.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblDeleteAll.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblDeleteAll.setText("Xóa tất cả");
-        pnl_deleteAll.add(lblDeleteAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 60, 30));
+        pnl_deleteAll.add(lblDeleteAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 80, 40));
 
         svgDeleteAll.setText(" ");
-        pnl_deleteAll.add(svgDeleteAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 20, 20));
+        pnl_deleteAll.add(svgDeleteAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 30, 30));
 
-        add(pnl_deleteAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 110, 90, 30));
+        add(pnl_deleteAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 100, 120, 40));
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách sản phẩm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách sản phẩm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        pnl_productItem1.setPreferredSize(new java.awt.Dimension(171, 250));
         pnl_productItem1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lbl_productItemPrice1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lbl_productItemPrice1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl_productItemPrice1.setForeground(new java.awt.Color(255, 51, 51));
         lbl_productItemPrice1.setText("2.000.000");
-        pnl_productItem1.add(lbl_productItemPrice1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 90, 30));
+        pnl_productItem1.add(lbl_productItemPrice1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, 90, 30));
 
-        lblProductPrice1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblProductPrice1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblProductPrice1.setText("Giá:");
-        pnl_productItem1.add(lblProductPrice1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, -1, 30));
+        pnl_productItem1.add(lblProductPrice1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, -1, 30));
 
-        lblProductQuantity1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblProductQuantity1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblProductQuantity1.setText("Số lượng:");
-        pnl_productItem1.add(lblProductQuantity1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, -1, 30));
+        pnl_productItem1.add(lblProductQuantity1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, -1, 30));
 
-        lbl_productItemQuantity1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lbl_productItemQuantity1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl_productItemQuantity1.setForeground(new java.awt.Color(255, 51, 51));
         lbl_productItemQuantity1.setText("1.000");
-        pnl_productItem1.add(lbl_productItemQuantity1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, 50, 30));
+        pnl_productItem1.add(lbl_productItemQuantity1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, 50, 30));
 
-        lbl_productItemName1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbl_productItemName1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         lbl_productItemName1.setText("Đệ nhất kiếm tiền");
-        pnl_productItem1.add(lbl_productItemName1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 160, 30));
+        pnl_productItem1.add(lbl_productItemName1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 190, 30));
 
         lbl_productImage1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lbl_productImage1MouseClicked(evt);
             }
         });
-        pnl_productItem1.add(lbl_productImage1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 160, 150));
+        pnl_productItem1.add(lbl_productImage1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 170, 170));
 
-        jPanel5.add(pnl_productItem1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 160, 250));
+        jPanel5.add(pnl_productItem1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 190, 290));
 
+        pnl_productItem2.setPreferredSize(new java.awt.Dimension(171, 250));
         pnl_productItem2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lbl_productItemPrice2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lbl_productItemPrice2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl_productItemPrice2.setForeground(new java.awt.Color(255, 51, 51));
         lbl_productItemPrice2.setText("2.000.000");
-        pnl_productItem2.add(lbl_productItemPrice2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 90, 30));
+        pnl_productItem2.add(lbl_productItemPrice2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, 90, 30));
 
-        lblProductPrice2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblProductPrice2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblProductPrice2.setText("Giá:");
-        pnl_productItem2.add(lblProductPrice2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, -1, 30));
+        pnl_productItem2.add(lblProductPrice2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, -1, 30));
 
-        lblProductQuantity2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblProductQuantity2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblProductQuantity2.setText("Số lượng:");
-        pnl_productItem2.add(lblProductQuantity2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, -1, 30));
+        pnl_productItem2.add(lblProductQuantity2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, -1, 30));
 
-        lbl_productItemQuantity2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lbl_productItemQuantity2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl_productItemQuantity2.setForeground(new java.awt.Color(255, 51, 51));
         lbl_productItemQuantity2.setText("1.000");
-        pnl_productItem2.add(lbl_productItemQuantity2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, 50, 30));
+        pnl_productItem2.add(lbl_productItemQuantity2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, 50, 30));
 
-        lbl_productItemName2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbl_productItemName2.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         lbl_productItemName2.setText("Đệ nhất kiếm tiền");
-        pnl_productItem2.add(lbl_productItemName2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 160, 30));
+        pnl_productItem2.add(lbl_productItemName2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 190, 30));
 
         lbl_productImage2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lbl_productImage2MouseClicked(evt);
             }
         });
-        pnl_productItem2.add(lbl_productImage2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 160, 150));
+        pnl_productItem2.add(lbl_productImage2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 170, 170));
 
-        jPanel5.add(pnl_productItem2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 20, 160, -1));
+        jPanel5.add(pnl_productItem2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 30, 190, 290));
 
+        pnl_productItem3.setPreferredSize(new java.awt.Dimension(171, 250));
         pnl_productItem3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lbl_productItemPrice3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lbl_productItemPrice3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl_productItemPrice3.setForeground(new java.awt.Color(255, 51, 51));
         lbl_productItemPrice3.setText("2.000.000");
-        pnl_productItem3.add(lbl_productItemPrice3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 90, 30));
+        pnl_productItem3.add(lbl_productItemPrice3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, 90, 30));
 
-        lblProductPrice4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblProductPrice4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblProductPrice4.setText("Giá:");
-        pnl_productItem3.add(lblProductPrice4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, -1, 30));
+        pnl_productItem3.add(lblProductPrice4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, -1, 30));
 
-        lblProductQuantity4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblProductQuantity4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblProductQuantity4.setText("Số lượng:");
-        pnl_productItem3.add(lblProductQuantity4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, -1, 30));
+        pnl_productItem3.add(lblProductQuantity4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, -1, 30));
 
-        lbl_productItemQuantity3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lbl_productItemQuantity3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl_productItemQuantity3.setForeground(new java.awt.Color(255, 51, 51));
         lbl_productItemQuantity3.setText("1.000");
-        pnl_productItem3.add(lbl_productItemQuantity3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, 50, 30));
+        pnl_productItem3.add(lbl_productItemQuantity3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, 50, 30));
 
-        lbl_productItemName3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbl_productItemName3.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         lbl_productItemName3.setText("Đệ nhất kiếm tiền");
-        pnl_productItem3.add(lbl_productItemName3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 160, 30));
+        pnl_productItem3.add(lbl_productItemName3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 190, 30));
 
         lbl_productImage3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lbl_productImage3MouseClicked(evt);
             }
         });
-        pnl_productItem3.add(lbl_productImage3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 160, 150));
+        pnl_productItem3.add(lbl_productImage3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 170, 170));
 
-        jPanel5.add(pnl_productItem3, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 20, 160, -1));
+        jPanel5.add(pnl_productItem3, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 30, 190, 290));
 
+        pnl_productItem4.setPreferredSize(new java.awt.Dimension(171, 250));
         pnl_productItem4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lbl_productItemPrice4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lbl_productItemPrice4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl_productItemPrice4.setForeground(new java.awt.Color(255, 51, 51));
         lbl_productItemPrice4.setText("2.000.000");
-        pnl_productItem4.add(lbl_productItemPrice4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 90, 30));
+        pnl_productItem4.add(lbl_productItemPrice4, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, 90, 30));
 
-        lblProductPrice3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblProductPrice3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblProductPrice3.setText("Giá:");
-        pnl_productItem4.add(lblProductPrice3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, -1, 30));
+        pnl_productItem4.add(lblProductPrice3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, -1, 30));
 
-        lblProductQuantity3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblProductQuantity3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblProductQuantity3.setText("Số lượng:");
-        pnl_productItem4.add(lblProductQuantity3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, -1, 30));
+        pnl_productItem4.add(lblProductQuantity3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, -1, 30));
 
-        lbl_productItemQuantity4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lbl_productItemQuantity4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl_productItemQuantity4.setForeground(new java.awt.Color(255, 51, 51));
         lbl_productItemQuantity4.setText("1.000");
-        pnl_productItem4.add(lbl_productItemQuantity4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, 50, 30));
+        pnl_productItem4.add(lbl_productItemQuantity4, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, 50, 30));
 
-        lbl_productItemName4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbl_productItemName4.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         lbl_productItemName4.setText("Đệ nhất kiếm tiền");
-        pnl_productItem4.add(lbl_productItemName4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 160, 30));
+        pnl_productItem4.add(lbl_productItemName4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 190, 30));
 
         lbl_productImage4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lbl_productImage4MouseClicked(evt);
             }
         });
-        pnl_productItem4.add(lbl_productImage4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 160, 150));
+        pnl_productItem4.add(lbl_productImage4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 170, 170));
 
-        jPanel5.add(pnl_productItem4, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 20, 160, -1));
+        jPanel5.add(pnl_productItem4, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 30, 190, 290));
 
-        add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 420, 700, 280));
+        add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 470, 830, 340));
 
-        btn_previous.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btn_previous.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btn_previous.setText("<<");
         btn_previous.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_previousActionPerformed(evt);
             }
         });
-        add(btn_previous, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 710, 60, 30));
+        add(btn_previous, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 820, 60, 30));
 
-        lblSearchProduct1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblSearchProduct1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblSearchProduct1.setText("Tìm kiếm sản phẩm:");
-        add(lblSearchProduct1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, -1, 30));
+        add(lblSearchProduct1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 420, -1, 30));
 
-        chkOrder.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        chkOrder.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         chkOrder.setText("Đặt hàng");
         chkOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chkOrderActionPerformed(evt);
             }
         });
-        add(chkOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 50, -1, 30));
+        add(chkOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 40, 100, 40));
 
         jpSearch.setBackground(new java.awt.Color(255, 255, 255));
         jpSearch.setRoundedBottomLeft(10);
@@ -966,14 +1006,14 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         });
         jpSearch.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblSearch.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblSearch.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblSearch.setText("Tìm");
         jpSearch.add(lblSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 30, 30));
 
         svgSearch.setText(" ");
         jpSearch.add(svgSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 20, 20));
 
-        add(jpSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 380, -1, 30));
+        add(jpSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 420, -1, 30));
 
         pnlDelete.setBackground(new java.awt.Color(255, 255, 255));
         pnlDelete.setRoundedBottomLeft(10);
@@ -987,14 +1027,14 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         });
         pnlDelete.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblDelete.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblDelete.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblDelete.setText("Xóa");
-        pnlDelete.add(lblDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 30, 30));
+        pnlDelete.add(lblDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 50, 40));
 
         svgDelete.setText(" ");
-        pnlDelete.add(svgDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 20, 20));
+        pnlDelete.add(svgDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 30, 30));
 
-        add(pnlDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 110, -1, 30));
+        add(pnlDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 100, 80, 40));
 
         pnlCreateInvoice.setBackground(new java.awt.Color(255, 255, 255));
         pnlCreateInvoice.setRoundedBottomLeft(10);
@@ -1008,14 +1048,14 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         });
         pnlCreateInvoice.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblCreateInvoice.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblCreateInvoice.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblCreateInvoice.setText("Tạo hóa đơn");
-        pnlCreateInvoice.add(lblCreateInvoice, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 70, 30));
+        pnlCreateInvoice.add(lblCreateInvoice, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 90, 40));
 
         svgCreateInvoice.setText(" ");
-        pnlCreateInvoice.add(svgCreateInvoice, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 20, 20));
+        pnlCreateInvoice.add(svgCreateInvoice, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 30, 30));
 
-        add(pnlCreateInvoice, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 50, 110, 30));
+        add(pnlCreateInvoice, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 40, 130, 40));
 
         jp_reload.setBackground(new java.awt.Color(255, 255, 255));
         jp_reload.setRoundedBottomLeft(10);
@@ -1030,9 +1070,9 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         jp_reload.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         svgReload.setText(" ");
-        jp_reload.add(svgReload, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 6, 20, 20));
+        jp_reload.add(svgReload, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 6, 20, 20));
 
-        add(jp_reload, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 710, 40, 30));
+        add(jp_reload, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 820, 50, 30));
     }// </editor-fold>//GEN-END:initComponents
 
     private void cb_customerIdSaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_customerIdSaleActionPerformed

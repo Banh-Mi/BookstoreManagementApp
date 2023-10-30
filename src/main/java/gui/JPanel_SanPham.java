@@ -144,7 +144,7 @@ public class JPanel_SanPham extends javax.swing.JPanel {
 
         lbl_Category.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl_Category.setText("Danh mục:");
-        pnl_ProductInfomation.add(lbl_Category, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 40, 80, 30));
+        pnl_ProductInfomation.add(lbl_Category, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 40, 80, 30));
 
         txt_ProductId.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txt_ProductId.addActionListener(new java.awt.event.ActionListener() {
@@ -152,7 +152,7 @@ public class JPanel_SanPham extends javax.swing.JPanel {
                 txt_ProductIdActionPerformed(evt);
             }
         });
-        pnl_ProductInfomation.add(txt_ProductId, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 40, 130, 30));
+        pnl_ProductInfomation.add(txt_ProductId, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 40, 160, 30));
 
         lbl_ProductId.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl_ProductId.setText("Mã sản phẩm:");
@@ -169,11 +169,11 @@ public class JPanel_SanPham extends javax.swing.JPanel {
                 cb_CategoryActionPerformed(evt);
             }
         });
-        pnl_ProductInfomation.add(cb_Category, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 40, 180, 30));
+        pnl_ProductInfomation.add(cb_Category, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 40, 180, 30));
 
         lbl_ProductName.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl_ProductName.setText("Tên sản phẩm:");
-        pnl_ProductInfomation.add(lbl_ProductName, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 100, 30));
+        pnl_ProductInfomation.add(lbl_ProductName, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 100, 30));
 
         txt_ProductName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txt_ProductName.addActionListener(new java.awt.event.ActionListener() {
@@ -181,15 +181,15 @@ public class JPanel_SanPham extends javax.swing.JPanel {
                 txt_ProductNameActionPerformed(evt);
             }
         });
-        pnl_ProductInfomation.add(txt_ProductName, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 90, 350, 30));
+        pnl_ProductInfomation.add(txt_ProductName, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 360, 30));
 
         lbl_Supplier.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl_Supplier.setText("Nhà cung cấp:");
-        pnl_ProductInfomation.add(lbl_Supplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 100, 30));
+        pnl_ProductInfomation.add(lbl_Supplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 100, 30));
 
         lbl_Quantity.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl_Quantity.setText("Số lượng:");
-        pnl_ProductInfomation.add(lbl_Quantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 40, 70, 30));
+        pnl_ProductInfomation.add(lbl_Quantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 40, 70, 30));
 
         txt_Quantity.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txt_Quantity.addActionListener(new java.awt.event.ActionListener() {
@@ -197,7 +197,7 @@ public class JPanel_SanPham extends javax.swing.JPanel {
                 txt_QuantityActionPerformed(evt);
             }
         });
-        pnl_ProductInfomation.add(txt_Quantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 40, 80, 30));
+        pnl_ProductInfomation.add(txt_Quantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 40, 90, 30));
 
         txt_Price.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txt_Price.addActionListener(new java.awt.event.ActionListener() {
@@ -205,15 +205,15 @@ public class JPanel_SanPham extends javax.swing.JPanel {
                 txt_PriceActionPerformed(evt);
             }
         });
-        pnl_ProductInfomation.add(txt_Price, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 140, 100, 30));
+        pnl_ProductInfomation.add(txt_Price, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 160, 140, 30));
 
         lbl_Price.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl_Price.setText("Giá:");
-        pnl_ProductInfomation.add(lbl_Price, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 140, 40, 30));
+        pnl_ProductInfomation.add(lbl_Price, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 160, 40, 30));
 
         lbl_Author.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl_Author.setText("Tác giả:");
-        pnl_ProductInfomation.add(lbl_Author, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 100, 30));
+        pnl_ProductInfomation.add(lbl_Author, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 100, 30));
 
         txt_Author.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txt_Author.addActionListener(new java.awt.event.ActionListener() {
@@ -221,7 +221,7 @@ public class JPanel_SanPham extends javax.swing.JPanel {
                 txt_AuthorActionPerformed(evt);
             }
         });
-        pnl_ProductInfomation.add(txt_Author, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 190, 180, 30));
+        pnl_ProductInfomation.add(txt_Author, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 220, 200, 30));
 
         txt_Publisher.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txt_Publisher.addActionListener(new java.awt.event.ActionListener() {
@@ -229,11 +229,11 @@ public class JPanel_SanPham extends javax.swing.JPanel {
                 txt_PublisherActionPerformed(evt);
             }
         });
-        pnl_ProductInfomation.add(txt_Publisher, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, 230, 30));
+        pnl_ProductInfomation.add(txt_Publisher, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 280, 240, 30));
 
         lbl_Publisher.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl_Publisher.setText("Nhà xuất bản:");
-        pnl_ProductInfomation.add(lbl_Publisher, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 100, 30));
+        pnl_ProductInfomation.add(lbl_Publisher, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, 100, 30));
 
         txt_PublishingYear.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txt_PublishingYear.addActionListener(new java.awt.event.ActionListener() {
@@ -241,11 +241,11 @@ public class JPanel_SanPham extends javax.swing.JPanel {
                 txt_PublishingYearActionPerformed(evt);
             }
         });
-        pnl_ProductInfomation.add(txt_PublishingYear, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 190, 60, 30));
+        pnl_ProductInfomation.add(txt_PublishingYear, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 220, 70, 30));
 
         lbl_PublishingYear.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl_PublishingYear.setText("Năm xuất  bản:");
-        pnl_ProductInfomation.add(lbl_PublishingYear, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 190, 110, 30));
+        pnl_ProductInfomation.add(lbl_PublishingYear, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 220, 110, 30));
 
         txt_PageCount.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txt_PageCount.addActionListener(new java.awt.event.ActionListener() {
@@ -253,11 +253,11 @@ public class JPanel_SanPham extends javax.swing.JPanel {
                 txt_PageCountActionPerformed(evt);
             }
         });
-        pnl_ProductInfomation.add(txt_PageCount, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 240, 50, 30));
+        pnl_ProductInfomation.add(txt_PageCount, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 280, 60, 30));
 
         lbl_PageCount.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl_PageCount.setText("Số trang:");
-        pnl_ProductInfomation.add(lbl_PageCount, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 240, 70, 30));
+        pnl_ProductInfomation.add(lbl_PageCount, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 280, 70, 30));
 
         pnl_ProductImage.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ảnh", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
         pnl_ProductImage.setLayout(new java.awt.BorderLayout());
@@ -265,7 +265,7 @@ public class JPanel_SanPham extends javax.swing.JPanel {
         lbl_ProductImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         pnl_ProductImage.add(lbl_ProductImage, java.awt.BorderLayout.CENTER);
 
-        pnl_ProductInfomation.add(pnl_ProductImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 20, 210, 270));
+        pnl_ProductInfomation.add(pnl_ProductImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 30, 250, 300));
 
         btn_chooseImage.setText("Chọn");
         btn_chooseImage.addActionListener(new java.awt.event.ActionListener() {
@@ -273,11 +273,11 @@ public class JPanel_SanPham extends javax.swing.JPanel {
                 btn_chooseImageActionPerformed(evt);
             }
         });
-        pnl_ProductInfomation.add(btn_chooseImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 300, -1, -1));
+        pnl_ProductInfomation.add(btn_chooseImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 340, -1, -1));
 
         lbl_Unit.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl_Unit.setText("Đơn vị tính:");
-        pnl_ProductInfomation.add(lbl_Unit, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 90, 90, 30));
+        pnl_ProductInfomation.add(lbl_Unit, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 100, 90, 30));
 
         txt_Unit.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txt_Unit.addActionListener(new java.awt.event.ActionListener() {
@@ -285,17 +285,17 @@ public class JPanel_SanPham extends javax.swing.JPanel {
                 txt_UnitActionPerformed(evt);
             }
         });
-        pnl_ProductInfomation.add(txt_Unit, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 90, 80, 30));
+        pnl_ProductInfomation.add(txt_Unit, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 100, 110, 30));
 
         lbl_Description.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl_Description.setText("Mô tả:");
-        pnl_ProductInfomation.add(lbl_Description, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 140, 50, 30));
+        pnl_ProductInfomation.add(lbl_Description, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 160, 50, 30));
 
         txa_Description.setColumns(20);
         txa_Description.setRows(5);
         scr_Description.setViewportView(txa_Description);
 
-        pnl_ProductInfomation.add(scr_Description, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 140, 190, 100));
+        pnl_ProductInfomation.add(scr_Description, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 160, 190, 100));
 
         cb_Supplier.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cb_Supplier.addActionListener(new java.awt.event.ActionListener() {
@@ -303,12 +303,14 @@ public class JPanel_SanPham extends javax.swing.JPanel {
                 cb_SupplierActionPerformed(evt);
             }
         });
-        pnl_ProductInfomation.add(cb_Supplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 140, 160, 30));
+        pnl_ProductInfomation.add(cb_Supplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, 160, 30));
 
-        add(pnl_ProductInfomation, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 6, 1020, 340));
+        add(pnl_ProductInfomation, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 1210, 380));
 
         pnl_ProductInfomation1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách sản phẩm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
         pnl_ProductInfomation1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        scr_LisrProduct.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         tbl_ListProduct.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -333,9 +335,9 @@ public class JPanel_SanPham extends javax.swing.JPanel {
         });
         scr_LisrProduct.setViewportView(tbl_ListProduct);
 
-        pnl_ProductInfomation1.add(scr_LisrProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 1010, 290));
+        pnl_ProductInfomation1.add(scr_LisrProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 1200, 310));
 
-        add(pnl_ProductInfomation1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, 1030, 330));
+        add(pnl_ProductInfomation1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 490, 1220, 350));
 
         jpAdd.setBackground(new java.awt.Color(255, 255, 255));
         jpAdd.setRoundedBottomLeft(10);
@@ -356,7 +358,7 @@ public class JPanel_SanPham extends javax.swing.JPanel {
         svgAdd.setText(" ");
         jpAdd.add(svgAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
 
-        add(jpAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 370, -1, -1));
+        add(jpAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 430, -1, -1));
 
         jpEdit.setBackground(new java.awt.Color(255, 255, 255));
         jpEdit.setRoundedBottomLeft(10);
@@ -377,7 +379,7 @@ public class JPanel_SanPham extends javax.swing.JPanel {
         svgEdit.setText(" ");
         jpEdit.add(svgEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
 
-        add(jpEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 370, -1, -1));
+        add(jpEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 430, -1, -1));
 
         jpDelete.setBackground(new java.awt.Color(255, 255, 255));
         jpDelete.setRoundedBottomLeft(10);
@@ -398,7 +400,7 @@ public class JPanel_SanPham extends javax.swing.JPanel {
         svgDelete.setText(" ");
         jpDelete.add(svgDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
 
-        add(jpDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 370, -1, -1));
+        add(jpDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 430, -1, -1));
 
         jpRefresh.setBackground(new java.awt.Color(255, 255, 255));
         jpRefresh.setRoundedBottomLeft(10);
@@ -419,7 +421,7 @@ public class JPanel_SanPham extends javax.swing.JPanel {
         svgRefresh.setText(" ");
         jpRefresh.add(svgRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
 
-        add(jpRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 370, 110, -1));
+        add(jpRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 430, 110, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void txt_ProductIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_ProductIdActionPerformed

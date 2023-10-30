@@ -9,7 +9,6 @@ gui\JPanel_TimKiemSanPham$1.class
 gui\JPanel_SanPham$18.class
 gui\GiaoDienChinh.class
 gui\JPanel_NhaCungCap$4.class
-entity\ThongKeDoanhThu.class
 util\JPanelRounded.class
 gui\BieuDoKhachHang$2.class
 Dao\NhaCungCapDAO.class
@@ -163,7 +162,6 @@ gui\JPanel_SanPham$10.class
 gui\GiaoDienChinh$2.class
 gui\JPanel_KhachHangTK$3.class
 gui\JPanel_ThongKe$24.class
-gui\BieuDoKhachHang$5.class
 gui\JPanel_BanHang$14.class
 gui\JPanel_ThongKe$6.class
 gui\BieuDoSanPham$4.class
@@ -197,7 +195,6 @@ gui\JPanel_KhuyenMai$2.class
 gui\JPanel_BanHang$13.class
 gui\JFrame_ChiTietSanPham$15.class
 gui\JPhanel_HoaDon$4.class
-gui\BieuDoKhachHang$6.class
 gui\JPanel_KhuyenMai$8.class
 gui\JPanel_NhaCungCap$6.class
 gui\JPanel_PhanCa$3.class
@@ -249,7 +246,6 @@ gui\JPanel_NhaCungCap$2.class
 gui\JPanel_ThongKe$12.class
 gui\JPanel_NhanVien$1.class
 gui\JPanel_ThongKe$7.class
-gui\JPanel_BanHang$15.class
 gui\JFrame_ChiTietSanPham$3.class
 gui\JPanel_BanHang$8.class
 gui\JPanel_PhanCa.class
