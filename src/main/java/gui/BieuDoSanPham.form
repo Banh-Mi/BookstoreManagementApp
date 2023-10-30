@@ -74,12 +74,13 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel14">
+        <Component class="javax.swing.JLabel" name="txtQuaLuuNiem">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="16" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="119"/>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="0"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -118,16 +119,17 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel9">
+        <Component class="javax.swing.JLabel" name="txtSach">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="16" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="119"/>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="0"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="60" y="50" width="50" height="30"/>
+              <AbsoluteConstraints x="60" y="50" width="40" height="30"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -162,16 +164,17 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel10">
+        <Component class="javax.swing.JLabel" name="txtDCHT">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="16" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="119"/>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="0"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="70" y="50" width="50" height="30"/>
+              <AbsoluteConstraints x="60" y="50" width="60" height="30"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -206,16 +209,17 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel12">
+        <Component class="javax.swing.JLabel" name="txtDoChoi">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="16" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="119"/>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="0"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="70" y="50" width="50" height="30"/>
+              <AbsoluteConstraints x="60" y="50" width="40" height="30"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -250,12 +254,13 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel13">
+        <Component class="javax.swing.JLabel" name="txtVanPhongPham">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="16" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="119"/>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="0"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -290,7 +295,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
+    <Component class="javax.swing.JButton" name="jbtThongKe">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="14" style="0"/>
@@ -298,7 +303,8 @@
         <Property name="text" type="java.lang.String" value="Xem th&#x1ed1;ng k&#xea;"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jbtThongKeMouseClicked"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtThongKeActionPerformed"/>
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -306,19 +312,20 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JComboBox" name="jComboBox1">
+    <Component class="javax.swing.JComboBox" name="jcbTieuChi">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="12" style="1"/>
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="6">
+          <StringArray count="7">
             <StringItem index="0" value="S&#x1ea3;n ph&#x1ea9;m &#x111;&#xe3; b&#xe1;n"/>
-            <StringItem index="1" value="S&#x1ea3;n ph&#x1ea9;m &#x111;&#x1b0;&#x1ee3;c b&#xe1;n nhi&#x1ec1;u nh&#x1ea5;t"/>
-            <StringItem index="2" value="S&#x1ea3;n ph&#x1ea9;m &#x111;&#x1b0;&#x1ee3;c b&#xe1;n &#xed;t nh&#x1ea5;tt"/>
-            <StringItem index="3" value="S&#x1ea3;n ph&#x1ea9;m c&#xf3; doanh thu cao nh&#x1ea5;t"/>
-            <StringItem index="4" value="S&#x1ea3;n ph&#x1ea9;m t&#x1ed3;n kho nhi&#x1ec1;u nh&#x1ea5;t"/>
-            <StringItem index="5" value="S&#x1ea3;n ph&#x1ea9;m t&#x1ed3;n kho &#xed;t nh&#x1ea5;t"/>
+            <StringItem index="1" value="Top 5 s&#x1ea3;n ph&#x1ea9;m &#x111;&#x1b0;&#x1ee3;c b&#xe1;n nhi&#x1ec1;u nh&#x1ea5;t"/>
+            <StringItem index="2" value="Top 5 s&#x1ea3;n ph&#x1ea9;m &#x111;&#x1b0;&#x1ee3;c b&#xe1;n &#xed;t nh&#x1ea5;t"/>
+            <StringItem index="3" value="Top 5 s&#x1ea3;n ph&#x1ea9;m c&#xf3; doanh thu cao nh&#x1ea5;t"/>
+            <StringItem index="4" value="Top 5 s&#x1ea3;n ph&#x1ea9;m c&#xf3; doanh thu th&#x1ea5;p nh&#x1ea5;t"/>
+            <StringItem index="5" value="Top 5 s&#x1ea3;n ph&#x1ea9;m t&#x1ed3;n kho nhi&#x1ec1;u nh&#x1ea5;t"/>
+            <StringItem index="6" value="Top 5 s&#x1ea3;n ph&#x1ea9;m t&#x1ed3;n kho &#xed;t nh&#x1ea5;t"/>
           </StringArray>
         </Property>
       </Properties>
@@ -331,7 +338,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="com.toedter.calendar.JDateChooser" name="jDateChooserDob">
+    <Component class="com.toedter.calendar.JDateChooser" name="JDCDenNgay">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="380" y="70" width="180" height="30"/>
@@ -351,7 +358,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="com.toedter.calendar.JDateChooser" name="jDateChooserDob1">
+    <Component class="com.toedter.calendar.JDateChooser" name="jDCTuNgay">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="90" y="70" width="180" height="30"/>
