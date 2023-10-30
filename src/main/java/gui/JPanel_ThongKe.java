@@ -261,6 +261,8 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         jpChucNangDoanhThu.setMinimumSize(new java.awt.Dimension(310, 715));
         jpChucNangDoanhThu.setPreferredSize(new java.awt.Dimension(400, 710));
         jpChucNangDoanhThu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jdDenNgayDoanhThu.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jpChucNangDoanhThu.add(jdDenNgayDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 170, 240, 40));
 
         jdTuNgayDoanhThu.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
