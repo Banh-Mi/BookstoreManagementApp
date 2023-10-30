@@ -13,7 +13,7 @@ public class JPanel_KhachHangTK extends javax.swing.JPanel {
     public JPanel_KhachHangTK() {
 
         initComponents();
-        svgRefresh.setSvgImage("refresh.svg", 25, 25);
+        svgTimKiem.setSvgImage("search.svg", 35, 35);
         modelKhachHang = (DefaultTableModel) tableCustomer.getModel();
         loadData();
     }
@@ -25,30 +25,34 @@ public class JPanel_KhachHangTK extends javax.swing.JPanel {
             Object[] row = {kh.getMaKH(), kh.getTenKH(), kh.getEmail(), kh.getSoDienThoai(), kh.getGioiTinh(), kh.getTheVip()};
             modelKhachHang.addRow(row);
         }
+        txtmaKH.setText("");
+        txtEmail.setText("");
+        txtSDT.setText("");
+        txtHoTen.setText("");
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnGioiTinh = new javax.swing.ButtonGroup();
         jbCustomerManagerment = new javax.swing.JLabel();
         jpFunction = new javax.swing.JPanel();
         lblCustomerID = new javax.swing.JLabel();
         lblFullName = new javax.swing.JLabel();
         txtSDT = new javax.swing.JTextField();
         lblGender = new javax.swing.JLabel();
-        radnu = new javax.swing.JRadioButton();
-        radnam = new javax.swing.JRadioButton();
         lblPhone = new javax.swing.JLabel();
         txtmaKH = new javax.swing.JTextField();
         lblEmail = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
-        jpRefresh = new util.JPanelRounded();
-        jbRefresh = new javax.swing.JLabel();
-        svgRefresh = new util.SVGImage();
-        cboboxthe = new javax.swing.JComboBox<>();
+        jbTimKiem = new util.JPanelRounded();
+        lblTimKiem = new javax.swing.JLabel();
+        svgTimKiem = new util.SVGImage();
+        jcbGioiTinh = new javax.swing.JComboBox<>();
         lblGender2 = new javax.swing.JLabel();
         txtHoTen = new javax.swing.JTextField();
+        jcbTheThanhVien = new javax.swing.JComboBox<>();
         scrollCustomer = new javax.swing.JScrollPane();
         tableCustomer = new javax.swing.JTable();
 
@@ -78,25 +82,6 @@ public class JPanel_KhachHangTK extends javax.swing.JPanel {
         lblGender.setText("Thẻ TV:");
         jpFunction.add(lblGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 90, -1, 40));
 
-        radnu.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        radnu.setText("Nữ");
-        radnu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radnuActionPerformed(evt);
-            }
-        });
-        jpFunction.add(radnu, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 20, 50, 40));
-
-        radnam.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        radnam.setSelected(true);
-        radnam.setText("Nam");
-        radnam.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radnamActionPerformed(evt);
-            }
-        });
-        jpFunction.add(radnam, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 20, 70, 40));
-
         lblPhone.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblPhone.setText("SĐT:");
         jpFunction.add(lblPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 20, -1, 40));
@@ -116,35 +101,35 @@ public class JPanel_KhachHangTK extends javax.swing.JPanel {
         txtEmail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jpFunction.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 90, 320, 40));
 
-        jpRefresh.setBackground(new java.awt.Color(255, 255, 255));
-        jpRefresh.setRoundedBottomLeft(10);
-        jpRefresh.setRoundedBottomRight(10);
-        jpRefresh.setRoundedTopLeft(10);
-        jpRefresh.setRoundedTopRight(10);
-        jpRefresh.addMouseListener(new java.awt.event.MouseAdapter() {
+        jbTimKiem.setBackground(new java.awt.Color(255, 255, 255));
+        jbTimKiem.setRoundedBottomLeft(10);
+        jbTimKiem.setRoundedBottomRight(10);
+        jbTimKiem.setRoundedTopLeft(10);
+        jbTimKiem.setRoundedTopRight(10);
+        jbTimKiem.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jpRefreshMouseClicked(evt);
+                jbTimKiemMouseClicked(evt);
             }
         });
-        jpRefresh.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jbTimKiem.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jbRefresh.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jbRefresh.setText("Tìm kiếm");
-        jpRefresh.add(jbRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 100, 50));
+        lblTimKiem.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblTimKiem.setText("Tìm kiếm");
+        jbTimKiem.add(lblTimKiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 100, 50));
 
-        svgRefresh.setText(" ");
-        jpRefresh.add(svgRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 40, 40));
+        svgTimKiem.setText(" ");
+        jbTimKiem.add(svgTimKiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 40, 40));
 
-        jpFunction.add(jpRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 150, 50));
+        jpFunction.add(jbTimKiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 150, 50));
 
-        cboboxthe.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        cboboxthe.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đồng", "Bạc", "Vàng", "Kim cương", "Ruby", " " }));
-        cboboxthe.addActionListener(new java.awt.event.ActionListener() {
+        jcbGioiTinh.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jcbGioiTinh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mặc định", "Nam", "Nữ" }));
+        jcbGioiTinh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cboboxtheActionPerformed(evt);
+                jcbGioiTinhActionPerformed(evt);
             }
         });
-        jpFunction.add(cboboxthe, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 90, 170, 40));
+        jpFunction.add(jcbGioiTinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 20, 170, 40));
 
         lblGender2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblGender2.setText("Giới tính:");
@@ -157,6 +142,15 @@ public class JPanel_KhachHangTK extends javax.swing.JPanel {
             }
         });
         jpFunction.add(txtHoTen, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 90, 280, 40));
+
+        jcbTheThanhVien.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jcbTheThanhVien.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mặc định", "Đồng", "Bạc", "Vàng", "Kim cương", "Ruby" }));
+        jcbTheThanhVien.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbTheThanhVienActionPerformed(evt);
+            }
+        });
+        jpFunction.add(jcbTheThanhVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 90, 170, 40));
 
         add(jpFunction, java.awt.BorderLayout.CENTER);
 
@@ -193,28 +187,31 @@ public class JPanel_KhachHangTK extends javax.swing.JPanel {
         add(scrollCustomer, java.awt.BorderLayout.PAGE_END);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void radnuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radnuActionPerformed
-
-    }//GEN-LAST:event_radnuActionPerformed
-
-    private void radnamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radnamActionPerformed
-
-    }//GEN-LAST:event_radnamActionPerformed
-
     private void txtmaKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtmaKHActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtmaKHActionPerformed
 
-    private void jpRefreshMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpRefreshMouseClicked
+    private void jbTimKiemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbTimKiemMouseClicked
 
-        //timMaKH(txtmaKH.getText());     
-        timHT(txtHoTen.getText());
+        khachHangDao = new KhachHangDAO();
+        String maKH = txtmaKH.getText();
+        String SDT = txtSDT.getText();
+        String email = txtEmail.getText();
+        String hoten = txtHoTen.getText();
+        String thevip = jcbTheThanhVien.getSelectedItem().toString().equals("Mặc định") ? null : jcbTheThanhVien.getSelectedItem().toString();
 
-    }//GEN-LAST:event_jpRefreshMouseClicked
+        String gioiTinh = jcbGioiTinh.getSelectedItem().toString().equals("Mặc định") ? null : jcbGioiTinh.getSelectedItem().toString();
+        modelKhachHang.setRowCount(0);
+        for (KhachHang kh : khachHangDao.timKhachHang(maKH, hoten, email, SDT, gioiTinh, thevip)) {
+            Object[] row = {kh.getMaKH(), kh.getTenKH(), kh.getEmail(), kh.getSoDienThoai(), kh.getGioiTinh(), kh.getTheVip()};
+            modelKhachHang.addRow(row);
+        }
 
-    private void cboboxtheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboboxtheActionPerformed
+    }//GEN-LAST:event_jbTimKiemMouseClicked
+
+    private void jcbGioiTinhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbGioiTinhActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cboboxtheActionPerformed
+    }//GEN-LAST:event_jcbGioiTinhActionPerformed
 
     private void txtHoTenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtHoTenActionPerformed
         // TODO add your handling code here:
@@ -227,6 +224,10 @@ public class JPanel_KhachHangTK extends javax.swing.JPanel {
     private void scrollCustomerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_scrollCustomerMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_scrollCustomerMouseClicked
+
+    private void jcbTheThanhVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbTheThanhVienActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcbTheThanhVienActionPerformed
     //xu ly tim kiem o day
     private void timMaKH(String makh) {
         modelKhachHang.setRowCount(0);
@@ -235,26 +236,27 @@ public class JPanel_KhachHangTK extends javax.swing.JPanel {
             if (kh.getMaKH().equals(makh)) {
                 Object[] row = {kh.getMaKH(), kh.getTenKH(), kh.getEmail(), kh.getSoDienThoai(), kh.getGioiTinh(), kh.getTheVip()};
                 model.addRow(row);
-            }   
+            }
         }
     }
 
     private void timHT(String hoten) {
 //    clearTable();
-    khachHangDao = new KhachHangDAO();
-    ArrayList<KhachHang> listkh = new ArrayList<>();
+        khachHangDao = new KhachHangDAO();
+        ArrayList<KhachHang> listkh = new ArrayList<>();
 //    DefaultTableModel model = (DefaultTableModel) tableCustomer.getModel();
-    
-    for (KhachHang kh : khachHangDao.getAllKhachHang()) {
-        if (hoten.equals(kh.getTenKH())) {
+
+        for (KhachHang kh : khachHangDao.getAllKhachHang()) {
+            if (hoten.equals(kh.getTenKH())) {
 //           String[] row = {kh.getMaKH(), kh.getTenKH(), kh.getEmail(), kh.getSoDienThoai(), kh.getGioiTinh(), kh.getTheVip()};
 //            modelKhachHang.addRow(row);
-            listkh.add(kh);
+                listkh.add(kh);
+            }
         }
-    }
         addDataTOTAble(listkh);
-}
-    public void addDataTOTAble(ArrayList<KhachHang> dsKH){
+    }
+
+    public void addDataTOTAble(ArrayList<KhachHang> dsKH) {
         modelKhachHang.setRowCount(0);
         for (KhachHang kh : dsKH) {
             String[] row = {kh.getMaKH(), kh.getTenKH(), kh.getEmail(), kh.getSoDienThoai(), kh.getGioiTinh(), kh.getTheVip()};
@@ -268,21 +270,21 @@ public class JPanel_KhachHangTK extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> cboboxthe;
+    private javax.swing.ButtonGroup btnGioiTinh;
     private javax.swing.JLabel jbCustomerManagerment;
-    private javax.swing.JLabel jbRefresh;
+    private util.JPanelRounded jbTimKiem;
+    private javax.swing.JComboBox<String> jcbGioiTinh;
+    private javax.swing.JComboBox<String> jcbTheThanhVien;
     private javax.swing.JPanel jpFunction;
-    private util.JPanelRounded jpRefresh;
     private javax.swing.JLabel lblCustomerID;
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblFullName;
     private javax.swing.JLabel lblGender;
     private javax.swing.JLabel lblGender2;
     private javax.swing.JLabel lblPhone;
-    private javax.swing.JRadioButton radnam;
-    private javax.swing.JRadioButton radnu;
+    private javax.swing.JLabel lblTimKiem;
     private javax.swing.JScrollPane scrollCustomer;
-    private util.SVGImage svgRefresh;
+    private util.SVGImage svgTimKiem;
     private javax.swing.JTable tableCustomer;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtHoTen;

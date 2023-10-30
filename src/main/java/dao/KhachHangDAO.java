@@ -2,6 +2,7 @@ package dao;
 
 import connectDB.ConnectDB;
 import entity.KhachHang;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -135,17 +136,18 @@ public class KhachHangDAO {
         }
         return null;
     }
+
     public KhachHang search(String maKH) {
         Connection con = ConnectDB.getInstance().getConnection();
         PreparedStatement stmt = null;
-        KhachHang khachHang= null;
+        KhachHang khachHang = null;
         try {
             stmt = con.prepareStatement("SELECT * FROM KhachHang WHERE maKH = ?");
             stmt.setString(1, maKH);
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                khachHang= new KhachHang(
+                khachHang = new KhachHang(
                         rs.getString(1),
                         rs.getString(2),
                         rs.getString(3),
@@ -162,5 +164,30 @@ public class KhachHangDAO {
         } finally {
         }
         return khachHang;
+    }
+
+    public ArrayList<KhachHang> timKhachHang(String maKH, String tenKH, String email, String soDienThoai, String gioitinh, String thevip) {
+        ArrayList<KhachHang> danhSachKhachHang = new ArrayList<>();
+        ConnectDB.getInstance();
+        Connection con = ConnectDB.getConnection();
+
+        CallableStatement cstmt = null;
+        try {
+            String sql = "{call TimKhachHang(?,?,?,?,?,?)}";
+            cstmt = con.prepareCall(sql);
+            cstmt.setString(1, maKH);
+            cstmt.setString(2, tenKH);
+            cstmt.setString(3, email);
+            cstmt.setString(4, soDienThoai);
+            cstmt.setString(5, gioitinh);
+            cstmt.setString(6, thevip);
+            ResultSet rs = cstmt.executeQuery();
+            while (rs.next()) {
+                danhSachKhachHang.add(new KhachHang(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDate(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getDate(9)));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return danhSachKhachHang;
     }
 }

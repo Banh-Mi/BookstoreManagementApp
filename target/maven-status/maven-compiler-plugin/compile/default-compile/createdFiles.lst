@@ -30,7 +30,6 @@ gui\JFrame_ChiTietSanPham$1.class
 gui\JPanel_KhachHangTK$6.class
 gui\GiaoDienChinh$5.class
 gui\JPanel_BanHang$3.class
-gui\GiaoDienChinh$18.class
 gui\JPanel_KhachHang.class
 gui\JPanel_KhuyenMai$6.class
 gui\JPanel_ThongKe$21.class
@@ -188,7 +187,6 @@ entity\DoanhThu.class
 gui\JPanel_ThongKe$25.class
 gui\JPanel_KhuyenMai$10.class
 gui\JPanel_BanHang$5.class
-gui\JPanel_KhachHangTK$9.class
 gui\JPanel_KhachHangTK$8.class
 gui\GiaoDienChinh$7.class
 gui\ThongTinSanPham$3.class

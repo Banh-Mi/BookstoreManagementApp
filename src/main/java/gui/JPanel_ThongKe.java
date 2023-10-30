@@ -1,22 +1,19 @@
 package gui;
 
+import dao.SanPhamDAO;
 import dao.ThongKeDoanhThuDAO;
 import dao.ThongKeKhachHangDAO;
 import dao.ThongKeSanPhamDAO;
+import entity.SanPham;
 import entity.ThongKeDoanhThu;
 import entity.ThongKeKhachHang;
 import entity.ThongKeSanPham;
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.sql.SQLException;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.logging.Level;
@@ -35,11 +32,11 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
     private ArrayList<ThongKeDoanhThu> doanhThuList = new ArrayList<>();
     private ArrayList<ThongKeSanPham> sanPhamList = new ArrayList<>();
     private ArrayList<ThongKeKhachHang> khachHangList = new ArrayList<>();
-    private ThongKeDoanhThuDAO doanhThuDAO;
-    private ThongKeSanPhamDAO sanPhamDAO;
-    private ThongKeKhachHangDAO khachHangDAO;
-
-    private NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+    private ThongKeDoanhThuDAO thongKeDoanhThuDAO;
+    private ThongKeSanPhamDAO thongKeSanPhamDAO;
+    private ThongKeKhachHangDAO thongKeKhachHangDAO;
+    private SanPhamDAO sanPhamDAO;
+    private final NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
 
     public JPanel_ThongKe() {
         initComponents();
@@ -51,7 +48,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         svgThongKeDoanhThu.setSvgImage("statistical.svg", 35, 35);
         svgLamMoiDoanhThu.setSvgImage("refresh.svg", 35, 35);
         svgThongKeSP.setSvgImage("statistical.svg", 35, 35);
-        svgLamMoiSP.setSvgImage("refresh.svg", 35,35);
+        svgLamMoiSP.setSvgImage("refresh.svg", 35, 35);
         loadDuLieuDoanhThu();
         loadDuLieuSanPham();
         loadDuLieuKhachHang();
@@ -66,13 +63,13 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
     private void loadDuLieuDoanhThu() {
         //Tạo mảng không trùng bằng set và sử dụng HashSet để lọc
         Set<Integer> uniqueYears = new HashSet<>();
-        doanhThuDAO = new ThongKeDoanhThuDAO();
+        thongKeDoanhThuDAO = new ThongKeDoanhThuDAO();
         modelDoanhThu.setRowCount(0);
         int soHoaDon = 0;
         double tongTien = 0;
         double giamGia = 0;
         double thanhTien = 0;
-        doanhThuList = doanhThuDAO.getHoaDon(null, null);
+        doanhThuList = thongKeDoanhThuDAO.getHoaDon(null, null);
         for (ThongKeDoanhThu doanhThu : doanhThuList) {
             Object row[] = {doanhThu.getMaHoaDon(), doanhThu.getTenNV(), doanhThu.getTenKH(), doanhThu.getNgayLapHoaDon(), nf.format(doanhThu.getTongTien()), nf.format(doanhThu.getGiamGia()), nf.format(doanhThu.getThanhTien())};
             modelDoanhThu.addRow(row);
@@ -94,15 +91,14 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
     }
 
     private void loadDuLieuKhachHang() {
-        //Tạo mảng không trùng bằng set và sử dụng HashSet để lọc
-        Set<Integer> uniqueYears = new HashSet<>();
-        khachHangDAO = new ThongKeKhachHangDAO();
+//Tạo mảng không trùng bằng set và sử dụng HashSet để lọc
+        thongKeKhachHangDAO = new ThongKeKhachHangDAO();
         modelKhachHang.setRowCount(0);
         int soLuongSanPham = 0;
         int soHoaDon = 0;
         double tongTien = 0;
         int soLuongNDK = 0;
-        khachHangList = khachHangDAO.getKHTuyChinh(null, null);
+        khachHangList = thongKeKhachHangDAO.getKHTuyChinh(null, null);
         int i = 0;
         for (ThongKeKhachHang kh : khachHangList) {
             try {
@@ -433,6 +429,11 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+        });
+        tableSanPham.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableSanPhamMouseClicked(evt);
             }
         });
         scrollSanPham.setViewportView(tableSanPham);
@@ -804,7 +805,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
 
     private void jpThongKeDTMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpThongKeDTMouseClicked
         String selectedItem = (String) jcbLuaChonDoanhThu.getSelectedItem();
-        doanhThuDAO = new ThongKeDoanhThuDAO();
+        thongKeDoanhThuDAO = new ThongKeDoanhThuDAO();
         modelDoanhThu.setRowCount(0);
         int soHoaDon = 0;
         double tongTien = 0;
@@ -813,26 +814,26 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         java.util.Date currDate = new java.util.Date();
         switch (selectedItem) {
             case "Theo ngày":
-                doanhThuList = doanhThuDAO.getHoaDon(new java.sql.Date(currDate.getTime()), new java.sql.Date(currDate.getTime()));
+                doanhThuList = thongKeDoanhThuDAO.getHoaDon(new java.sql.Date(currDate.getTime()), new java.sql.Date(currDate.getTime()));
                 break;
             case "Theo tuần":
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(currDate);
                 calendar.add(Calendar.DAY_OF_MONTH, -7);
                 java.util.Date weekAgo = calendar.getTime();
-                doanhThuList = doanhThuDAO.getHoaDon(new java.sql.Date(weekAgo.getTime()), new java.sql.Date(currDate.getTime()));
+                doanhThuList = thongKeDoanhThuDAO.getHoaDon(new java.sql.Date(weekAgo.getTime()), new java.sql.Date(currDate.getTime()));
                 break;
             case "Theo tháng":
-                doanhThuList = doanhThuDAO.getDoanhThuThangNam(Integer.parseInt(jcbThangDoanhThu.getSelectedItem().toString()), Integer.parseInt(jcbNamDoanhThu.getSelectedItem().toString()));
+                doanhThuList = thongKeDoanhThuDAO.getDoanhThuThangNam(Integer.parseInt(jcbThangDoanhThu.getSelectedItem().toString()), Integer.parseInt(jcbNamDoanhThu.getSelectedItem().toString()));
                 break;
             case "Tuỳ chỉnh":
                 java.sql.Date tuNgay = jdTuNgayDoanhThu.getDate() == null ? null : new java.sql.Date(jdTuNgayDoanhThu.getDate().getTime());
                 java.sql.Date denNgay = jdDenNgayDoanhThu.getDate() == null ? null : new java.sql.Date(jdDenNgayDoanhThu.getDate().getTime());
-                doanhThuList = doanhThuDAO.getHoaDon(tuNgay, denNgay);
+                doanhThuList = thongKeDoanhThuDAO.getHoaDon(tuNgay, denNgay);
                 break;
 
             case "Theo năm":
-                doanhThuList = doanhThuDAO.getDoanhThuThangNam(0, Integer.parseInt(jcbNamDoanhThu.getSelectedItem().toString()));
+                doanhThuList = thongKeDoanhThuDAO.getDoanhThuThangNam(0, Integer.parseInt(jcbNamDoanhThu.getSelectedItem().toString()));
                 break;
             default:
                 break;
@@ -918,11 +919,11 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
     private void loadDuLieuSanPham() {
         //Tạo mảng không trùng bằng set và sử dụng HashSet để lọc
         Set<Integer> uniqueYears = new HashSet<>();
-        sanPhamDAO = new ThongKeSanPhamDAO();
+        thongKeSanPhamDAO = new ThongKeSanPhamDAO();
         modelSanPham.setRowCount(0);
         int soHoaDon = 0;
         double tongTien = 0;
-        sanPhamList = sanPhamDAO.getSanPham(null, null);
+        sanPhamList = thongKeSanPhamDAO.getSanPham(null, null);
         for (ThongKeSanPham dtsp : sanPhamList) {
             Object row[] = {dtsp.getMa(), dtsp.getTen(), dtsp.getSoLuong(), nf.format(dtsp.getThanhtien())};
             modelSanPham.addRow(row);
@@ -940,33 +941,33 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         String luaChon = jcbchonsanpham.getSelectedItem().toString();
         if (luaChon.equals("Sản phẩm đã bán")) {
             String selectedItem = (String) jcbLuaChonDoanhThu1.getSelectedItem();
-            sanPhamDAO = new ThongKeSanPhamDAO();
+            thongKeSanPhamDAO = new ThongKeSanPhamDAO();
             modelSanPham.setRowCount(0);
             int sosanpham = 0;
             double tongTien = 0;
             java.util.Date currDate = new java.util.Date();
             switch (selectedItem) {
                 case "Theo ngày":
-                    sanPhamList = sanPhamDAO.getSanPham(new java.sql.Date(currDate.getTime()), new java.sql.Date(currDate.getTime()));
+                    sanPhamList = thongKeSanPhamDAO.getSanPham(new java.sql.Date(currDate.getTime()), new java.sql.Date(currDate.getTime()));
                     break;
                 case "Theo tuần":
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTime(currDate);
                     calendar.add(Calendar.DAY_OF_MONTH, -7);
                     java.util.Date weekAgo = calendar.getTime();
-                    sanPhamList = sanPhamDAO.getSanPham(new java.sql.Date(weekAgo.getTime()), new java.sql.Date(currDate.getTime()));
+                    sanPhamList = thongKeSanPhamDAO.getSanPham(new java.sql.Date(weekAgo.getTime()), new java.sql.Date(currDate.getTime()));
                     break;
                 case "Theo tháng":
-                    sanPhamList = sanPhamDAO.getDoanhThuSanPhamThangNam(Integer.parseInt(jcbThangDoanhThu1.getSelectedItem().toString()), Integer.parseInt(jcbNamDoanhThu1.getSelectedItem().toString()));
+                    sanPhamList = thongKeSanPhamDAO.getDoanhThuSanPhamThangNam(Integer.parseInt(jcbThangDoanhThu1.getSelectedItem().toString()), Integer.parseInt(jcbNamDoanhThu1.getSelectedItem().toString()));
                     break;
                 case "Tuỳ chỉnh":
                     java.sql.Date tuNgay = jdTuNgayDoanhThu1.getDate() == null ? null : new java.sql.Date(jdTuNgayDoanhThu1.getDate().getTime());
                     java.sql.Date denNgay = jdDenNgayDoanhThu1.getDate() == null ? null : new java.sql.Date(jdDenNgayDoanhThu1.getDate().getTime());
-                    sanPhamList = sanPhamDAO.getSanPham(tuNgay, denNgay);
+                    sanPhamList = thongKeSanPhamDAO.getSanPham(tuNgay, denNgay);
                     break;
 
                 case "Theo năm":
-                    sanPhamList = sanPhamDAO.getDoanhThuSanPhamThangNam(0, Integer.parseInt(jcbNamDoanhThu1.getSelectedItem().toString()));
+                    sanPhamList = thongKeSanPhamDAO.getDoanhThuSanPhamThangNam(0, Integer.parseInt(jcbNamDoanhThu1.getSelectedItem().toString()));
                     break;
                 default:
                     break;
@@ -983,33 +984,33 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
             txtDoanhThu1.setText(nf.format(tongTien));
         } else if (luaChon.equals("Top 5 sản phẩm được bán nhiều nhất")) {
             String selectedItem = (String) jcbLuaChonDoanhThu1.getSelectedItem();
-            sanPhamDAO = new ThongKeSanPhamDAO();
+            thongKeSanPhamDAO = new ThongKeSanPhamDAO();
             modelSanPham.setRowCount(0);
             int sosanpham = 0;
             double tongTien = 0;
             java.util.Date currDate = new java.util.Date();
             switch (selectedItem) {
                 case "Theo ngày":
-                    sanPhamList = sanPhamDAO.getSanPhamBanNhieu(new java.sql.Date(currDate.getTime()), new java.sql.Date(currDate.getTime()));
+                    sanPhamList = thongKeSanPhamDAO.getSanPhamBanNhieu(new java.sql.Date(currDate.getTime()), new java.sql.Date(currDate.getTime()));
                     break;
                 case "Theo tuần":
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTime(currDate);
                     calendar.add(Calendar.DAY_OF_MONTH, -7);
                     java.util.Date weekAgo = calendar.getTime();
-                    sanPhamList = sanPhamDAO.getSanPhamBanNhieu(new java.sql.Date(weekAgo.getTime()), new java.sql.Date(currDate.getTime()));
+                    sanPhamList = thongKeSanPhamDAO.getSanPhamBanNhieu(new java.sql.Date(weekAgo.getTime()), new java.sql.Date(currDate.getTime()));
                     break;
                 case "Theo tháng":
-                    sanPhamList = sanPhamDAO.getSanPhamThangNamBanNhieu(Integer.parseInt(jcbThangDoanhThu1.getSelectedItem().toString()), Integer.parseInt(jcbNamDoanhThu1.getSelectedItem().toString()));
+                    sanPhamList = thongKeSanPhamDAO.getSanPhamThangNamBanNhieu(Integer.parseInt(jcbThangDoanhThu1.getSelectedItem().toString()), Integer.parseInt(jcbNamDoanhThu1.getSelectedItem().toString()));
                     break;
                 case "Tuỳ chỉnh":
                     java.sql.Date tuNgay = jdTuNgayDoanhThu1.getDate() == null ? null : new java.sql.Date(jdTuNgayDoanhThu1.getDate().getTime());
                     java.sql.Date denNgay = jdDenNgayDoanhThu1.getDate() == null ? null : new java.sql.Date(jdDenNgayDoanhThu1.getDate().getTime());
-                    sanPhamList = sanPhamDAO.getSanPhamBanNhieu(tuNgay, denNgay);
+                    sanPhamList = thongKeSanPhamDAO.getSanPhamBanNhieu(tuNgay, denNgay);
                     break;
 
                 case "Theo năm":
-                    sanPhamList = sanPhamDAO.getSanPhamThangNamBanNhieu(0, Integer.parseInt(jcbNamDoanhThu1.getSelectedItem().toString()));
+                    sanPhamList = thongKeSanPhamDAO.getSanPhamThangNamBanNhieu(0, Integer.parseInt(jcbNamDoanhThu1.getSelectedItem().toString()));
                     break;
                 default:
                     break;
@@ -1026,33 +1027,33 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
             txtDoanhThu1.setText(nf.format(tongTien));
         } else if (luaChon.equals("Top 5 sản phẩm được bán ít nhất")) {
             String selectedItem = (String) jcbLuaChonDoanhThu1.getSelectedItem();
-            sanPhamDAO = new ThongKeSanPhamDAO();
+            thongKeSanPhamDAO = new ThongKeSanPhamDAO();
             modelSanPham.setRowCount(0);
             int sosanpham = 0;
             double tongTien = 0;
             java.util.Date currDate = new java.util.Date();
             switch (selectedItem) {
                 case "Theo ngày":
-                    sanPhamList = sanPhamDAO.getSanPhamBanIt(new java.sql.Date(currDate.getTime()), new java.sql.Date(currDate.getTime()));
+                    sanPhamList = thongKeSanPhamDAO.getSanPhamBanIt(new java.sql.Date(currDate.getTime()), new java.sql.Date(currDate.getTime()));
                     break;
                 case "Theo tuần":
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTime(currDate);
                     calendar.add(Calendar.DAY_OF_MONTH, -7);
                     java.util.Date weekAgo = calendar.getTime();
-                    sanPhamList = sanPhamDAO.getSanPhamBanIt(new java.sql.Date(weekAgo.getTime()), new java.sql.Date(currDate.getTime()));
+                    sanPhamList = thongKeSanPhamDAO.getSanPhamBanIt(new java.sql.Date(weekAgo.getTime()), new java.sql.Date(currDate.getTime()));
                     break;
                 case "Theo tháng":
-                    sanPhamList = sanPhamDAO.getSanPhamThangNamBanIt(Integer.parseInt(jcbThangDoanhThu1.getSelectedItem().toString()), Integer.parseInt(jcbNamDoanhThu1.getSelectedItem().toString()));
+                    sanPhamList = thongKeSanPhamDAO.getSanPhamThangNamBanIt(Integer.parseInt(jcbThangDoanhThu1.getSelectedItem().toString()), Integer.parseInt(jcbNamDoanhThu1.getSelectedItem().toString()));
                     break;
                 case "Tuỳ chỉnh":
                     java.sql.Date tuNgay = jdTuNgayDoanhThu1.getDate() == null ? null : new java.sql.Date(jdTuNgayDoanhThu1.getDate().getTime());
                     java.sql.Date denNgay = jdDenNgayDoanhThu1.getDate() == null ? null : new java.sql.Date(jdDenNgayDoanhThu1.getDate().getTime());
-                    sanPhamList = sanPhamDAO.getSanPhamBanIt(tuNgay, denNgay);
+                    sanPhamList = thongKeSanPhamDAO.getSanPhamBanIt(tuNgay, denNgay);
                     break;
 
                 case "Theo năm":
-                    sanPhamList = sanPhamDAO.getSanPhamThangNamBanIt(0, Integer.parseInt(jcbNamDoanhThu1.getSelectedItem().toString()));
+                    sanPhamList = thongKeSanPhamDAO.getSanPhamThangNamBanIt(0, Integer.parseInt(jcbNamDoanhThu1.getSelectedItem().toString()));
                     break;
                 default:
                     break;
@@ -1070,33 +1071,33 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
 
         } else if (luaChon.equals("Top 5 sản phẩm có doanh thu cao nhất")) {
             String selectedItem = (String) jcbLuaChonDoanhThu1.getSelectedItem();
-            sanPhamDAO = new ThongKeSanPhamDAO();
+            thongKeSanPhamDAO = new ThongKeSanPhamDAO();
             modelSanPham.setRowCount(0);
             int sosanpham = 0;
             double tongTien = 0;
             java.util.Date currDate = new java.util.Date();
             switch (selectedItem) {
                 case "Theo ngày":
-                    sanPhamList = sanPhamDAO.getSanPhamDoanhThuNhieu(new java.sql.Date(currDate.getTime()), new java.sql.Date(currDate.getTime()));
+                    sanPhamList = thongKeSanPhamDAO.getSanPhamDoanhThuNhieu(new java.sql.Date(currDate.getTime()), new java.sql.Date(currDate.getTime()));
                     break;
                 case "Theo tuần":
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTime(currDate);
                     calendar.add(Calendar.DAY_OF_MONTH, -7);
                     java.util.Date weekAgo = calendar.getTime();
-                    sanPhamList = sanPhamDAO.getSanPhamDoanhThuNhieu(new java.sql.Date(weekAgo.getTime()), new java.sql.Date(currDate.getTime()));
+                    sanPhamList = thongKeSanPhamDAO.getSanPhamDoanhThuNhieu(new java.sql.Date(weekAgo.getTime()), new java.sql.Date(currDate.getTime()));
                     break;
                 case "Theo tháng":
-                    sanPhamList = sanPhamDAO.getSanPhamThangNamDoanhThuNhieu(Integer.parseInt(jcbThangDoanhThu1.getSelectedItem().toString()), Integer.parseInt(jcbNamDoanhThu1.getSelectedItem().toString()));
+                    sanPhamList = thongKeSanPhamDAO.getSanPhamThangNamDoanhThuNhieu(Integer.parseInt(jcbThangDoanhThu1.getSelectedItem().toString()), Integer.parseInt(jcbNamDoanhThu1.getSelectedItem().toString()));
                     break;
                 case "Tuỳ chỉnh":
                     java.sql.Date tuNgay = jdTuNgayDoanhThu1.getDate() == null ? null : new java.sql.Date(jdTuNgayDoanhThu1.getDate().getTime());
                     java.sql.Date denNgay = jdDenNgayDoanhThu1.getDate() == null ? null : new java.sql.Date(jdDenNgayDoanhThu1.getDate().getTime());
-                    sanPhamList = sanPhamDAO.getSanPhamDoanhThuNhieu(tuNgay, denNgay);
+                    sanPhamList = thongKeSanPhamDAO.getSanPhamDoanhThuNhieu(tuNgay, denNgay);
                     break;
 
                 case "Theo năm":
-                    sanPhamList = sanPhamDAO.getSanPhamThangNamDoanhThuNhieu(0, Integer.parseInt(jcbNamDoanhThu1.getSelectedItem().toString()));
+                    sanPhamList = thongKeSanPhamDAO.getSanPhamThangNamDoanhThuNhieu(0, Integer.parseInt(jcbNamDoanhThu1.getSelectedItem().toString()));
                     break;
                 default:
                     break;
@@ -1113,33 +1114,33 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
             txtDoanhThu1.setText(nf.format(tongTien));
         } else if (luaChon.equals("Top 5 sản phẩm có doanh thu thấp nhất")) {
             String selectedItem = (String) jcbLuaChonDoanhThu1.getSelectedItem();
-            sanPhamDAO = new ThongKeSanPhamDAO();
+            thongKeSanPhamDAO = new ThongKeSanPhamDAO();
             modelSanPham.setRowCount(0);
             int sosanpham = 0;
             double tongTien = 0;
             java.util.Date currDate = new java.util.Date();
             switch (selectedItem) {
                 case "Theo ngày":
-                    sanPhamList = sanPhamDAO.getSanPhamDoanhThuIt(new java.sql.Date(currDate.getTime()), new java.sql.Date(currDate.getTime()));
+                    sanPhamList = thongKeSanPhamDAO.getSanPhamDoanhThuIt(new java.sql.Date(currDate.getTime()), new java.sql.Date(currDate.getTime()));
                     break;
                 case "Theo tuần":
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTime(currDate);
                     calendar.add(Calendar.DAY_OF_MONTH, -7);
                     java.util.Date weekAgo = calendar.getTime();
-                    sanPhamList = sanPhamDAO.getSanPhamDoanhThuIt(new java.sql.Date(weekAgo.getTime()), new java.sql.Date(currDate.getTime()));
+                    sanPhamList = thongKeSanPhamDAO.getSanPhamDoanhThuIt(new java.sql.Date(weekAgo.getTime()), new java.sql.Date(currDate.getTime()));
                     break;
                 case "Theo tháng":
-                    sanPhamList = sanPhamDAO.getSanPhamThangNamDoanhThuIt(Integer.parseInt(jcbThangDoanhThu1.getSelectedItem().toString()), Integer.parseInt(jcbNamDoanhThu1.getSelectedItem().toString()));
+                    sanPhamList = thongKeSanPhamDAO.getSanPhamThangNamDoanhThuIt(Integer.parseInt(jcbThangDoanhThu1.getSelectedItem().toString()), Integer.parseInt(jcbNamDoanhThu1.getSelectedItem().toString()));
                     break;
                 case "Tuỳ chỉnh":
                     java.sql.Date tuNgay = jdTuNgayDoanhThu1.getDate() == null ? null : new java.sql.Date(jdTuNgayDoanhThu1.getDate().getTime());
                     java.sql.Date denNgay = jdDenNgayDoanhThu1.getDate() == null ? null : new java.sql.Date(jdDenNgayDoanhThu1.getDate().getTime());
-                    sanPhamList = sanPhamDAO.getSanPhamDoanhThuIt(tuNgay, denNgay);
+                    sanPhamList = thongKeSanPhamDAO.getSanPhamDoanhThuIt(tuNgay, denNgay);
                     break;
 
                 case "Theo năm":
-                    sanPhamList = sanPhamDAO.getSanPhamThangNamDoanhThuIt(0, Integer.parseInt(jcbNamDoanhThu1.getSelectedItem().toString()));
+                    sanPhamList = thongKeSanPhamDAO.getSanPhamThangNamDoanhThuIt(0, Integer.parseInt(jcbNamDoanhThu1.getSelectedItem().toString()));
                     break;
                 default:
                     break;
@@ -1155,11 +1156,11 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
             txtSoLuongHoaDon1.setText(sosanpham + "");
             txtDoanhThu1.setText(nf.format(tongTien));
         } else if (luaChon.equals("Top 5 sản phẩm tồn kho nhiều nhất")) {
-            sanPhamDAO = new ThongKeSanPhamDAO();
+            thongKeSanPhamDAO = new ThongKeSanPhamDAO();
             modelSanPham.setRowCount(0);
             int sosanpham = 0;
             double tongTien = 0;
-            sanPhamList = sanPhamDAO.getSanPhamTonKhoNhieu();
+            sanPhamList = thongKeSanPhamDAO.getSanPhamTonKhoNhieu();
             for (ThongKeSanPham dtSanPham : sanPhamList) {
                 Object row[] = {dtSanPham.getMa(), dtSanPham.getTen(), dtSanPham.getSoLuong(), nf.format(dtSanPham.getThanhtien())};
                 modelSanPham.addRow(row);
@@ -1170,11 +1171,11 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
             txtSoLuongHoaDon1.setText(sosanpham + "");
             txtDoanhThu1.setText(nf.format(tongTien));
         } else if (luaChon.equals("Top 5 sản phẩm tồn kho ít nhất")) {
-            sanPhamDAO = new ThongKeSanPhamDAO();
+            thongKeSanPhamDAO = new ThongKeSanPhamDAO();
             modelSanPham.setRowCount(0);
             int sosanpham = 0;
             double tongTien = 0;
-            sanPhamList = sanPhamDAO.getSanPhamTonKhoIt();
+            sanPhamList = thongKeSanPhamDAO.getSanPhamTonKhoIt();
             for (ThongKeSanPham dtSanPham : sanPhamList) {
                 Object row[] = {dtSanPham.getMa(), dtSanPham.getTen(), dtSanPham.getSoLuong(), nf.format(dtSanPham.getThanhtien())};
                 modelSanPham.addRow(row);
@@ -1231,7 +1232,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         String luaChon = jCBTieuChi.getSelectedItem().toString();
         if (luaChon.equals("Khách hàng đã mua hàng")) {
             String selectedItem = (String) jcbLuaChonKH.getSelectedItem();
-            khachHangDAO = new ThongKeKhachHangDAO();
+            thongKeKhachHangDAO = new ThongKeKhachHangDAO();
             modelKhachHang.setRowCount(0);
             int soLuongSanPham = 0;
             int soHoaDon = 0;
@@ -1240,26 +1241,26 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
             java.util.Date currDate = new java.util.Date();
             switch (selectedItem) {
                 case "Theo ngày":
-                    khachHangList = khachHangDAO.getKHTuyChinh(new java.sql.Date(currDate.getTime()), new java.sql.Date(currDate.getTime()));
+                    khachHangList = thongKeKhachHangDAO.getKHTuyChinh(new java.sql.Date(currDate.getTime()), new java.sql.Date(currDate.getTime()));
                     break;
                 case "Theo tuần":
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTime(currDate);
                     calendar.add(Calendar.DAY_OF_MONTH, -7);
                     java.util.Date weekAgo = calendar.getTime();
-                    khachHangList = khachHangDAO.getKHTuyChinh(new java.sql.Date(weekAgo.getTime()), new java.sql.Date(currDate.getTime()));
+                    khachHangList = thongKeKhachHangDAO.getKHTuyChinh(new java.sql.Date(weekAgo.getTime()), new java.sql.Date(currDate.getTime()));
                     break;
                 case "Theo tháng":
-                    khachHangList = khachHangDAO.getKHThangNam(Integer.parseInt(jcbThangKH.getSelectedItem().toString()), Integer.parseInt(jcbNamKH.getSelectedItem().toString()));
+                    khachHangList = thongKeKhachHangDAO.getKHThangNam(Integer.parseInt(jcbThangKH.getSelectedItem().toString()), Integer.parseInt(jcbNamKH.getSelectedItem().toString()));
                     break;
                 case "Tuỳ chỉnh":
                     java.sql.Date tuNgay = jdTuNgayKH.getDate() == null ? null : new java.sql.Date(jdTuNgayKH.getDate().getTime());
                     java.sql.Date denNgay = jdDenNgayKH.getDate() == null ? null : new java.sql.Date(jdDenNgayKH.getDate().getTime());
-                    khachHangList = khachHangDAO.getKHTuyChinh(tuNgay, denNgay);
+                    khachHangList = thongKeKhachHangDAO.getKHTuyChinh(tuNgay, denNgay);
                     break;
 
                 case "Theo năm":
-                    khachHangList = khachHangDAO.getKHThangNam(0, Integer.parseInt(jcbNamKH.getSelectedItem().toString()));
+                    khachHangList = thongKeKhachHangDAO.getKHThangNam(0, Integer.parseInt(jcbNamKH.getSelectedItem().toString()));
                     break;
                 default:
                     break;
@@ -1280,7 +1281,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
             txtsoLuongNDK.setText(soLuongNDK + "");
         } else if (luaChon.equals("Top 5 khách hàng tổng chi cao nhất")) {
             String selectedItem = (String) jcbLuaChonKH.getSelectedItem();
-            khachHangDAO = new ThongKeKhachHangDAO();
+            thongKeKhachHangDAO = new ThongKeKhachHangDAO();
             modelKhachHang.setRowCount(0);
             int soLuongSanPham = 0;
             int soHoaDon = 0;
@@ -1289,26 +1290,26 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
             java.util.Date currDate = new java.util.Date();
             switch (selectedItem) {
                 case "Theo ngày":
-                    khachHangList = khachHangDAO.getKHTuyChinhTongChiCaoNhat(new java.sql.Date(currDate.getTime()), new java.sql.Date(currDate.getTime()));
+                    khachHangList = thongKeKhachHangDAO.getKHTuyChinhTongChiCaoNhat(new java.sql.Date(currDate.getTime()), new java.sql.Date(currDate.getTime()));
                     break;
                 case "Theo tuần":
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTime(currDate);
                     calendar.add(Calendar.DAY_OF_MONTH, -7);
                     java.util.Date weekAgo = calendar.getTime();
-                    khachHangList = khachHangDAO.getKHTuyChinhTongChiCaoNhat(new java.sql.Date(weekAgo.getTime()), new java.sql.Date(currDate.getTime()));
+                    khachHangList = thongKeKhachHangDAO.getKHTuyChinhTongChiCaoNhat(new java.sql.Date(weekAgo.getTime()), new java.sql.Date(currDate.getTime()));
                     break;
                 case "Theo tháng":
-                    khachHangList = khachHangDAO.getKHThangNamTongChiCaoNhat(Integer.parseInt(jcbThangKH.getSelectedItem().toString()), Integer.parseInt(jcbNamKH.getSelectedItem().toString()));
+                    khachHangList = thongKeKhachHangDAO.getKHThangNamTongChiCaoNhat(Integer.parseInt(jcbThangKH.getSelectedItem().toString()), Integer.parseInt(jcbNamKH.getSelectedItem().toString()));
                     break;
                 case "Tuỳ chỉnh":
                     java.sql.Date tuNgay = jdTuNgayKH.getDate() == null ? null : new java.sql.Date(jdTuNgayKH.getDate().getTime());
                     java.sql.Date denNgay = jdDenNgayKH.getDate() == null ? null : new java.sql.Date(jdDenNgayKH.getDate().getTime());
-                    khachHangList = khachHangDAO.getKHTuyChinhTongChiCaoNhat(tuNgay, denNgay);
+                    khachHangList = thongKeKhachHangDAO.getKHTuyChinhTongChiCaoNhat(tuNgay, denNgay);
                     break;
 
                 case "Theo năm":
-                    khachHangList = khachHangDAO.getKHThangNamTongChiCaoNhat(0, Integer.parseInt(jcbNamKH.getSelectedItem().toString()));
+                    khachHangList = thongKeKhachHangDAO.getKHThangNamTongChiCaoNhat(0, Integer.parseInt(jcbNamKH.getSelectedItem().toString()));
                     break;
                 default:
                     break;
@@ -1330,7 +1331,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
 
         } else if (luaChon.equals("Top 5 khách hàng tổng chi thấp nhất")) {
             String selectedItem = (String) jcbLuaChonKH.getSelectedItem();
-            khachHangDAO = new ThongKeKhachHangDAO();
+            thongKeKhachHangDAO = new ThongKeKhachHangDAO();
             modelKhachHang.setRowCount(0);
             int soLuongSanPham = 0;
             int soHoaDon = 0;
@@ -1339,26 +1340,26 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
             java.util.Date currDate = new java.util.Date();
             switch (selectedItem) {
                 case "Theo ngày":
-                    khachHangList = khachHangDAO.getKHTuyChinhTongChiThapNhat(new java.sql.Date(currDate.getTime()), new java.sql.Date(currDate.getTime()));
+                    khachHangList = thongKeKhachHangDAO.getKHTuyChinhTongChiThapNhat(new java.sql.Date(currDate.getTime()), new java.sql.Date(currDate.getTime()));
                     break;
                 case "Theo tuần":
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTime(currDate);
                     calendar.add(Calendar.DAY_OF_MONTH, -7);
                     java.util.Date weekAgo = calendar.getTime();
-                    khachHangList = khachHangDAO.getKHTuyChinhTongChiThapNhat(new java.sql.Date(weekAgo.getTime()), new java.sql.Date(currDate.getTime()));
+                    khachHangList = thongKeKhachHangDAO.getKHTuyChinhTongChiThapNhat(new java.sql.Date(weekAgo.getTime()), new java.sql.Date(currDate.getTime()));
                     break;
                 case "Theo tháng":
-                    khachHangList = khachHangDAO.getKHThangNamTongChiThapNhat(Integer.parseInt(jcbThangKH.getSelectedItem().toString()), Integer.parseInt(jcbNamKH.getSelectedItem().toString()));
+                    khachHangList = thongKeKhachHangDAO.getKHThangNamTongChiThapNhat(Integer.parseInt(jcbThangKH.getSelectedItem().toString()), Integer.parseInt(jcbNamKH.getSelectedItem().toString()));
                     break;
                 case "Tuỳ chỉnh":
                     java.sql.Date tuNgay = jdTuNgayKH.getDate() == null ? null : new java.sql.Date(jdTuNgayKH.getDate().getTime());
                     java.sql.Date denNgay = jdDenNgayKH.getDate() == null ? null : new java.sql.Date(jdDenNgayKH.getDate().getTime());
-                    khachHangList = khachHangDAO.getKHTuyChinhTongChiThapNhat(tuNgay, denNgay);
+                    khachHangList = thongKeKhachHangDAO.getKHTuyChinhTongChiThapNhat(tuNgay, denNgay);
                     break;
 
                 case "Theo năm":
-                    khachHangList = khachHangDAO.getKHThangNamTongChiThapNhat(0, Integer.parseInt(jcbNamKH.getSelectedItem().toString()));
+                    khachHangList = thongKeKhachHangDAO.getKHThangNamTongChiThapNhat(0, Integer.parseInt(jcbNamKH.getSelectedItem().toString()));
                     break;
                 default:
                     break;
@@ -1379,7 +1380,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
             txtsoLuongNDK.setText(soLuongNDK + "");
         } else if (luaChon.equals("Top 5 khách hàng mua hàng nhiều nhất")) {
             String selectedItem = (String) jcbLuaChonKH.getSelectedItem();
-            khachHangDAO = new ThongKeKhachHangDAO();
+            thongKeKhachHangDAO = new ThongKeKhachHangDAO();
             modelKhachHang.setRowCount(0);
             int soLuongSanPham = 0;
             int soHoaDon = 0;
@@ -1388,26 +1389,26 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
             java.util.Date currDate = new java.util.Date();
             switch (selectedItem) {
                 case "Theo ngày":
-                    khachHangList = khachHangDAO.getKHTuyChinhMuaHangNhieuNhat(new java.sql.Date(currDate.getTime()), new java.sql.Date(currDate.getTime()));
+                    khachHangList = thongKeKhachHangDAO.getKHTuyChinhMuaHangNhieuNhat(new java.sql.Date(currDate.getTime()), new java.sql.Date(currDate.getTime()));
                     break;
                 case "Theo tuần":
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTime(currDate);
                     calendar.add(Calendar.DAY_OF_MONTH, -7);
                     java.util.Date weekAgo = calendar.getTime();
-                    khachHangList = khachHangDAO.getKHTuyChinhMuaHangNhieuNhat(new java.sql.Date(weekAgo.getTime()), new java.sql.Date(currDate.getTime()));
+                    khachHangList = thongKeKhachHangDAO.getKHTuyChinhMuaHangNhieuNhat(new java.sql.Date(weekAgo.getTime()), new java.sql.Date(currDate.getTime()));
                     break;
                 case "Theo tháng":
-                    khachHangList = khachHangDAO.getKHThangNamMuaHangNhieuNhat(Integer.parseInt(jcbThangKH.getSelectedItem().toString()), Integer.parseInt(jcbNamKH.getSelectedItem().toString()));
+                    khachHangList = thongKeKhachHangDAO.getKHThangNamMuaHangNhieuNhat(Integer.parseInt(jcbThangKH.getSelectedItem().toString()), Integer.parseInt(jcbNamKH.getSelectedItem().toString()));
                     break;
                 case "Tuỳ chỉnh":
                     java.sql.Date tuNgay = jdTuNgayKH.getDate() == null ? null : new java.sql.Date(jdTuNgayKH.getDate().getTime());
                     java.sql.Date denNgay = jdDenNgayKH.getDate() == null ? null : new java.sql.Date(jdDenNgayKH.getDate().getTime());
-                    khachHangList = khachHangDAO.getKHTuyChinhMuaHangNhieuNhat(tuNgay, denNgay);
+                    khachHangList = thongKeKhachHangDAO.getKHTuyChinhMuaHangNhieuNhat(tuNgay, denNgay);
                     break;
 
                 case "Theo năm":
-                    khachHangList = khachHangDAO.getKHThangNamMuaHangNhieuNhat(0, Integer.parseInt(jcbNamKH.getSelectedItem().toString()));
+                    khachHangList = thongKeKhachHangDAO.getKHThangNamMuaHangNhieuNhat(0, Integer.parseInt(jcbNamKH.getSelectedItem().toString()));
                     break;
                 default:
                     break;
@@ -1428,7 +1429,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
             txtsoLuongNDK.setText(soLuongNDK + "");
         } else if (luaChon.equals("Top 5 khách hàng mua hàng ít nhất")) {
             String selectedItem = (String) jcbLuaChonKH.getSelectedItem();
-            khachHangDAO = new ThongKeKhachHangDAO();
+            thongKeKhachHangDAO = new ThongKeKhachHangDAO();
             modelKhachHang.setRowCount(0);
             int soLuongSanPham = 0;
             int soHoaDon = 0;
@@ -1437,26 +1438,26 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
             java.util.Date currDate = new java.util.Date();
             switch (selectedItem) {
                 case "Theo ngày":
-                    khachHangList = khachHangDAO.getKHTuyChinhMuaHangItNhat(new java.sql.Date(currDate.getTime()), new java.sql.Date(currDate.getTime()));
+                    khachHangList = thongKeKhachHangDAO.getKHTuyChinhMuaHangItNhat(new java.sql.Date(currDate.getTime()), new java.sql.Date(currDate.getTime()));
                     break;
                 case "Theo tuần":
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTime(currDate);
                     calendar.add(Calendar.DAY_OF_MONTH, -7);
                     java.util.Date weekAgo = calendar.getTime();
-                    khachHangList = khachHangDAO.getKHTuyChinhMuaHangItNhat(new java.sql.Date(weekAgo.getTime()), new java.sql.Date(currDate.getTime()));
+                    khachHangList = thongKeKhachHangDAO.getKHTuyChinhMuaHangItNhat(new java.sql.Date(weekAgo.getTime()), new java.sql.Date(currDate.getTime()));
                     break;
                 case "Theo tháng":
-                    khachHangList = khachHangDAO.getKHThangNamMuaHangItNhat(Integer.parseInt(jcbThangKH.getSelectedItem().toString()), Integer.parseInt(jcbNamKH.getSelectedItem().toString()));
+                    khachHangList = thongKeKhachHangDAO.getKHThangNamMuaHangItNhat(Integer.parseInt(jcbThangKH.getSelectedItem().toString()), Integer.parseInt(jcbNamKH.getSelectedItem().toString()));
                     break;
                 case "Tuỳ chỉnh":
                     java.sql.Date tuNgay = jdTuNgayKH.getDate() == null ? null : new java.sql.Date(jdTuNgayKH.getDate().getTime());
                     java.sql.Date denNgay = jdDenNgayKH.getDate() == null ? null : new java.sql.Date(jdDenNgayKH.getDate().getTime());
-                    khachHangList = khachHangDAO.getKHTuyChinhMuaHangItNhat(tuNgay, denNgay);
+                    khachHangList = thongKeKhachHangDAO.getKHTuyChinhMuaHangItNhat(tuNgay, denNgay);
                     break;
 
                 case "Theo năm":
-                    khachHangList = khachHangDAO.getKHThangNamMuaHangItNhat(0, Integer.parseInt(jcbNamKH.getSelectedItem().toString()));
+                    khachHangList = thongKeKhachHangDAO.getKHThangNamMuaHangItNhat(0, Integer.parseInt(jcbNamKH.getSelectedItem().toString()));
                     break;
                 default:
                     break;
@@ -1477,7 +1478,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
             txtsoLuongNDK.setText(soLuongNDK + "");
         } else if (luaChon.equals("Top 5 khách hàng thường xuyên mua hàng nhất")) {
             String selectedItem = (String) jcbLuaChonKH.getSelectedItem();
-            khachHangDAO = new ThongKeKhachHangDAO();
+            thongKeKhachHangDAO = new ThongKeKhachHangDAO();
             modelKhachHang.setRowCount(0);
             int soLuongSanPham = 0;
             int soHoaDon = 0;
@@ -1486,26 +1487,26 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
             java.util.Date currDate = new java.util.Date();
             switch (selectedItem) {
                 case "Theo ngày":
-                    khachHangList = khachHangDAO.getKHTuyChinhThuongXuyenMuaHang(new java.sql.Date(currDate.getTime()), new java.sql.Date(currDate.getTime()));
+                    khachHangList = thongKeKhachHangDAO.getKHTuyChinhThuongXuyenMuaHang(new java.sql.Date(currDate.getTime()), new java.sql.Date(currDate.getTime()));
                     break;
                 case "Theo tuần":
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTime(currDate);
                     calendar.add(Calendar.DAY_OF_MONTH, -7);
                     java.util.Date weekAgo = calendar.getTime();
-                    khachHangList = khachHangDAO.getKHTuyChinhThuongXuyenMuaHang(new java.sql.Date(weekAgo.getTime()), new java.sql.Date(currDate.getTime()));
+                    khachHangList = thongKeKhachHangDAO.getKHTuyChinhThuongXuyenMuaHang(new java.sql.Date(weekAgo.getTime()), new java.sql.Date(currDate.getTime()));
                     break;
                 case "Theo tháng":
-                    khachHangList = khachHangDAO.getKHThangNamThuongXuyenMuaHang(Integer.parseInt(jcbThangKH.getSelectedItem().toString()), Integer.parseInt(jcbNamKH.getSelectedItem().toString()));
+                    khachHangList = thongKeKhachHangDAO.getKHThangNamThuongXuyenMuaHang(Integer.parseInt(jcbThangKH.getSelectedItem().toString()), Integer.parseInt(jcbNamKH.getSelectedItem().toString()));
                     break;
                 case "Tuỳ chỉnh":
                     java.sql.Date tuNgay = jdTuNgayKH.getDate() == null ? null : new java.sql.Date(jdTuNgayKH.getDate().getTime());
                     java.sql.Date denNgay = jdDenNgayKH.getDate() == null ? null : new java.sql.Date(jdDenNgayKH.getDate().getTime());
-                    khachHangList = khachHangDAO.getKHTuyChinhThuongXuyenMuaHang(tuNgay, denNgay);
+                    khachHangList = thongKeKhachHangDAO.getKHTuyChinhThuongXuyenMuaHang(tuNgay, denNgay);
                     break;
 
                 case "Theo năm":
-                    khachHangList = khachHangDAO.getKHThangNamThuongXuyenMuaHang(0, Integer.parseInt(jcbNamKH.getSelectedItem().toString()));
+                    khachHangList = thongKeKhachHangDAO.getKHThangNamThuongXuyenMuaHang(0, Integer.parseInt(jcbNamKH.getSelectedItem().toString()));
                     break;
                 default:
                     break;
@@ -1526,7 +1527,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
             txtsoLuongNDK.setText(soLuongNDK + "");
         } else if (luaChon.equals("Top 5 khách hàng không thường xuyên mua hàng nhất")) {
             String selectedItem = (String) jcbLuaChonKH.getSelectedItem();
-            khachHangDAO = new ThongKeKhachHangDAO();
+            thongKeKhachHangDAO = new ThongKeKhachHangDAO();
             modelKhachHang.setRowCount(0);
             int soLuongSanPham = 0;
             int soHoaDon = 0;
@@ -1535,26 +1536,26 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
             java.util.Date currDate = new java.util.Date();
             switch (selectedItem) {
                 case "Theo ngày":
-                    khachHangList = khachHangDAO.getKHTuyChinhKhongThuongXuyenMuaHang(new java.sql.Date(currDate.getTime()), new java.sql.Date(currDate.getTime()));
+                    khachHangList = thongKeKhachHangDAO.getKHTuyChinhKhongThuongXuyenMuaHang(new java.sql.Date(currDate.getTime()), new java.sql.Date(currDate.getTime()));
                     break;
                 case "Theo tuần":
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTime(currDate);
                     calendar.add(Calendar.DAY_OF_MONTH, -7);
                     java.util.Date weekAgo = calendar.getTime();
-                    khachHangList = khachHangDAO.getKHTuyChinhKhongThuongXuyenMuaHang(new java.sql.Date(weekAgo.getTime()), new java.sql.Date(currDate.getTime()));
+                    khachHangList = thongKeKhachHangDAO.getKHTuyChinhKhongThuongXuyenMuaHang(new java.sql.Date(weekAgo.getTime()), new java.sql.Date(currDate.getTime()));
                     break;
                 case "Theo tháng":
-                    khachHangList = khachHangDAO.getKHThangNamKhongThuongXuyenMuaHang(Integer.parseInt(jcbThangKH.getSelectedItem().toString()), Integer.parseInt(jcbNamKH.getSelectedItem().toString()));
+                    khachHangList = thongKeKhachHangDAO.getKHThangNamKhongThuongXuyenMuaHang(Integer.parseInt(jcbThangKH.getSelectedItem().toString()), Integer.parseInt(jcbNamKH.getSelectedItem().toString()));
                     break;
                 case "Tuỳ chỉnh":
                     java.sql.Date tuNgay = jdTuNgayKH.getDate() == null ? null : new java.sql.Date(jdTuNgayKH.getDate().getTime());
                     java.sql.Date denNgay = jdDenNgayKH.getDate() == null ? null : new java.sql.Date(jdDenNgayKH.getDate().getTime());
-                    khachHangList = khachHangDAO.getKHTuyChinhKhongThuongXuyenMuaHang(tuNgay, denNgay);
+                    khachHangList = thongKeKhachHangDAO.getKHTuyChinhKhongThuongXuyenMuaHang(tuNgay, denNgay);
                     break;
 
                 case "Theo năm":
-                    khachHangList = khachHangDAO.getKHThangNamKhongThuongXuyenMuaHang(0, Integer.parseInt(jcbNamKH.getSelectedItem().toString()));
+                    khachHangList = thongKeKhachHangDAO.getKHThangNamKhongThuongXuyenMuaHang(0, Integer.parseInt(jcbNamKH.getSelectedItem().toString()));
                     break;
                 default:
                     break;
@@ -1644,6 +1645,22 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
     private void btnBieuDoKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBieuDoKHActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBieuDoKHActionPerformed
+
+    private void tableSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableSanPhamMouseClicked
+        JFrame_ChiTietSanPham jf = new JFrame_ChiTietSanPham();
+        jf.setLocationRelativeTo(null);
+        jf.setVisible(true);
+        sanPhamDAO = new SanPhamDAO();
+        String maSP = tableSanPham.getValueAt(tableSanPham.getSelectedRow(), 0).toString();
+        String soLuong = tableSanPham.getValueAt(tableSanPham.getSelectedRow(), 2).toString();
+        String tongTien = tableSanPham.getValueAt(tableSanPham.getSelectedRow(), 3).toString();
+        for (SanPham sp : sanPhamDAO.selectAll()) {
+            if (maSP.equals(sp.getMaSanPham())) {
+                jf.chuyenDoiChu(sp.getMaSanPham(), sp.getTenSanPham(), sp.getMaNhaCC(), sp.getTacGia(), sp.getNhaXuatBan(), sp.getDonViTinh(), sp.getDanhMuc(), soLuong, sp.getGia() + "", tongTien, sp.getSoTrang() + "", sp.getNamXuatBan() + "");
+                break;
+            }
+        }
+    }//GEN-LAST:event_tableSanPhamMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
