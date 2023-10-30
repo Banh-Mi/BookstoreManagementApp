@@ -38,7 +38,9 @@ import org.imgscalr.Scalr;
  * @author Nguyễn Thanh Nhứt
  */
 public class JPanel_BanHang extends javax.swing.JPanel {
-
+    private Thread thread = new Thread(
+                () -> scanCode()
+        );
     private String maNhanVien;
     private DefaultTableModel modelCart;
     private SanPhamDAO sanPhamDAO = new SanPhamDAO();
@@ -56,6 +58,7 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         initComponents();
         modelCart = (DefaultTableModel) tbl_Cart.getModel();
         modelCart.setRowCount(0);
+        tbl_Cart.setEnabled(false);
         svgPay2.setSvgImage("pay.svg", 30, 30);
         svgPay1.setSvgImage("pay.svg", 30, 30);
         svgSearch.setSvgImage("search.svg", 20, 20);
@@ -74,10 +77,7 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         txa_customerDeliveryAddress.setEnabled(false);
         txa_noteOrder.setEnabled(false);
 
-        Thread thread = new Thread(
-                () -> scanCode()
-        );
-        thread.start();
+        
         loadData();
     }
 
@@ -91,9 +91,9 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         webcamPanel.setImageSizeDisplayed(true);
         webcamPanel.setMirrored(false); // Đừng đảo ngược hình ảnh
 
-        jPanelScanCode.add(webcamPanel, BorderLayout.CENTER);
-        jPanelScanCode.repaint();
-        jPanelScanCode.revalidate();
+        pnl_scanCode.add(webcamPanel, BorderLayout.CENTER);
+        pnl_scanCode.repaint();
+        pnl_scanCode.revalidate();
         while (true) {
             BufferedImage image = webcam.getImage();
             Result result = decodeBarcode(image);
@@ -300,7 +300,7 @@ public class JPanel_BanHang extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanelScanCode = new javax.swing.JPanel();
+        pnl_scanCode = new javax.swing.JPanel();
         jPanelCart = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbl_Cart = new javax.swing.JTable();
@@ -310,7 +310,7 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         cb_category = new javax.swing.JComboBox<>();
         btn_next = new javax.swing.JButton();
         jTabbedPane2 = new javax.swing.JTabbedPane();
-        jPanelOrderPay = new javax.swing.JPanel();
+        pnl_salePay = new javax.swing.JPanel();
         jpPaySale = new util.JPanelRounded();
         lblPay1 = new javax.swing.JLabel();
         svgPay1 = new util.SVGImage();
@@ -344,7 +344,7 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         lbl_customerNameSale = new javax.swing.JLabel();
         lblOrderDate1 = new javax.swing.JLabel();
         lblOrderDate = new javax.swing.JLabel();
-        jPanelOrderPay2 = new javax.swing.JPanel();
+        pnl_orderPage = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
         lblOrderId2 = new javax.swing.JLabel();
         lbl_orderIdOrder = new javax.swing.JLabel();
@@ -425,8 +425,8 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(1040, 711));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanelScanCode.setLayout(new java.awt.BorderLayout());
-        add(jPanelScanCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 260, 140));
+        pnl_scanCode.setLayout(new java.awt.BorderLayout());
+        add(pnl_scanCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 260, 140));
 
         jPanelCart.setLayout(new java.awt.BorderLayout());
 
@@ -501,7 +501,7 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         });
         add(btn_next, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 710, 60, 30));
 
-        jPanelOrderPay.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        pnl_salePay.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jpPaySale.setBackground(new java.awt.Color(255, 255, 255));
         jpPaySale.setRoundedBottomLeft(10);
@@ -522,7 +522,7 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         svgPay1.setText(" ");
         jpPaySale.add(svgPay1, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
 
-        jPanelOrderPay.add(jpPaySale, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 620, 130, 40));
+        pnl_salePay.add(jpPaySale, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 620, 130, 40));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Chi tiết"));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -602,7 +602,7 @@ public class JPanel_BanHang extends javax.swing.JPanel {
 
         jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 230, 140, 100));
 
-        jPanelOrderPay.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 300, 340));
+        pnl_salePay.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 300, 340));
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin chung"));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -643,11 +643,11 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         jPanel4.add(lblOrderDate1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 90, 30));
         jPanel4.add(lblOrderDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, 160, 30));
 
-        jPanelOrderPay.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 300, 250));
+        pnl_salePay.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 300, 250));
 
-        jTabbedPane2.addTab("Đơn hàng", jPanelOrderPay);
+        jTabbedPane2.addTab("Đơn hàng", pnl_salePay);
 
-        jPanelOrderPay2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        pnl_orderPage.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin chung"));
         jPanel12.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -694,7 +694,7 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         jPanel12.add(lblEmployeeIdOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, 160, 30));
         jPanel12.add(lblOrderDate4, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 140, 160, 30));
 
-        jPanelOrderPay2.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 300, 320));
+        pnl_orderPage.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 300, 320));
 
         s.setBorder(javax.swing.BorderFactory.createTitledBorder("Chi tiết"));
         s.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -747,7 +747,7 @@ public class JPanel_BanHang extends javax.swing.JPanel {
 
         s.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 150, 140, 100));
 
-        jPanelOrderPay2.add(s, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 300, 260));
+        pnl_orderPage.add(s, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 300, 260));
 
         jpDelivery.setBackground(new java.awt.Color(255, 255, 255));
         jpDelivery.setRoundedBottomLeft(10);
@@ -768,9 +768,9 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         svgPay2.setText(" ");
         jpDelivery.add(svgPay2, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
 
-        jPanelOrderPay2.add(jpDelivery, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 620, 130, 40));
+        pnl_orderPage.add(jpDelivery, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 620, 130, 40));
 
-        jTabbedPane2.addTab("Đặt hàng", jPanelOrderPay2);
+        jTabbedPane2.addTab("Đặt hàng", pnl_orderPage);
 
         add(jTabbedPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 10, 320, 720));
 
@@ -1125,6 +1125,8 @@ public class JPanel_BanHang extends javax.swing.JPanel {
     }//GEN-LAST:event_pnlDeleteMouseClicked
 
     private void pnlCreateInvoiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlCreateInvoiceMouseClicked
+        thread.start();
+        tbl_Cart.setEnabled(true);  
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm a");
         if (!chkOrder.isSelected()) {
             // Set enable fields
@@ -1467,9 +1469,6 @@ public class JPanel_BanHang extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanelCart;
-    private javax.swing.JPanel jPanelOrderPay;
-    private javax.swing.JPanel jPanelOrderPay2;
-    private javax.swing.JPanel jPanelScanCode;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -1559,10 +1558,13 @@ public class JPanel_BanHang extends javax.swing.JPanel {
     private util.JPanelRounded pnlCreateInvoice;
     private util.JPanelRounded pnlDelete;
     private util.JPanelRounded pnl_deleteAll;
+    private javax.swing.JPanel pnl_orderPage;
     private javax.swing.JPanel pnl_productItem1;
     private javax.swing.JPanel pnl_productItem2;
     private javax.swing.JPanel pnl_productItem3;
     private javax.swing.JPanel pnl_productItem4;
+    private javax.swing.JPanel pnl_salePay;
+    private javax.swing.JPanel pnl_scanCode;
     private javax.swing.JPanel s;
     private util.SVGImage svgCreateInvoice;
     private util.SVGImage svgDelete;
