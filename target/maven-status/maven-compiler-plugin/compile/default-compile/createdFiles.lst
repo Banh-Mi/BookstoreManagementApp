@@ -64,9 +64,7 @@ gui\JPanel_KhuyenMai$14.class
 gui\JPanel_TimKiemNhaCungCap$1.class
 connectDB\ConnectDB.class
 gui\HoaDonDoanhThu.class
-<<<<<<< HEAD
 gui\JPanel_BanHang$29.class
-=======
 gui\JPanel_ThongKe$18.class
 gui\JPanel_SanPham$7.class
 gui\BieuDoSanPham$3.class
@@ -81,6 +79,7 @@ gui\JPhanel_HoaDon$11.class
 gui\JPanel_BanHang$1.class
 gui\JFrame_ChiTietKhachHang$15.class
 gui\JPanel_KhuyenMai$3.class
+gui\ThongTinKhachHang$1.class
 gui\JPanel_NhaCungCap$1.class
 gui\JFrame_ChiTietSanPham$9.class
 gui\JPanel_KhachHang$8.class
@@ -136,6 +135,7 @@ entity\TaiKhoan.class
 gui\JFrame_ChiTietSanPham$4.class
 gui\JPanel_KhuyenMai$5.class
 gui\JPhanel_HoaDon$16.class
+gui\ThongTinKhachHang$3.class
 gui\JPanel_KhachHang$3.class
 gui\JPanel_NhaCungCap$2.class
 gui\JPanel_ThongKe$12.class
@@ -149,6 +149,7 @@ gui\JPanel_KhachHangTK$5.class
 gui\JPanel_ThongKe$11.class
 gui\JPanel_NhaCungCap$3.class
 gui\JPhanel_HoaDon$17.class
+gui\ThongTinKhachHang$2.class
 gui\JPanel_BanHang$17.class
 gui\BieuDoKhachHang.class
 gui\JPanel_SanPham$18.class
@@ -203,7 +204,6 @@ gui\JPanel_SanPham$8.class
 Dao\ChiTietHoaDonDAO.class
 gui\JFrame_ChiTietKhachHang$8.class
 gui\GiaoDienDangNhap$2.class
->>>>>>> 54fc4bfa4820ae5c05eb59ee4a7d183838aa5cf6
 gui\JPanel_ThongKe$16.class
 gui\ThongTinSanPham$1.class
 gui\JPhanel_HoaDon$12.class
@@ -229,11 +229,6 @@ gui\JPanel_KhachHang$9.class
 gui\JPanel_SanPham$15.class
 gui\JPanel_SanPham$9.class
 gui\GiaoDienDangNhap$3.class
-<<<<<<< HEAD
-gui\ThongTinKhachHang$1.class
-gui\JPanel_NhaCungCap$1.class
-=======
->>>>>>> 54fc4bfa4820ae5c05eb59ee4a7d183838aa5cf6
 gui\GiaoDienChinh$10.class
 gui\JPanel_TaiKhoan$2.class
 gui\JPhanel_HoaDon$5.class
@@ -282,13 +277,6 @@ gui\JFrame_ChiTietKhachHang$10.class
 gui\JPhanel_HoaDon$6.class
 gui\JPanel_PhanCa$5.class
 gui\GiaoDienChinh$4.class
-<<<<<<< HEAD
-gui\ThongTinKhachHang$3.class
-gui\JPanel_KhachHang$3.class
-gui\JPanel_NhaCungCap$2.class
-gui\JPanel_ThongKe$12.class
-=======
->>>>>>> 54fc4bfa4820ae5c05eb59ee4a7d183838aa5cf6
 gui\JPanel_NhanVien$1.class
 gui\JPanel_ThongKe$7.class
 gui\JPanel_PhanCa.class
@@ -297,6 +285,5 @@ gui\GiaoDienDangNhap.class
 gui\JPanel_PhanCa$6.class
 Dao\InterfaceDAO.class
 gui\JPanel_KhuyenMai$19.class
-gui\ThongTinKhachHang$2.class
 gui\JPhanel_HoaDon$7.class
 gui\GiaoDienChinh$3.class
