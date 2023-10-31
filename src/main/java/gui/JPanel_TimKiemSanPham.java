@@ -61,9 +61,7 @@ public class JPanel_TimKiemSanPham extends javax.swing.JPanel {
             if (sanPham.getDanhMuc().equals("Sách")) {
                 uniqueNam.add(sanPham.getNamXuatBan());
             }
-
         }
-        jcbTuyChon.addItem("Tất cả sản phẩm");
         for (String danhMuc : uniqueDanhMuc) {
             jcbTuyChon.addItem(danhMuc);
         }
@@ -73,7 +71,6 @@ public class JPanel_TimKiemSanPham extends javax.swing.JPanel {
         for (int nam : uniqueNam) {
             jcbNamXuatBan.addItem(nam + "");
         }
-
     }
 
     private void loadTuyChon(boolean componentSach, String item) {
@@ -109,32 +106,17 @@ public class JPanel_TimKiemSanPham extends javax.swing.JPanel {
 
     private void loadData() {
         sanPhamDAO = new SanPhamDAO();
-        String tuyChon = jcbTuyChon.getSelectedItem().toString();
-        loadTuyChon(tuyChon.equals("Sách"), tuyChon.toUpperCase());
-        System.out.println("Load data");
-
-        sanPhamDAO = new SanPhamDAO();
-        SanPham sanPhamLoc;
-        String item = jcbTuyChon.getSelectedItem().toString().equals("Tất cả sản phẩm") ? "" : jcbTuyChon.getSelectedItem().toString();
-        String ma = checkEmpty(txtMa.getText()) ? null : txtMa.getText();
-        String ten = checkEmpty(txtTen.getText()) ? null : txtTen.getText();
-        String trangThai = jcbTrangThai.getSelectedItem().equals("Đang bán") ? "1" : jcbTrangThai.getSelectedItem().equals("Tất cả") ? null : "0";
-        double gia = checkEmpty(txtGia.getText()) ? -1 : Double.parseDouble(txtGia.getText());
+        String item = jcbTuyChon.getSelectedItem().toString();
+        loadTuyChon(item.equals("Sách"), item.toUpperCase());
         modelTimKiem = (DefaultTableModel) tableSanPham.getModel();
-        modelTimKiem.setRowCount(0);
+        //{"Mã sách", "Tên sách", "Danh mục", "Nhà cung cấp", "Đơn vị tính", "Tác giả", "Nhà xuất bản", "Năm xuất bản", "Số trang", "Số lượng", "Giá", "Mô tả"};
         if (item.equals("Sách")) {
-            String nhaXuatBan = checkEmpty(txtNhaXuatBan.getText().trim()) ? null : txtNhaXuatBan.getText();
-            int soTrang = checkEmpty(txtSoTrang.getText()) ? -1 : Integer.parseInt(txtSoTrang.getText());
-            int namXuatBan = jcbNamXuatBan.getSelectedItem().equals("Mặc định") ? -1 : Integer.parseInt(jcbNamXuatBan.getSelectedItem().toString());
-            String tacGia = checkEmpty(txtTacGia.getText()) ? null : txtTacGia.getText();
-            sanPhamLoc = new SanPham(ma, ten, item, tacGia, nhaXuatBan, namXuatBan, soTrang, gia);
-            for (SanPham sanPham : sanPhamDAO.timSanPham(sanPhamLoc, trangThai)) {
+            for (SanPham sanPham : sanPhamDAO.layTheoDanhMuc(item)) {
                 String[] data = {sanPham.getMaSanPham(), sanPham.getTenSanPham(), sanPham.getDanhMuc(), (nhaCungCapDAO.timNhaCungCapTheoID(sanPham.getMaNhaCC())).getTenNhaCC(), sanPham.getDonViTinh(), sanPham.getTacGia(), sanPham.getNhaXuatBan(), sanPham.getNamXuatBan() + "", sanPham.getSoTrang() + "", sanPham.getSoLuong() + "", nf.format(sanPham.getGia()), sanPham.getMoTa()};
                 modelTimKiem.addRow(data);
             }
         } else {
-            sanPhamLoc = new SanPham(ma, ten, item, null, null, -1, -1, gia);
-            for (SanPham sanPham : sanPhamDAO.timSanPham(sanPhamLoc, trangThai)) {
+            for (SanPham sanPham : sanPhamDAO.layTheoDanhMuc(item)) {
                 String[] data = {sanPham.getMaSanPham(), sanPham.getTenSanPham(), sanPham.getDanhMuc(), (nhaCungCapDAO.timNhaCungCapTheoID(sanPham.getMaNhaCC())).getTenNhaCC(), sanPham.getDonViTinh(), sanPham.getSoLuong() + "", nf.format(sanPham.getGia()), sanPham.getMoTa()};
                 modelTimKiem.addRow(data);
             }
@@ -195,21 +177,21 @@ public class JPanel_TimKiemSanPham extends javax.swing.JPanel {
 
         lblTen.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblTen.setText("Tên sách:");
-        jpChucNang.add(lblTen, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 20, -1, 40));
+        jpChucNang.add(lblTen, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 20, -1, 40));
 
         lblMa.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblMa.setText("Mã sách:");
         jpChucNang.add(lblMa, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 20, -1, 40));
 
         txtTen.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jpChucNang.add(txtTen, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 20, 210, 40));
+        jpChucNang.add(txtTen, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 20, 210, 40));
 
         txtMa.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jpChucNang.add(txtMa, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 20, 150, 40));
+        jpChucNang.add(txtMa, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 20, 150, 40));
 
         lblTrangThai.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblTrangThai.setText("Trạng thái:");
-        jpChucNang.add(lblTrangThai, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 20, -1, 40));
+        jpChucNang.add(lblTrangThai, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 20, -1, 40));
 
         jpTim.setBackground(new java.awt.Color(255, 255, 255));
         jpTim.setRoundedBottomLeft(10);
@@ -225,12 +207,12 @@ public class JPanel_TimKiemSanPham extends javax.swing.JPanel {
 
         jbDelete.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jbDelete.setText("Tìm");
-        jpTim.add(jbDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, 70, 50));
+        jpTim.add(jbDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 100, 50));
 
         svgDelete.setText(" ");
-        jpTim.add(svgDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 5, 40, 40));
+        jpTim.add(svgDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 40, 40));
 
-        jpChucNang.add(jpTim, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 130, 50));
+        jpChucNang.add(jpTim, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 150, 50));
 
         jpLamMoi.setBackground(new java.awt.Color(255, 255, 255));
         jpLamMoi.setRoundedBottomLeft(10);
@@ -255,12 +237,7 @@ public class JPanel_TimKiemSanPham extends javax.swing.JPanel {
 
         jcbTrangThai.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jcbTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Đang bán", "Ngưng bán" }));
-        jcbTrangThai.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jcbTrangThaiActionPerformed(evt);
-            }
-        });
-        jpChucNang.add(jcbTrangThai, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 20, 160, 40));
+        jpChucNang.add(jcbTrangThai, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 20, 120, 40));
 
         txtNhaXuatBan.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jpChucNang.add(txtNhaXuatBan, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 90, 190, 40));
@@ -283,11 +260,6 @@ public class JPanel_TimKiemSanPham extends javax.swing.JPanel {
         jcbNamXuatBan.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jcbNamXuatBan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
         jcbNamXuatBan.setSelectedIndex(-1);
-        jcbNamXuatBan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jcbNamXuatBanActionPerformed(evt);
-            }
-        });
         jpChucNang.add(jcbNamXuatBan, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 90, 150, 40));
 
         lblNhaXuatBan.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -331,6 +303,11 @@ public class JPanel_TimKiemSanPham extends javax.swing.JPanel {
 
             }
         ));
+        tableSanPham.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableSanPhamMouseClicked(evt);
+            }
+        });
         scrollSanPham.setViewportView(tableSanPham);
 
         jPanel4.add(scrollSanPham, java.awt.BorderLayout.CENTER);
@@ -339,7 +316,35 @@ public class JPanel_TimKiemSanPham extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jpTimMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpTimMouseClicked
-        loadData();
+        sanPhamDAO = new SanPhamDAO();
+        SanPham sanPhamLoc;
+        String item = jcbTuyChon.getSelectedItem().toString();
+        String danhMuc = jcbTuyChon.getSelectedItem().toString();
+        String ma = checkEmpty(txtMa.getText()) ? null : txtMa.getText();
+        String ten = checkEmpty(txtTen.getText()) ? null : txtTen.getText();
+        boolean trangThai = jcbTrangThai.getSelectedItem().equals("Đang bán");
+        double gia = checkEmpty(txtGia.getText()) ? -1 : Double.parseDouble(txtGia.getText());
+        modelTimKiem = (DefaultTableModel) tableSanPham.getModel();
+        modelTimKiem.setRowCount(0);
+        if (item.equals("Sách")) {
+            String nhaXuatBan = checkEmpty(txtNhaXuatBan.getText().trim()) ? null : txtNhaXuatBan.getText();
+            int soTrang = checkEmpty(txtSoTrang.getText()) ? -1 : Integer.parseInt(txtSoTrang.getText());
+            int namXuatBan = jcbNamXuatBan.getSelectedItem().equals("Mặc định") ? -1 : Integer.parseInt(jcbNamXuatBan.getSelectedItem().toString());
+            String tacGia = checkEmpty(txtTacGia.getText()) ? null : txtTacGia.getText();
+            sanPhamLoc = new SanPham(ma, ten, danhMuc, tacGia, nhaXuatBan, namXuatBan, soTrang, gia, trangThai);
+            for (SanPham sanPham : jcbTrangThai.getSelectedItem().toString().equals("Tất cả") ? sanPhamDAO.timSanPham(sanPhamLoc, 0) : sanPhamDAO.timSanPham(sanPhamLoc, 1)) {
+                String[] data = {sanPham.getMaSanPham(), sanPham.getTenSanPham(), sanPham.getDanhMuc(), (nhaCungCapDAO.timNhaCungCapTheoID(sanPham.getMaNhaCC())).getTenNhaCC(), sanPham.getDonViTinh(), sanPham.getTacGia(), sanPham.getNhaXuatBan(), sanPham.getNamXuatBan() + "", sanPham.getSoTrang() + "", sanPham.getSoLuong() + "", nf.format(sanPham.getGia()), sanPham.getMoTa()};
+                modelTimKiem.addRow(data);
+            }
+        } else {
+            sanPhamLoc = new SanPham(ma, ten, danhMuc, null, null, -1, -1, gia, trangThai);
+            for (SanPham sanPham : jcbTrangThai.getSelectedItem().toString().equals("Tất cả") ? sanPhamDAO.timSanPham(sanPhamLoc, 0) : sanPhamDAO.timSanPham(sanPhamLoc, 1)) {
+                String[] data = {sanPham.getMaSanPham(), sanPham.getTenSanPham(), sanPham.getDanhMuc(), (nhaCungCapDAO.timNhaCungCapTheoID(sanPham.getMaNhaCC())).getTenNhaCC(), sanPham.getDonViTinh(), sanPham.getSoLuong() + "", nf.format(sanPham.getGia()), sanPham.getMoTa()};
+                modelTimKiem.addRow(data);
+            }
+        }
+
+
     }//GEN-LAST:event_jpTimMouseClicked
 
     private void jpLamMoiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpLamMoiMouseClicked
@@ -347,17 +352,13 @@ public class JPanel_TimKiemSanPham extends javax.swing.JPanel {
         loadData();
     }//GEN-LAST:event_jpLamMoiMouseClicked
 
+    private void tableSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableSanPhamMouseClicked
+
+    }//GEN-LAST:event_tableSanPhamMouseClicked
+
     private void jcbTuyChonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbTuyChonActionPerformed
         loadData();
     }//GEN-LAST:event_jcbTuyChonActionPerformed
-
-    private void jcbTrangThaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbTrangThaiActionPerformed
-        loadData();        // TODO add your handling code here:
-    }//GEN-LAST:event_jcbTrangThaiActionPerformed
-
-    private void jcbNamXuatBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbNamXuatBanActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jcbNamXuatBanActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

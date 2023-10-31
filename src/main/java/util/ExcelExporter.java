@@ -1,75 +1,73 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package util;
+
+import entity.ThongKeDoanhThu;
+
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.List;
 
 public class ExcelExporter {
 
-    public static boolean exportToExcel(JTable table, String totalAmount) {
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setFileFilter(new FileNameExtensionFilter("Excel Files", "xlsx"));
-        int result = fileChooser.showSaveDialog(null);
+    public static boolean exportToExcel(List<ThongKeDoanhThu> doanhThuList, String filePath) {
+        try (Workbook workbook = new XSSFWorkbook()) {
+            Sheet sheet = workbook.createSheet("DanhSachHoaDon");
+            Font boldFont = workbook.createFont();
+            boldFont.setBold(true);
 
-        if (result == JFileChooser.APPROVE_OPTION) {
-            File file = fileChooser.getSelectedFile();
+            // Tạo kiểu font đậm
+            CellStyle boldCellStyle = workbook.createCellStyle();
+            boldCellStyle.setFont(boldFont);
 
-            // Ensure the file has the ".xlsx" extension
-            if (!file.getName().toLowerCase().endsWith(".xlsx")) {
-                file = new File(file.getAbsolutePath() + ".xlsx");
+            // Tạo title
+            Row titleRow = sheet.createRow(0);
+            String[] columns = {"Mã Hóa Đơn", "Tên Nhân Viên", "Tên Khách Hàng", "Ngày Lập Hóa Đơn", "Tổng Tiền", "Giảm giá", "Thành Tiền"};
+            for (int i = 0; i < columns.length; i++) {
+                Cell cell = titleRow.createCell(i);
+                cell.setCellValue(columns[i]);
+                cell.setCellStyle(boldCellStyle); // Đặt kiểu font đậm cho tiêu đề
             }
 
-            try (FileOutputStream outputStream = new FileOutputStream(file); Workbook workbook = new XSSFWorkbook()) {
-                Sheet sheet = workbook.createSheet("DanhSachHoaDon");
-                Font boldFont = workbook.createFont();
-                boldFont.setBold(true);
+            // Đổ dữ liệu từ danh sách vào Excel
+            int rowNum = 1;
+            double totalAmount = 0;
+            for (ThongKeDoanhThu doanhThu : doanhThuList) {
+                Row row = sheet.createRow(rowNum++);
 
-                CellStyle boldCellStyle = workbook.createCellStyle();
-                boldCellStyle.setFont(boldFont);
+                row.createCell(0).setCellValue(doanhThu.getMaHoaDon());
+                row.createCell(1).setCellValue(doanhThu.getTenNV());
+                row.createCell(2).setCellValue(doanhThu.getTenKH());
+                row.createCell(3).setCellValue(doanhThu.getNgayLapHoaDon().toString());
+                row.createCell(4).setCellValue(doanhThu.getTongTien());
+                row.createCell(5).setCellValue(doanhThu.getGiamGia());
+                row.createCell(6).setCellValue(doanhThu.getThanhTien());
 
-                // Tạo dòng tiêu đề
-                Row titleRow = sheet.createRow(0);
-                for (int col = 0; col < table.getColumnCount(); col++) {
-                    Cell cell = titleRow.createCell(col);
-                    cell.setCellValue(table.getColumnName(col));
-                    cell.setCellStyle(boldCellStyle);
-                }
+                totalAmount += doanhThu.getThanhTien();
+            }
 
-                // Xuất dữ liệu từ JTable vào Excel
-                for (int row = 0; row < table.getRowCount(); row++) {
-                    Row excelRow = sheet.createRow(row + 1);
-                    for (int col = 0; col < table.getColumnCount(); col++) {
-                        Object value = table.getValueAt(row, col);
-                        Cell cell = excelRow.createCell(col);
-                        if (value != null) {
-                            cell.setCellValue(value.toString());
-                        }
-                    }
-                }
+            // Tạo dòng cuối cùng để in tổng tiền
+            Row totalRow = sheet.createRow(rowNum);
+            Cell totalLabelCell = totalRow.createCell(columns.length - 2);
+            totalLabelCell.setCellValue("Doanh Thu");
+            totalLabelCell.setCellStyle(boldCellStyle);
 
-                // Tạo dòng chứa tổng doanh thu
-                Row totalRow = sheet.createRow(table.getRowCount() + 1);
+            Cell totalAmountCell = totalRow.createCell(columns.length - 1);
+            totalAmountCell.setCellValue(totalAmount);
+            totalAmountCell.setCellStyle(boldCellStyle);
 
-                Cell totalLabelCell = totalRow.createCell(table.getColumnCount() - 2);
-                totalLabelCell.setCellValue("Doanh Thu");
-                totalLabelCell.setCellStyle(boldCellStyle);
-
-                Cell totalAmountCell = totalRow.createCell(table.getColumnCount() - 1);
-                totalAmountCell.setCellValue(totalAmount);
-                totalAmountCell.setCellStyle(boldCellStyle);
-
-                workbook.write(outputStream);
-
+            try (FileOutputStream fileOut = new FileOutputStream(filePath)) {
+                workbook.write(fileOut);
                 return true;
-            } catch (Exception ex) {
-                ex.printStackTrace();
-                return false;
             }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
         }
-
-        return false;
     }
 }
