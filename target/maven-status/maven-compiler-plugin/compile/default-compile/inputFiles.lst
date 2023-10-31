@@ -4,6 +4,7 @@ C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\dao\KhuyenM
 C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\dao\ThongKeDoanhThuDAO.java
 C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\entity\SanPham.java
 C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\dao\BieuDoSanPhamDAO.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\gui\Frame_TaiKhoan.java
 C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\gui\GiaoDienChinh.java
 C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\dao\NhaCungCapDAO.java
 C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\dao\InterfaceDAO.java
@@ -14,7 +15,6 @@ C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\gui\ThongTi
 C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\gui\JPanel_BanHang.java
 C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\dao\HoaDonDAO.java
 C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\dao\ThongKeKhachHangDAO.java
-C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\gui\JPanel_TaiKhoan.java
 C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\gui\HoaDonDoanhThu.java
 C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\dao\KhachHangDAO.java
 C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\gui\JFrame_ChiTietSanPham.java

@@ -1,11 +1,14 @@
 package entity;
+
 public class TaiKhoan {
 
-    private String maTK; 
+    private String maTK;
     private String tenDangNhap;
-    private String matKhau; 
-    private String quyen; 
+    private String matKhau;
+    private String quyen;
     private String trangThaiTaiKhoan;
+
+    private NhanVien nhanVien;
 
     public TaiKhoan(String maTK, String tenDangNhap, String matKhau, String quyen, String trangThaiTaiKhoan) {
         this.maTK = maTK;
@@ -13,6 +16,22 @@ public class TaiKhoan {
         this.matKhau = matKhau;
         this.quyen = quyen;
         this.trangThaiTaiKhoan = trangThaiTaiKhoan;
+    }
+
+    public TaiKhoan(String maNV, String tenDangNhap, String tenNV, String trangThaiTaiKhoan) {
+        this.nhanVien = new NhanVien();
+        nhanVien.setMaNV(maNV);
+        nhanVien.setTenNV(tenNV);
+        this.tenDangNhap = tenDangNhap;
+        this.trangThaiTaiKhoan = trangThaiTaiKhoan;
+    }
+
+    public NhanVien getNhanVien() {
+        return nhanVien;
+    }
+
+    public void setNhanVien(NhanVien nhanVien) {
+        this.nhanVien = nhanVien;
     }
 
     public TaiKhoan() {

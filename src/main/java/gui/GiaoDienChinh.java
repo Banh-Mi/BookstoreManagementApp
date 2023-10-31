@@ -63,7 +63,7 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
-                   pnView.add(new JPanel_TimKiemNhanVien());
+                pnView.add(new JPanel_TimKiemNhanVien());
                 pnView.repaint();
                 pnView.revalidate();
             }
@@ -72,7 +72,7 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
-                  pnView.add(new JPanel_PhanCa());
+                pnView.add(new JPanel_PhanCa());
                 pnView.repaint();
                 pnView.revalidate();
             }
@@ -159,21 +159,10 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
-                try {
-                    pnView.add(new JPanel_TaiKhoan());
-                } catch (SQLException ex) {
-                    Logger.getLogger(GiaoDienChinh.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                pnView.repaint();
-                pnView.revalidate();
-            }
-        });
-        MenuItem menuTimKiemTK = new MenuItem(null, "Tìm kiếm tài khoản", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                pnView.removeAll();
-                pnView.repaint();
-                pnView.revalidate();
+                JFrame jf = null;
+                jf = new Frame_TaiKhoan(nhanVien.getMaNV(), nhanVien.getChucVu());
+                jf.setLocationRelativeTo(null);
+                jf.setVisible(true);
             }
         });
 
@@ -260,7 +249,7 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
             MenuItem menuProduct = new MenuItem(iconProduct, "Sản phẩm", null, menuQuanLySP, menuTimKiemSP);
             MenuItem menuSupplier = new MenuItem(iconSupplier, "Nhà cung cấp", null, menuQLNhaCC, menuTimKiemNCC);
             MenuItem menuInvoice = new MenuItem(iconInvoice, "Hoá đơn", null, menuQuanLyHD);
-            MenuItem menuAccount = new MenuItem(iconAccount, "Tài khoản", null, menuQuanLyTK, menuTimKiemTK);
+            MenuItem menuAccount = new MenuItem(iconAccount, "Tài khoản", null, menuQuanLyTK);
             addMenu(menuHome, menuEmployee, menuCustomer, menuProduct, menuSupplier, menuInvoice, menuAccount, menuDangXuat);
         } else {
             MenuItem menuEmployee = new MenuItem(iconEmployee, "Nhân viên", null, menuBanHang, menuThongKe, menuQuanLyKM);

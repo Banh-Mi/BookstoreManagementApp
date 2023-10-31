@@ -1,4 +1,5 @@
 gui\JPanel_BanHang$17.class
+gui\Frame_TaiKhoan$2.class
 gui\JPanel_KhachHang$5.class
 gui\BieuDoKhachHang.class
 gui\JFrame_ChiTietSanPham$13.class
@@ -60,6 +61,7 @@ gui\BieuDoKhachHang$7.class
 gui\JPhanel_HoaDon$3.class
 gui\JFrame_ChiTietSanPham$7.class
 gui\MenuItem$2.class
+gui\Frame_TaiKhoan$1.class
 gui\JPanel_KhuyenMai$20.class
 gui\JPanel_KhachHangTK$1.class
 gui\JPanel_TimKiemNhanVien.class
@@ -81,7 +83,6 @@ Dao\HoaDonDAO.class
 entity\KhuyenMai.class
 gui\JPanel_KhuyenMai$11.class
 gui\JPanel_ThongKe$23.class
-gui\GiaoDienChinh$17.class
 entity\KhachHang.class
 gui\JPanel_NhaCungCap$8.class
 gui\BieuDoSanPham$5.class
@@ -114,6 +115,7 @@ gui\GiaoDienDangNhap$2.class
 gui\HoaDonDoanhThu.class
 gui\JPanel_ThongKe$16.class
 gui\ThongTinSanPham$1.class
+gui\Frame_TaiKhoan.class
 gui\JPhanel_HoaDon$12.class
 gui\BieuDoKhachHang$4.class
 gui\JPanel_BanHang$2.class
@@ -154,7 +156,6 @@ gui\GiaoDienChinh$10.class
 gui\JFrame_ChiTietSanPham$9.class
 gui\JPanel_KhachHang$8.class
 Dao\TaiKhoanDAO.class
-gui\JPanel_TaiKhoan$2.class
 gui\JPanel_ThongKe$17.class
 gui\JPhanel_HoaDon$5.class
 gui\JPanel_KhuyenMai$15.class
@@ -211,11 +212,9 @@ gui\JPanel_BanHang$7.class
 gui\JPanel_ThongKe$8.class
 gui\JPanel_ThongKe$5.class
 gui\JPanel_SanPham$2.class
-gui\JPanel_TaiKhoan.class
 gui\BieuDoDoanhThu$2.class
 gui\JPanel_KhachHangTK$7.class
 gui\JPanel_ThongKe$10.class
-gui\JPanel_TaiKhoan$3.class
 gui\JPanel_KhachHangTK$4.class
 gui\JPanel_KhuyenMai$7.class
 gui\JPanel_SanPham$11.class
@@ -231,7 +230,7 @@ entity\NhaCungCap.class
 util\LoginController$1.class
 gui\JPanel_KhachHang$1.class
 gui\JPanel_NhanVien$2.class
-gui\JPanel_TaiKhoan$1.class
+gui\Frame_TaiKhoan$3.class
 gui\BieuDoDoanhThu$5.class
 gui\JPanel_KhachHang$4.class
 gui\BieuDoDoanhThu$4.class
@@ -240,6 +239,7 @@ gui\JPanel_BanHang$9.class
 entity\TaiKhoan.class
 gui\JFrame_ChiTietSanPham$4.class
 gui\JPhanel_HoaDon$6.class
+gui\Frame_TaiKhoan$4.class
 gui\JPanel_KhuyenMai$5.class
 gui\JPanel_PhanCa$5.class
 gui\JPhanel_HoaDon$16.class

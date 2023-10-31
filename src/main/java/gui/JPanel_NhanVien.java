@@ -75,6 +75,8 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
             Object[] row = {nv.getMaNV(), nv.getTenNV(), nv.getGioiTinh(), nv.getNgaySinh(), nv.getDiaChi(), nv.getSoDienThoai(), nv.getEmail(), nv.getChucVu(), nv.getTrangThai()};
             modelNhanVien.addRow(row);
         }
+         lblTrangThai.setVisible(false);
+         cbTrangThai.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -92,7 +94,7 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
         radNu = new javax.swing.JRadioButton();
         radNam = new javax.swing.JRadioButton();
         lblPhone = new javax.swing.JLabel();
-        lblStatus = new javax.swing.JLabel();
+        lblTrangThai = new javax.swing.JLabel();
         lblDob = new javax.swing.JLabel();
         txtDiaChi = new javax.swing.JTextField();
         cbTrangThai = new javax.swing.JComboBox<>();
@@ -159,7 +161,6 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
 
         btnGroupGioiTinh.add(radNam);
         radNam.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        radNam.setSelected(true);
         radNam.setText("Nam");
         jpFunction.add(radNam, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 80, -1, 40));
 
@@ -167,20 +168,20 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
         lblPhone.setText("Số điện thoại:");
         jpFunction.add(lblPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 150, -1, 40));
 
-        lblStatus.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblStatus.setText("Trạng thái:");
-        jpFunction.add(lblStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 10, -1, 40));
+        lblTrangThai.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblTrangThai.setText("Trạng thái:");
+        jpFunction.add(lblTrangThai, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 150, -1, 40));
 
         lblDob.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblDob.setText("Ngày sinh:");
-        jpFunction.add(lblDob, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 10, -1, 40));
+        jpFunction.add(lblDob, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 10, -1, 40));
 
         txtDiaChi.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jpFunction.add(txtDiaChi, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 80, 310, 40));
 
         cbTrangThai.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         cbTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đang làm", "Đã nghĩ" }));
-        jpFunction.add(cbTrangThai, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 10, 200, 40));
+        jpFunction.add(cbTrangThai, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 150, 200, 40));
 
         lblPosition.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblPosition.setText("Chức vụ:");
@@ -197,14 +198,14 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
         jpFunction.add(txtMaNV, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, 240, 40));
 
         jdNgaySinh.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jpFunction.add(jdNgaySinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 10, 240, 40));
+        jpFunction.add(jdNgaySinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 10, 240, 40));
 
         lblEmail.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblEmail.setText("Email:");
-        jpFunction.add(lblEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 150, -1, 40));
+        jpFunction.add(lblEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 10, -1, 40));
 
         txtEmail.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jpFunction.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 150, 290, 40));
+        jpFunction.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 10, 290, 40));
 
         jpThem.setBackground(new java.awt.Color(255, 255, 255));
         jpThem.setRoundedBottomLeft(10);
@@ -369,6 +370,8 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
     private void tableNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableNhanVienMouseClicked
         int rowIndex = tableNhanVien.getSelectedRow();
         if (rowIndex >= 0) {
+            lblTrangThai.setVisible(true);
+            cbTrangThai.setVisible(true);
             String maNV = modelNhanVien.getValueAt(rowIndex, 0).toString();
             String tenNV = modelNhanVien.getValueAt(rowIndex, 1).toString();
             String gioiTinh = modelNhanVien.getValueAt(rowIndex, 2).toString();
@@ -446,7 +449,7 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
     private javax.swing.JLabel lblGender;
     private javax.swing.JLabel lblPhone;
     private javax.swing.JLabel lblPosition;
-    private javax.swing.JLabel lblStatus;
+    private javax.swing.JLabel lblTrangThai;
     private javax.swing.JRadioButton radNam;
     private javax.swing.JRadioButton radNu;
     private javax.swing.JScrollPane scrollEmployee;
