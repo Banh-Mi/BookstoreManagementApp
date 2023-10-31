@@ -198,7 +198,7 @@ public class JPanel_PhanCa extends javax.swing.JPanel {
         lblMaNhanVien.setText("Mã nhân viên:");
         panelChucNang.add(lblMaNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 140, 40));
 
-        cbMaNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cbMaNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         cbMaNhanVien.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbMaNhanVienActionPerformed(evt);
@@ -220,6 +220,8 @@ public class JPanel_PhanCa extends javax.swing.JPanel {
         cbCa.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         cbCa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ca 1", "Ca 2" }));
         panelChucNang.add(cbCa, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 20, 130, 40));
+
+        jdNgayLam.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         panelChucNang.add(jdNgayLam, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 20, 190, 40));
 
         lblNgayLam.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N

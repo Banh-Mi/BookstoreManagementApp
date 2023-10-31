@@ -192,7 +192,7 @@ public class SanPhamDAO implements InterfaceDAO<SanPham> {
         return danhSachSanPham;
     }
 
-    public ArrayList<SanPham> timSanPham(SanPham sanPhamLoc, int luaChon) {
+    public ArrayList<SanPham> timSanPham(SanPham sanPhamLoc, String trangThaiLoc) {
         ArrayList<SanPham> danhSachSanPham = new ArrayList<>();
         ConnectDB.getInstance();
         Connection con = ConnectDB.getConnection();
@@ -203,7 +203,7 @@ public class SanPhamDAO implements InterfaceDAO<SanPham> {
             cstmt.setString(1, sanPhamLoc.getMaSanPham());
             cstmt.setString(2, sanPhamLoc.getTenSanPham());
             cstmt.setString(3, sanPhamLoc.getDanhMuc());
-            cstmt.setString(4, luaChon == 0 ? null : sanPhamLoc.isTrangThai() == true ? "1" : "0");
+            cstmt.setString(4, trangThaiLoc);
             cstmt.setString(5, sanPhamLoc.getGia() == -1 ? null : sanPhamLoc.getGia() + "");
             cstmt.setString(6, sanPhamLoc.getNhaXuatBan());
             cstmt.setString(7, sanPhamLoc.getSoTrang() == -1 ? null : sanPhamLoc.getSoTrang() + "");

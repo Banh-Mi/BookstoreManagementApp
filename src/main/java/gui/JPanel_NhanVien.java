@@ -220,12 +220,12 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
 
         jbAdd.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jbAdd.setText("Thêm");
-        jpThem.add(jbAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 100, 50));
+        jpThem.add(jbAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, 70, 50));
 
         svgAdd.setText(" ");
-        jpThem.add(svgAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 40, 40));
+        jpThem.add(svgAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 5, 40, 40));
 
-        jpFunction.add(jpThem, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 150, 50));
+        jpFunction.add(jpThem, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 130, 50));
 
         jbSua.setBackground(new java.awt.Color(255, 255, 255));
         jbSua.setRoundedBottomLeft(10);
@@ -241,12 +241,12 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
 
         jbEdit.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jbEdit.setText("Sửa");
-        jbSua.add(jbEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 100, 50));
+        jbSua.add(jbEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, 70, 50));
 
         svgEdit.setText(" ");
-        jbSua.add(svgEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 40, 40));
+        jbSua.add(svgEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 5, 40, 40));
 
-        jpFunction.add(jbSua, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 230, 150, 50));
+        jpFunction.add(jbSua, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 230, 130, 50));
 
         jbXoa.setBackground(new java.awt.Color(255, 255, 255));
         jbXoa.setRoundedBottomLeft(10);
@@ -257,12 +257,12 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
 
         jbDelete.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jbDelete.setText("Xoá");
-        jbXoa.add(jbDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 100, 50));
+        jbXoa.add(jbDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, 60, 50));
 
         svgDelete.setText(" ");
-        jbXoa.add(svgDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 40, 40));
+        jbXoa.add(svgDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 5, 40, 40));
 
-        jpFunction.add(jbXoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 230, 150, 50));
+        jpFunction.add(jbXoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 230, 120, 50));
 
         jbLamMoi.setBackground(new java.awt.Color(255, 255, 255));
         jbLamMoi.setRoundedBottomLeft(10);
@@ -283,7 +283,7 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
         svgRefresh.setText(" ");
         jbLamMoi.add(svgRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 40, 40));
 
-        jpFunction.add(jbLamMoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 230, 150, 50));
+        jpFunction.add(jbLamMoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 230, 150, 50));
 
         cbChucVu.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         cbChucVu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nhân viên bán hàng", "Quản lý" }));

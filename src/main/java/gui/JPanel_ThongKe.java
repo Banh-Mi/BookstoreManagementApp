@@ -787,15 +787,11 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
     private void btnXuatExcelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXuatExcelMouseClicked
         String selectedItem = (String) jcbLuaChonDoanhThu.getSelectedItem();
         if (modelDoanhThu.getRowCount() > 0) {
-            java.util.Date currDate = new java.util.Date();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd_MM_yyyy_HH_mm_ss");
-            String formattedDate = dateFormat.format(currDate);
             if (JOptionPane.showConfirmDialog(null, "Bạn có muốn xuất excel không", "Xác nhận", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                String filePath = "D:\\DoanhThu_" + selectedItem + "_" + formattedDate + ".xlsx";
-                if (exportToExcel(doanhThuList, filePath)) {
-                    JOptionPane.showMessageDialog(this, "Xuất file thành công: " + filePath);
+                if (exportToExcel(tableDoanhThu, txtDoanhThu.getText())) {
+                    JOptionPane.showMessageDialog(this, "Xuất file thành công!");
                 } else {
-                    JOptionPane.showMessageDialog(this, "Xuất file không thành công: " + filePath);
+                    JOptionPane.showMessageDialog(this, "Xuất file không thành công!");
                 }
             }
         } else {

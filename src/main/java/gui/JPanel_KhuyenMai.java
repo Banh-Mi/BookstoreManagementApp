@@ -200,7 +200,7 @@ public class JPanel_KhuyenMai extends javax.swing.JPanel {
 
         jbAdd.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jbAdd.setText("Thêm");
-        jpAdd.add(jbAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 100, 50));
+        jpAdd.add(jbAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, 70, 50));
 
         svgAdd.setText(" ");
         svgAdd.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -208,9 +208,9 @@ public class JPanel_KhuyenMai extends javax.swing.JPanel {
                 svgAddMouseClicked(evt);
             }
         });
-        jpAdd.add(svgAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 40, 40));
+        jpAdd.add(svgAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 5, 40, 40));
 
-        jpFunction.add(jpAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 150, 50));
+        jpFunction.add(jpAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 130, 50));
         KeyStroke keyStroke = KeyStroke.getKeyStroke(KeyEvent.VK_F, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask());
         // Liên kết phím tắt với hành động
         jpAdd.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(keyStroke, "addAction");
@@ -230,12 +230,12 @@ public class JPanel_KhuyenMai extends javax.swing.JPanel {
                 jbEditMouseClicked(evt);
             }
         });
-        jpEdit.add(jbEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 100, 50));
+        jpEdit.add(jbEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, 70, 50));
 
         svgEdit.setText(" ");
-        jpEdit.add(svgEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 40, 40));
+        jpEdit.add(svgEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 5, 40, 40));
 
-        jpFunction.add(jpEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 170, 150, 50));
+        jpFunction.add(jpEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 170, 130, 50));
         KeyStroke keyStroke1 = KeyStroke.getKeyStroke(KeyEvent.VK_S, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask());
         // Liên kết phím tắt với hành động
         jpEdit.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(keyStroke1, "addAction1");
@@ -260,7 +260,7 @@ public class JPanel_KhuyenMai extends javax.swing.JPanel {
                 jbDeleteMouseClicked(evt);
             }
         });
-        jpDelete.add(jbDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 100, 50));
+        jpDelete.add(jbDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, 70, 50));
 
         svgDelete.setText(" ");
         svgDelete.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -268,9 +268,9 @@ public class JPanel_KhuyenMai extends javax.swing.JPanel {
                 svgDeleteMouseClicked(evt);
             }
         });
-        jpDelete.add(svgDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 40, 40));
+        jpDelete.add(svgDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 5, 40, 40));
 
-        jpFunction.add(jpDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 170, 150, 50));
+        jpFunction.add(jpDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 170, 130, 50));
         KeyStroke keyStroke2 = KeyStroke.getKeyStroke(KeyEvent.VK_D, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask());
         // Liên kết phím tắt với hành động
         jpDelete.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(keyStroke2, "addAction2");
@@ -300,7 +300,7 @@ public class JPanel_KhuyenMai extends javax.swing.JPanel {
         });
         jpRefresh.add(svgRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 40, 40));
 
-        jpFunction.add(jpRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 170, 150, 50));
+        jpFunction.add(jpRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 170, 150, 50));
         KeyStroke keyStroke3 = KeyStroke.getKeyStroke(KeyEvent.VK_D, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask());
         // Liên kết phím tắt với hành động
         jpRefresh.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(keyStroke3, "addAction3");

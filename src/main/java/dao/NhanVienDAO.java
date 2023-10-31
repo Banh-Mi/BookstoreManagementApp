@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import connectDB.ConnectDB;
+import java.sql.CallableStatement;
 
 public class NhanVienDAO {
 
@@ -148,5 +149,32 @@ public class NhanVienDAO {
             e.printStackTrace();
         }
         return null;
+    }
+    public ArrayList<NhanVien> timNhanVien(String maNV, String tenNV, String soDienThoai, String email, String gioiTinh, String chucVu, String trangThai) {
+        ArrayList<NhanVien> danhSachNhanVien = new ArrayList<>();
+        ConnectDB.getInstance();
+        Connection con = ConnectDB.getConnection();
+
+        CallableStatement cstmt = null;
+        try {
+            String sql = "{call TimNhanVien(?,?,?,?,?,?,?)}";
+            cstmt = con.prepareCall(sql);
+            cstmt.setString(1, maNV);
+            cstmt.setString(2, tenNV);
+            cstmt.setString(3, email);
+            cstmt.setString(4, soDienThoai);
+            cstmt.setString(5, gioiTinh);
+            cstmt.setString(6, chucVu);
+            cstmt.setString(7, trangThai);
+            ResultSet rs = cstmt.executeQuery();
+            while (rs.next()) {
+                danhSachNhanVien.add(new NhanVien(rs.getString("maNV"), rs.getString("tenNV"),
+                        rs.getString("soDienThoai"), rs.getString("email"), rs.getString("diaChi"),
+                        rs.getString("gioiTinh"), rs.getString("chucVu"), rs.getString("trangThai"), rs.getDate("ngaySinh")));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return danhSachNhanVien;
     }
 }
