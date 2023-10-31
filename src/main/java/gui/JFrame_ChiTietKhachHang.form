@@ -3,6 +3,7 @@
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="undecorated" type="boolean" value="true"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -82,19 +83,14 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lblSoLuongHoaDonKH1" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblPhone" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblGender2" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace pref="42" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="lblSoLuongHoaDonKH1" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblPhone" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblGender2" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="lblSoLuongHoaDonKH" min="-2" max="-2" attributes="0"/>
                       <Component id="lblDoanhThuKH1" min="-2" max="-2" attributes="0"/>
                       <Component id="lblDoanhThuKH" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="42" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="txtTongTien" alignment="1" min="-2" pref="195" max="-2" attributes="0"/>
                       <Component id="txtSLSanPham" alignment="1" min="-2" pref="195" max="-2" attributes="0"/>
