@@ -1,9 +1,11 @@
 package gui;
 
+import dao.KhachHangDAO;
 import dao.SanPhamDAO;
 import dao.ThongKeDoanhThuDAO;
 import dao.ThongKeKhachHangDAO;
 import dao.ThongKeSanPhamDAO;
+import entity.KhachHang;
 import entity.SanPham;
 import entity.ThongKeDoanhThu;
 import entity.ThongKeKhachHang;
@@ -37,7 +39,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
     private ThongKeKhachHangDAO thongKeKhachHangDAO;
     private SanPhamDAO sanPhamDAO;
     private final NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
-
+    private KhachHangDAO khachHangDAO;
     public JPanel_ThongKe() {
         initComponents();
         modelDoanhThu = (DefaultTableModel) tableDoanhThu.getModel();
@@ -167,7 +169,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         lblDoanhThuSanPham = new javax.swing.JLabel();
         lblTongDoanhThuSanPham = new javax.swing.JLabel();
         lblSoLuongHoaDonSP = new javax.swing.JLabel();
-        txtDoanhThu1 = new javax.swing.JLabel();
+        txtDoanhThuSP = new javax.swing.JLabel();
         txtSoLuongHoaDon1 = new javax.swing.JLabel();
         lblTuNgaySP = new javax.swing.JLabel();
         btnBieuDoSP = new javax.swing.JButton();
@@ -188,6 +190,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         jcbThangDoanhThu1 = new javax.swing.JComboBox<>();
         jcbNamDoanhThu1 = new javax.swing.JComboBox<>();
         jcbchonsanpham = new javax.swing.JComboBox<>();
+        btnXuatExcelSanPham = new javax.swing.JButton();
         tabKhachHang = new javax.swing.JPanel();
         scrollKhachHang = new javax.swing.JScrollPane();
         tableKhachHang = new javax.swing.JTable();
@@ -467,8 +470,8 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         lblSoLuongHoaDonSP.setText("Số lượng sản phẩm đã bán được:");
         jpChucNangSanPham.add(lblSoLuongHoaDonSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 570, -1, 40));
 
-        txtDoanhThu1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jpChucNangSanPham.add(txtDoanhThu1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 620, 110, 40));
+        txtDoanhThuSP.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jpChucNangSanPham.add(txtDoanhThuSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 620, 110, 40));
 
         txtSoLuongHoaDon1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jpChucNangSanPham.add(txtSoLuongHoaDon1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 570, 60, 40));
@@ -489,7 +492,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
                 btnBieuDoSPActionPerformed(evt);
             }
         });
-        jpChucNangSanPham.add(btnBieuDoSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 680, 170, 50));
+        jpChucNangSanPham.add(btnBieuDoSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 680, 170, 50));
 
         jcbLuaChonDoanhThu1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jcbLuaChonDoanhThu1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tuỳ chỉnh", "Theo ngày", "Theo tuần", "Theo tháng", "Theo năm" }));
@@ -600,6 +603,15 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         });
         jpChucNangSanPham.add(jcbchonsanpham, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 350, 40));
 
+        btnXuatExcelSanPham.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnXuatExcelSanPham.setText("XUẤT EXCEL");
+        btnXuatExcelSanPham.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnXuatExcelSanPhamMouseClicked(evt);
+            }
+        });
+        jpChucNangSanPham.add(btnXuatExcelSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 680, 140, 50));
+
         tabSanPham.add(jpChucNangSanPham, java.awt.BorderLayout.WEST);
 
         jTab.addTab("Sản Phẩm", tabSanPham);
@@ -623,6 +635,11 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+        });
+        tableKhachHang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableKhachHangMouseClicked(evt);
             }
         });
         scrollKhachHang.setViewportView(tableKhachHang);
@@ -785,7 +802,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnXuatExcelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXuatExcelMouseClicked
-        String selectedItem = (String) jcbLuaChonDoanhThu.getSelectedItem();
+
         if (modelDoanhThu.getRowCount() > 0) {
             if (JOptionPane.showConfirmDialog(null, "Bạn có muốn xuất excel không", "Xác nhận", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                 if (exportToExcel(tableDoanhThu, txtDoanhThu.getText())) {
@@ -928,7 +945,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         }
 
         txtSoLuongHoaDon1.setText(soHoaDon + "");
-        txtDoanhThu1.setText(nf.format(tongTien));
+        txtDoanhThuSP.setText(nf.format(tongTien));
     }
 
     //xu li su kien cua sanpham khi an thong ke
@@ -977,7 +994,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
             }
 
             txtSoLuongHoaDon1.setText(sosanpham + "");
-            txtDoanhThu1.setText(nf.format(tongTien));
+            txtDoanhThuSP.setText(nf.format(tongTien));
         } else if (luaChon.equals("Top 5 sản phẩm được bán nhiều nhất")) {
             String selectedItem = (String) jcbLuaChonDoanhThu1.getSelectedItem();
             thongKeSanPhamDAO = new ThongKeSanPhamDAO();
@@ -1020,7 +1037,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
             }
 
             txtSoLuongHoaDon1.setText(sosanpham + "");
-            txtDoanhThu1.setText(nf.format(tongTien));
+            txtDoanhThuSP.setText(nf.format(tongTien));
         } else if (luaChon.equals("Top 5 sản phẩm được bán ít nhất")) {
             String selectedItem = (String) jcbLuaChonDoanhThu1.getSelectedItem();
             thongKeSanPhamDAO = new ThongKeSanPhamDAO();
@@ -1063,7 +1080,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
             }
 
             txtSoLuongHoaDon1.setText(sosanpham + "");
-            txtDoanhThu1.setText(nf.format(tongTien));
+            txtDoanhThuSP.setText(nf.format(tongTien));
 
         } else if (luaChon.equals("Top 5 sản phẩm có doanh thu cao nhất")) {
             String selectedItem = (String) jcbLuaChonDoanhThu1.getSelectedItem();
@@ -1107,7 +1124,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
             }
 
             txtSoLuongHoaDon1.setText(sosanpham + "");
-            txtDoanhThu1.setText(nf.format(tongTien));
+            txtDoanhThuSP.setText(nf.format(tongTien));
         } else if (luaChon.equals("Top 5 sản phẩm có doanh thu thấp nhất")) {
             String selectedItem = (String) jcbLuaChonDoanhThu1.getSelectedItem();
             thongKeSanPhamDAO = new ThongKeSanPhamDAO();
@@ -1150,7 +1167,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
             }
 
             txtSoLuongHoaDon1.setText(sosanpham + "");
-            txtDoanhThu1.setText(nf.format(tongTien));
+            txtDoanhThuSP.setText(nf.format(tongTien));
         } else if (luaChon.equals("Top 5 sản phẩm tồn kho nhiều nhất")) {
             thongKeSanPhamDAO = new ThongKeSanPhamDAO();
             modelSanPham.setRowCount(0);
@@ -1165,7 +1182,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
             }
 
             txtSoLuongHoaDon1.setText(sosanpham + "");
-            txtDoanhThu1.setText(nf.format(tongTien));
+            txtDoanhThuSP.setText(nf.format(tongTien));
         } else if (luaChon.equals("Top 5 sản phẩm tồn kho ít nhất")) {
             thongKeSanPhamDAO = new ThongKeSanPhamDAO();
             modelSanPham.setRowCount(0);
@@ -1180,7 +1197,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
             }
 
             txtSoLuongHoaDon1.setText(sosanpham + "");
-            txtDoanhThu1.setText(nf.format(tongTien));
+            txtDoanhThuSP.setText(nf.format(tongTien));
         }
 
     }//GEN-LAST:event_jpThongKeSPMouseClicked
@@ -1658,11 +1675,45 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_tableSanPhamMouseClicked
 
+    private void btnXuatExcelSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXuatExcelSanPhamMouseClicked
+
+        if (modelSanPham.getRowCount() > 0) {
+            if (JOptionPane.showConfirmDialog(null, "Bạn có muốn xuất excel không", "Xác nhận", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                if (exportToExcel(tableSanPham, txtDoanhThuSP.getText())) {
+                    JOptionPane.showMessageDialog(this, "Xuất file thành công!");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Xuất file không thành công!");
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Không có dữ liệu nên không thể xuất file!");
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_btnXuatExcelSanPhamMouseClicked
+
+    private void tableKhachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableKhachHangMouseClicked
+        JFrame_ChiTietKhachHang jf = new JFrame_ChiTietKhachHang();
+        jf.setLocationRelativeTo(null);
+
+        jf.setVisible(true);
+        khachHangDAO = new KhachHangDAO();
+        String maKH = tableKhachHang.getValueAt(tableKhachHang.getSelectedRow(), 0).toString();
+        String soLuongSP = tableKhachHang.getValueAt(tableKhachHang.getSelectedRow(), 7).toString();
+        String soLuongDonHang = tableKhachHang.getValueAt(tableKhachHang.getSelectedRow(), 5).toString();
+        String tongTien = tableKhachHang.getValueAt(tableKhachHang.getSelectedRow(), 6).toString();
+        for (KhachHang kh : khachHangDAO.getAllKhachHang()) {
+            if (maKH.equals(kh.getMaKH())) {
+                jf.chuyenDoiChu1(kh.getMaKH(), kh.getTenKH(), kh.getEmail(), kh.getNgaySinh().toString(), kh.getTheVip(), kh.getNgayDangKy().toString(), kh.getSoDienThoai(), kh.getGioiTinh(), kh.getDiaChi(), soLuongDonHang, soLuongSP, tongTien);
+                break;
+            }
+        }
+    }//GEN-LAST:event_tableKhachHangMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBieuDoKH;
     private javax.swing.JButton btnBieuDoSP;
     private javax.swing.JButton btnXuatExcel;
+    private javax.swing.JButton btnXuatExcelSanPham;
     private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jCBTieuChi;
     private javax.swing.JSeparator jSeparator1;
@@ -1747,7 +1798,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
     private javax.swing.JTable tableKhachHang;
     private javax.swing.JTable tableSanPham;
     private javax.swing.JLabel txtDoanhThu;
-    private javax.swing.JLabel txtDoanhThu1;
+    private javax.swing.JLabel txtDoanhThuSP;
     private javax.swing.JLabel txtGiamGia;
     private javax.swing.JLabel txtSoLuongDHKH;
     private javax.swing.JLabel txtSoLuongHoaDon;

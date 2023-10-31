@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\gui\BieuDoKhachHang.java
 D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\util\ExcelExporter.java
 D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\gui\GiaoDienDangNhap.java
@@ -58,3 +59,67 @@ D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\gui\JPha
 D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\util\Validator.java
 D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\dao\ChiTietHoaDonDAO.java
 D:\IUH\HK5\Application Development\BookstoreManagementApp\src\main\java\util\JPanelRounded.java
+=======
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\gui\MenuItem.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\entity\HoaDon.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\dao\KhuyenMaiDAO.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\dao\ThongKeDoanhThuDAO.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\entity\SanPham.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\dao\BieuDoSanPhamDAO.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\gui\Frame_TaiKhoan.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\gui\GiaoDienChinh.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\dao\NhaCungCapDAO.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\dao\InterfaceDAO.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\dao\TaiKhoanDAO.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\util\ExcelExporter.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\util\LoginController.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\gui\ThongTinSanPham.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\gui\JFrame_ChiTietKhachHang.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\gui\JPanel_BanHang.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\dao\HoaDonDAO.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\dao\ThongKeKhachHangDAO.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\gui\JPanel_TaiKhoan.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\gui\HoaDonDoanhThu.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\dao\KhachHangDAO.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\gui\JFrame_ChiTietSanPham.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\connectDB\ConnectDB.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\entity\NhaCungCap.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\entity\SanPhamBieuDo.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\gui\GiaoDienDangNhap.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\gui\JPanel_NhaCungCap.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\dao\ThongKeSanPhamDAO.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\util\Validator.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\entity\PhanCaLamViec.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\gui\BieuDoKhachHang.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\entity\KhuyenMai.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\gui\JPanel_KhuyenMai.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\gui\JPanel_KhachHang.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\gui\JPanel_PhanCa.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\entity\ThongTinPhanCaLamViec.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\util\GetSource.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\entity\DoanhThuBieuDo.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\util\JPanelRounded.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\dao\ChiTietHoaDonDAO.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\entity\TaiKhoan.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\entity\ThongKeKhachHang.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\gui\JPanel_TimKiemNhanVien.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\entity\KhachHang.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\gui\JPanel_SanPham.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\gui\JPhanel_HoaDon.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\gui\BieuDoDoanhThu.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\gui\JPanel_TrangChu.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\entity\ThongKeDoanhThu.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\gui\JPanel_TimKiemNhaCungCap.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\gui\BieuDoSanPham.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\gui\JPanel_TimKiemSanPham.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\entity\NhanVien.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\gui\JPanel_ThongKe.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\gui\JPanel_KhachHangTK.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\dao\PhanCaLamViecDAO.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\dao\SanPhamDAO.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\util\SVGImage.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\gui\JPanel_NhanVien.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\entity\ThongKeSanPham.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\dao\NhanVienDAO.java
+C:\Users\thuan\Documents\GitHub\BookstoreManagementApp\src\main\java\entity\ChiTietHoaDon.java
+>>>>>>> 54fc4bfa4820ae5c05eb59ee4a7d183838aa5cf6

@@ -112,7 +112,6 @@ public class JPanel_TimKiemSanPham extends javax.swing.JPanel {
         String tuyChon = jcbTuyChon.getSelectedItem().toString();
         loadTuyChon(tuyChon.equals("Sách"), tuyChon.toUpperCase());
         System.out.println("Load data");
-
         sanPhamDAO = new SanPhamDAO();
         SanPham sanPhamLoc;
         String item = jcbTuyChon.getSelectedItem().toString().equals("Tất cả sản phẩm") ? "" : jcbTuyChon.getSelectedItem().toString();
@@ -348,10 +347,13 @@ public class JPanel_TimKiemSanPham extends javax.swing.JPanel {
     }//GEN-LAST:event_jpLamMoiMouseClicked
 
     private void jcbTuyChonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbTuyChonActionPerformed
+       jcbTrangThai.setSelectedIndex(0);
         loadData();
+    
     }//GEN-LAST:event_jcbTuyChonActionPerformed
 
     private void jcbTrangThaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbTrangThaiActionPerformed
+
         loadData();        // TODO add your handling code here:
     }//GEN-LAST:event_jcbTrangThaiActionPerformed
 

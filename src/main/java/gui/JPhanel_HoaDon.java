@@ -110,20 +110,18 @@ public class JPhanel_HoaDon extends javax.swing.JPanel {
                 txt_SearchOrderKeyReleased(evt);
             }
         });
-        jPanel_Order.add(txt_SearchOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 30, 440, 30));
+        jPanel_Order.add(txt_SearchOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 30, 440, 30));
 
         pnl_SearchByTime.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thời gian", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
         pnl_SearchByTime.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jDateChooser_SearchByTimeTo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jDateChooser_SearchByTimeTo.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 jDateChooser_SearchByTimeToPropertyChange(evt);
             }
         });
-        pnl_SearchByTime.add(jDateChooser_SearchByTimeTo, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 30, 140, 33));
+        pnl_SearchByTime.add(jDateChooser_SearchByTimeTo, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, 120, 33));
 
-        jDateChooser_SearchByTimeFrom.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jDateChooser_SearchByTimeFrom.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 jDateChooser_SearchByTimeFromMouseReleased(evt);
@@ -146,23 +144,23 @@ public class JPhanel_HoaDon extends javax.swing.JPanel {
                 jDateChooser_SearchByTimeFromKeyReleased(evt);
             }
         });
-        pnl_SearchByTime.add(jDateChooser_SearchByTimeFrom, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, 140, 33));
+        pnl_SearchByTime.add(jDateChooser_SearchByTimeFrom, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 110, 33));
 
-        lbl_SearchSearchByTimeFrom.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbl_SearchSearchByTimeFrom.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lbl_SearchSearchByTimeFrom.setText("Từ");
         pnl_SearchByTime.add(lbl_SearchSearchByTimeFrom, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 30, 30));
 
-        lbl_SearchByTimeTo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbl_SearchByTimeTo.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lbl_SearchByTimeTo.setText("Đến");
-        pnl_SearchByTime.add(lbl_SearchByTimeTo, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 30, 30, 30));
+        pnl_SearchByTime.add(lbl_SearchByTimeTo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, 30, 30));
 
-        jPanel_Order.add(pnl_SearchByTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 90, 410, 87));
+        jPanel_Order.add(pnl_SearchByTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 90, 320, 87));
 
         pnl_SearchStatus.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Trạng thái", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
-        pnl_SearchStatus.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         pnl_SearchStatus.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        cb_SearchStatus.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        cb_SearchStatus.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        cb_SearchStatus.setSelectedIndex(-1);
         cb_SearchStatus.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cb_SearchStatusItemStateChanged(evt);
@@ -173,14 +171,14 @@ public class JPhanel_HoaDon extends javax.swing.JPanel {
                 cb_SearchStatusActionPerformed(evt);
             }
         });
-        pnl_SearchStatus.add(cb_SearchStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 160, 33));
+        pnl_SearchStatus.add(cb_SearchStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 130, 33));
 
-        jPanel_Order.add(pnl_SearchStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 90, 200, 87));
+        jPanel_Order.add(pnl_SearchStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 90, 170, 87));
 
         pnl_SearchTotalAmount.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tổng tiền", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
         pnl_SearchTotalAmount.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        cb_SearchTotalAmount.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        cb_SearchTotalAmount.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         cb_SearchTotalAmount.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0 - 200.000VNĐ", "200.000 - 500.000VNĐ", "500.000 - 1.000.000VNĐ", "Trên 1.000.000 VNĐ" }));
         cb_SearchTotalAmount.setSelectedIndex(-1);
         cb_SearchTotalAmount.addItemListener(new java.awt.event.ItemListener() {
@@ -193,13 +191,13 @@ public class JPhanel_HoaDon extends javax.swing.JPanel {
                 cb_SearchTotalAmountActionPerformed(evt);
             }
         });
-        pnl_SearchTotalAmount.add(cb_SearchTotalAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 210, 33));
+        pnl_SearchTotalAmount.add(cb_SearchTotalAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 170, 33));
 
-        jPanel_Order.add(pnl_SearchTotalAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 90, 250, 87));
+        jPanel_Order.add(pnl_SearchTotalAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 90, 211, 87));
 
         lbl_SearchOrder1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl_SearchOrder1.setText("Tìm kiếm hóa đơn:");
-        jPanel_Order.add(lbl_SearchOrder1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 30, 130, 30));
+        jPanel_Order.add(lbl_SearchOrder1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 30, 130, 30));
 
         tbl_Order.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         tbl_Order.setModel(new javax.swing.table.DefaultTableModel(
@@ -228,13 +226,12 @@ public class JPhanel_HoaDon extends javax.swing.JPanel {
         });
         scr_Order.setViewportView(tbl_Order);
 
-        jPanel_Order.add(scr_Order, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 1160, 290));
+        jPanel_Order.add(scr_Order, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 960, 230));
 
         pnl_SearchOrderCategory.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Loại hóa đơn", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
-        pnl_SearchOrderCategory.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         pnl_SearchOrderCategory.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        cb_SearchOrderCategory.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        cb_SearchOrderCategory.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         cb_SearchOrderCategory.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bán hàng", "Đặt hàng" }));
         cb_SearchOrderCategory.setSelectedIndex(-1);
         cb_SearchOrderCategory.addItemListener(new java.awt.event.ItemListener() {
@@ -252,16 +249,14 @@ public class JPhanel_HoaDon extends javax.swing.JPanel {
                 cb_SearchOrderCategoryActionPerformed(evt);
             }
         });
-        pnl_SearchOrderCategory.add(cb_SearchOrderCategory, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 160, 33));
+        pnl_SearchOrderCategory.add(cb_SearchOrderCategory, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 130, 33));
 
-        jPanel_Order.add(pnl_SearchOrderCategory, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 200, 87));
+        jPanel_Order.add(pnl_SearchOrderCategory, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, 170, 87));
 
-        add(jPanel_Order, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 1200, 510));
+        add(jPanel_Order, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 1000, 450));
 
         jPanel_OrderDetail.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Hóa đơn chi tiết", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
         jPanel_OrderDetail.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        scr_OrderDetail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         tbl_OrderDetail.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -284,9 +279,9 @@ public class JPhanel_HoaDon extends javax.swing.JPanel {
         });
         scr_OrderDetail.setViewportView(tbl_OrderDetail);
 
-        jPanel_OrderDetail.add(scr_OrderDetail, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 1160, 270));
+        jPanel_OrderDetail.add(scr_OrderDetail, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 960, 200));
 
-        add(jPanel_OrderDetail, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 530, 1200, 310));
+        add(jPanel_OrderDetail, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 470, 1000, 250));
     }// </editor-fold>//GEN-END:initComponents
 
     private void txt_SearchOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_SearchOrderActionPerformed

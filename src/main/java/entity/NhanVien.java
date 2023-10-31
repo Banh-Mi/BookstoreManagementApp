@@ -23,6 +23,9 @@ public class NhanVien {
     private String chucVu;
     private String trangThai;
 
+    public NhanVien() {
+    }
+
     // Constructor
     public NhanVien(String maNV, String tenNV, String soDienThoai, String email, Date ngaySinh,
             String maTK, String diaChi, String gioiTinh,
