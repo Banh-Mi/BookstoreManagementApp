@@ -201,6 +201,7 @@ public class JPhanel_HoaDon extends javax.swing.JPanel {
         lbl_SearchOrder1.setText("Tìm kiếm hóa đơn:");
         jPanel_Order.add(lbl_SearchOrder1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 30, 130, 30));
 
+        tbl_Order.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         tbl_Order.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null, null, null, null},

@@ -94,6 +94,7 @@ gui\JPanel_SanPham$14.class
 entity\ChiTietHoaDon.class
 gui\JPanel_ThongKe$20.class
 gui\GiaoDienChinh$9.class
+gui\ThongTinKhachHang.class
 gui\JPanel_NhanVien$4.class
 gui\JPanel_BanHang$10.class
 gui\JPanel_ThongKe.class
@@ -112,6 +113,7 @@ gui\JPanel_TimKiemNhaCungCap$1.class
 connectDB\ConnectDB.class
 gui\GiaoDienDangNhap$2.class
 gui\HoaDonDoanhThu.class
+gui\JPanel_BanHang$29.class
 gui\JPanel_ThongKe$16.class
 gui\ThongTinSanPham$1.class
 gui\JPhanel_HoaDon$12.class
@@ -149,6 +151,7 @@ gui\JPanel_SanPham$15.class
 gui\JPanel_KhuyenMai$3.class
 gui\JPanel_SanPham$9.class
 gui\GiaoDienDangNhap$3.class
+gui\ThongTinKhachHang$1.class
 gui\JPanel_NhaCungCap$1.class
 gui\GiaoDienChinh$10.class
 gui\JFrame_ChiTietSanPham$9.class
@@ -244,6 +247,7 @@ gui\JPanel_KhuyenMai$5.class
 gui\JPanel_PhanCa$5.class
 gui\JPhanel_HoaDon$16.class
 gui\GiaoDienChinh$4.class
+gui\ThongTinKhachHang$3.class
 gui\JPanel_KhachHang$3.class
 gui\JPanel_NhaCungCap$2.class
 gui\JPanel_ThongKe$12.class
@@ -264,5 +268,6 @@ gui\JPanel_ThongKe$11.class
 gui\JPanel_NhaCungCap$3.class
 gui\JPhanel_HoaDon$17.class
 gui\JPanel_KhuyenMai$19.class
+gui\ThongTinKhachHang$2.class
 gui\JPhanel_HoaDon$7.class
 gui\GiaoDienChinh$3.class
