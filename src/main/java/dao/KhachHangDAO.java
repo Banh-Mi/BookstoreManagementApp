@@ -190,4 +190,33 @@ public class KhachHangDAO {
         }
         return danhSachKhachHang;
     }
+
+    public KhachHang searchByPhone(String phone) {
+        Connection con = ConnectDB.getInstance().getConnection();
+        PreparedStatement stmt = null;
+        KhachHang khachHang = null;
+        try {
+            stmt = con.prepareStatement("SELECT * FROM KhachHang WHERE soDienThoai = ?");
+            stmt.setString(1, phone);
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                khachHang = new KhachHang(
+                        rs.getString(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getDate(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getDate(9)
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+        }
+        return khachHang;
+    }
 }

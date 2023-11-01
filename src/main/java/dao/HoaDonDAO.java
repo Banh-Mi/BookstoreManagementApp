@@ -85,7 +85,7 @@ public class HoaDonDAO implements InterfaceDAO<HoaDon> {
         int result = 0;
         try {
             Connection c = ConnectDB.getConnection();
-            String sql = "INSERT INTO HoaDon VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO HoaDon VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             PreparedStatement pst = c.prepareStatement(sql);
             pst.setString(1, t.getMaHoaDon());
@@ -95,9 +95,10 @@ public class HoaDonDAO implements InterfaceDAO<HoaDon> {
             pst.setString(5, t.getPhuongThucThanhToan());
             pst.setDate(6, t.getNgayLapHoaDon());
             pst.setString(7, t.getLoaiHoaDon());
-            pst.setString(8, t.getDiaChiGiaoHang());
-            pst.setString(9, t.getTrangThai());
-            pst.setString(10, t.getGhiChu());
+            pst.setString(8, t.getSoDienThoai());
+            pst.setString(9, t.getDiaChiGiaoHang());
+            pst.setString(10, t.getTrangThai());
+            pst.setString(11, t.getGhiChu());
 
             result = pst.executeUpdate();
         } catch (Exception e) {

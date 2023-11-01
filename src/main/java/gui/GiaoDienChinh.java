@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.UIManager;
 
 /**
@@ -23,9 +24,11 @@ import javax.swing.UIManager;
 public final class GiaoDienChinh extends javax.swing.JFrame {
 
     private NhanVien nhanVien;
+    private JPanel jpanel_banHang;
 
     public GiaoDienChinh(NhanVien nhanVien) {
         this.nhanVien = nhanVien;
+        jpanel_banHang = new JPanel_BanHang(nhanVien.getMaNV());
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setThongTin();
@@ -81,7 +84,7 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
-                pnView.add(new JPanel_BanHang(nhanVien.getMaNV()));
+                pnView.add(jpanel_banHang);
                 pnView.repaint();
                 pnView.revalidate();
             }
