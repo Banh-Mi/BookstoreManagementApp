@@ -47,6 +47,7 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.graphics.image.LosslessFactory;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.imgscalr.Scalr;
+import util.Email;
 
 /**
  * @author Nguyễn Thanh Nhứt
@@ -1275,6 +1276,9 @@ public class JPanel_BanHang extends javax.swing.JPanel {
                         printOrder(thongTinHoaDon, "D:\\" + hoaDon.getMaHoaDon() + ".pdf");
                         thongTinHoaDon.setVisible(false);
                     }
+                    if (!hoaDon.getMaKH().equals("KH000")) {
+                        Email.sendEmail(khachHangDAO.search(maKH).getEmail(), "Cảm ơn bạn đã mua hàng tại cửa hàng!", getEmailContentSale(hoaDon));
+                    }
                     JOptionPane.showMessageDialog(this, "Thanh toán thành công");
                     refreshOrderSale();
 
@@ -1331,6 +1335,9 @@ public class JPanel_BanHang extends javax.swing.JPanel {
                         thongTinHoaDon.setVisible(true);
                         printOrder(thongTinHoaDon, "D:\\" + hoaDon.getMaHoaDon() + ".pdf");
                         thongTinHoaDon.setVisible(false);
+                    }
+                    if (!hoaDon.getMaKH().equals("KH000")) {
+                        Email.sendEmail(khachHangDAO.search(maKH).getEmail(), "Thông báo về đơn hàng", getEmailContentOrder(hoaDon));
                     }
                     JOptionPane.showMessageDialog(this, "Hóa đơn đặt hàng đã được tạo thành công và sẵn sàng để giao hàng!");
                     refreshOrder();
@@ -1800,6 +1807,28 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public String getEmailContentSale(HoaDon hoaDon) {
+        KhachHang khachHang = khachHangDAO.search(hoaDon.getMaKH());
+        String emailContent = "<html> <head> <style> table { border-collapse: collapse; width: 100%; } th, td { border: 1px solid black; padding: 8px; text-align: left; } </style> </head> <body><p>Xin chào <strong>" + khachHang.getTenKH() + "</strong></p><p>Cảm ơn bạn đã mua hàng tại cửa hàng của chúng tôi. Dưới đây là chi tiết đơn hàng của bạn:</p><table><tr><th>Sản phẩm</th><th>Số lượng</th><th>Giá</th></tr>";
+        for (ChiTietHoaDon chiTietHoaDon : chiTietHoaDonDAO.selectbyId(hoaDon.getMaHoaDon())) {
+            SanPham sanPham = sanPhamDAO.selectbyId(new SanPham(chiTietHoaDon.getMaSanPham()));
+            emailContent += "<tr><td>" + sanPham.getTenSanPham() + "</td><td>" + chiTietHoaDon.getSoLuong() + "</td><td>" + nf.format(sanPham.getGia()) + "</td></tr>";
+        }
+        emailContent += "</table><p>Tổng tiền: " + nf.format(hoaDon.getTongTien()) + "</p><p>Hãy liên hệ với chúng tôi nếu bạn có bất kỳ câu hỏi hoặc yêu cầu hỗ trợ nào khác.</p><p>Trân trọng,</p><p><b>Nhà Sách Thuận Lợi</b></p></body></html>";
+        return emailContent;
+    }
+
+    public String getEmailContentOrder(HoaDon hoaDon) {
+        KhachHang khachHang = khachHangDAO.search(hoaDon.getMaKH());
+        String emailContent = "<html> <head> <style> table { border-collapse: collapse; width: 100%; } th, td { border: 1px solid black; padding: 8px; text-align: left; } </style> </head> <body><p>Cảm ơn bạn đã đặt hàng! Đơn hàng của bạn đã được xác nhận và đang được giao đến bạn.</p><p>Xin vui lòng kiểm tra email hoặc hệ thống thông báo để cập nhật trạng thái vận chuyển của đơn hàng.</p> Dưới đây là chi tiết đơn hàng của bạn:</p><table><tr><th>Sản phẩm</th><th>Số lượng</th><th>Giá</th></tr>";
+        for (ChiTietHoaDon chiTietHoaDon : chiTietHoaDonDAO.selectbyId(hoaDon.getMaHoaDon())) {
+            SanPham sanPham = sanPhamDAO.selectbyId(new SanPham(chiTietHoaDon.getMaSanPham()));
+            emailContent += "<tr><td>" + sanPham.getTenSanPham() + "</td><td>" + chiTietHoaDon.getSoLuong() + "</td><td>" + nf.format(sanPham.getGia()) + "</td></tr>";
+        }
+        emailContent += "</table><p>Tổng tiền: " + nf.format(hoaDon.getTongTien()) + "</p><p>Nếu bạn có bất kỳ câu hỏi hoặc thắc mắc nào, xin vui lòng liên hệ với chúng tôi.</p><p>Cảm ơn bạn đã tin tưởng và sử dụng dịch vụ của chúng tôi!</p><p>Trân trọng,</p><p><b>Nhà Sách Thuận Lợi</b></p></body></html>";
+        return emailContent;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
