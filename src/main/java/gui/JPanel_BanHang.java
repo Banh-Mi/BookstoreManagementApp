@@ -19,9 +19,9 @@ import entity.HoaDon;
 import entity.KhachHang;
 import entity.SanPham;
 import java.awt.BorderLayout;
+import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
@@ -38,8 +38,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.graphics.image.LosslessFactory;
+import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.imgscalr.Scalr;
 
 /**
@@ -1252,9 +1258,7 @@ public class JPanel_BanHang extends javax.swing.JPanel {
                 if (chk_waitPay.isSelected()) {
                     trangThai = "Chờ thanh toán";
                 }
-                if (JOptionPane.showConfirmDialog(this, "Bạn có muốn in hóa đơn không?", "Nhận hóa đơn", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                    System.out.println("Đã in hóa đơn");
-                }
+
                 HoaDon hoaDon = new HoaDon(maHoaDon, maKH, maNV, maKhuyenMai, phuongThucThanhToan, ngayLapHoaDon, loaiHoaDon, soDienThoai, diaChiGiaoHang, trangThai, ghiChu);
 
                 if (hoaDonDAO.insert(hoaDon) > 0) {
@@ -1264,6 +1268,12 @@ public class JPanel_BanHang extends javax.swing.JPanel {
                         double gia = sanPhamDAO.selectbyId(new SanPham(maSanPham)).getGia();
                         ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(maHoaDon, maSanPham, soLuong, gia);
                         chiTietHoaDonDAO.insert(chiTietHoaDon);
+                    }
+                    if (JOptionPane.showConfirmDialog(this, "Bạn có muốn in hóa đơn không?", "Nhận hóa đơn", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                        ThongTinHoaDon thongTinHoaDon = new ThongTinHoaDon(hoaDon);
+                        thongTinHoaDon.setVisible(true);
+                        printOrder(thongTinHoaDon, "D:\\" + hoaDon.getMaHoaDon() + ".pdf");
+                        thongTinHoaDon.setVisible(false);
                     }
                     JOptionPane.showMessageDialog(this, "Thanh toán thành công");
                     refreshOrderSale();
@@ -1294,7 +1304,7 @@ public class JPanel_BanHang extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập địa chỉ của khách hàng");
         } else {
             String maHoaDon = lbl_orderIdOrder.getText();
-            String maKH = (lbl_customerNameOrder.getText().equals("Khách hàng bán lẻ"))?"KH000":khachHangDAO.searchByPhone(txt_customerPhone.getText()).getMaKH();
+            String maKH = (lbl_customerNameOrder.getText().equals("Khách hàng bán lẻ")) ? "KH000" : khachHangDAO.searchByPhone(txt_customerPhone.getText()).getMaKH();
             String maNV = lbl_employeeIdOrder.getText();
             String maKhuyenMai = null;
             String phuongThucThanhToan = "Tiền mặt";
@@ -1305,9 +1315,7 @@ public class JPanel_BanHang extends javax.swing.JPanel {
             String trangThai = "Đang giao";
             String ghiChu = txa_noteSale.getText();
             if (JOptionPane.showConfirmDialog(this, "Bạn đã gọi điện và xác nhận với khách hàng?", "Xác nhận", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                if (JOptionPane.showConfirmDialog(this, "Bạn có muốn in hóa đơn không?", "Nhận hóa đơn", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                    System.out.println("Đã in hóa đơn");
-                }
+
                 HoaDon hoaDon = new HoaDon(maHoaDon, maKH, maNV, maKhuyenMai, phuongThucThanhToan, ngayLapHoaDon, loaiHoaDon, soDienThoai, diaChiGiaoHang, trangThai, ghiChu);
 
                 if (hoaDonDAO.insert(hoaDon) > 0) {
@@ -1317,6 +1325,12 @@ public class JPanel_BanHang extends javax.swing.JPanel {
                         double gia = sanPhamDAO.selectbyId(new SanPham(maSanPham)).getGia();
                         ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(maHoaDon, maSanPham, soLuong, gia);
                         chiTietHoaDonDAO.insert(chiTietHoaDon);
+                    }
+                    if (JOptionPane.showConfirmDialog(this, "Bạn có muốn in hóa đơn không?", "Nhận hóa đơn", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                        ThongTinHoaDon thongTinHoaDon = new ThongTinHoaDon(hoaDon);
+                        thongTinHoaDon.setVisible(true);
+                        printOrder(thongTinHoaDon, "D:\\" + hoaDon.getMaHoaDon() + ".pdf");
+                        thongTinHoaDon.setVisible(false);
                     }
                     JOptionPane.showMessageDialog(this, "Hóa đơn đặt hàng đã được tạo thành công và sẵn sàng để giao hàng!");
                     refreshOrder();
@@ -1755,6 +1769,37 @@ public class JPanel_BanHang extends javax.swing.JPanel {
             }
         }
         loadProductItem(danhSachSanPham);
+    }
+
+    public void printOrder(JFrame thongTinHoaDon, String fileName) {
+        try {
+            PDDocument document = new PDDocument();
+            PDPage page = new PDPage();
+            document.addPage(page);
+
+            // Tạo hình ảnh từ JFrame
+            BufferedImage image = new BufferedImage(thongTinHoaDon.getWidth(), thongTinHoaDon.getHeight(), BufferedImage.TYPE_INT_ARGB);
+            Graphics2D graphics = image.createGraphics();
+            thongTinHoaDon.paint(graphics);
+            ImageIO.write(image, "png", new File("thongTinHoaDon.png"));
+
+            // Chuyển đổi hình ảnh thành tệp PDF
+            BufferedImage awtImage = ImageIO.read(new File("thongTinHoaDon.png"));
+            PDImageXObject pdImageXObject = LosslessFactory.createFromImage(document, awtImage);
+
+            PDPageContentStream contentStream = new PDPageContentStream(document, page);
+            contentStream.drawImage(pdImageXObject, 0, 0, page.getMediaBox().getWidth(), page.getMediaBox().getHeight());
+
+            contentStream.close();
+            document.save(new File(fileName));
+            document.close();
+
+            // Xóa tệp tạm thời
+            File tempFile = new File("thongTinHoaDon.png");
+            tempFile.delete();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

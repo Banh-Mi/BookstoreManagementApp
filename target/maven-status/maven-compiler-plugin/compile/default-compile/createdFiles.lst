@@ -101,6 +101,7 @@ gui\JFrame_ChiTietSanPham$10.class
 gui\JPanel_KhachHangTK$2.class
 gui\JPanel_SanPham.class
 gui\JPanel_KhachHang$7.class
+gui\ThongTinHoaDon.class
 gui\JPanel_TimKiemSanPham$3.class
 Dao\KhachHangDAO.class
 gui\JPhanel_HoaDon$15.class
@@ -156,6 +157,7 @@ gui\JPanel_BanHang$17.class
 gui\BieuDoKhachHang.class
 gui\JPanel_SanPham$18.class
 gui\GiaoDienChinh.class
+gui\ThongTinHoaDon$1.class
 gui\JPanel_NhaCungCap$4.class
 entity\ThongKeDoanhThu.class
 gui\JFrame_ChiTietKhachHang.class
