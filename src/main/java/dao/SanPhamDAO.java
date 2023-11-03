@@ -250,5 +250,41 @@ public class SanPhamDAO implements InterfaceDAO<SanPham> {
             return -1;
         }
     }
+    public int themTuExcell(SanPham sanPham) {
+        ConnectDB.getInstance();
+        Connection con = ConnectDB.getConnection();
+        CallableStatement cstmt = null;
+        try {
+            String sql = "{call InsertProduct(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+            cstmt = con.prepareCall(sql);
+            cstmt.setString(1, sanPham.getMaSanPham());
+            cstmt.setString(2, sanPham.getTenSanPham());
+            cstmt.setString(3, sanPham.getDanhMuc());
+            cstmt.setString(4, sanPham.getMaNhaCC());
+            cstmt.setDouble(5, sanPham.getGia());
+            cstmt.setString(6, sanPham.getDonViTinh());
+            cstmt.setInt(7, sanPham.getSoLuong());
+            cstmt.setString(8, sanPham.getHinhAnh());
+            cstmt.setBoolean(9, sanPham.isTrangThai());
+            cstmt.setString(10, sanPham.getMoTa());
+            if (sanPham.getDanhMuc().equals("Sách")) {
+                cstmt.setInt(11, sanPham.getSoTrang());
+                cstmt.setInt(12, sanPham.getNamXuatBan());
+                cstmt.setString(13, sanPham.getNhaXuatBan());
+                cstmt.setString(14, sanPham.getTacGia());
+            } else {
+                cstmt.setNull(11, Types.NVARCHAR);
+                cstmt.setNull(12, Types.NVARCHAR);
+                cstmt.setNull(13, Types.INTEGER);
+                cstmt.setNull(14, Types.INTEGER);
+            }
+            cstmt.registerOutParameter(15, java.sql.Types.INTEGER);
+            cstmt.execute();
+            return cstmt.getInt(15);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
+        return 0;
+    }
 }

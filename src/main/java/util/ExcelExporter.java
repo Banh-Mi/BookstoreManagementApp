@@ -1,11 +1,17 @@
 package util;
+
+import gui.TablePopUp;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 //ọadaskdk
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class ExcelExporter {
 
@@ -71,5 +77,56 @@ public class ExcelExporter {
         }
 
         return false;
+    }
+
+    private static Object[] readRow(Row row) {
+        int numberOfColumns = row.getLastCellNum();
+        Object[] rowData = new Object[numberOfColumns];
+
+        for (int i = 0; i < numberOfColumns; i++) {
+            Cell cell = row.getCell(i, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+
+            switch (cell.getCellType()) {
+                case STRING:
+                    rowData[i] = cell.getStringCellValue();
+                    break;
+                case NUMERIC:
+                    rowData[i] = cell.getNumericCellValue();
+                    break;
+                // Add more cases for other cell types as needed
+                default:
+                    rowData[i] = null;
+            }
+        }
+
+        return rowData;
+    }
+
+    public static List<Object[]> readExcel() {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setFileFilter(new FileNameExtensionFilter("Excel Files", "xlsx"));
+        int result = fileChooser.showSaveDialog(null);
+
+        List<Object[]> rows = new ArrayList<>();
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File file = fileChooser.getSelectedFile();
+            try (FileInputStream inputStream = new FileInputStream(file); Workbook workbook = WorkbookFactory.create(inputStream)) {
+                Sheet sheet = workbook.getSheetAt(0);
+                Row headerRow = sheet.getRow(0);
+                Object[] columnHeaders = readRow(headerRow);
+                for (int rowIndex = 1; rowIndex < sheet.getLastRowNum(); rowIndex++) {
+                    Row currentRow = sheet.getRow(rowIndex);
+                    Object[] rowData = readRow(currentRow);
+                    rows.add(rowData);
+                }
+                JFrame jf = null;
+                jf = new TablePopUp(rows, columnHeaders);
+                jf.setLocationRelativeTo(null);
+                jf.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return rows;
     }
 }

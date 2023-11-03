@@ -41,6 +41,25 @@ public class SanPham {
         this.trangThai = trangThai;
     }
 
+    public SanPham(Object[] sanPham) {
+        this.maSanPham = sanPham[0].toString();
+        this.tenSanPham = sanPham[1].toString();
+        this.danhMuc = sanPham[2].toString();
+        this.maNhaCC = sanPham[3].toString();
+        this.donViTinh = sanPham[4].toString();
+        if (sanPham[2].toString().equals("Sách")) {
+            this.tacGia = sanPham[5].toString();
+            this.nhaXuatBan = sanPham[6].toString();
+            this.namXuatBan = Integer.parseInt(sanPham[7].toString());
+            this.soTrang = Integer.parseInt(sanPham[8].toString());
+        }
+        this.soLuong = Integer.parseInt(sanPham[9].toString());
+        this.gia = Double.parseDouble(sanPham[10].toString());
+        this.hinhAnh = sanPham[11].toString();
+        this.moTa = sanPham[12].toString();
+        this.trangThai = true;
+    }
+
     public SanPham(String maSanPham, String tenSanPham, String danhMuc, String maNhaCC, String donViTinh, String tacGia, String nhaXuatBan, int namXuatBan, int soTrang, int soLuong, double gia, String hinhAnh, String moTa) {
         this.maSanPham = maSanPham;
         this.tenSanPham = tenSanPham;
@@ -86,8 +105,8 @@ public class SanPham {
         this.gia = gia;
         this.trangThai = trangThai;
     }
-    
-     public SanPham(String maSanPham, String tenSanPham, String danhMuc, String tacGia, String nhaXuatBan, int namXuatBan, int soTrang, double gia) {
+
+    public SanPham(String maSanPham, String tenSanPham, String danhMuc, String tacGia, String nhaXuatBan, int namXuatBan, int soTrang, double gia) {
         this.maSanPham = maSanPham;
         this.tenSanPham = tenSanPham;
         this.danhMuc = danhMuc;
@@ -97,7 +116,7 @@ public class SanPham {
         this.soTrang = soTrang;
         this.gia = gia;
     }
-    
+
     public SanPham(String maSanPham) {
         this.maSanPham = maSanPham;
     }
