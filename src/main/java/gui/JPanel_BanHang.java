@@ -88,10 +88,9 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         });
         thread.start();
 
-        
         modelCart = (DefaultTableModel) tbl_Cart.getModel();
         modelCart.setRowCount(0);
-        
+
         DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
         rightRenderer.setHorizontalAlignment(SwingConstants.RIGHT);
         tbl_Cart.getColumnModel().getColumn(3).setCellRenderer(rightRenderer);
@@ -549,7 +548,7 @@ public class JPanel_BanHang extends javax.swing.JPanel {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, true, false, true
+                false, false, false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -561,6 +560,11 @@ public class JPanel_BanHang extends javax.swing.JPanel {
             }
         });
         tbl_Cart.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tbl_Cart.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_CartMouseClicked(evt);
+            }
+        });
         scr_cart.setViewportView(tbl_Cart);
 
         jPanelCart.add(scr_cart, java.awt.BorderLayout.CENTER);
@@ -1768,6 +1772,68 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_txt_customerPhoneKeyReleased
 
+    private void tbl_CartMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_CartMouseClicked
+        if (evt.getClickCount() == 2) {
+            int row = tbl_Cart.getSelectedRow();
+            String quanity = JOptionPane.showInputDialog(this, "Nhập số lượng bạn muốn thay đổi");
+            if (quanity != null) {
+                if (!quanity.matches("^\\d+$")) {
+                    JOptionPane.showMessageDialog(this, "Số lượng phải là số dương!");
+                } else {
+                    int oldValue = Integer.valueOf(modelCart.getValueAt(row, 3) + "");
+                    int newValue = Integer.valueOf(quanity);
+                    if (newValue > 0) {
+                        SanPham sanPham = sanPhamDAO.selectbyId(new SanPham(modelCart.getValueAt(row, 1) + ""));
+                        if (newValue - oldValue > sanPham.getSoLuong()) {
+                            JOptionPane.showMessageDialog(this, "Số lượng sản phẩm trong kho không đủ để đáp ứng yêu cầu của bạn. Vui lòng nhập số lượng nhỏ hơn!");
+                        } else {
+                            if (newValue < oldValue) {
+                                int changeValue = oldValue - newValue;
+                                sanPham.setSoLuong(sanPham.getSoLuong() + changeValue);
+                                sanPhamDAO.update(sanPham);
+                                modelCart.setValueAt(newValue, row, 3);
+                                modelCart.setValueAt(nf.format(newValue * sanPham.getGia()), row, 5);
+
+                                totalAmount = (int) totalAmount - changeValue * (int) sanPham.getGia();
+
+                                if (!lbl_orderIdSale.getText().equals("")) {
+                                    lbl_totalAmountSale.setText(decimalFormat.format(totalAmount));
+                                    lbl_mustPay.setText(decimalFormat.format(totalAmount - discount));
+                                } else {
+                                    lbl_totalAmountOrder.setText(decimalFormat.format(totalAmount));
+                                    lbl_mustPayOrder.setText(decimalFormat.format(totalAmount - discount));
+                                }
+                                JOptionPane.showMessageDialog(this, "Cập nhật số lượng thành công");
+                                loadData();
+                            } else if (newValue > oldValue) {
+                                int changeValue = newValue - oldValue;
+                                sanPham.setSoLuong(sanPham.getSoLuong() - changeValue);
+                                sanPhamDAO.update(sanPham);
+                                modelCart.setValueAt(newValue, row, 3);
+                                modelCart.setValueAt(nf.format(newValue * sanPham.getGia()), row, 5);
+
+                                totalAmount = (int) totalAmount + changeValue * (int) sanPham.getGia();
+
+                                if (!lbl_orderIdSale.getText().equals("")) {
+                                    lbl_totalAmountSale.setText(decimalFormat.format(totalAmount));
+                                    lbl_mustPay.setText(decimalFormat.format(totalAmount - discount));
+                                } else {
+                                    lbl_totalAmountOrder.setText(decimalFormat.format(totalAmount));
+                                    lbl_mustPayOrder.setText(decimalFormat.format(totalAmount - discount));
+                                }
+
+                                JOptionPane.showMessageDialog(this, "Cập nhật số lượng thành công");
+                                loadData();
+                            }
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Số lượng sản phẩm trong kho không đủ để đáp ứng yêu cầu của bạn. Vui lòng nhập số lượng nhỏ hơn!");
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_tbl_CartMouseClicked
+
     private void addDataToListProduct(SanPham sanPham) {
         lbl_productImage1.setIcon(createImageIcon(sanPham.getHinhAnh()));
         lbl_productItemName1.setText(sanPham.getTenSanPham());
@@ -1829,7 +1895,6 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         }
         loadProductItem(danhSachSanPham);
     }
-
 
     public String getEmailContentSale(HoaDon hoaDon) {
         KhachHang khachHang = khachHangDAO.search(hoaDon.getMaKH());
