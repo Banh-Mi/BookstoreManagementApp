@@ -14,17 +14,13 @@ import javax.mail.internet.MimeMessage;
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 
-/**
- * @author Nguyễn Thanh Nhứt
- */
-public class Email {
-    //final String from ="loivinh759@gmail.com";
-    //    final String password = "lsiqdqqvhktszhgw";
+public class EmailL {
+//    static  String from ="loivinh759@gmail.com";
+//    static  String password = "lsiqdqqvhktszhgw";
+    static  String from ="diulau12300@gmail.com";
+    static  String password = "ktcblxwkfidtagul";
 
-    static final String from = "nguyenthanhnhut13102003@gmail.com";
-    static final String password = "pokqqzbdmnydkeow";
-
-    public static boolean sendEmail(String to, String subject, String content) {
+    public static boolean sendEmail1(String to, String subject, String content) {
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com"); // SMTP HOST
         props.put("mail.smtp.port", "587"); // TLS 587 SSL 465
