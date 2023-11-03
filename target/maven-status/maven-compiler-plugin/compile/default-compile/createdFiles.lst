@@ -10,6 +10,7 @@ gui\JPanel_TimKiemSanPham$1.class
 util\Email.class
 gui\JPanel_SanPham$18.class
 gui\GiaoDienChinh.class
+gui\JPanel_BanHang$37.class
 gui\ThongTinHoaDon$1.class
 dao\NhaCungCapDAO.class
 gui\JPanel_NhaCungCap$4.class
@@ -18,6 +19,7 @@ gui\JFrame_ChiTietKhachHang.class
 dao\TaiKhoanDAO.class
 gui\JPanel_ThongKe$27.class
 util\JPanelRounded.class
+gui\ThongTinSanPham$5.class
 gui\BieuDoKhachHang$2.class
 entity\NhanVien.class
 entity\SanPhamBieuDo.class
@@ -50,6 +52,7 @@ gui\JPanel_TaiKhoan$4.class
 entity\DoanhThuBieuDo.class
 gui\JPanel_TimKiemNhanVien$2.class
 gui\JPanel_ThongKe$3.class
+gui\ThongTinSanPham$4.class
 gui\GiaoDienChinh$12.class
 dao\ThongKeDoanhThuDAO.class
 gui\JPanel_ThongKe$15.class
@@ -76,6 +79,7 @@ gui\Frame_TaiKhoan$1.class
 gui\JPanel_KhuyenMai$20.class
 gui\JPanel_KhachHangTK$1.class
 gui\JPanel_TimKiemNhanVien.class
+gui\JPanel_BanHang$36.class
 gui\JPanel_KhachHang$6.class
 gui\GiaoDienChinh$13.class
 util\ExcelExporter.class
@@ -106,6 +110,7 @@ entity\HoaDon.class
 gui\JPhanel_HoaDon$1.class
 gui\JPanel_TimKiemNhanVien$1.class
 util\Validator.class
+gui\JPanel_BanHang$33.class
 gui\JPanel_SanPham$14.class
 entity\ChiTietHoaDon.class
 gui\JPanel_ThongKe$20.class
@@ -202,6 +207,7 @@ gui\BieuDoKhachHang$5.class
 gui\JPanel_BanHang$14.class
 gui\JPanel_ThongKe$6.class
 gui\BieuDoSanPham$4.class
+gui\JPanel_BanHang$34.class
 gui\JPhanel_HoaDon.class
 gui\JPanel_BanHang$6.class
 gui\GiaoDienChinh$8.class
@@ -219,6 +225,7 @@ gui\JPanel_TimKiemSanPham$3.class
 gui\JPhanel_HoaDon$15.class
 gui\JPanel_ThongKe$25.class
 gui\JPanel_KhuyenMai$10.class
+gui\JPanel_BanHang$35.class
 gui\JPanel_BanHang$5.class
 gui\JFrame_ChiTietKhachHang$11.class
 gui\JPanel_KhachHangTK$8.class
@@ -265,6 +272,7 @@ entity\PhanCaLamViec.class
 gui\JPanel_BanHang$18.class
 gui\JPanel_KhuyenMai$17.class
 gui\JPanel_NhaCungCap$5.class
+gui\JPanel_BanHang$38.class
 gui\JPhanel_HoaDon$9.class
 gui\JPanel_KhachHangTK.class
 gui\JFrame_ChiTietSanPham$5.class
@@ -311,6 +319,7 @@ gui\GiaoDienDangNhap.class
 gui\JPanel_KhachHang$2.class
 gui\JPanel_KhachHangTK$5.class
 gui\JPanel_PhanCa$6.class
+gui\JPanel_BanHang$39.class
 gui\JPanel_ThongKe$11.class
 gui\JPanel_NhaCungCap$3.class
 gui\JPhanel_HoaDon$17.class

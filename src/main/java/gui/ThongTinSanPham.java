@@ -2,6 +2,9 @@ package gui;
 
 import dao.SanPhamDAO;
 import entity.SanPham;
+import java.awt.Cursor;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -39,6 +42,24 @@ public class ThongTinSanPham extends javax.swing.JFrame {
         DecimalFormat decimalFormat = new DecimalFormat("#,###");
         lbl_priceValue.setText(decimalFormat.format(sanPham.getGia()));
         lbl_descriptionValue.setText(sanPham.getMoTa());
+        jpAdd.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent e) {
+                jpAdd.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
+
+            public void mouseExited(MouseEvent e) {
+                jpAdd.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            }
+        });
+        jpCancel.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent e) {
+                jpCancel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
+
+            public void mouseExited(MouseEvent e) {
+                jpCancel.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            }
+        });
     }
 
     public ImageIcon createImageIcon(String url, JLabel label) {
