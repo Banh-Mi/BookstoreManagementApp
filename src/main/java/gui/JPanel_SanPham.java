@@ -22,6 +22,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import org.imgscalr.Scalr;
 import org.jfree.ui.DateCellRenderer;
+import static util.Excel.readExcel;
 
 /**
  * @author Nguyễn Thanh Nhứt
@@ -132,6 +133,7 @@ public class JPanel_SanPham extends javax.swing.JPanel {
         jpRefresh = new util.JPanelRounded();
         jbRefresh = new javax.swing.JLabel();
         svgRefresh = new util.SVGImage();
+        jButton1 = new javax.swing.JButton();
 
         jTextArea2.setColumns(20);
         jTextArea2.setRows(5);
@@ -422,6 +424,15 @@ public class JPanel_SanPham extends javax.swing.JPanel {
         jpRefresh.add(svgRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
 
         add(jpRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 430, 110, -1));
+
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton1.setText("Nhập Excel");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
+        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 430, -1, 40));
     }// </editor-fold>//GEN-END:initComponents
 
     private void txt_ProductIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_ProductIdActionPerformed
@@ -735,11 +746,16 @@ public class JPanel_SanPham extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_cb_CategoryItemStateChanged
 
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+            readExcel();
+    }//GEN-LAST:event_jButton1MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_chooseImage;
     private javax.swing.JComboBox<String> cb_Category;
     private javax.swing.JComboBox<String> cb_Supplier;
+    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JLabel jbDelete;

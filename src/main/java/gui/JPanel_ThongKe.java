@@ -24,7 +24,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import static util.ExcelExporter.exportToExcel;
+import static util.Excel.exportToExcel;
 
 public class JPanel_ThongKe extends javax.swing.JPanel {
 

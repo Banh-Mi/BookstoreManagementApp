@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class ExcelExporter {
+public class Excel {
 
     public static boolean exportToExcel(JTable table, String totalAmount) {
         JFileChooser fileChooser = new JFileChooser();
