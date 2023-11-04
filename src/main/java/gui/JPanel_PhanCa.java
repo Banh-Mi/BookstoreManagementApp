@@ -9,6 +9,7 @@ import dao.PhanCaLamViecDAO;
 import entity.NhanVien;
 import entity.PhanCaLamViec;
 import entity.ThongTinPhanCaLamViec;
+import static gui.GiaoDienDangNhap.ngonNgu;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
@@ -29,6 +30,10 @@ public class JPanel_PhanCa extends javax.swing.JPanel {
 
     public JPanel_PhanCa() {
         initComponents();
+        if(ngonNgu==2)
+        {
+            ChuyenDoiNN();
+        }
         svgPhanCa.setSvgImage("add.svg", 40, 40);
         svgDelete.setSvgImage("delete.svg", 40, 40);
         svgRefresh.setSvgImage("refresh.svg", 35, 35);
@@ -39,6 +44,18 @@ public class JPanel_PhanCa extends javax.swing.JPanel {
             cbMaNhanVien.addItem(nv.getMaNV());
         }
         setName();
+    }
+     public void ChuyenDoiNN()
+    {
+        lblMaNhanVien.setText("Employee ID:");
+        lblTenNV.setText("Employee Name:");
+        lblNgayLam.setText("Day of work:");
+        lblMaNhanVien1.setText("shift:");
+        jLabel3.setText("(*) Shift 1: From 9am - 4pm / Shift 2: From 4pm - 10pm");
+        lblPhanCa.setText("WORK SHIFTS");
+        jbAdd.setText("Shift");
+        jbDelete.setText("Delete");
+        jbRefresh.setText("Refresh");        
     }
 
     private void setValue(String indexMa, String ngayLam, String indexCa) {
@@ -219,8 +236,8 @@ public class JPanel_PhanCa extends javax.swing.JPanel {
 
         cbCa.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         cbCa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ca 1", "Ca 2" }));
-        panelChucNang.add(cbCa, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 20, 130, 40));
-        panelChucNang.add(jdNgayLam, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 20, 190, 40));
+        panelChucNang.add(cbCa, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 20, 130, 40));
+        panelChucNang.add(jdNgayLam, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 20, 190, 40));
 
         lblNgayLam.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblNgayLam.setText("Ngày làm:");
@@ -228,7 +245,7 @@ public class JPanel_PhanCa extends javax.swing.JPanel {
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
         jLabel3.setText("(*) Ca 1: Từ 9h - 16h / Ca 2: Từ 16h - 22h ");
-        panelChucNang.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 20, 270, 40));
+        panelChucNang.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 80, 390, 40));
 
         add(panelChucNang, java.awt.BorderLayout.CENTER);
 
@@ -236,25 +253,50 @@ public class JPanel_PhanCa extends javax.swing.JPanel {
         panelDanhSachPhanCa.setLayout(new java.awt.BorderLayout());
 
         tablePhanCa.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        tablePhanCa.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "Mã nhân viên", "Tên nhân viên", "Số điện thoại", "Ca làm việc", "Giờ vào", "Giờ ra", "Ngày "
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
+        if(ngonNgu==2)
+        {
+            tablePhanCa.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
+                    {null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null}
+                },
+                new String [] {
+                    "Employee ID", "Employee Name", "Phone", "Shift", "Time to enter", "Time out", "Day"
+                }
+            ) {
+                Class[] types = new Class [] {
+                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
+                public Class getColumnClass(int columnIndex) {
+                    return types [columnIndex];
+                }
+            });
+        }
+        else
+        {
+            tablePhanCa.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
+                    {null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null}
+                },
+                new String [] {
+                    "Mã nhân viên", "Tên nhân viên", "Số điện thoại", "Ca làm việc", "Giờ vào", "Giờ ra", "Ngày "
+                }
+            ) {
+                Class[] types = new Class [] {
+                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                };
+
+                public Class getColumnClass(int columnIndex) {
+                    return types [columnIndex];
+                }
+            });
+        }
         tablePhanCa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tablePhanCaMouseClicked(evt);

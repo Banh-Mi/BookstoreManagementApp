@@ -7,6 +7,7 @@ package gui;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import entity.NhanVien;
+import static gui.GiaoDienDangNhap.ngonNgu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -30,6 +31,7 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
         this.nhanVien = nhanVien;
         jpanel_banHang = new JPanel_BanHang(nhanVien.getMaNV());
         initComponents();
+
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setThongTin();
         svgLogo.setSvgImage("logo.svg", 170, 74);
@@ -179,15 +181,6 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
             }
         });
 
-//        MenuItem menuTimKiemKM = new MenuItem(null, "Tìm kiếm KM", new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent ae) {
-//                pnView.removeAll();
-//                pnView.add(new JPanel_KhuyenMaiTK());
-//                pnView.repaint();
-//                pnView.revalidate();
-//            }
-//        });
         MenuItem menuHome = new MenuItem(iconHome, "Trang chủ", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -219,33 +212,7 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
             }
         });
 
-//        MenuItem menuThongKeDT = new MenuItem(null, "Thống kê DT", new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent ae) {
-//                pnView.removeAll();
-//                pnView.add(new JPanel_ThongKe());
-//                pnView.repaint();
-//                pnView.revalidate();
-//            }
-//        });
-//        MenuItem menuThongKeKH = new MenuItem(null, "Thống kê KH", new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent ae) {
-//                pnView.removeAll();
-//                pnView.add(new JPanel_ThongKeKhachHang());
-//                pnView.repaint();
-//                pnView.revalidate();
-//            }
-//        });
-//        MenuItem menuThongKeSP = new MenuItem(null, "Thống kê SP", new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent ae) {
-//                pnView.removeAll();
-//                pnView.add(new JPanel_ThongKeSanPham());
-//                pnView.repaint();
-//                pnView.revalidate();
-//            }
-//        });
+        //----------------------------------------------------------------------------------------------------------------------
         if (nhanVien.getChucVu().equals("Quản lý")) {
             MenuItem menuEmployee = new MenuItem(iconEmployee, "Nhân viên", null, menuQuanLyNV, menuTimNV, menuPhanCa, menuBanHang, menuThongKe, menuQuanLyKM);
             MenuItem menuCustomer = new MenuItem(iconCustomer, "Khách hàng", null, menuQuanLyKH, menuTimKiemKH);

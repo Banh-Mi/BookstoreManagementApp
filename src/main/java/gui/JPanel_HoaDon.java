@@ -8,6 +8,7 @@ import dao.SanPhamDAO;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
 import entity.SanPham;
+import static gui.GiaoDienDangNhap.ngonNgu;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -33,6 +34,10 @@ public class JPanel_HoaDon extends javax.swing.JPanel {
 
     public JPanel_HoaDon() {
         initComponents();
+        if(ngonNgu==2)
+        {
+            ChuyenDoiNN();
+        }
         modelOrder = (DefaultTableModel) tbl_Order.getModel();
         modelOrderDetail = (DefaultTableModel) tbl_OrderDetail.getModel();
 
@@ -47,6 +52,13 @@ public class JPanel_HoaDon extends javax.swing.JPanel {
         cb_SearchStatus.setEnabled(false);
 
         loadData();
+    }
+    public void ChuyenDoiNN()
+    {
+       lbl_SearchOrder1.setText("Find Orders:");
+       lbl_SearchSearchByTimeFrom.setText("From");
+       lbl_SearchByTimeTo.setText("To");
+       
     }
 
     private void loadData() {
@@ -93,7 +105,14 @@ public class JPanel_HoaDon extends javax.swing.JPanel {
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel_Order.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Hóa đơn", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
+        if(ngonNgu==2)
+        {
+            jPanel_Order.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Bill", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14)));
+        }
+        else
+        {
+            jPanel_Order.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Hóa đơn", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14)));
+        }
         jPanel_Order.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txt_SearchOrder.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -112,7 +131,14 @@ public class JPanel_HoaDon extends javax.swing.JPanel {
         });
         jPanel_Order.add(txt_SearchOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 30, 440, 30));
 
-        pnl_SearchByTime.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thời gian", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
+        if(ngonNgu==2)
+        {
+            pnl_SearchByTime.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Time", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12)));
+        }
+        else
+        {
+            pnl_SearchByTime.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thời gian", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12)));
+        }
         pnl_SearchByTime.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jDateChooser_SearchByTimeTo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -121,7 +147,7 @@ public class JPanel_HoaDon extends javax.swing.JPanel {
                 jDateChooser_SearchByTimeToPropertyChange(evt);
             }
         });
-        pnl_SearchByTime.add(jDateChooser_SearchByTimeTo, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 30, 140, 33));
+        pnl_SearchByTime.add(jDateChooser_SearchByTimeTo, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, 140, 33));
 
         jDateChooser_SearchByTimeFrom.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jDateChooser_SearchByTimeFrom.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -146,19 +172,26 @@ public class JPanel_HoaDon extends javax.swing.JPanel {
                 jDateChooser_SearchByTimeFromKeyReleased(evt);
             }
         });
-        pnl_SearchByTime.add(jDateChooser_SearchByTimeFrom, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, 140, 33));
+        pnl_SearchByTime.add(jDateChooser_SearchByTimeFrom, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, 140, 33));
 
         lbl_SearchSearchByTimeFrom.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl_SearchSearchByTimeFrom.setText("Từ");
-        pnl_SearchByTime.add(lbl_SearchSearchByTimeFrom, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 30, 30));
+        pnl_SearchByTime.add(lbl_SearchSearchByTimeFrom, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 40, 30));
 
         lbl_SearchByTimeTo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl_SearchByTimeTo.setText("Đến");
-        pnl_SearchByTime.add(lbl_SearchByTimeTo, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 30, 30, 30));
+        pnl_SearchByTime.add(lbl_SearchByTimeTo, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 30, 30, 30));
 
-        jPanel_Order.add(pnl_SearchByTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 90, 410, 87));
+        jPanel_Order.add(pnl_SearchByTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 90, 430, 87));
 
-        pnl_SearchStatus.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Trạng thái", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
+        if(ngonNgu==2)
+        {
+            pnl_SearchStatus.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Status", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12)));
+        }
+        else
+        {
+            pnl_SearchStatus.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Trạng thái", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12)));
+        }
         pnl_SearchStatus.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         pnl_SearchStatus.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -177,7 +210,14 @@ public class JPanel_HoaDon extends javax.swing.JPanel {
 
         jPanel_Order.add(pnl_SearchStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 90, 200, 87));
 
-        pnl_SearchTotalAmount.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tổng tiền", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
+        if(ngonNgu==2)
+        {
+            pnl_SearchTotalAmount.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Total amount", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12)));
+        }
+        else
+        {
+            pnl_SearchTotalAmount.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tổng tiền", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12)));
+        }
         pnl_SearchTotalAmount.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         cb_SearchTotalAmount.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -201,25 +241,50 @@ public class JPanel_HoaDon extends javax.swing.JPanel {
         lbl_SearchOrder1.setText("Tìm kiếm hóa đơn:");
         jPanel_Order.add(lbl_SearchOrder1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 30, 130, 30));
 
-        tbl_Order.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "Mã hóa đơn", "Ngày lập", "Mã nhân viên", "Tên nhân viên", "Mã khách hàng", "Tên khách hàng", "Loại hóa đơn", "Phương thức thanh toán", "Giảm giá", "Tổng tiền", "Trạng thái", "Ghi chú"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
+        if(ngonNgu==2)
+        {
+            tbl_Order.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
+                    {null, null, null, null, null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null, null, null, null, null}
+                },
+                new String [] {
+                    "Order ID", "Invoice date", "Employee ID", "Employee Name", "Customer ID", "Customer Name", "Category Order", "payment methods", "discount", "total amount", "Status", "Note"
+                }
+            ) {
+                Class[] types = new Class [] {
+                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
+                public Class getColumnClass(int columnIndex) {
+                    return types [columnIndex];
+                }
+            });
+        }
+        else
+        {
+            tbl_Order.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
+                    {null, null, null, null, null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null, null, null, null, null}
+                },
+                new String [] {
+                    "Mã hóa đơn", "Ngày lập", "Mã nhân viên", "Tên nhân viên", "Mã khách hàng", "Tên khách hàng", "Loại hóa đơn", "Phương thức thanh toán", "Giảm giá", "Tổng tiền", "Trạng thái", "Ghi chú"
+                }
+            ) {
+                Class[] types = new Class [] {
+                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                };
+
+                public Class getColumnClass(int columnIndex) {
+                    return types [columnIndex];
+                }
+            });
+        }
         tbl_Order.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbl_OrderMouseClicked(evt);
@@ -229,7 +294,14 @@ public class JPanel_HoaDon extends javax.swing.JPanel {
 
         jPanel_Order.add(scr_Order, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 1160, 290));
 
-        pnl_SearchOrderCategory.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Loại hóa đơn", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
+        if(ngonNgu==2)
+        {
+            pnl_SearchOrderCategory.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Category order", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12)));
+        }
+        else
+        {
+            pnl_SearchOrderCategory.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Loại hóa đơn", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12)));
+        }
         pnl_SearchOrderCategory.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         pnl_SearchOrderCategory.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -257,30 +329,62 @@ public class JPanel_HoaDon extends javax.swing.JPanel {
 
         add(jPanel_Order, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 1200, 510));
 
-        jPanel_OrderDetail.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Hóa đơn chi tiết", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
+        if(ngonNgu==2)
+        {
+            jPanel_OrderDetail.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "order detail", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14)));
+        }
+        else
+        {
+            jPanel_OrderDetail.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Hóa đơn chi tiết", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14)));
+        }
         jPanel_OrderDetail.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         scr_OrderDetail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        tbl_OrderDetail.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "Mã sản phẩm", "Tên sản phẩm", "Giá", "Số lượng", "Thành tiền"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
+        if(ngonNgu==2)
+        {
+            tbl_OrderDetail.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
+                    {null, null, null, null, null},
+                    {null, null, null, null, null},
+                    {null, null, null, null, null},
+                    {null, null, null, null, null}
+                },
+                new String [] {
+                    "Product ID", "Product Name", "Price", "Quantity", "Into Money"
+                }
+            ) {
+                Class[] types = new Class [] {
+                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
+                public Class getColumnClass(int columnIndex) {
+                    return types [columnIndex];
+                }
+            });
+        }
+        else
+        {
+            tbl_OrderDetail.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
+                    {null, null, null, null, null},
+                    {null, null, null, null, null},
+                    {null, null, null, null, null},
+                    {null, null, null, null, null}
+                },
+                new String [] {
+                    "Mã sản phẩm", "Tên sản phẩm", "Giá", "Số lượng", "Thành tiền"
+                }
+            ) {
+                Class[] types = new Class [] {
+                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                };
+
+                public Class getColumnClass(int columnIndex) {
+                    return types [columnIndex];
+                }
+            });
+        }
         scr_OrderDetail.setViewportView(tbl_OrderDetail);
 
         jPanel_OrderDetail.add(scr_OrderDetail, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 1160, 270));

@@ -6,6 +6,7 @@ package gui;
 
 import dao.NhanVienDAO;
 import entity.NhanVien;
+import static gui.GiaoDienDangNhap.ngonNgu;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -19,10 +20,26 @@ public class JPanel_TimKiemNhanVien extends javax.swing.JPanel {
 
     public JPanel_TimKiemNhanVien() {
         initComponents();
+        if(ngonNgu==2)
+        {
+            ChuyenDoiNN();
+        }
         svgDelete.setSvgImage("search.svg", 40, 40);
         svgRefresh.setSvgImage("refresh.svg", 35, 35);
         modelNhanVien = (DefaultTableModel) tableNhanVien.getModel();
         loadData();
+    }
+    public void ChuyenDoiNN()
+    {
+        lblMaNhanVien.setText("Employee ID:");
+        lblSearch1.setText("Status:");
+        lbSupplierName.setText("Employee Name:");
+        lblPhone.setText("Phone:");
+        lblGioiTinh.setText("Gender:");
+        lblGioiTinh1.setText("Position:");
+        jbDelete.setText("Find");
+        jbRefresh.setText("Refresh");
+        lbTitle.setText("FINDING EMPLOYEES");
     }
 
     private void refresh() {
@@ -181,29 +198,58 @@ public class JPanel_TimKiemNhanVien extends javax.swing.JPanel {
         jPanel3.setPreferredSize(new java.awt.Dimension(452, 520));
         jPanel3.setLayout(new java.awt.BorderLayout());
 
-        tableNhanVien.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+        if(ngonNgu==2)
+        {
+            tableNhanVien.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
 
-            },
-            new String [] {
-                "Mã nhân viên", "Tên nhân viên", "Số điện thoại", "Email", "Ngày sinh", "Địa chỉ", "Giới tính", "Chức vụ", "Trạng thái"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, true, false, false, true, false
-            };
+                },
+                new String [] {
+                    "Employee ID", "Employee Name", "Phone", "Email", "Date Of Birth", "Address", "Gender", "Position", "Status"
+                }
+            ) {
+                Class[] types = new Class [] {
+                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                };
+                boolean[] canEdit = new boolean [] {
+                    false, false, false, false, true, false, false, true, false
+                };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
+                public Class getColumnClass(int columnIndex) {
+                    return types [columnIndex];
+                }
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+                public boolean isCellEditable(int rowIndex, int columnIndex) {
+                    return canEdit [columnIndex];
+                }
+            });
+        }
+        else
+        {
+            tableNhanVien.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
+
+                },
+                new String [] {
+                    "Mã nhân viên", "Tên nhân viên", "Số điện thoại", "Email", "Ngày sinh", "Địa chỉ", "Giới tính", "Chức vụ", "Trạng thái"
+                }
+            ) {
+                Class[] types = new Class [] {
+                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                };
+                boolean[] canEdit = new boolean [] {
+                    false, false, false, false, true, false, false, true, false
+                };
+
+                public Class getColumnClass(int columnIndex) {
+                    return types [columnIndex];
+                }
+
+                public boolean isCellEditable(int rowIndex, int columnIndex) {
+                    return canEdit [columnIndex];
+                }
+            });
+        }
         scrollNhanVien.setViewportView(tableNhanVien);
 
         jPanel3.add(scrollNhanVien, java.awt.BorderLayout.CENTER);

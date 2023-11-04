@@ -6,6 +6,7 @@ package gui;
 
 import dao.NhaCungCapDAO;
 import entity.NhaCungCap;
+import static gui.GiaoDienDangNhap.ngonNgu;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -19,10 +20,24 @@ public class JPanel_TimKiemNhaCungCap extends javax.swing.JPanel {
 
     public JPanel_TimKiemNhaCungCap() {
         initComponents();
+        if(ngonNgu==2)
+        {
+            ChuyenDoiNN();
+        }
         svgDelete.setSvgImage("search.svg", 40, 40);
         svgRefresh.setSvgImage("refresh.svg", 35, 35);
         modelNhaCungCap = (DefaultTableModel) tableSupplier.getModel();
         loadData();
+    }
+     public void ChuyenDoiNN()
+    {
+        lbSupplierID.setText("Supplier ID:");
+        lbSupplierName.setText("Supplier Name:");
+        lblPhone.setText("Phone:");
+        lblSearch1.setText("Status:");
+        lbTitle.setText("FINDING SUPPLIERS");
+        jbDelete.setText("Find");
+        jbRefresh.setText("Refresh");       
     }
 
     private void refresh() {
@@ -159,22 +174,44 @@ public class JPanel_TimKiemNhaCungCap extends javax.swing.JPanel {
         jPanel3.setPreferredSize(new java.awt.Dimension(452, 520));
         jPanel3.setLayout(new java.awt.BorderLayout());
 
-        tableSupplier.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+        if(ngonNgu==2)
+        {
+            tableSupplier.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
 
-            },
-            new String [] {
-                "Mã nhà cung cấp", "Tên nhà cung cấp", "Trạng thái", "Địa chỉ", "Email", "Số điện thoại", "Người liên hệ"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
+                },
+                new String [] {
+                    "Supplier ID", "Supplier Name", "Status", "Address", "Email", "Phone", "Contact person"
+                }
+            ) {
+                Class[] types = new Class [] {
+                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
+                public Class getColumnClass(int columnIndex) {
+                    return types [columnIndex];
+                }
+            });
+        }
+        else
+        {
+            tableSupplier.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
+
+                },
+                new String [] {
+                    "Mã nhà cung cấp", "Tên nhà cung cấp", "Trạng thái", "Địa chỉ", "Email", "Số điện thoại", "Người liên hệ"
+                }
+            ) {
+                Class[] types = new Class [] {
+                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                };
+
+                public Class getColumnClass(int columnIndex) {
+                    return types [columnIndex];
+                }
+            });
+        }
         srcollSupplier.setViewportView(tableSupplier);
 
         jPanel3.add(srcollSupplier, java.awt.BorderLayout.CENTER);

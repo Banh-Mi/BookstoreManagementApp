@@ -322,19 +322,9 @@
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
             <Component class="javax.swing.JTable" name="tableSupplier">
-              <Properties>
-                <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="7" rowCount="0">
-                    <Column editable="true" title="M&#xe3; nh&#xe0; cung c&#x1ea5;p" type="java.lang.String"/>
-                    <Column editable="true" title="T&#xea;n nh&#xe0; cung c&#x1ea5;p" type="java.lang.String"/>
-                    <Column editable="true" title="Tr&#x1ea1;ng th&#xe1;i" type="java.lang.String"/>
-                    <Column editable="true" title="&#x110;&#x1ecb;a ch&#x1ec9;" type="java.lang.String"/>
-                    <Column editable="true" title="Email" type="java.lang.String"/>
-                    <Column editable="true" title="S&#x1ed1; &#x111;i&#x1ec7;n tho&#x1ea1;i" type="java.lang.String"/>
-                    <Column editable="true" title="Ng&#x1b0;&#x1edd;i li&#xea;n h&#x1ec7;" type="java.lang.String"/>
-                  </Table>
-                </Property>
-              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="if(ngonNgu==2)&#xa;{&#xa;tableSupplier.setModel(new javax.swing.table.DefaultTableModel(&#xa;    new Object [][] {&#xa;&#xa;    },&#xa;    new String [] {&#xa;        &quot;Supplier ID&quot;, &quot;Supplier Name&quot;, &quot;Status&quot;, &quot;Address&quot;, &quot;Email&quot;, &quot;Phone&quot;, &quot;Contact person&quot;&#xa;    }&#xa;) {&#xa;    Class[] types = new Class [] {&#xa;        java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class&#xa;    };&#xa;&#xa;    public Class getColumnClass(int columnIndex) {&#xa;        return types [columnIndex];&#xa;    }&#xa;});&#xa;}&#xa;else &#xa;{&#xa;tableSupplier.setModel(new javax.swing.table.DefaultTableModel(&#xa;    new Object [][] {&#xa;&#xa;    },&#xa;    new String [] {&#xa;        &quot;M&#xe3; nh&#xe0; cung c&#x1ea5;p&quot;, &quot;T&#xea;n nh&#xe0; cung c&#x1ea5;p&quot;, &quot;Tr&#x1ea1;ng th&#xe1;i&quot;, &quot;&#x110;&#x1ecb;a ch&#x1ec9;&quot;, &quot;Email&quot;, &quot;S&#x1ed1; &#x111;i&#x1ec7;n tho&#x1ea1;i&quot;, &quot;Ng&#x1b0;&#x1edd;i li&#xea;n h&#x1ec7;&quot;&#xa;    }&#xa;) {&#xa;    Class[] types = new Class [] {&#xa;        java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class&#xa;    };&#xa;&#xa;    public Class getColumnClass(int columnIndex) {&#xa;        return types [columnIndex];&#xa;    }&#xa;});&#xa;}"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>

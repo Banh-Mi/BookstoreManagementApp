@@ -14,7 +14,7 @@ import javax.swing.UIManager;
 public class GiaoDienDangNhap extends javax.swing.JFrame {
 
     private boolean setShow = false;
-    public static int ngongu;
+    public static int ngonNgu;
     public GiaoDienDangNhap() throws SQLException {
         ConnectDB.getInstance().connect();
         initComponents();
@@ -265,16 +265,16 @@ public class GiaoDienDangNhap extends javax.swing.JFrame {
     }
        if(comboxngonngu.getSelectedItem().equals("English"))
        {
-           ngongu=2;
+           ngonNgu=2;
        }
        else
        {
-           ngongu=1;
+           ngonNgu=1;
        }
     }//GEN-LAST:event_comboxngonnguItemStateChanged
     public static int getngonngu()
     {
-        return ngongu;
+        return ngonNgu;
     }
     public static void main(String args[]) {
     

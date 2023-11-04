@@ -8,6 +8,7 @@ import dao.NhanVienDAO;
 import dao.TaiKhoanDAO;
 import entity.NhanVien;
 import entity.TaiKhoan;
+import static gui.GiaoDienDangNhap.ngonNgu;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
@@ -28,9 +29,12 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
     private final DefaultTableModel modelNhanVien;
     private NhanVienDAO nhanVienDao;
     private TaiKhoanDAO taiKhoanDao;
-
     public JPanel_NhanVien() {
         initComponents();
+        if(ngonNgu==2)
+        {
+            ChuyenDoiNN();
+        }
         svgAdd.setSvgImage("add.svg", 40, 40);
         svgEdit.setSvgImage("edit.svg", 35, 35);
         svgDelete.setSvgImage("delete.svg", 40, 40);
@@ -41,6 +45,24 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
         txtMaNV.setEditable(false);
         loadData();
     }
+    public void ChuyenDoiNN()
+    {
+        lblEmployeeID.setText("Employee ID:");
+        lblFullName.setText("FullName:");
+        lblPosition.setText("Position:");
+        lblStatus.setText("Status:");
+        lblAddress.setText("Address:");
+        lblPhone.setText("Phone:");
+        jdNgaySinh1.setText("Date Of Birth:");
+        lblGender.setText("Gender:");
+        lblEmail.setText("Email:");
+        jbEmployeeManagerment.setText("EMPLOYEE MANAGERMENT");
+        jbAdd.setText("Add");
+        jbEdit.setText("Edit");
+        jbDelete.setText("Delete");
+        jbRefresh.setText("Refresh");
+    }
+
 
     private void setValue(String maNV, String tenNV, String soDienThoai, String email, String ngaySinh, String diaChi, JRadioButton gioiTinh, String chucVu, String trangThai) {
 
@@ -93,7 +115,7 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
         radNam = new javax.swing.JRadioButton();
         lblPhone = new javax.swing.JLabel();
         lblStatus = new javax.swing.JLabel();
-        lblDob = new javax.swing.JLabel();
+        jdNgaySinh1 = new javax.swing.JLabel();
         txtDiaChi = new javax.swing.JTextField();
         cbTrangThai = new javax.swing.JComboBox<>();
         lblPosition = new javax.swing.JLabel();
@@ -171,9 +193,9 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
         lblStatus.setText("Trạng thái:");
         jpFunction.add(lblStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 10, -1, 40));
 
-        lblDob.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblDob.setText("Ngày sinh:");
-        jpFunction.add(lblDob, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 10, -1, 40));
+        jdNgaySinh1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jdNgaySinh1.setText("Ngày sinh:");
+        jpFunction.add(jdNgaySinh1, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 10, -1, 40));
 
         txtDiaChi.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jpFunction.add(txtDiaChi, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 80, 310, 40));
@@ -197,7 +219,7 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
         jpFunction.add(txtMaNV, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, 240, 40));
 
         jdNgaySinh.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jpFunction.add(jdNgaySinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 10, 240, 40));
+        jpFunction.add(jdNgaySinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 10, 200, 40));
 
         lblEmail.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblEmail.setText("Email:");
@@ -295,22 +317,44 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
         jPanelEmployeeDetail.setPreferredSize(new java.awt.Dimension(458, 490));
         jPanelEmployeeDetail.setLayout(new java.awt.BorderLayout());
 
-        tableNhanVien.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+        if(ngonNgu==2)
+        {
+            tableNhanVien.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
 
-            },
-            new String [] {
-                "Mã nhân viên", "Tên", "Giới tính", "Ngày sinh", "Địa chỉ", "SĐT", "Email", "Chức vụ", "Trạng thái"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
+                },
+                new String [] {
+                    "Employee ID", "FullName", "Gender", "Date Of Birth", "Address", "Phone", "Email", "Position", "Status"
+                }
+            ) {
+                Class[] types = new Class [] {
+                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
+                public Class getColumnClass(int columnIndex) {
+                    return types [columnIndex];
+                }
+            });
+        }
+        else
+        {
+            tableNhanVien.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
+
+                },
+                new String [] {
+                    "Mã nhân viên", "Tên", "Giới tính", "Ngày sinh", "Địa chỉ", "SĐT", "Email", "Chức vụ", "Trạng thái"
+                }
+            ) {
+                Class[] types = new Class [] {
+                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                };
+
+                public Class getColumnClass(int columnIndex) {
+                    return types [columnIndex];
+                }
+            });
+        }
         tableNhanVien.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tableNhanVienMouseClicked(evt);
@@ -435,11 +479,11 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
     private util.JPanelRounded jbSua;
     private util.JPanelRounded jbXoa;
     private com.toedter.calendar.JDateChooser jdNgaySinh;
+    private javax.swing.JLabel jdNgaySinh1;
     private javax.swing.JPanel jpFunction;
     private util.JPanelRounded jpThem;
     private javax.swing.JPanel jpTitle;
     private javax.swing.JLabel lblAddress;
-    private javax.swing.JLabel lblDob;
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblEmployeeID;
     private javax.swing.JLabel lblFullName;

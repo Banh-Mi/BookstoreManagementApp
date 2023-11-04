@@ -182,7 +182,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblDob">
+        <Component class="javax.swing.JLabel" name="jdNgaySinh1">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="18" style="1"/>
@@ -286,7 +286,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="970" y="10" width="240" height="40"/>
+              <AbsoluteConstraints x="1010" y="10" width="200" height="40"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -555,19 +555,7 @@
           <SubComponents>
             <Component class="javax.swing.JTable" name="tableNhanVien">
               <Properties>
-                <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="9" rowCount="0">
-                    <Column editable="true" title="M&#xe3; nh&#xe2;n vi&#xea;n" type="java.lang.String"/>
-                    <Column editable="true" title="T&#xea;n" type="java.lang.String"/>
-                    <Column editable="true" title="Gi&#x1edb;i t&#xed;nh" type="java.lang.String"/>
-                    <Column editable="true" title="Ng&#xe0;y sinh" type="java.lang.String"/>
-                    <Column editable="true" title="&#x110;&#x1ecb;a ch&#x1ec9;" type="java.lang.String"/>
-                    <Column editable="true" title="S&#x110;T" type="java.lang.Integer"/>
-                    <Column editable="true" title="Email" type="java.lang.String"/>
-                    <Column editable="true" title="Ch&#x1ee9;c v&#x1ee5;" type="java.lang.String"/>
-                    <Column editable="true" title="Tr&#x1ea1;ng th&#xe1;i" type="java.lang.String"/>
-                  </Table>
-                </Property>
+                <Property name="model" postCode="if(ngonNgu==2)&#xa;{&#xa; tableNhanVien.setModel(new javax.swing.table.DefaultTableModel(&#xa;    new Object [][] {&#xa;&#xa;    },&#xa;    new String [] {&#xa;        &quot;Employee ID&quot;, &quot;FullName&quot;, &quot;Gender&quot;, &quot;Date Of Birth&quot;, &quot;Address&quot;, &quot;Phone&quot;, &quot;Email&quot;, &quot;Position&quot;, &quot;Status&quot;&#xa;    }&#xa;) {&#xa;    Class[] types = new Class [] {&#xa;        java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class&#xa;    };&#xa;&#xa;    public Class getColumnClass(int columnIndex) {&#xa;        return types [columnIndex];&#xa;    }&#xa;});&#xa;}&#xa;else &#xa;{&#xa;tableNhanVien.setModel(new javax.swing.table.DefaultTableModel(&#xa;    new Object [][] {&#xa;&#xa;    },&#xa;    new String [] {&#xa;        &quot;M&#xe3; nh&#xe2;n vi&#xea;n&quot;, &quot;T&#xea;n&quot;, &quot;Gi&#x1edb;i t&#xed;nh&quot;, &quot;Ng&#xe0;y sinh&quot;, &quot;&#x110;&#x1ecb;a ch&#x1ec9;&quot;, &quot;S&#x110;T&quot;, &quot;Email&quot;, &quot;Ch&#x1ee9;c v&#x1ee5;&quot;, &quot;Tr&#x1ea1;ng th&#xe1;i&quot;&#xa;    }&#xa;) {&#xa;    Class[] types = new Class [] {&#xa;        java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class&#xa;    };&#xa;&#xa;    public Class getColumnClass(int columnIndex) {&#xa;        return types [columnIndex];&#xa;    }&#xa;});&#xa;}"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tableNhanVienMouseClicked"/>

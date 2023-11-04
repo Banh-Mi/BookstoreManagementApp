@@ -6,6 +6,7 @@ package gui;
 
 import dao.NhaCungCapDAO;
 import entity.NhaCungCap;
+import static gui.GiaoDienDangNhap.ngonNgu;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import static util.Validator.checkName;
@@ -22,6 +23,10 @@ public class JPanel_NhaCungCap extends javax.swing.JPanel {
 
     public JPanel_NhaCungCap() {
         initComponents();
+        if(ngonNgu==2)
+        {
+            ChuyenDoiNN();
+        }
         svgAdd.setSvgImage("add.svg", 40, 40);
         svgEdit.setSvgImage("edit.svg", 35, 35);
         svgDelete.setSvgImage("delete.svg", 40,40);
@@ -45,6 +50,20 @@ public class JPanel_NhaCungCap extends javax.swing.JPanel {
         txtSoDienThoai.setText(soDienThoai);
         txtContactPerson.setText(nguoiLienHe);
 
+    }
+    public void ChuyenDoiNN()
+    {
+        lbSupplierID.setText("Supplier ID:");
+        lbSupplierName.setText("Supplier Name:");
+        lblContactPerson.setText("Contact Person:");
+        lblAddress.setText("Address:");
+        lblPhone.setText("Phone:");
+        lblSearch1.setText("Status:");
+        lbTitle.setText("SUPPLIER MANAGERMENT");
+        jbAdd.setText("Add");
+        jbDelete.setText("Delete");
+        jbRefresh.setText("Refresh");
+        jbEdit.setText("Edit");           
     }
 
     @SuppressWarnings("unchecked")
@@ -130,7 +149,7 @@ public class JPanel_NhaCungCap extends javax.swing.JPanel {
                 txtAddressActionPerformed(evt);
             }
         });
-        jPanel2.add(txtAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 90, 290, 40));
+        jPanel2.add(txtAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 90, 240, 40));
 
         lblAddress.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblAddress.setText("Địa chỉ:");
@@ -258,22 +277,44 @@ public class JPanel_NhaCungCap extends javax.swing.JPanel {
         jPanel3.setPreferredSize(new java.awt.Dimension(452, 470));
         jPanel3.setLayout(new java.awt.BorderLayout());
 
-        tableSupplier.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+        if(ngonNgu==2)
+        {
+            tableSupplier.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
 
-            },
-            new String [] {
-                "Mã nhà cung cấp", "Tên nhà cung cấp", "Trạng thái", "Địa chỉ", "Email", "Số điện thoại", "Người liên hệ"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
+                },
+                new String [] {
+                    "Supplier Name", "Supplier Name", "Status", "Address", "Email", "Phone", "Contact Person"
+                }
+            ) {
+                Class[] types = new Class [] {
+                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
+                public Class getColumnClass(int columnIndex) {
+                    return types [columnIndex];
+                }
+            });
+        }
+        else
+        {
+            tableSupplier.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
+
+                },
+                new String [] {
+                    "Mã nhà cung cấp", "Tên nhà cung cấp", "Trạng thái", "Địa chỉ", "Email", "Số điện thoại", "Người liên hệ"
+                }
+            ) {
+                Class[] types = new Class [] {
+                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                };
+
+                public Class getColumnClass(int columnIndex) {
+                    return types [columnIndex];
+                }
+            });
+        }
         tableSupplier.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tableSupplierMouseClicked(evt);

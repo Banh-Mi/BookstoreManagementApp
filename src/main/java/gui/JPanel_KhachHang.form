@@ -252,7 +252,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="870" y="160" width="250" height="40"/>
+              <AbsoluteConstraints x="930" y="160" width="230" height="40"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -561,6 +561,9 @@
               <Dimension value="[452, 460]"/>
             </Property>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="if(ngonNgu==2)&#xa;{&#xa;tableCustomer.setModel(new javax.swing.table.DefaultTableModel(&#xa;    new Object [][] {&#xa;&#xa;    },&#xa;    new String [] {&#xa;        &quot;M&#xe3; kh&#xe1;ch h&#xe0;ng&quot;, &quot;T&#xea;n&quot;, &quot;S&#x110;T&quot;, &quot;Email&quot;, &quot;Ng&#xe0;y sinh&quot;, &quot;&#x110;&#x1ecb;a ch&#x1ec9;&quot;, &quot;Gi&#x1edb;i t&#xed;nh&quot;, &quot;Th&#x1ebb; th&#xe0;nh vi&#xea;n&quot;, &quot;Ng&#xe0;y &#x110;&#x103;ng k&#xfd;&quot;&#xa;    }&#xa;) {&#xa;    Class[] types = new Class [] {&#xa;        java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class&#xa;    };&#xa;&#xa;    public Class getColumnClass(int columnIndex) {&#xa;        return types [columnIndex];&#xa;    }&#xa;});&#xa;}&#xa;else &#xa;{&#xa;tableCustomer.setModel(new javax.swing.table.DefaultTableModel(&#xa;    new Object [][] {&#xa;&#xa;    },&#xa;    new String [] {&#xa;        &quot;M&#xe3; kh&#xe1;ch h&#xe0;ng&quot;, &quot;T&#xea;n&quot;, &quot;S&#x110;T&quot;, &quot;Email&quot;, &quot;Ng&#xe0;y sinh&quot;, &quot;&#x110;&#x1ecb;a ch&#x1ec9;&quot;, &quot;Gi&#x1edb;i t&#xed;nh&quot;, &quot;Th&#x1ebb; th&#xe0;nh vi&#xea;n&quot;, &quot;Ng&#xe0;y &#x110;&#x103;ng k&#xfd;&quot;&#xa;    }&#xa;) {&#xa;    Class[] types = new Class [] {&#xa;        java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class&#xa;    };&#xa;&#xa;    public Class getColumnClass(int columnIndex) {&#xa;        return types [columnIndex];&#xa;    }&#xa;});&#xa;&#xa;}"/>
+          </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
               <BorderConstraints direction="Center"/>
@@ -571,19 +574,7 @@
           <SubComponents>
             <Component class="javax.swing.JTable" name="tableCustomer">
               <Properties>
-                <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="9" rowCount="0">
-                    <Column editable="true" title="M&#xe3; kh&#xe1;ch h&#xe0;ng" type="java.lang.String"/>
-                    <Column editable="true" title="T&#xea;n" type="java.lang.String"/>
-                    <Column editable="true" title="S&#x110;T" type="java.lang.String"/>
-                    <Column editable="true" title="Email" type="java.lang.String"/>
-                    <Column editable="true" title="Ng&#xe0;y sinh" type="java.lang.String"/>
-                    <Column editable="true" title="&#x110;&#x1ecb;a ch&#x1ec9;" type="java.lang.String"/>
-                    <Column editable="true" title="Gi&#x1edb;i t&#xed;nh" type="java.lang.String"/>
-                    <Column editable="true" title="Th&#x1ebb; th&#xe0;nh vi&#xea;n" type="java.lang.String"/>
-                    <Column editable="true" title="Ng&#xe0;y &#x110;&#x103;ng k&#xfd;" type="java.lang.String"/>
-                  </Table>
-                </Property>
+                <Property name="model" postCode="if(ngonNgu==2)&#xa;{&#xa;tableCustomer.setModel(new javax.swing.table.DefaultTableModel(&#xa;    new Object [][] {&#xa;&#xa;    },&#xa;    new String [] {&#xa;        &quot;Customer ID&quot;, &quot;Full Name&quot;, &quot;Phone&quot;, &quot;Email&quot;, &quot;Date&quot;, &quot;Address&quot;, &quot;Gender&quot;, &quot;Card&quot;, &quot;Registration Date&quot;&#xa;    }&#xa;) {&#xa;    Class[] types = new Class [] {&#xa;        java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class&#xa;    };&#xa;&#xa;    public Class getColumnClass(int columnIndex) {&#xa;        return types [columnIndex];&#xa;    }&#xa;});&#xa;}&#xa;else &#xa;{&#xa;tableCustomer.setModel(new javax.swing.table.DefaultTableModel(&#xa;    new Object [][] {&#xa;&#xa;    },&#xa;    new String [] {&#xa;        &quot;M&#xe3; kh&#xe1;ch h&#xe0;ng&quot;, &quot;T&#xea;n&quot;, &quot;S&#x110;T&quot;, &quot;Email&quot;, &quot;Ng&#xe0;y sinh&quot;, &quot;&#x110;&#x1ecb;a ch&#x1ec9;&quot;, &quot;Gi&#x1edb;i t&#xed;nh&quot;, &quot;Th&#x1ebb; th&#xe0;nh vi&#xea;n&quot;, &quot;Ng&#xe0;y &#x110;&#x103;ng k&#xfd;&quot;&#xa;    }&#xa;) {&#xa;    Class[] types = new Class [] {&#xa;        java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class&#xa;    };&#xa;&#xa;    public Class getColumnClass(int columnIndex) {&#xa;        return types [columnIndex];&#xa;    }&#xa;});&#xa;&#xa;}"/>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                   <TableColumnModel selectionModel="0">
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">

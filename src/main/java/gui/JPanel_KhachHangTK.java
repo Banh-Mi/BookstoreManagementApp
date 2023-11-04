@@ -2,6 +2,7 @@ package gui;
 
 import dao.KhachHangDAO;
 import entity.KhachHang;
+import static gui.GiaoDienDangNhap.ngonNgu;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -15,11 +16,29 @@ public class JPanel_KhachHangTK extends javax.swing.JPanel {
     public JPanel_KhachHangTK() {
 
         initComponents();
+        if(ngonNgu==2)
+        {
+            ChuyenDoiNN();
+        }
         svgTimKiem1.setSvgImage("search.svg", 40, 40);
         svgGuiMail.setSvgImage("add.svg", 40, 40);
         svgRefresh.setSvgImage("refresh.svg", 35, 35);
         modelKhachHang = (DefaultTableModel) tableCustomer.getModel();
         loadData();
+    }
+    public void ChuyenDoiNN()
+    {
+        lblCustomerID.setText("Customer ID:");
+        lblFullName.setText("Full Name:");
+        lblGender.setText("Card:");
+        lblPhone.setText("Phone:");
+        lblGender2.setText("Gender:");
+        lblTTKM.setText("Discount Information:");
+        
+        jbCustomerManagerment.setText("FINDING CUSTOMERS");
+        lblTimKiem1.setText("Find");
+        jbRefresh.setText("Refresh");
+        lblTimKiem.setText("Send mail");
     }
 
     private void loadData() {
@@ -50,7 +69,7 @@ public class JPanel_KhachHangTK extends javax.swing.JPanel {
         lblGender = new javax.swing.JLabel();
         lblPhone = new javax.swing.JLabel();
         txtmaKH = new javax.swing.JTextField();
-        lblEmail = new javax.swing.JLabel();
+        lblTTKM = new javax.swing.JLabel();
         txtThongTinKhuyenMai = new javax.swing.JTextField();
         jbGuiMail = new util.JPanelRounded();
         svgGuiMail = new util.SVGImage();
@@ -108,9 +127,9 @@ public class JPanel_KhachHangTK extends javax.swing.JPanel {
         });
         jpFunction.add(txtmaKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 20, 240, 40));
 
-        lblEmail.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblEmail.setText("Thông tin khuyến mãi:");
-        jpFunction.add(lblEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 170, -1, 40));
+        lblTTKM.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblTTKM.setText("Thông tin khuyến mãi:");
+        jpFunction.add(lblTTKM, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 170, -1, 40));
 
         txtThongTinKhuyenMai.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jpFunction.add(txtThongTinKhuyenMai, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 170, 210, 40));
@@ -227,22 +246,44 @@ public class JPanel_KhachHangTK extends javax.swing.JPanel {
             }
         });
 
-        tableCustomer.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null}
-            },
-            new String [] {
-                "Mã khách hàng", "Tên", "Email", "SĐT", "Giới tính", "Thẻ thành viên"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
+        if(ngonNgu==2)
+        {
+            tableCustomer.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
+                    {null, null, null, null, null, null}
+                },
+                new String [] {
+                    "Customer ID", "Full Name", "Email", "Phone", "Gender", "Card"
+                }
+            ) {
+                Class[] types = new Class [] {
+                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
+                public Class getColumnClass(int columnIndex) {
+                    return types [columnIndex];
+                }
+            });
+        }
+        else
+        {
+            tableCustomer.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
+                    {null, null, null, null, null, null}
+                },
+                new String [] {
+                    "Mã khách hàng", "Tên", "Email", "SĐT", "Giới tính", "Thẻ thành viên"
+                }
+            ) {
+                Class[] types = new Class [] {
+                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                };
+
+                public Class getColumnClass(int columnIndex) {
+                    return types [columnIndex];
+                }
+            });
+        }
         tableCustomer.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tableCustomerMouseClicked(evt);
@@ -389,12 +430,12 @@ public class JPanel_KhachHangTK extends javax.swing.JPanel {
     private javax.swing.JPanel jpFunction;
     private util.JPanelRounded jpRefresh;
     private javax.swing.JLabel lblCustomerID;
-    private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblEmail1;
     private javax.swing.JLabel lblFullName;
     private javax.swing.JLabel lblGender;
     private javax.swing.JLabel lblGender2;
     private javax.swing.JLabel lblPhone;
+    private javax.swing.JLabel lblTTKM;
     private javax.swing.JLabel lblTimKiem;
     private javax.swing.JLabel lblTimKiem1;
     private javax.swing.JScrollPane scrollCustomer;

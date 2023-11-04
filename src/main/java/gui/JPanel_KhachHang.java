@@ -4,6 +4,7 @@ package gui;
 import com.toedter.calendar.JDateChooser;
 import dao.KhachHangDAO;
 import entity.KhachHang;
+import static gui.GiaoDienDangNhap.ngonNgu;
 import java.util.Date;
 import javax.swing.DefaultListSelectionModel;
 import javax.swing.JOptionPane;
@@ -23,6 +24,10 @@ public class JPanel_KhachHang extends javax.swing.JPanel {
 
     public JPanel_KhachHang() {
         initComponents();
+        if(ngonNgu==2)
+        {
+            ChuyenDoiNN();
+        }
         svgAdd.setSvgImage("add.svg", 40, 40);
         svgEdit.setSvgImage("edit.svg", 35, 35);
         svgDelete.setSvgImage("delete.svg", 40, 40);
@@ -65,6 +70,22 @@ public class JPanel_KhachHang extends javax.swing.JPanel {
             }
         });
 
+    }
+    public void ChuyenDoiNN()
+    {
+        lblCustomerID.setText("Customer ID:");
+        lblFullName.setText("Full Name:");
+        lblDob.setText("Date:");
+        lblAddress.setText("Address:");
+        lblGender.setText("Card:");
+        lblPhone.setText("Phone:");
+        lblGender2.setText("Gender:");
+        lblGender1.setText("Registration Date:");
+        jbCustomerManagerment.setText("CUSTOMER MANAGERMENT");
+        jbAdd.setText("Add");
+        jbDelete.setText("Delete");
+        jbRefresh.setText("Refresh");
+        jbEdit.setText("Edit");           
     }
 
     private void loadData() {
@@ -205,7 +226,7 @@ public class JPanel_KhachHang extends javax.swing.JPanel {
         jpFunction.add(txtmaKhachHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, 220, 40));
 
         txtNgayDangKy.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jpFunction.add(txtNgayDangKy, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 160, 250, 40));
+        jpFunction.add(txtNgayDangKy, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 160, 230, 40));
 
         lblEmail.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblEmail.setText("Email:");
@@ -324,23 +345,85 @@ public class JPanel_KhachHang extends javax.swing.JPanel {
         jPanelCustomerDetail.setLayout(new java.awt.BorderLayout());
 
         scrollCustomer.setPreferredSize(new java.awt.Dimension(452, 460));
+        if(ngonNgu==2)
+        {
+            tableCustomer.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
 
-        tableCustomer.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+                },
+                new String [] {
+                    "Mã khách hàng", "Tên", "SĐT", "Email", "Ngày sinh", "Địa chỉ", "Giới tính", "Thẻ thành viên", "Ngày Đăng ký"
+                }
+            ) {
+                Class[] types = new Class [] {
+                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                };
 
-            },
-            new String [] {
-                "Mã khách hàng", "Tên", "SĐT", "Email", "Ngày sinh", "Địa chỉ", "Giới tính", "Thẻ thành viên", "Ngày Đăng ký"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
+                public Class getColumnClass(int columnIndex) {
+                    return types [columnIndex];
+                }
+            });
+        }
+        else
+        {
+            tableCustomer.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
+                },
+                new String [] {
+                    "Mã khách hàng", "Tên", "SĐT", "Email", "Ngày sinh", "Địa chỉ", "Giới tính", "Thẻ thành viên", "Ngày Đăng ký"
+                }
+            ) {
+                Class[] types = new Class [] {
+                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                };
+
+                public Class getColumnClass(int columnIndex) {
+                    return types [columnIndex];
+                }
+            });
+
+        }
+
+        if(ngonNgu==2)
+        {
+            tableCustomer.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
+
+                },
+                new String [] {
+                    "Customer ID", "Full Name", "Phone", "Email", "Date", "Address", "Gender", "Card", "Registration Date"
+                }
+            ) {
+                Class[] types = new Class [] {
+                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                };
+
+                public Class getColumnClass(int columnIndex) {
+                    return types [columnIndex];
+                }
+            });
+        }
+        else
+        {
+            tableCustomer.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
+
+                },
+                new String [] {
+                    "Mã khách hàng", "Tên", "SĐT", "Email", "Ngày sinh", "Địa chỉ", "Giới tính", "Thẻ thành viên", "Ngày Đăng ký"
+                }
+            ) {
+                Class[] types = new Class [] {
+                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                };
+
+                public Class getColumnClass(int columnIndex) {
+                    return types [columnIndex];
+                }
+            });
+
+        }
         scrollCustomer.setViewportView(tableCustomer);
 
         jPanelCustomerDetail.add(scrollCustomer, java.awt.BorderLayout.CENTER);

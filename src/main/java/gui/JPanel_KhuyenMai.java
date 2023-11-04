@@ -4,6 +4,7 @@ import com.toedter.calendar.JDateChooser;
 import dao.KhachHangDAO;
 import dao.KhuyenMaiDAO;
 import entity.KhuyenMai;
+import static gui.GiaoDienDangNhap.ngonNgu;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -31,6 +32,10 @@ public class JPanel_KhuyenMai extends javax.swing.JPanel {
     public JPanel_KhuyenMai() {
 
         initComponents();
+        if(ngonNgu==2)
+        {
+            ChuyenDoiNN();
+        }
         svgAdd.setSvgImage("add.svg", 40, 40);
         svgEdit.setSvgImage("edit.svg", 35, 35);
         svgDelete.setSvgImage("delete.svg", 40, 40);
@@ -61,6 +66,20 @@ public class JPanel_KhuyenMai extends javax.swing.JPanel {
 
             }
         });
+    }
+    public void ChuyenDoiNN()
+    {
+        lblDiscountID.setText("Discount ID:");
+        lblNameProgram.setText("Name Program:");
+        lblPercent.setText("Percent:");
+        lblDob.setText("Start day:");
+        lblDescribe.setText("Describe:");
+        lblDob1.setText("End day:");
+        jbAdd.setText("Add");
+        jbDelete.setText("Delete");
+        jbRefresh.setText("Refresh");
+        jbEdit.setText("Edit");
+        jbDiscountManagerment.setText("DISCOUNT MANAGERMENT");             
     }
 
     private void loadData() {
@@ -148,7 +167,7 @@ public class JPanel_KhuyenMai extends javax.swing.JPanel {
                 txtmotaActionPerformed(evt);
             }
         });
-        jpFunction.add(txtmota, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 20, 390, 40));
+        jpFunction.add(txtmota, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 20, 270, 40));
 
         lblDescribe.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblDescribe.setText("Mô tả:");
@@ -323,23 +342,45 @@ public class JPanel_KhuyenMai extends javax.swing.JPanel {
                 scrollDiscountMouseClicked(evt);
             }
         });
+        if(ngonNgu==2)
+        {
+            tableDiscount.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
 
-        tableDiscount.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+                },
+                new String [] {
+                    "Discount ID", "Name Program", "Percent", "Start day", "End day", "Describe"
+                }
+            ) {
+                Class[] types = new Class [] {
+                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                };
 
-            },
-            new String [] {
-                "Mã khuyến mãi", "Tên chương trình", "Phần trăm giảm", "Ngày bắt đầu", "Ngày kết thúc", "Mô tả"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
+                public Class getColumnClass(int columnIndex) {
+                    return types [columnIndex];
+                }
+            });
+        }
+        else
+        {
+            tableDiscount.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
+                },
+                new String [] {
+                    "Mã khuyến mãi", "Tên chương trình", "Phần trăm giảm", "Ngày bắt đầu", "Ngày kết thúc", "Mô tả"
+                }
+            ) {
+                Class[] types = new Class [] {
+                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                };
+
+                public Class getColumnClass(int columnIndex) {
+                    return types [columnIndex];
+                }
+            });
+        }
+
         scrollDiscount.setViewportView(tableDiscount);
 
         jPanelDiscountDetail.add(scrollDiscount, java.awt.BorderLayout.CENTER);

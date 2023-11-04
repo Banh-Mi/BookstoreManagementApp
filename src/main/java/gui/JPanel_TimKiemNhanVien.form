@@ -393,21 +393,9 @@
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
             <Component class="javax.swing.JTable" name="tableNhanVien">
-              <Properties>
-                <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="9" rowCount="0">
-                    <Column editable="false" title="M&#xe3; nh&#xe2;n vi&#xea;n" type="java.lang.String"/>
-                    <Column editable="false" title="T&#xea;n nh&#xe2;n vi&#xea;n" type="java.lang.String"/>
-                    <Column editable="false" title="S&#x1ed1; &#x111;i&#x1ec7;n tho&#x1ea1;i" type="java.lang.String"/>
-                    <Column editable="false" title="Email" type="java.lang.String"/>
-                    <Column editable="true" title="Ng&#xe0;y sinh" type="java.lang.String"/>
-                    <Column editable="false" title="&#x110;&#x1ecb;a ch&#x1ec9;" type="java.lang.String"/>
-                    <Column editable="false" title="Gi&#x1edb;i t&#xed;nh" type="java.lang.String"/>
-                    <Column editable="true" title="Ch&#x1ee9;c v&#x1ee5;" type="java.lang.String"/>
-                    <Column editable="false" title="Tr&#x1ea1;ng th&#xe1;i" type="java.lang.String"/>
-                  </Table>
-                </Property>
-              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="if(ngonNgu==2)&#xa;{&#xa;tableNhanVien.setModel(new javax.swing.table.DefaultTableModel(&#xa;    new Object [][] {&#xa;&#xa;    },&#xa;    new String [] {&#xa;        &quot;Employee ID&quot;, &quot;Employee Name&quot;, &quot;Phone&quot;, &quot;Email&quot;, &quot;Date Of Birth&quot;, &quot;Address&quot;, &quot;Gender&quot;, &quot;Position&quot;, &quot;Status&quot;&#xa;    }&#xa;) {&#xa;    Class[] types = new Class [] {&#xa;        java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class&#xa;    };&#xa;    boolean[] canEdit = new boolean [] {&#xa;        false, false, false, false, true, false, false, true, false&#xa;    };&#xa;&#xa;    public Class getColumnClass(int columnIndex) {&#xa;        return types [columnIndex];&#xa;    }&#xa;&#xa;    public boolean isCellEditable(int rowIndex, int columnIndex) {&#xa;        return canEdit [columnIndex];&#xa;    }&#xa;});&#xa;}&#xa;else &#xa;{&#xa;tableNhanVien.setModel(new javax.swing.table.DefaultTableModel(&#xa;    new Object [][] {&#xa;&#xa;    },&#xa;    new String [] {&#xa;        &quot;M&#xe3; nh&#xe2;n vi&#xea;n&quot;, &quot;T&#xea;n nh&#xe2;n vi&#xea;n&quot;, &quot;S&#x1ed1; &#x111;i&#x1ec7;n tho&#x1ea1;i&quot;, &quot;Email&quot;, &quot;Ng&#xe0;y sinh&quot;, &quot;&#x110;&#x1ecb;a ch&#x1ec9;&quot;, &quot;Gi&#x1edb;i t&#xed;nh&quot;, &quot;Ch&#x1ee9;c v&#x1ee5;&quot;, &quot;Tr&#x1ea1;ng th&#xe1;i&quot;&#xa;    }&#xa;) {&#xa;    Class[] types = new Class [] {&#xa;        java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class&#xa;    };&#xa;    boolean[] canEdit = new boolean [] {&#xa;        false, false, false, false, true, false, false, true, false&#xa;    };&#xa;&#xa;    public Class getColumnClass(int columnIndex) {&#xa;        return types [columnIndex];&#xa;    }&#xa;&#xa;    public boolean isCellEditable(int rowIndex, int columnIndex) {&#xa;        return canEdit [columnIndex];&#xa;    }&#xa;});&#xa;}"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>
