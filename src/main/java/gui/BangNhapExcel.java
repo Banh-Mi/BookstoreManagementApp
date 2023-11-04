@@ -6,6 +6,8 @@ package gui;
 
 import dao.SanPhamDAO;
 import entity.SanPham;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -14,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author BanhMi88
  */
-public class TablePopUp extends javax.swing.JFrame {
+public class BangNhapExcel extends javax.swing.JFrame {
 
     /**
      * Creates new form TablePopUp
@@ -25,7 +27,7 @@ public class TablePopUp extends javax.swing.JFrame {
     private SanPham sanPham;
     private final SanPhamDAO sanPhamDAO = new SanPhamDAO();
 
-    public TablePopUp(List<Object[]> object, Object[] title) {
+    public BangNhapExcel(List<Object[]> object, Object[] title) {
         initComponents();
 
         DefaultTableModel model = new DefaultTableModel(new Object[][]{}, title);
@@ -153,20 +155,18 @@ public class TablePopUp extends javax.swing.JFrame {
         int messageNCC = 0;
         int thanhCong = 0;
         DefaultTableModel modelExcel = (DefaultTableModel) tablePopup.getModel();
-        if (selectedRows.length == 0) {
-            // If no rows are selected, print all rows
+        List<Integer> rowsToRemove = new ArrayList<>();
+
+        if (selectedRows.length <= 0) {
             for (int i = 0; i < tablePopup.getRowCount(); i++) {
                 Object[] rowData = new Object[tablePopup.getColumnCount()];
                 for (int j = 0; j < tablePopup.getColumnCount(); j++) {
                     rowData[j] = tablePopup.getValueAt(i, j);
-
                 }
-                // Process or print the rowData as needed
                 sanPham = new SanPham(rowData);
                 int result = sanPhamDAO.themTuExcell(sanPham);
                 switch (result) {
                     case 1:
-
                         messageSP++;
                         break;
                     case 2:
@@ -174,7 +174,7 @@ public class TablePopUp extends javax.swing.JFrame {
                         break;
                     case 3:
                         thanhCong++;
-                        modelExcel.removeRow(i);
+                        rowsToRemove.add(i);
                         break;
                     default:
                         JOptionPane.showMessageDialog(null, "Lỗi");
@@ -183,10 +183,8 @@ public class TablePopUp extends javax.swing.JFrame {
         } else {
             for (int i : selectedRows) {
                 Object[] rowData = new Object[tablePopup.getColumnCount()];
-
                 for (int j = 0; j < tablePopup.getColumnCount(); j++) {
                     rowData[j] = tablePopup.getValueAt(i, j);
-
                 }
                 sanPham = new SanPham(rowData);
                 int result = sanPhamDAO.themTuExcell(sanPham);
@@ -199,14 +197,20 @@ public class TablePopUp extends javax.swing.JFrame {
                         break;
                     case 3:
                         thanhCong++;
-                        modelExcel.removeRow(i);
+                        rowsToRemove.add(i);
                         break;
                     default:
                         JOptionPane.showMessageDialog(null, "Lỗi");
                 }
             }
-
         }
+
+        // Đảo ngược mảng để xoá từ dòng cuối lên dòng đầu tránh gây lỗi
+        Collections.reverse(rowsToRemove);
+        for (int i : rowsToRemove) {
+            modelExcel.removeRow(i);
+        }
+
         String message = "";
         if (thanhCong != 0) {
             message += "Có " + thanhCong + " sản phẩm thêm thành công\n";
