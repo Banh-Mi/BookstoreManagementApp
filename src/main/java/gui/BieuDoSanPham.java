@@ -14,10 +14,6 @@ import org.jfree.data.general.DefaultPieDataset;
 import java.awt.Font;
 import java.awt.Color;
 
-/**
- *
- * @author VONG VINH LOI
- */
 public class BieuDoSanPham extends javax.swing.JFrame {
 
     private BieuDoSanPhamDAO sanPhamDao;
@@ -111,9 +107,7 @@ public class BieuDoSanPham extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         txtVanPhongPham = new javax.swing.JLabel();
         panelBarChart = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
         jbtThongKe = new javax.swing.JButton();
-        jcbTieuChi = new javax.swing.JComboBox<>();
         JDCDenNgay = new com.toedter.calendar.JDateChooser();
         jLabel3 = new javax.swing.JLabel();
         jDCTuNgay = new com.toedter.calendar.JDateChooser();
@@ -201,15 +195,6 @@ public class BieuDoSanPham extends javax.swing.JFrame {
         getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 160, 180, 120));
         getContentPane().add(panelBarChart, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, 1040, 420));
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton1.setText("In thống kê");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 70, -1, 30));
-
         jbtThongKe.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jbtThongKe.setText("Xem thống kê");
         jbtThongKe.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -222,11 +207,7 @@ public class BieuDoSanPham extends javax.swing.JFrame {
                 jbtThongKeActionPerformed(evt);
             }
         });
-        getContentPane().add(jbtThongKe, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 70, 130, 30));
-
-        jcbTieuChi.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jcbTieuChi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sản phẩm đã bán", "Top 5 sản phẩm được bán nhiều nhất", "Top 5 sản phẩm được bán ít nhất", "Top 5 sản phẩm có doanh thu cao nhất", "Top 5 sản phẩm có doanh thu thấp nhất", "Top 5 sản phẩm tồn kho nhiều nhất", "Top 5 sản phẩm tồn kho ít nhất" }));
-        getContentPane().add(jcbTieuChi, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 70, 200, 30));
+        getContentPane().add(jbtThongKe, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 70, 120, 30));
         getContentPane().add(JDCDenNgay, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 70, 180, 30));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -245,14 +226,10 @@ public class BieuDoSanPham extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 30));
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 70, 80, 30));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jbtThongKeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtThongKeActionPerformed
         // TODO add your handling code here:
@@ -334,7 +311,6 @@ public class BieuDoSanPham extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser JDCDenNgay;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private com.toedter.calendar.JDateChooser jDCTuNgay;
     private javax.swing.JLabel jLabel1;
@@ -352,7 +328,6 @@ public class BieuDoSanPham extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JButton jbtThongKe;
-    private javax.swing.JComboBox<String> jcbTieuChi;
     private javax.swing.JPanel panelBarChart;
     private javax.swing.JLabel txtDCHT;
     private javax.swing.JLabel txtDoChoi;

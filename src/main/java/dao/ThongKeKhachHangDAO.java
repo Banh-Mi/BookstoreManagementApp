@@ -42,6 +42,46 @@ public class ThongKeKhachHangDAO {
         return danhSachKhachHang;
     }
 
+    public ArrayList<DoanhThuBieuDo> getKHNamBieuDo(int nam) {
+        ArrayList<DoanhThuBieuDo> listkh = new ArrayList<>();
+        ConnectDB.getInstance();
+        Connection con = ConnectDB.getConnection();
+        PreparedStatement stmt = null;
+        try {
+            String sql = "SELECT "
+                    + "KhachHang.maKH, "
+                    + "KhachHang.tenKH, "
+                    + "MONTH(HoaDon.ngayLapHoaDon) AS thang, "
+                    + "SUM("
+                    + "CASE "
+                    + "WHEN HoaDon.maKhuyenMai IS NOT NULL THEN "
+                    + "chiTietTongTien.TongTien * (1 - KhuyenMai.phanTramKhuyenMai / 100.0) "
+                    + "ELSE "
+                    + "chiTietTongTien.TongTien "
+                    + "END "
+                    + ") AS tongTien "
+                    + "FROM KhachHang "
+                    + "JOIN HoaDon ON KhachHang.maKH = HoaDon.maKH "
+                    + "LEFT JOIN KhuyenMai ON HoaDon.maKhuyenMai = KhuyenMai.maKhuyenMai "
+                    + "LEFT JOIN ("
+                    + "SELECT ChiTietHoaDon.maHoaDon, SUM(soLuong * gia) AS TongTien "
+                    + "FROM ChiTietHoaDon "
+                    + "GROUP BY ChiTietHoaDon.maHoaDon "
+                    + ") chiTietTongTien ON HoaDon.maHoaDon = chiTietTongTien.maHoaDon "
+                    + "WHERE YEAR(HoaDon.ngayLapHoaDon) = ? "
+                    + "GROUP BY KhachHang.maKH, KhachHang.tenKH, MONTH(HoaDon.ngayLapHoaDon) "
+                    + "ORDER BY thang;";
+            stmt = con.prepareStatement(sql);
+            stmt.setInt(1, nam);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                listkh.add(new DoanhThuBieuDo(rs.getInt(3), rs.getDouble(4)));
+            }
+        } catch (Exception e) {
+        }
+        return listkh;
+    }
+
     public ArrayList<ThongKeKhachHang> getKHThangNam(int month, int year) {
         ArrayList<ThongKeKhachHang> danhSachKH = new ArrayList<>();
         ConnectDB.getInstance();

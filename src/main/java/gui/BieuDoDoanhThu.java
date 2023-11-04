@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package gui;
 
 import dao.ThongKeDoanhThuDAO;
@@ -71,7 +68,6 @@ public class BieuDoDoanhThu extends javax.swing.JFrame {
 
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jPane7 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jComboBoxnam = new javax.swing.JComboBox<>();
@@ -93,15 +89,6 @@ public class BieuDoDoanhThu extends javax.swing.JFrame {
         });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, -1, 30));
 
-        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton2.setText("In biểu đồ");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 80, -1, 30));
-
         jPane7.setLayout(new java.awt.BorderLayout());
         getContentPane().add(jPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 1030, 510));
 
@@ -109,7 +96,7 @@ public class BieuDoDoanhThu extends javax.swing.JFrame {
         jLabel1.setText("Năm :");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 70, 30));
 
-        jComboBoxnam.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2023", "2022", "2021", "2020","2019" }));
+        jComboBoxnam.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2023", "2022", "2021", "2020"}));
         jComboBoxnam.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxnamActionPerformed(evt);
@@ -188,10 +175,6 @@ public class BieuDoDoanhThu extends javax.swing.JFrame {
         jPane7.validate();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
-
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         setVisible(false);
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -242,7 +225,6 @@ public class BieuDoDoanhThu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jComboBoxnam;
     private javax.swing.JLabel jLabel1;

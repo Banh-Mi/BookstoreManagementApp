@@ -10,9 +10,9 @@ import entity.SanPham;
 import entity.ThongKeDoanhThu;
 import entity.ThongKeKhachHang;
 import entity.ThongKeSanPham;
+import java.awt.Graphics2D;
 import java.sql.SQLException;
 import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashSet;
@@ -24,7 +24,16 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import static util.Excel.exportToExcel;
+import java.io.IOException;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import javax.swing.JTable;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.graphics.image.LosslessFactory;
+import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
+import static util.ExcelExporter.exportToExcel;
 
 public class JPanel_ThongKe extends javax.swing.JPanel {
 
@@ -40,6 +49,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
     private SanPhamDAO sanPhamDAO;
     private final NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
     private KhachHangDAO khachHangDAO;
+
     public JPanel_ThongKe() {
         initComponents();
         modelDoanhThu = (DefaultTableModel) tableDoanhThu.getModel();
@@ -140,7 +150,6 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         txtDoanhThu = new javax.swing.JLabel();
         txtSoLuongHoaDon = new javax.swing.JLabel();
         lblTuNgay = new javax.swing.JLabel();
-        btnXuatExcel = new javax.swing.JButton();
         jcbLuaChonDoanhThu = new javax.swing.JComboBox<>();
         lblLuaChonDoanhThu = new javax.swing.JLabel();
         jpThongKeDT = new util.JPanelRounded();
@@ -159,6 +168,12 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         txtTongTien = new javax.swing.JLabel();
         lblGiamGia = new javax.swing.JLabel();
         txtGiamGia = new javax.swing.JLabel();
+        jbLXuatExcelDoanhThu = new util.JPanelRounded();
+        lblLamMoiSP3 = new javax.swing.JLabel();
+        XuatExcelDoanhThu = new util.SVGImage();
+        jpLXuatPDFDoanhThu = new util.JPanelRounded();
+        lblInBaoCaoSP2 = new javax.swing.JLabel();
+        svgXuatPDFDoanhThu = new util.SVGImage();
         tabSanPham = new javax.swing.JPanel();
         scrollSanPham = new javax.swing.JScrollPane();
         tableSanPham = new javax.swing.JTable();
@@ -174,9 +189,9 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         lblTuNgaySP = new javax.swing.JLabel();
         btnBieuDoSP = new javax.swing.JButton();
         jcbLuaChonDoanhThu1 = new javax.swing.JComboBox<>();
-        jpInBaoCaoSP = new util.JPanelRounded();
+        jpLXuatPDFSanPham = new util.JPanelRounded();
         lblInBaoCaoSP = new javax.swing.JLabel();
-        svgInBaoCaoSP = new util.SVGImage();
+        svgXuatPDFSanPham = new util.SVGImage();
         lblLuaChonSP = new javax.swing.JLabel();
         jpThongKeSP = new util.JPanelRounded();
         lblThongKeSP = new javax.swing.JLabel();
@@ -190,7 +205,9 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         jcbThangDoanhThu1 = new javax.swing.JComboBox<>();
         jcbNamDoanhThu1 = new javax.swing.JComboBox<>();
         jcbchonsanpham = new javax.swing.JComboBox<>();
-        btnXuatExcelSanPham = new javax.swing.JButton();
+        jbLXuatExcelSanPham = new util.JPanelRounded();
+        lblLamMoiSP1 = new javax.swing.JLabel();
+        svgXuatExcelSanPham = new util.SVGImage();
         tabKhachHang = new javax.swing.JPanel();
         scrollKhachHang = new javax.swing.JScrollPane();
         tableKhachHang = new javax.swing.JTable();
@@ -223,6 +240,12 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         txtSoLuongDHKH = new javax.swing.JLabel();
         lblDoanhThuKH1 = new javax.swing.JLabel();
         txtsoLuongNDK = new javax.swing.JLabel();
+        jbLXuatExcelKhachHang = new util.JPanelRounded();
+        lblLamMoiSP2 = new javax.swing.JLabel();
+        svgXuatExcelKhachHang = new util.SVGImage();
+        jpLXuatPDFKhachHang = new util.JPanelRounded();
+        lblInBaoCaoSP1 = new javax.swing.JLabel();
+        svgXuatPDFKhachHang = new util.SVGImage();
 
         setPreferredSize(new java.awt.Dimension(1040, 950));
         setLayout(new java.awt.BorderLayout());
@@ -273,40 +296,26 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
 
         lblDoanhThu.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblDoanhThu.setText("Doanh thu:");
-        jpChucNangDoanhThu.add(lblDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 660, -1, 40));
+        jpChucNangDoanhThu.add(lblDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 750, -1, 40));
 
         lblTongDoanhThu.setFont(new java.awt.Font("Segoe UI", 1, 28)); // NOI18N
         lblTongDoanhThu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTongDoanhThu.setText("THỐNG KÊ");
-        jpChucNangDoanhThu.add(lblTongDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 410, 220, -1));
+        jpChucNangDoanhThu.add(lblTongDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 500, 220, -1));
 
         lblSoLuongHoaDon.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblSoLuongHoaDon.setText("Số lượng hóa đơn bán được:");
-        jpChucNangDoanhThu.add(lblSoLuongHoaDon, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 480, -1, 40));
+        jpChucNangDoanhThu.add(lblSoLuongHoaDon, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 570, -1, 40));
 
         txtDoanhThu.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jpChucNangDoanhThu.add(txtDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 660, 110, 40));
+        jpChucNangDoanhThu.add(txtDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 750, 190, 40));
 
         txtSoLuongHoaDon.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jpChucNangDoanhThu.add(txtSoLuongHoaDon, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 480, 80, 40));
+        jpChucNangDoanhThu.add(txtSoLuongHoaDon, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 570, 80, 40));
 
         lblTuNgay.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblTuNgay.setText("Từ ngày:");
         jpChucNangDoanhThu.add(lblTuNgay, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, -1, 40));
-
-        btnXuatExcel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        btnXuatExcel.setText("XUẤT EXCEL");
-        btnXuatExcel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnXuatExcelMouseClicked(evt);
-            }
-        });
-        btnXuatExcel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnXuatExcelActionPerformed(evt);
-            }
-        });
-        jpChucNangDoanhThu.add(btnXuatExcel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 730, 140, 50));
 
         jcbLuaChonDoanhThu.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jcbLuaChonDoanhThu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tuỳ chỉnh", "Theo ngày", "Theo tuần", "Theo tháng", "Theo năm" }));
@@ -365,7 +374,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         jbLamMoiDoanhThu.add(svgLamMoiDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 40, 40));
 
         jpChucNangDoanhThu.add(jbLamMoiDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 310, 150, 50));
-        jpChucNangDoanhThu.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 450, 340, 10));
+        jpChucNangDoanhThu.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 540, 340, 10));
 
         lblNamDoanhThu.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblNamDoanhThu.setText("Năm :");
@@ -396,21 +405,63 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
                 jButton3ActionPerformed(evt);
             }
         });
-        jpChucNangDoanhThu.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 730, 150, 50));
+        jpChucNangDoanhThu.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 820, 150, 50));
 
         lblTongTien.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblTongTien.setText("Tổng tiền:");
-        jpChucNangDoanhThu.add(lblTongTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 540, -1, 40));
+        jpChucNangDoanhThu.add(lblTongTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 630, -1, 40));
 
         txtTongTien.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jpChucNangDoanhThu.add(txtTongTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 540, 110, 40));
+        jpChucNangDoanhThu.add(txtTongTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 630, 150, 40));
 
         lblGiamGia.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblGiamGia.setText("Giảm giá:");
-        jpChucNangDoanhThu.add(lblGiamGia, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 600, -1, 40));
+        jpChucNangDoanhThu.add(lblGiamGia, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 690, -1, 40));
 
         txtGiamGia.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jpChucNangDoanhThu.add(txtGiamGia, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 600, 110, 40));
+        jpChucNangDoanhThu.add(txtGiamGia, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 690, 190, 40));
+
+        jbLXuatExcelDoanhThu.setBackground(new java.awt.Color(255, 255, 255));
+        jbLXuatExcelDoanhThu.setRoundedBottomLeft(10);
+        jbLXuatExcelDoanhThu.setRoundedBottomRight(10);
+        jbLXuatExcelDoanhThu.setRoundedTopLeft(10);
+        jbLXuatExcelDoanhThu.setRoundedTopRight(10);
+        jbLXuatExcelDoanhThu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbLXuatExcelDoanhThuMouseClicked(evt);
+            }
+        });
+        jbLXuatExcelDoanhThu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblLamMoiSP3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblLamMoiSP3.setText("Xuất excel");
+        jbLXuatExcelDoanhThu.add(lblLamMoiSP3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 100, 50));
+
+        XuatExcelDoanhThu.setText(" ");
+        jbLXuatExcelDoanhThu.add(XuatExcelDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 40, 40));
+
+        jpChucNangDoanhThu.add(jbLXuatExcelDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 150, 50));
+
+        jpLXuatPDFDoanhThu.setBackground(new java.awt.Color(255, 255, 255));
+        jpLXuatPDFDoanhThu.setRoundedBottomLeft(10);
+        jpLXuatPDFDoanhThu.setRoundedBottomRight(10);
+        jpLXuatPDFDoanhThu.setRoundedTopLeft(10);
+        jpLXuatPDFDoanhThu.setRoundedTopRight(10);
+        jpLXuatPDFDoanhThu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jpLXuatPDFDoanhThuMouseClicked(evt);
+            }
+        });
+        jpLXuatPDFDoanhThu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblInBaoCaoSP2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblInBaoCaoSP2.setText("Xuất PDF");
+        jpLXuatPDFDoanhThu.add(lblInBaoCaoSP2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 100, 50));
+
+        svgXuatPDFDoanhThu.setText(" ");
+        jpLXuatPDFDoanhThu.add(svgXuatPDFDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 40, 40));
+
+        jpChucNangDoanhThu.add(jpLXuatPDFDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 390, 150, 50));
 
         tabDoanhThu.add(jpChucNangDoanhThu, java.awt.BorderLayout.WEST);
 
@@ -471,7 +522,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         jpChucNangSanPham.add(lblSoLuongHoaDonSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 570, -1, 40));
 
         txtDoanhThuSP.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jpChucNangSanPham.add(txtDoanhThuSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 620, 110, 40));
+        jpChucNangSanPham.add(txtDoanhThuSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 620, 190, 40));
 
         txtSoLuongHoaDon1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jpChucNangSanPham.add(txtSoLuongHoaDon1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 570, 60, 40));
@@ -492,7 +543,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
                 btnBieuDoSPActionPerformed(evt);
             }
         });
-        jpChucNangSanPham.add(btnBieuDoSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 680, 170, 50));
+        jpChucNangSanPham.add(btnBieuDoSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 800, 170, 50));
 
         jcbLuaChonDoanhThu1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jcbLuaChonDoanhThu1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tuỳ chỉnh", "Theo ngày", "Theo tuần", "Theo tháng", "Theo năm" }));
@@ -508,26 +559,31 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         });
         jpChucNangSanPham.add(jcbLuaChonDoanhThu1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 20, 200, 40));
 
-        jpInBaoCaoSP.setBackground(new java.awt.Color(255, 255, 255));
-        jpInBaoCaoSP.setRoundedBottomLeft(10);
-        jpInBaoCaoSP.setRoundedBottomRight(10);
-        jpInBaoCaoSP.setRoundedTopLeft(10);
-        jpInBaoCaoSP.setRoundedTopRight(10);
-        jpInBaoCaoSP.addMouseListener(new java.awt.event.MouseAdapter() {
+        jpLXuatPDFSanPham.setBackground(new java.awt.Color(255, 255, 255));
+        jpLXuatPDFSanPham.setRoundedBottomLeft(10);
+        jpLXuatPDFSanPham.setRoundedBottomRight(10);
+        jpLXuatPDFSanPham.setRoundedTopLeft(10);
+        jpLXuatPDFSanPham.setRoundedTopRight(10);
+        jpLXuatPDFSanPham.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jpInBaoCaoSPMouseClicked(evt);
+                jpLXuatPDFSanPhamMouseClicked(evt);
             }
         });
-        jpInBaoCaoSP.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jpLXuatPDFSanPham.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblInBaoCaoSP.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblInBaoCaoSP.setText("In báo cáo");
-        jpInBaoCaoSP.add(lblInBaoCaoSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 100, 50));
+        lblInBaoCaoSP.setText("Xuất PDF");
+        jpLXuatPDFSanPham.add(lblInBaoCaoSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 100, 50));
 
-        svgInBaoCaoSP.setText(" ");
-        jpInBaoCaoSP.add(svgInBaoCaoSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 40, 40));
+        svgXuatPDFSanPham.setText(" ");
+        svgXuatPDFSanPham.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                svgXuatPDFSanPhamMouseEntered(evt);
+            }
+        });
+        jpLXuatPDFSanPham.add(svgXuatPDFSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 40, 40));
 
-        jpChucNangSanPham.add(jpInBaoCaoSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 340, 150, 50));
+        jpChucNangSanPham.add(jpLXuatPDFSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 410, 150, 50));
 
         lblLuaChonSP.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblLuaChonSP.setText("Thống kê theo:");
@@ -573,7 +629,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         svgLamMoiSP.setText(" ");
         jbLamMoiSP.add(svgLamMoiSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 40, 40));
 
-        jpChucNangSanPham.add(jbLamMoiSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 410, 150, 50));
+        jpChucNangSanPham.add(jbLamMoiSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 340, 150, 50));
         jpChucNangSanPham.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 550, 350, 10));
 
         lblNamSP.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -603,14 +659,26 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         });
         jpChucNangSanPham.add(jcbchonsanpham, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 350, 40));
 
-        btnXuatExcelSanPham.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        btnXuatExcelSanPham.setText("XUẤT EXCEL");
-        btnXuatExcelSanPham.addMouseListener(new java.awt.event.MouseAdapter() {
+        jbLXuatExcelSanPham.setBackground(new java.awt.Color(255, 255, 255));
+        jbLXuatExcelSanPham.setRoundedBottomLeft(10);
+        jbLXuatExcelSanPham.setRoundedBottomRight(10);
+        jbLXuatExcelSanPham.setRoundedTopLeft(10);
+        jbLXuatExcelSanPham.setRoundedTopRight(10);
+        jbLXuatExcelSanPham.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnXuatExcelSanPhamMouseClicked(evt);
+                jbLXuatExcelSanPhamMouseClicked(evt);
             }
         });
-        jpChucNangSanPham.add(btnXuatExcelSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 680, 140, 50));
+        jbLXuatExcelSanPham.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblLamMoiSP1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblLamMoiSP1.setText("Xuất excel");
+        jbLXuatExcelSanPham.add(lblLamMoiSP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 100, 50));
+
+        svgXuatExcelSanPham.setText(" ");
+        jbLXuatExcelSanPham.add(svgXuatExcelSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 40, 40));
+
+        jpChucNangSanPham.add(jbLXuatExcelSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, 150, 50));
 
         tabSanPham.add(jpChucNangSanPham, java.awt.BorderLayout.WEST);
 
@@ -662,22 +730,22 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
 
         lblDoanhThuKH.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblDoanhThuKH.setText("Tổng tiền:");
-        jpChucNangKH.add(lblDoanhThuKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 630, -1, 40));
+        jpChucNangKH.add(lblDoanhThuKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 690, -1, 40));
 
         lblTongDoanhThuKH.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
         lblTongDoanhThuKH.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTongDoanhThuKH.setText("THỐNG KÊ");
-        jpChucNangKH.add(lblTongDoanhThuKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 450, 200, -1));
+        jpChucNangKH.add(lblTongDoanhThuKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 510, 200, -1));
 
         lblSoLuongHoaDonKH.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblSoLuongHoaDonKH.setText("Số lượng sản phẩm:");
-        jpChucNangKH.add(lblSoLuongHoaDonKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 530, -1, 40));
+        jpChucNangKH.add(lblSoLuongHoaDonKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 590, -1, 40));
 
         txtTongTienKH.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jpChucNangKH.add(txtTongTienKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 630, 110, 40));
+        jpChucNangKH.add(txtTongTienKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 690, 170, 40));
 
         txtSoLuongSPKH.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jpChucNangKH.add(txtSoLuongSPKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 530, 100, 40));
+        jpChucNangKH.add(txtSoLuongSPKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 590, 100, 40));
 
         lblTuNgayKH.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblTuNgayKH.setText("Từ ngày:");
@@ -695,7 +763,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
                 btnBieuDoKHActionPerformed(evt);
             }
         });
-        jpChucNangKH.add(btnBieuDoKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 740, 170, 50));
+        jpChucNangKH.add(btnBieuDoKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 800, 170, 50));
 
         jcbLuaChonKH.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jcbLuaChonKH.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tuỳ chỉnh", "Theo ngày", "Theo tuần", "Theo tháng", "Theo năm" }));
@@ -751,7 +819,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         jbLamMoiKH.add(svgLamMoiKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 40, 40));
 
         jpChucNangKH.add(jbLamMoiKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 350, 150, 50));
-        jpChucNangKH.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 500, 360, 10));
+        jpChucNangKH.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 560, 360, 10));
 
         lblNamKH.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblNamKH.setText("Năm :");
@@ -782,17 +850,59 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
 
         lblSoLuongHoaDonKH1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblSoLuongHoaDonKH1.setText("Số lượng đơn hàng:");
-        jpChucNangKH.add(lblSoLuongHoaDonKH1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 580, -1, 40));
+        jpChucNangKH.add(lblSoLuongHoaDonKH1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 640, -1, 40));
 
         txtSoLuongDHKH.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jpChucNangKH.add(txtSoLuongDHKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 580, 80, 40));
+        jpChucNangKH.add(txtSoLuongDHKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 640, 80, 40));
 
         lblDoanhThuKH1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblDoanhThuKH1.setText("Số lượng người đăng ký:");
-        jpChucNangKH.add(lblDoanhThuKH1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 680, -1, 40));
+        jpChucNangKH.add(lblDoanhThuKH1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 740, -1, 40));
 
         txtsoLuongNDK.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jpChucNangKH.add(txtsoLuongNDK, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 680, 80, 40));
+        jpChucNangKH.add(txtsoLuongNDK, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 740, 80, 40));
+
+        jbLXuatExcelKhachHang.setBackground(new java.awt.Color(255, 255, 255));
+        jbLXuatExcelKhachHang.setRoundedBottomLeft(10);
+        jbLXuatExcelKhachHang.setRoundedBottomRight(10);
+        jbLXuatExcelKhachHang.setRoundedTopLeft(10);
+        jbLXuatExcelKhachHang.setRoundedTopRight(10);
+        jbLXuatExcelKhachHang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbLXuatExcelKhachHangMouseClicked(evt);
+            }
+        });
+        jbLXuatExcelKhachHang.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblLamMoiSP2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblLamMoiSP2.setText("Xuất excel");
+        jbLXuatExcelKhachHang.add(lblLamMoiSP2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 100, 50));
+
+        svgXuatExcelKhachHang.setText(" ");
+        jbLXuatExcelKhachHang.add(svgXuatExcelKhachHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 40, 40));
+
+        jpChucNangKH.add(jbLXuatExcelKhachHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, 150, 50));
+
+        jpLXuatPDFKhachHang.setBackground(new java.awt.Color(255, 255, 255));
+        jpLXuatPDFKhachHang.setRoundedBottomLeft(10);
+        jpLXuatPDFKhachHang.setRoundedBottomRight(10);
+        jpLXuatPDFKhachHang.setRoundedTopLeft(10);
+        jpLXuatPDFKhachHang.setRoundedTopRight(10);
+        jpLXuatPDFKhachHang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jpLXuatPDFKhachHangMouseClicked(evt);
+            }
+        });
+        jpLXuatPDFKhachHang.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblInBaoCaoSP1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblInBaoCaoSP1.setText("Xuất PDF");
+        jpLXuatPDFKhachHang.add(lblInBaoCaoSP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 100, 50));
+
+        svgXuatPDFKhachHang.setText(" ");
+        jpLXuatPDFKhachHang.add(svgXuatPDFKhachHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 40, 40));
+
+        jpChucNangKH.add(jpLXuatPDFKhachHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 410, 150, 50));
 
         tabKhachHang.add(jpChucNangKH, java.awt.BorderLayout.WEST);
 
@@ -800,21 +910,6 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
 
         add(jTab, java.awt.BorderLayout.PAGE_START);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnXuatExcelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXuatExcelMouseClicked
-
-        if (modelDoanhThu.getRowCount() > 0) {
-            if (JOptionPane.showConfirmDialog(null, "Bạn có muốn xuất excel không", "Xác nhận", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                if (exportToExcel(tableDoanhThu, txtDoanhThu.getText())) {
-                    JOptionPane.showMessageDialog(this, "Xuất file thành công!");
-                } else {
-                    JOptionPane.showMessageDialog(this, "Xuất file không thành công!");
-                }
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Không có dữ liệu nên không thể xuất file!");
-        }
-    }//GEN-LAST:event_btnXuatExcelMouseClicked
 
     private void jpThongKeDTMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpThongKeDTMouseClicked
         String selectedItem = (String) jcbLuaChonDoanhThu.getSelectedItem();
@@ -925,9 +1020,44 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jcbLuaChonDoanhThu1ActionPerformed
 
-    private void jpInBaoCaoSPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpInBaoCaoSPMouseClicked
+    private void jpLXuatPDFSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpLXuatPDFSanPhamMouseClicked
+        JFramePDFSanPham sanPham = new JFramePDFSanPham(tableSanPham,jcbchonsanpham.getSelectedItem().toString(),txtSoLuongHoaDon1.getText(),txtDoanhThuSP.getText(), txtTongTienKH.getText(), txtsoLuongNDK.getText());
+        sanPham.setLocationRelativeTo(null);
+        sanPham.setVisible(true); // Do not display the JFrame
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
-    }//GEN-LAST:event_jpInBaoCaoSPMouseClicked
+        BufferedImage image = new BufferedImage(sanPham.getWidth(), sanPham.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        Graphics2D graphics = image.createGraphics();
+        sanPham.paint(graphics);
+
+        // Đường dẫn mặc định cho tệp PDF
+        String defaultPdfFilePath = "D:/ThongKeSanPham.pdf";
+
+        try {
+            PDDocument document = new PDDocument();
+            PDPage page = new PDPage();
+            document.addPage(page);
+
+            // Convert the image to a PDF file
+            PDImageXObject pdImageXObject = LosslessFactory.createFromImage(document, image);
+
+            PDPageContentStream contentStream = new PDPageContentStream(document, page);
+            contentStream.drawImage(pdImageXObject, 0, 0, page.getMediaBox().getWidth(), page.getMediaBox().getHeight());
+            contentStream.close();
+
+            document.save(new File(defaultPdfFilePath));
+            document.close();
+
+            sanPham.setVisible(false);
+            JOptionPane.showMessageDialog(null, "Bạn đã xuất file pdf thành công");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jpLXuatPDFSanPhamMouseClicked
 
     private void loadDuLieuSanPham() {
         //Tạo mảng không trùng bằng set và sử dụng HashSet để lọc
@@ -1212,7 +1342,12 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
     }//GEN-LAST:event_jbLamMoiSPMouseClicked
 //ket thuc san pham o day
     private void btnBieuDoKHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBieuDoKHMouseClicked
-        BieuDoKhachHang jf = new BieuDoKhachHang();
+        BieuDoKhachHang jf = null;
+        try {
+            jf = new BieuDoKhachHang();
+        } catch (SQLException ex) {
+            Logger.getLogger(JPanel_ThongKe.class.getName()).log(Level.SEVERE, null, ex);
+        }
         jf.setLocationRelativeTo(null);
         jf.setVisible(true);
     }//GEN-LAST:event_btnBieuDoKHMouseClicked
@@ -1639,10 +1774,6 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
 
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void btnXuatExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatExcelActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnXuatExcelActionPerformed
-
     private void jpThongKeDTMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpThongKeDTMouseEntered
         // TODO add your handling code here:
     }//GEN-LAST:event_jpThongKeDTMouseEntered
@@ -1675,21 +1806,6 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_tableSanPhamMouseClicked
 
-    private void btnXuatExcelSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXuatExcelSanPhamMouseClicked
-
-        if (modelSanPham.getRowCount() > 0) {
-            if (JOptionPane.showConfirmDialog(null, "Bạn có muốn xuất excel không", "Xác nhận", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                if (exportToExcel(tableSanPham, txtDoanhThuSP.getText())) {
-                    JOptionPane.showMessageDialog(this, "Xuất file thành công!");
-                } else {
-                    JOptionPane.showMessageDialog(this, "Xuất file không thành công!");
-                }
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Không có dữ liệu nên không thể xuất file!");
-        }        // TODO add your handling code here:
-    }//GEN-LAST:event_btnXuatExcelSanPhamMouseClicked
-
     private void tableKhachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableKhachHangMouseClicked
         JFrame_ChiTietKhachHang jf = new JFrame_ChiTietKhachHang();
         jf.setLocationRelativeTo(null);
@@ -1708,18 +1824,144 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_tableKhachHangMouseClicked
 
+    private void jbLXuatExcelSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbLXuatExcelSanPhamMouseClicked
+        if (modelSanPham.getRowCount() > 0) {
+            if (JOptionPane.showConfirmDialog(null, "Bạn có muốn xuất excel không", "Xác nhận", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                if (exportToExcel(tableSanPham, txtDoanhThuSP.getText())) {
+                    JOptionPane.showMessageDialog(this, "Xuất file thành công!");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Xuất file không thành công!");
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Không có dữ liệu nên không thể xuất file!");
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_jbLXuatExcelSanPhamMouseClicked
+
+    private void jbLXuatExcelKhachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbLXuatExcelKhachHangMouseClicked
+        if (modelKhachHang.getRowCount() > 0) {
+            if (JOptionPane.showConfirmDialog(null, "Bạn có muốn xuất excel không", "Xác nhận", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                if (exportToExcel(tableKhachHang, txtTongTienKH.getText())) {
+                    JOptionPane.showMessageDialog(this, "Xuất file thành công!");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Xuất file không thành công!");
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Không có dữ liệu nên không thể xuất file!");
+        }
+    }//GEN-LAST:event_jbLXuatExcelKhachHangMouseClicked
+
+    private void jpLXuatPDFKhachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpLXuatPDFKhachHangMouseClicked
+        JFramePDFKhachHang sanPham = new JFramePDFKhachHang(tableKhachHang,jCBTieuChi.getSelectedItem().toString(),txtSoLuongSPKH.getText(),txtSoLuongDHKH.getText(),txtTongTienKH.getText(),txtsoLuongNDK.getText());
+        sanPham.setLocationRelativeTo(null);
+        sanPham.setVisible(true); // Do not display the JFrame
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        BufferedImage image = new BufferedImage(sanPham.getWidth(), sanPham.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        Graphics2D graphics = image.createGraphics();
+        sanPham.paint(graphics);
+
+        // Đường dẫn mặc định cho tệp PDF
+        String defaultPdfFilePath = "D:/ThongKeKhachHang.pdf";
+
+        try {
+            PDDocument document = new PDDocument();
+            PDPage page = new PDPage();
+            document.addPage(page);
+
+            // Convert the image to a PDF file
+            PDImageXObject pdImageXObject = LosslessFactory.createFromImage(document, image);
+
+            PDPageContentStream contentStream = new PDPageContentStream(document, page);
+            contentStream.drawImage(pdImageXObject, 0, 0, page.getMediaBox().getWidth(), page.getMediaBox().getHeight());
+            contentStream.close();
+
+            document.save(new File(defaultPdfFilePath));
+            document.close();
+
+            sanPham.setVisible(false);
+            JOptionPane.showMessageDialog(null, "Bạn đã xuất file pdf thành công");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jpLXuatPDFKhachHangMouseClicked
+
+    private void jbLXuatExcelDoanhThuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbLXuatExcelDoanhThuMouseClicked
+        if (modelDoanhThu.getRowCount() > 0) {
+            if (JOptionPane.showConfirmDialog(null, "Bạn có muốn xuất excel không", "Xác nhận", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                if (exportToExcel(tableDoanhThu, txtDoanhThu.getText())) {
+                    JOptionPane.showMessageDialog(this, "Xuất file thành công!");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Xuất file không thành công!");
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Không có dữ liệu nên không thể xuất file!");
+        }
+    }//GEN-LAST:event_jbLXuatExcelDoanhThuMouseClicked
+
+    private void jpLXuatPDFDoanhThuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpLXuatPDFDoanhThuMouseClicked
+        JFramePDFDoanhThu sanPham = new JFramePDFDoanhThu(tableKhachHang,txtSoLuongHoaDon.getText(),txtTongTien.getText(),txtGiamGia.getText(),txtDoanhThu.getText());
+        sanPham.setLocationRelativeTo(null);
+        sanPham.setVisible(true); // Do not display the JFrame
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        BufferedImage image = new BufferedImage(sanPham.getWidth(), sanPham.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        Graphics2D graphics = image.createGraphics();
+        sanPham.paint(graphics);
+
+        // Đường dẫn mặc định cho tệp PDF
+        String defaultPdfFilePath = "D:/ThongKeDoanhThu.pdf";
+
+        try {
+            PDDocument document = new PDDocument();
+            PDPage page = new PDPage();
+            document.addPage(page);
+
+            // Convert the image to a PDF file
+            PDImageXObject pdImageXObject = LosslessFactory.createFromImage(document, image);
+
+            PDPageContentStream contentStream = new PDPageContentStream(document, page);
+            contentStream.drawImage(pdImageXObject, 0, 0, page.getMediaBox().getWidth(), page.getMediaBox().getHeight());
+            contentStream.close();
+
+            document.save(new File(defaultPdfFilePath));
+            document.close();
+
+            sanPham.setVisible(false);
+            JOptionPane.showMessageDialog(null, "Bạn đã xuất file pdf thành công");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jpLXuatPDFDoanhThuMouseClicked
+
+    private void svgXuatPDFSanPhamMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_svgXuatPDFSanPhamMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_svgXuatPDFSanPhamMouseEntered
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private util.SVGImage XuatExcelDoanhThu;
     private javax.swing.JButton btnBieuDoKH;
     private javax.swing.JButton btnBieuDoSP;
-    private javax.swing.JButton btnXuatExcel;
-    private javax.swing.JButton btnXuatExcelSanPham;
     private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jCBTieuChi;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTabbedPane jTab;
+    private util.JPanelRounded jbLXuatExcelDoanhThu;
+    private util.JPanelRounded jbLXuatExcelKhachHang;
+    private util.JPanelRounded jbLXuatExcelSanPham;
     private util.JPanelRounded jbLamMoiDoanhThu;
     private util.JPanelRounded jbLamMoiKH;
     private util.JPanelRounded jbLamMoiSP;
@@ -1742,7 +1984,9 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
     private javax.swing.JPanel jpChucNangDoanhThu;
     private javax.swing.JPanel jpChucNangKH;
     private javax.swing.JPanel jpChucNangSanPham;
-    private util.JPanelRounded jpInBaoCaoSP;
+    private util.JPanelRounded jpLXuatPDFDoanhThu;
+    private util.JPanelRounded jpLXuatPDFKhachHang;
+    private util.JPanelRounded jpLXuatPDFSanPham;
     private util.JPanelRounded jpThongKeDT;
     private util.JPanelRounded jpThongKeKH;
     private util.JPanelRounded jpThongKeSP;
@@ -1755,9 +1999,14 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
     private javax.swing.JLabel lblDoanhThuSanPham;
     private javax.swing.JLabel lblGiamGia;
     private javax.swing.JLabel lblInBaoCaoSP;
+    private javax.swing.JLabel lblInBaoCaoSP1;
+    private javax.swing.JLabel lblInBaoCaoSP2;
     private javax.swing.JLabel lblLamMoiDoanhThu;
     private javax.swing.JLabel lblLamMoiKH;
     private javax.swing.JLabel lblLamMoiSP;
+    private javax.swing.JLabel lblLamMoiSP1;
+    private javax.swing.JLabel lblLamMoiSP2;
+    private javax.swing.JLabel lblLamMoiSP3;
     private javax.swing.JLabel lblLuaChonDoanhThu;
     private javax.swing.JLabel lblLuaChonKH;
     private javax.swing.JLabel lblLuaChonSP;
@@ -1784,13 +2033,17 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
     private javax.swing.JScrollPane scrollDoanhThu;
     private javax.swing.JScrollPane scrollKhachHang;
     private javax.swing.JScrollPane scrollSanPham;
-    private util.SVGImage svgInBaoCaoSP;
     private util.SVGImage svgLamMoiDoanhThu;
     private util.SVGImage svgLamMoiKH;
     private util.SVGImage svgLamMoiSP;
     private util.SVGImage svgThongKeDoanhThu;
     private util.SVGImage svgThongKeKH;
     private util.SVGImage svgThongKeSP;
+    private util.SVGImage svgXuatExcelKhachHang;
+    private util.SVGImage svgXuatExcelSanPham;
+    private util.SVGImage svgXuatPDFDoanhThu;
+    private util.SVGImage svgXuatPDFKhachHang;
+    private util.SVGImage svgXuatPDFSanPham;
     private javax.swing.JPanel tabDoanhThu;
     private javax.swing.JPanel tabKhachHang;
     private javax.swing.JPanel tabSanPham;
