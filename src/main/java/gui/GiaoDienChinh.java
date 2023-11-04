@@ -105,7 +105,7 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
-                pnView.add(new JPanel_KhachHangTK());
+                pnView.add(new JPanel_TimKiemKhachHang());
                 pnView.repaint();
                 pnView.revalidate();
             }

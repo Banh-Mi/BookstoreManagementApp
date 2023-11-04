@@ -58,16 +58,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="14" style="0"/>
                 </Property>
-                <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="6" rowCount="0">
-                    <Column editable="false" title="STT" type="java.lang.String"/>
-                    <Column editable="false" title="M&#xe3; s&#x1ea3;n ph&#x1ea9;m" type="java.lang.String"/>
-                    <Column editable="false" title="T&#xea;n s&#x1ea3;n ph&#x1ea9;m" type="java.lang.String"/>
-                    <Column editable="false" title="S&#x1ed1; l&#x1b0;&#x1ee3;ng" type="java.lang.String"/>
-                    <Column editable="false" title="Gi&#xe1;" type="java.lang.String"/>
-                    <Column editable="true" title="Th&#xe0;nh ti&#x1ec1;n" type="java.lang.String"/>
-                  </Table>
-                </Property>
+                <Property name="model" postCode="if(ngonNgu==2)&#xa;{&#xa;tbl_Cart.setModel(new javax.swing.table.DefaultTableModel(&#xa;    new Object [][] {&#xa;&#xa;    },&#xa;    new String [] {&#xa;        &quot;Numerical order&quot;, &quot;Product ID&quot;, &quot;Product Name&quot;, &quot;Quantity&quot;, &quot;Price&quot;, &quot;Into money&quot;&#xa;    }&#xa;) {&#xa;    Class[] types = new Class [] {&#xa;        java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class&#xa;    };&#xa;    boolean[] canEdit = new boolean [] {&#xa;        false, false, false, false, false, true&#xa;    };&#xa;&#xa;    public Class getColumnClass(int columnIndex) {&#xa;        return types [columnIndex];&#xa;    }&#xa;&#xa;    public boolean isCellEditable(int rowIndex, int columnIndex) {&#xa;        return canEdit [columnIndex];&#xa;    }&#xa;});&#xa;}&#xa;else &#xa;{&#xa;tbl_Cart.setModel(new javax.swing.table.DefaultTableModel(&#xa;    new Object [][] {&#xa;&#xa;    },&#xa;    new String [] {&#xa;        &quot;STT&quot;, &quot;M&#xe3; s&#x1ea3;n ph&#x1ea9;m&quot;, &quot;T&#xea;n s&#x1ea3;n ph&#x1ea9;m&quot;, &quot;S&#x1ed1; l&#x1b0;&#x1ee3;ng&quot;, &quot;Gi&#xe1;&quot;, &quot;Th&#xe0;nh ti&#x1ec1;n&quot;&#xa;    }&#xa;) {&#xa;    Class[] types = new Class [] {&#xa;        java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class&#xa;    };&#xa;    boolean[] canEdit = new boolean [] {&#xa;        false, false, false, false, false, true&#xa;    };&#xa;&#xa;    public Class getColumnClass(int columnIndex) {&#xa;        return types [columnIndex];&#xa;    }&#xa;&#xa;    public boolean isCellEditable(int rowIndex, int columnIndex) {&#xa;        return canEdit [columnIndex];&#xa;    }&#xa;});&#xa;&#xa;}"/>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                   <TableColumnModel selectionModel="0">
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
@@ -227,6 +218,9 @@
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
         <Container class="javax.swing.JPanel" name="pnl_salePay">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JPanel()"/>
+          </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="&#x110;&#x1a1;n h&#xe0;ng">
@@ -289,13 +283,7 @@
             </Container>
             <Container class="javax.swing.JPanel" name="jPanel2">
               <Properties>
-                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                  <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                    <TitledBorder title="Chi ti&#x1ebf;t">
-                      <Font PropertyName="font" name="Segoe UI" size="14" style="0"/>
-                    </TitledBorder>
-                  </Border>
-                </Property>
+                <Property name="border" postCode="if(ngonNgu==2)&#xa;{&#xa;jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, &quot;Detail&quot;, javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font(&quot;Segoe UI&quot;, 0, 14)));&#xa;}&#xa;else &#xa;{&#xa;jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, &quot;Chi ti&#x1ebf;t&quot;, javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font(&quot;Segoe UI&quot;, 0, 14)));&#xa;}"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="14" style="0"/>
                 </Property>
@@ -560,13 +548,7 @@
             </Container>
             <Container class="javax.swing.JPanel" name="jPanel4">
               <Properties>
-                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                  <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                    <TitledBorder title="Th&#xf4;ng tin chung">
-                      <Font PropertyName="font" name="Segoe UI" size="14" style="0"/>
-                    </TitledBorder>
-                  </Border>
-                </Property>
+                <Property name="border" postCode="if(ngonNgu==2)&#xa;{&#xa;jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, &quot;General information&quot;, javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font(&quot;Segoe UI&quot;, 0, 14)));&#xa;}&#xa;else &#xa;{&#xa;jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, &quot;Th&#xf4;ng tin chung&quot;, javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font(&quot;Segoe UI&quot;, 0, 14)));&#xa;}"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="14" style="0"/>
                 </Property>
@@ -788,15 +770,9 @@
           </Layout>
           <SubComponents>
             <Container class="javax.swing.JPanel" name="jPanel12">
-              <Properties>
-                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                  <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                    <TitledBorder title="Th&#xf4;ng tin chung">
-                      <Font PropertyName="font" name="Segoe UI" size="14" style="0"/>
-                    </TitledBorder>
-                  </Border>
-                </Property>
-              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="if(ngonNgu==2)&#xa;{&#xa;jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(null, &quot;General information&quot;, javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font(&quot;Segoe UI&quot;, 0, 14)));&#xa;}&#xa;else &#xa;{&#xa;jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(null, &quot;Th&#xf4;ng tin chung&quot;, javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font(&quot;Segoe UI&quot;, 0, 14)));&#xa;}"/>
+              </AuxValues>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="10" y="10" width="340" height="380"/>
@@ -975,15 +951,9 @@
               </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="s">
-              <Properties>
-                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                  <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                    <TitledBorder title="Chi ti&#x1ebf;t">
-                      <Font PropertyName="font" name="Segoe UI" size="14" style="0"/>
-                    </TitledBorder>
-                  </Border>
-                </Property>
-              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="if(ngonNgu==2)&#xa;{&#xa;s.setBorder(javax.swing.BorderFactory.createTitledBorder(null, &quot;Detail&quot;, javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font(&quot;Segoe UI&quot;, 0, 14))); // NOI18N&#xa;&#xa;}&#xa;else &#xa;{&#xa;s.setBorder(javax.swing.BorderFactory.createTitledBorder(null, &quot;Chi ti&#x1ebf;t&quot;, javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font(&quot;Segoe UI&quot;, 0, 14))); // NOI18N&#xa;&#xa;}"/>
+              </AuxValues>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="10" y="400" width="340" height="300"/>
@@ -1259,15 +1229,9 @@
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="jPanel5">
-      <Properties>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Danh s&#xe1;ch s&#x1ea3;n ph&#x1ea9;m">
-              <Font PropertyName="font" name="Segoe UI" size="14" style="1"/>
-            </TitledBorder>
-          </Border>
-        </Property>
-      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="if(ngonNgu==2)&#xa;{&#xa;jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, &quot;List of products&quot;, javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font(&quot;Segoe UI&quot;, 1, 14)));&#xa;}&#xa;else &#xa;{&#xa;jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, &quot;Danh s&#xe1;ch s&#x1ea3;n ph&#x1ea9;m&quot;, javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font(&quot;Segoe UI&quot;, 1, 14)));&#xa;}"/>
+      </AuxValues>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="20" y="470" width="830" height="340"/>

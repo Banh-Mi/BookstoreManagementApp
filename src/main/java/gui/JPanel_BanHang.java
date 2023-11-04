@@ -18,6 +18,7 @@ import entity.ChiTietHoaDon;
 import entity.HoaDon;
 import entity.KhachHang;
 import entity.SanPham;
+import static gui.GiaoDienDangNhap.ngonNgu;
 import java.awt.BorderLayout;
 import java.awt.Cursor;
 import java.awt.Graphics2D;
@@ -79,6 +80,10 @@ public class JPanel_BanHang extends javax.swing.JPanel {
     public JPanel_BanHang(String maNhanVien) {
         this.maNhanVien = maNhanVien;
         initComponents();
+        if(ngonNgu==2)
+        {
+            ChuyenDoiNN();
+        }
 
         Thread thread = new Thread(new Runnable() {
             @Override
@@ -111,6 +116,44 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         refreshOrder();
 
         loadData();
+    }
+     public void ChuyenDoiNN()
+    {
+       chkOrder.setText("Order");
+       lblCreateInvoice.setText("Create ");
+       lblDelete.setText("Delete");
+       lblDeleteAll.setText("Delete All");
+       lblSearchProduct1.setText("Search Product:");
+       lblSearch.setText("Find");
+       lblCategory.setText("Category");
+       
+       lblOrderId.setText("Order Id:");
+       lblOrderDate1.setText("Order Date:");
+       lblEmployeeId.setText("Employee ID:");
+       lblCustomerId.setText("Customer ID:");
+       lblCustomerName.setText("Customer Name:");
+       lblSelectCustomer.setText("Choose");
+       lblTotalAmount.setText("Total Amount:");
+       lblDiscount.setText("Discount:");
+       lblMustPay.setText("MustPay:");
+       lblCustomerMoneyGive.setText("MoneyGive:");
+       lblReturnMoneyToCustomer.setText("give back money:");
+       lblNote.setText("Note:");
+       chk_waitPay.setText("WaitPay");
+       lblPay1.setText("Pay");
+       
+       lblOrderId2.setText("Order Id:");
+       lblOrderDate2.setText("Order Date:");
+       lblEmployeeId2.setText("Employee ID:");
+       lblCustomerName3.setText("Customer Name:");
+       lblCustomerName4.setText("Phone:");
+       lblNote3.setText("Address:");
+       lblTotalAmount1.setText("TotalAmount:");
+       lblDiscount1.setText("Discount:");
+       lblMustPay1.setText("MustPay:");
+       lblNote2.setText("Note");
+       lblPay2.setText("Delivery");
+       
     }
 
     private void refreshOrderSale() {
@@ -536,29 +579,59 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         jPanelCart.setLayout(new java.awt.BorderLayout());
 
         tbl_Cart.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        tbl_Cart.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+        if(ngonNgu==2)
+        {
+            tbl_Cart.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
 
-            },
-            new String [] {
-                "STT", "Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Giá", "Thành tiền"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true
-            };
+                },
+                new String [] {
+                    "Numerical order", "Product ID", "Product Name", "Quantity", "Price", "Into money"
+                }
+            ) {
+                Class[] types = new Class [] {
+                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                };
+                boolean[] canEdit = new boolean [] {
+                    false, false, false, false, false, true
+                };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
+                public Class getColumnClass(int columnIndex) {
+                    return types [columnIndex];
+                }
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+                public boolean isCellEditable(int rowIndex, int columnIndex) {
+                    return canEdit [columnIndex];
+                }
+            });
+        }
+        else
+        {
+            tbl_Cart.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
+
+                },
+                new String [] {
+                    "STT", "Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Giá", "Thành tiền"
+                }
+            ) {
+                Class[] types = new Class [] {
+                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                };
+                boolean[] canEdit = new boolean [] {
+                    false, false, false, false, false, true
+                };
+
+                public Class getColumnClass(int columnIndex) {
+                    return types [columnIndex];
+                }
+
+                public boolean isCellEditable(int rowIndex, int columnIndex) {
+                    return canEdit [columnIndex];
+                }
+            });
+
+        }
         tbl_Cart.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tbl_Cart.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -645,7 +718,14 @@ public class JPanel_BanHang extends javax.swing.JPanel {
 
         pnl_salePay.add(jpPaySale, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 730, 120, 40));
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Chi tiết", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14))); // NOI18N
+        if(ngonNgu==2)
+        {
+            jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detail", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14)));
+        }
+        else
+        {
+            jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Chi tiết", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14)));
+        }
         jPanel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -741,7 +821,14 @@ public class JPanel_BanHang extends javax.swing.JPanel {
 
         pnl_salePay.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 340, 410));
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin chung", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14))); // NOI18N
+        if(ngonNgu==2)
+        {
+            jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "General information", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14)));
+        }
+        else
+        {
+            jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin chung", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14)));
+        }
         jPanel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -816,7 +903,14 @@ public class JPanel_BanHang extends javax.swing.JPanel {
 
         pnl_orderPage.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin chung", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14))); // NOI18N
+        if(ngonNgu==2)
+        {
+            jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "General information", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14)));
+        }
+        else
+        {
+            jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin chung", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14)));
+        }
         jPanel12.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblOrderId2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -877,7 +971,16 @@ public class JPanel_BanHang extends javax.swing.JPanel {
 
         pnl_orderPage.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 340, 380));
 
-        s.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Chi tiết", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14))); // NOI18N
+        if(ngonNgu==2)
+        {
+            s.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detail", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14))); // NOI18N
+
+        }
+        else
+        {
+            s.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Chi tiết", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14))); // NOI18N
+
+        }
         s.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblTotalAmount1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -980,7 +1083,14 @@ public class JPanel_BanHang extends javax.swing.JPanel {
 
         add(pnl_deleteAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 100, 120, 40));
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách sản phẩm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
+        if(ngonNgu==2)
+        {
+            jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "List of products", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14)));
+        }
+        else
+        {
+            jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách sản phẩm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14)));
+        }
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pnl_productItem1.setPreferredSize(new java.awt.Dimension(171, 250));

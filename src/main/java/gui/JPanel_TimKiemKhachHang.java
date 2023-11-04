@@ -8,12 +8,12 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import util.EmailL;
 
-public class JPanel_KhachHangTK extends javax.swing.JPanel {
+public class JPanel_TimKiemKhachHang extends javax.swing.JPanel {
 
     private DefaultTableModel modelKhachHang;
     private KhachHangDAO khachHangDao;
 
-    public JPanel_KhachHangTK() {
+    public JPanel_TimKiemKhachHang() {
 
         initComponents();
         if(ngonNgu==2)

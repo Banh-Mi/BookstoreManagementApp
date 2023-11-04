@@ -171,7 +171,7 @@ public class JPanel_KhuyenMai extends javax.swing.JPanel {
 
         lblDescribe.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblDescribe.setText("Mô tả:");
-        jpFunction.add(lblDescribe, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 20, -1, 40));
+        jpFunction.add(lblDescribe, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 20, 130, 40));
 
         txttenchuongtrinh.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txttenchuongtrinh.addActionListener(new java.awt.event.ActionListener() {

@@ -4,6 +4,7 @@ import dao.NhaCungCapDAO;
 import dao.SanPhamDAO;
 import entity.NhaCungCap;
 import entity.SanPham;
+import static gui.GiaoDienDangNhap.ngonNgu;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -37,6 +38,10 @@ public class JPanel_SanPham extends javax.swing.JPanel {
 
     public JPanel_SanPham() {
         initComponents();
+        if(ngonNgu==2)
+        {
+            ChuyenDoiNN();
+        }
         svgAdd.setSvgImage("add.svg", 30, 30);
         svgEdit.setSvgImage("edit.svg", 25, 25);
         svgDelete.setSvgImage("delete.svg", 30, 30);
@@ -45,6 +50,27 @@ public class JPanel_SanPham extends javax.swing.JPanel {
         modelSanPham = (DefaultTableModel) tbl_ListProduct.getModel();
         loadData();
 
+    }
+    public void ChuyenDoiNN()
+    {
+        lbl_ProductId.setText("Product ID:");
+        lbl_ProductName.setText("Product Name:");
+        lbl_Supplier.setText("Supplier:");
+        lbl_Author.setText("Author:");
+        lbl_Publisher.setText("Publisher:");
+        lbl_Category.setText("Category:");
+        lbl_Price.setText("Price");
+        lbl_PublishingYear.setText("Publishing Year:");
+        lbl_PageCount.setText("PageCount:");
+        lbl_Quantity.setText("Quantity:");
+        lbl_Unit.setText("Unit:");
+        lbl_Description.setText("Description:");
+        btn_chooseImage.setText("Choose");
+        lblInputExcel.setText("InputExcel");
+        lblAdd.setText("Add");
+        jbDelete.setText("Delete");
+        jbRefresh.setText("Refresh");
+        jbEdit.setText("Edit");           
     }
 
     public void loadData() {
@@ -144,7 +170,14 @@ public class JPanel_SanPham extends javax.swing.JPanel {
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        pnl_ProductInfomation.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin sản phẩm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
+        if(ngonNgu==2)
+        {
+            pnl_ProductInfomation.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Product information", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14)));
+        }
+        else
+        {
+            pnl_ProductInfomation.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin sản phẩm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14)));
+        }
         pnl_ProductInfomation.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lbl_Category.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -264,9 +297,16 @@ public class JPanel_SanPham extends javax.swing.JPanel {
         lbl_PageCount.setText("Số trang:");
         pnl_ProductInfomation.add(lbl_PageCount, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 280, 70, 30));
 
-        pnl_ProductImage.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ảnh", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
         pnl_ProductImage.setLayout(new java.awt.BorderLayout());
 
+        if(ngonNgu==2)
+        {
+            pnl_ProductImage.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Image", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12)));
+        }
+        else
+        {
+            pnl_ProductImage.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ảnh", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12)));
+        }
         lbl_ProductImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         pnl_ProductImage.add(lbl_ProductImage, java.awt.BorderLayout.CENTER);
 
@@ -312,27 +352,56 @@ public class JPanel_SanPham extends javax.swing.JPanel {
 
         add(pnl_ProductInfomation, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 1210, 380));
 
-        pnl_ProductInfomation1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách sản phẩm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
+        if(ngonNgu==2)
+        {
+            pnl_ProductInfomation1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "List of products", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14)));
+        }
+        else
+        {
+            pnl_ProductInfomation1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách sản phẩm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14)));
+        }
         pnl_ProductInfomation1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         scr_LisrProduct.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        if(ngonNgu==2)
+        {
+            tbl_ListProduct.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
 
-        tbl_ListProduct.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+                },
+                new String [] {
+                    "Product ID", "Product Name", "Category", "Supplier", "Unit", "Author", "Publisher", "Publishing Year", "PageCount", "Quantity", "Price", "Image", "Description"
+                }
+            ) {
+                Class[] types = new Class [] {
+                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                };
 
-            },
-            new String [] {
-                "Mã sản phẩm", "Tên sản phẩm", "Danh mục", "Nhà cung cấp", "Đơn vị tính", "Tác giả", "Nhà xuất bản", "Năm xuất bản", "Số trang", "Số lượng", "Giá", "Hình ảnh", "Mô tả"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
+                public Class getColumnClass(int columnIndex) {
+                    return types [columnIndex];
+                }
+            });
+        }
+        else
+        {
+            tbl_ListProduct.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
+                },
+                new String [] {
+                    "Mã sản phẩm", "Tên sản phẩm", "Danh mục", "Nhà cung cấp", "Đơn vị tính", "Tác giả", "Nhà xuất bản", "Năm xuất bản", "Số trang", "Số lượng", "Giá", "Hình ảnh", "Mô tả"
+                }
+            ) {
+                Class[] types = new Class [] {
+                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                };
+
+                public Class getColumnClass(int columnIndex) {
+                    return types [columnIndex];
+                }
+            });
+        }
+
         tbl_ListProduct.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbl_ListProductMouseClicked(evt);

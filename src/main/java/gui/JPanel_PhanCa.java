@@ -232,10 +232,15 @@ public class JPanel_PhanCa extends javax.swing.JPanel {
 
         lblMaNhanVien1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblMaNhanVien1.setText("Ca:");
-        panelChucNang.add(lblMaNhanVien1, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 20, 40, 40));
+        panelChucNang.add(lblMaNhanVien1, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 20, 110, 40));
 
         cbCa.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         cbCa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ca 1", "Ca 2" }));
+        cbCa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbCaActionPerformed(evt);
+            }
+        });
         panelChucNang.add(cbCa, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 20, 130, 40));
         panelChucNang.add(jdNgayLam, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 20, 190, 40));
 
@@ -404,6 +409,10 @@ public class JPanel_PhanCa extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Vui lòng chọn dòng muốn xoá");
         }
     }//GEN-LAST:event_jbXoaMouseClicked
+
+    private void cbCaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbCaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
