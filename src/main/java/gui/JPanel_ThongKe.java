@@ -33,7 +33,7 @@ import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.graphics.image.LosslessFactory;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
-import static util.ExcelExporter.exportToExcel;
+import static util.Excel.exportToExcel;
 
 public class JPanel_ThongKe extends javax.swing.JPanel {
 
