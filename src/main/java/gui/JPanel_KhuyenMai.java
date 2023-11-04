@@ -320,7 +320,7 @@ public class JPanel_KhuyenMai extends javax.swing.JPanel {
         jpRefresh.add(svgRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 40, 40));
 
         jpFunction.add(jpRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 170, 150, 50));
-        KeyStroke keyStroke3 = KeyStroke.getKeyStroke(KeyEvent.VK_D, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask());
+        KeyStroke keyStroke3 = KeyStroke.getKeyStroke(KeyEvent.VK_R, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask());
         // Liên kết phím tắt với hành động
         jpRefresh.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(keyStroke3, "addAction3");
         jpRefresh.getActionMap().put("addAction3", action3);
@@ -464,7 +464,6 @@ public class JPanel_KhuyenMai extends javax.swing.JPanel {
             }
             
             showmess("Xóa thành công!");
-//            tableDiscount.clearSelection();
         } else {
             showmess("Vui lòng chọn dòng muốn xóa");
         }

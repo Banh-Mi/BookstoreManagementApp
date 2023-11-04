@@ -56,7 +56,6 @@ public class JFrame_ChiTietSanPham extends javax.swing.JFrame {
         txtDonViTinh = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         thoat = new javax.swing.JButton();
-        thoat1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -320,13 +319,6 @@ public class JFrame_ChiTietSanPham extends javax.swing.JFrame {
             }
         });
 
-        thoat1.setText("In sản phẩm");
-        thoat1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                thoat1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -335,8 +327,6 @@ public class JFrame_ChiTietSanPham extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(thoat1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(thoat, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -361,9 +351,7 @@ public class JFrame_ChiTietSanPham extends javax.swing.JFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(thoat, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(thoat1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(thoat, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -417,10 +405,6 @@ public class JFrame_ChiTietSanPham extends javax.swing.JFrame {
     private void txtSoTrangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSoTrangActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSoTrangActionPerformed
-
-    private void thoat1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_thoat1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_thoat1ActionPerformed
 
     private void thoatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_thoatMouseClicked
         setVisible(false);
@@ -493,7 +477,6 @@ public class JFrame_ChiTietSanPham extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_Supplier;
     private javax.swing.JLabel lbl_Unit;
     private javax.swing.JButton thoat;
-    private javax.swing.JButton thoat1;
     private javax.swing.JTextField txtDanhMuc;
     private javax.swing.JTextField txtDonViTinh;
     private javax.swing.JTextField txtGia;

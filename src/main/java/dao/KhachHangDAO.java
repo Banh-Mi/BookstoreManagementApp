@@ -67,8 +67,15 @@ public class KhachHangDAO {
         PreparedStatement stmt = null;
         String sql = "DELETE FROM KhachHang WHERE maKH = ?";
         try {
+            // Tắt tất cả ràng buộc trên tất cả bảng
+            String disableConstraintsSQL = "EXEC sp_MSforeachtable 'ALTER TABLE ? NOCHECK CONSTRAINT ALL'";
+            stmt = con.prepareStatement(disableConstraintsSQL);
+            stmt.executeUpdate();
             stmt = con.prepareStatement(sql);
             stmt.setString(1, maKH);
+            stmt.executeUpdate();
+            String enableConstraintsSQL = "EXEC sp_MSforeachtable 'ALTER TABLE ? CHECK CONSTRAINT ALL'";
+            stmt = con.prepareStatement(enableConstraintsSQL);
             stmt.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();

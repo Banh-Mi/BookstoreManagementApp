@@ -389,7 +389,7 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jpRefreshMouseClicked"/>
           </Events>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="KeyStroke keyStroke3 = KeyStroke.getKeyStroke(KeyEvent.VK_D, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask());&#xa;// Li&#xea;n k&#x1ebf;t ph&#xed;m t&#x1eaf;t v&#x1edb;i h&#xe0;nh &#x111;&#x1ed9;ng&#xa;jpRefresh.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(keyStroke3, &quot;addAction3&quot;);&#xa;jpRefresh.getActionMap().put(&quot;addAction3&quot;, action3);"/>
+            <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="KeyStroke keyStroke3 = KeyStroke.getKeyStroke(KeyEvent.VK_R, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask());&#xa;// Li&#xea;n k&#x1ebf;t ph&#xed;m t&#x1eaf;t v&#x1edb;i h&#xe0;nh &#x111;&#x1ed9;ng&#xa;jpRefresh.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(keyStroke3, &quot;addAction3&quot;);&#xa;jpRefresh.getActionMap().put(&quot;addAction3&quot;, action3);"/>
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">

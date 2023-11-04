@@ -58,20 +58,30 @@ public class KhuyenMaiDAO {
         return false;
     }
     public void deletekhuyenmai(String maKM) {
-        Connection con = ConnectDB.getInstance().getConnection();
-        PreparedStatement stmt = null;
-        String sql = "DELETE FROM KhuyenMai WHERE maKhuyenMai = ?";
-        try {
-            stmt = con.prepareStatement(sql);
-            stmt.setString(1, maKM);
-            stmt.executeUpdate();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        } finally {
-            close(stmt);
-        }
+    Connection con = ConnectDB.getInstance().getConnection();
+    PreparedStatement stmt = null;
+    String sql = "DELETE FROM KhuyenMai WHERE maKhuyenMai = ?";
+    try {
+        // Tắt tất cả ràng buộc trên tất cả bảng
+        String disableConstraintsSQL = "EXEC sp_MSforeachtable 'ALTER TABLE ? NOCHECK CONSTRAINT ALL'";
+        stmt = con.prepareStatement(disableConstraintsSQL);
+        stmt.executeUpdate();
+        
+        // Tiến hành xóa dữ liệu
+        stmt = con.prepareStatement(sql);
+        stmt.setString(1, maKM);
+        stmt.executeUpdate();
+        
+        // Bật lại tất cả ràng buộc trên tất cả bảng
+        String enableConstraintsSQL = "EXEC sp_MSforeachtable 'ALTER TABLE ? CHECK CONSTRAINT ALL'";
+        stmt = con.prepareStatement(enableConstraintsSQL);
+        stmt.executeUpdate();
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+    } finally {
+        close(stmt);
     }
-
+}
     public void updatekhuyenmai(KhuyenMai khuyenMai) {
         Connection con = ConnectDB.getInstance().getConnection();
         PreparedStatement stmt = null;
