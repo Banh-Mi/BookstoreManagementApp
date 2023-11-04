@@ -116,8 +116,12 @@ public class Excel {
                 Object[] columnHeaders = readRow(headerRow);
                 for (int rowIndex = 1; rowIndex < sheet.getLastRowNum(); rowIndex++) {
                     Row currentRow = sheet.getRow(rowIndex);
+
                     Object[] rowData = readRow(currentRow);
-                    rows.add(rowData);
+                    if (rowData[0] != null&&rowData[1]!=null&&rowData[2]!=null&&rowData[3]!=null&&rowData[4]!=null&&rowData[9]!=null&&rowData[10]!=null&&rowData[11]!=null&&rowData[12]!=null) {
+                        rows.add(rowData);
+                    }
+
                 }
                 JFrame jf = null;
                 jf = new BangNhapExcel(rows, columnHeaders);
