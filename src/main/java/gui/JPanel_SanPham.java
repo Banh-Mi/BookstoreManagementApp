@@ -41,6 +41,7 @@ public class JPanel_SanPham extends javax.swing.JPanel {
         svgEdit.setSvgImage("edit.svg", 25, 25);
         svgDelete.setSvgImage("delete.svg", 30, 30);
         svgRefresh.setSvgImage("refresh.svg", 25, 25);
+        svgInputExcel.setSvgImage("excel.svg", 25, 25);
         modelSanPham = (DefaultTableModel) tbl_ListProduct.getModel();
         loadData();
 
@@ -133,7 +134,9 @@ public class JPanel_SanPham extends javax.swing.JPanel {
         jpRefresh = new util.JPanelRounded();
         jbRefresh = new javax.swing.JLabel();
         svgRefresh = new util.SVGImage();
-        jButton1 = new javax.swing.JButton();
+        jpInputExcel = new util.JPanelRounded();
+        lblInputExcel = new javax.swing.JLabel();
+        svgInputExcel = new util.SVGImage();
 
         jTextArea2.setColumns(20);
         jTextArea2.setRows(5);
@@ -360,7 +363,7 @@ public class JPanel_SanPham extends javax.swing.JPanel {
         svgAdd.setText(" ");
         jpAdd.add(svgAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
 
-        add(jpAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 430, -1, -1));
+        add(jpAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 430, -1, -1));
 
         jpEdit.setBackground(new java.awt.Color(255, 255, 255));
         jpEdit.setRoundedBottomLeft(10);
@@ -425,14 +428,26 @@ public class JPanel_SanPham extends javax.swing.JPanel {
 
         add(jpRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 430, 110, -1));
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton1.setText("Nhập Excel");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jpInputExcel.setBackground(new java.awt.Color(255, 255, 255));
+        jpInputExcel.setRoundedBottomLeft(10);
+        jpInputExcel.setRoundedBottomRight(10);
+        jpInputExcel.setRoundedTopLeft(10);
+        jpInputExcel.setRoundedTopRight(10);
+        jpInputExcel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                jpInputExcelMouseClicked(evt);
             }
         });
-        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 430, -1, 40));
+        jpInputExcel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblInputExcel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblInputExcel.setText("Nhập Excel");
+        jpInputExcel.add(lblInputExcel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 80, 40));
+
+        svgInputExcel.setText(" ");
+        jpInputExcel.add(svgInputExcel, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
+
+        add(jpInputExcel, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 430, 120, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void txt_ProductIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_ProductIdActionPerformed
@@ -702,6 +717,7 @@ public class JPanel_SanPham extends javax.swing.JPanel {
         String price = sanPhamDAO.selectbyId(new SanPham(modelSanPham.getValueAt(row, 0)+"")).getGia()+"";
         txt_Price.setText(price.substring(0, price.lastIndexOf(".")));
         lbl_ProductImage.setIcon(createImageIcon(modelSanPham.getValueAt(row, 11) + "", lbl_ProductImage));
+        selectedImagePath = modelSanPham.getValueAt(row, 11) + "";
         txa_Description.setText(modelSanPham.getValueAt(row, 12) + "");
 
     }//GEN-LAST:event_tbl_ListProductMouseClicked
@@ -746,16 +762,15 @@ public class JPanel_SanPham extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_cb_CategoryItemStateChanged
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-            readExcel();
-    }//GEN-LAST:event_jButton1MouseClicked
+    private void jpInputExcelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpInputExcelMouseClicked
+        readExcel();
+    }//GEN-LAST:event_jpInputExcelMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_chooseImage;
     private javax.swing.JComboBox<String> cb_Category;
     private javax.swing.JComboBox<String> cb_Supplier;
-    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JLabel jbDelete;
@@ -764,8 +779,10 @@ public class JPanel_SanPham extends javax.swing.JPanel {
     private util.JPanelRounded jpAdd;
     private util.JPanelRounded jpDelete;
     private util.JPanelRounded jpEdit;
+    private util.JPanelRounded jpInputExcel;
     private util.JPanelRounded jpRefresh;
     private javax.swing.JLabel lblAdd;
+    private javax.swing.JLabel lblInputExcel;
     private javax.swing.JLabel lbl_Author;
     private javax.swing.JLabel lbl_Category;
     private javax.swing.JLabel lbl_Description;
@@ -787,6 +804,7 @@ public class JPanel_SanPham extends javax.swing.JPanel {
     private util.SVGImage svgAdd;
     private util.SVGImage svgDelete;
     private util.SVGImage svgEdit;
+    private util.SVGImage svgInputExcel;
     private util.SVGImage svgRefresh;
     private javax.swing.JTable tbl_ListProduct;
     private javax.swing.JTextArea txa_Description;

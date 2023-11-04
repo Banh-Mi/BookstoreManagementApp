@@ -97,7 +97,7 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         tbl_Cart.getColumnModel().getColumn(4).setCellRenderer(rightRenderer);
         tbl_Cart.getColumnModel().getColumn(5).setCellRenderer(rightRenderer);
         tbl_Cart.setEnabled(false);
-        svgPay2.setSvgImage("pay.svg", 30, 30);
+        svgDelivery.setSvgImage("delivery.svg", 30, 30);
         svgPay1.setSvgImage("pay.svg", 30, 30);
         svgSearch.setSvgImage("search.svg", 20, 20);
         svgCreateInvoice.setSvgImage("add.svg", 30, 30);
@@ -478,7 +478,7 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         txa_noteOrder = new javax.swing.JTextArea();
         jpDelivery = new util.JPanelRounded();
         lblPay2 = new javax.swing.JLabel();
-        svgPay2 = new util.SVGImage();
+        svgDelivery = new util.SVGImage();
         pnl_deleteAll = new util.JPanelRounded();
         lblDeleteAll = new javax.swing.JLabel();
         svgDeleteAll = new util.SVGImage();
@@ -950,8 +950,8 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         lblPay2.setText("Giao hàng");
         jpDelivery.add(lblPay2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 90, 40));
 
-        svgPay2.setText(" ");
-        jpDelivery.add(svgPay2, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
+        svgDelivery.setText(" ");
+        jpDelivery.add(svgDelivery, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
 
         pnl_orderPage.add(jpDelivery, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 720, 130, 40));
 
@@ -2110,8 +2110,8 @@ public class JPanel_BanHang extends javax.swing.JPanel {
     private util.SVGImage svgCreateInvoice;
     private util.SVGImage svgDelete;
     private util.SVGImage svgDeleteAll;
+    private util.SVGImage svgDelivery;
     private util.SVGImage svgPay1;
-    private util.SVGImage svgPay2;
     private util.SVGImage svgReload;
     private util.SVGImage svgSearch;
     private util.SVGImage svgSelectCustomer;
