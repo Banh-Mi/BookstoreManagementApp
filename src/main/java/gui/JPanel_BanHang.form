@@ -1194,7 +1194,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="util.SVGImage" name="svgPay2">
+                <Component class="util.SVGImage" name="svgDelivery">
                   <Properties>
                     <Property name="text" type="java.lang.String" value=" "/>
                   </Properties>
