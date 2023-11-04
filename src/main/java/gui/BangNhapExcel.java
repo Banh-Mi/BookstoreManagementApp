@@ -156,7 +156,6 @@ public class BangNhapExcel extends javax.swing.JFrame {
         int thanhCong = 0;
         DefaultTableModel modelExcel = (DefaultTableModel) tablePopup.getModel();
         List<Integer> rowsToRemove = new ArrayList<>();
-
         if (selectedRows.length <= 0) {
             for (int i = 0; i < tablePopup.getRowCount(); i++) {
                 Object[] rowData = new Object[tablePopup.getColumnCount()];

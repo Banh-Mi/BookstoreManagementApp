@@ -1,6 +1,6 @@
 package util;
 
-import gui.TablePopUp;
+import gui.BangNhapExcel;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 //ọadaskdk
@@ -120,7 +120,7 @@ public class Excel {
                     rows.add(rowData);
                 }
                 JFrame jf = null;
-                jf = new TablePopUp(rows, columnHeaders);
+                jf = new BangNhapExcel(rows, columnHeaders);
                 jf.setLocationRelativeTo(null);
                 jf.setVisible(true);
             } catch (Exception e) {
