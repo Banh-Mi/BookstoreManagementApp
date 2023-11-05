@@ -987,10 +987,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
 
         tableNhanVien.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Mã nhân viên", "Tên nhân viên", "Số lượng hoá đơn", "Tổng tiền", "Giảm giá", "Thành tiền"
@@ -2248,7 +2245,42 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
     }//GEN-LAST:event_tableNhanVienMouseClicked
 
     private void jpLXuatPDFNVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpLXuatPDFNVMouseClicked
-        // TODO add your handling code here:
+       JFramePDFNhanVien sanPham = new JFramePDFNhanVien(tableNhanVien, jcbchonsanpham.getSelectedItem().toString(), txtSoLuongDHNV.getText(),txtThanhTienNV.getText());
+        sanPham.setLocationRelativeTo(null);
+        sanPham.setVisible(true); // Do not display the JFrame
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        BufferedImage image = new BufferedImage(sanPham.getWidth(), sanPham.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        Graphics2D graphics = image.createGraphics();
+        sanPham.paint(graphics);
+
+        // Đường dẫn mặc định cho tệp PDF
+        String defaultPdfFilePath = "D:/ThongKeNhanVien.pdf";
+
+        try {
+            PDDocument document = new PDDocument();
+            PDPage page = new PDPage();
+            document.addPage(page);
+
+            // Convert the image to a PDF file
+            PDImageXObject pdImageXObject = LosslessFactory.createFromImage(document, image);
+
+            PDPageContentStream contentStream = new PDPageContentStream(document, page);
+            contentStream.drawImage(pdImageXObject, 0, 0, page.getMediaBox().getWidth(), page.getMediaBox().getHeight());
+            contentStream.close();
+
+            document.save(new File(defaultPdfFilePath));
+            document.close();
+
+            sanPham.setVisible(false);
+            JOptionPane.showMessageDialog(null, "Bạn đã xuất file pdf thành công");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_jpLXuatPDFNVMouseClicked
 
     private void jbLXuatExcelNVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbLXuatExcelNVMouseClicked

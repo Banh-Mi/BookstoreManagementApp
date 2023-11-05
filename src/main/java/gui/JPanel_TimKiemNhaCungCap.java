@@ -35,7 +35,7 @@ public class JPanel_TimKiemNhaCungCap extends javax.swing.JPanel {
         lbSupplierName.setText("Supplier Name:");
         lblPhone.setText("Phone:");
         lblSearch1.setText("Status:");
-        lbTitle.setText("FINDING SUPPLIERS");
+        lbTitle.setText("SEARCH FOR SUPPLIERS");
         jbDelete.setText("Find");
         jbRefresh.setText("Refresh");       
     }

@@ -39,7 +39,7 @@ public class JPanel_TimKiemNhanVien extends javax.swing.JPanel {
         lblGioiTinh1.setText("Position:");
         jbDelete.setText("Find");
         jbRefresh.setText("Refresh");
-        lbTitle.setText("FINDING EMPLOYEES");
+        lbTitle.setText("SEARCH FOR EMPLOYEES");
     }
 
     private void refresh() {
