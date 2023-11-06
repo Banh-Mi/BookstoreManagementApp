@@ -382,24 +382,6 @@ public class JPanel_NhaCungCap extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_tableSupplierMouseClicked
 
-    private void jpDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpDeleteMouseClicked
-//        int rowIndex = tableSupplier.getSelectedRow();
-//        if (rowIndex < 0) {
-//            JOptionPane.showMessageDialog(null, "Vui lòng chọn dòng muốn xóa");
-//            setValue(nhaCungCapDAO.createSupplierID(), "", "", "", "", "", 0);
-//        } else {
-//            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa không?", "Xác nhận", JOptionPane.YES_OPTION) == JOptionPane.YES_OPTION) {
-//                if (nhaCungCapDAO.delete(txtSupplierID.getText())) {
-//                    modelNhaCungCap.removeRow(rowIndex);
-//                    setValue(nhaCungCapDAO.createSupplierID(), "", "", "", "", "", 0);
-//                    JOptionPane.showMessageDialog(this, "Xoá thành công");
-//                } else {
-//                    JOptionPane.showMessageDialog(this, "Xoá thất bại");
-//                }
-//            }
-//        }
-    }//GEN-LAST:event_jpDeleteMouseClicked
-
     private void jpEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpEditMouseClicked
         int rowIndex = tableSupplier.getSelectedRow();
         if (rowIndex < 0) {
@@ -435,6 +417,24 @@ public class JPanel_NhaCungCap extends javax.swing.JPanel {
         setValue(nhaCungCapDAO.taoMaNCC(), "", "Đang làm", "", "", "", "");
         loadData();
     }//GEN-LAST:event_jpRefreshMouseClicked
+
+    private void jpDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpDeleteMouseClicked
+        //        int rowIndex = tableSupplier.getSelectedRow();
+        //        if (rowIndex < 0) {
+            //            JOptionPane.showMessageDialog(null, "Vui lòng chọn dòng muốn xóa");
+            //            setValue(nhaCungCapDAO.createSupplierID(), "", "", "", "", "", 0);
+            //        } else {
+            //            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa không?", "Xác nhận", JOptionPane.YES_OPTION) == JOptionPane.YES_OPTION) {
+                //                if (nhaCungCapDAO.delete(txtSupplierID.getText())) {
+                    //                    modelNhaCungCap.removeRow(rowIndex);
+                    //                    setValue(nhaCungCapDAO.createSupplierID(), "", "", "", "", "", 0);
+                    //                    JOptionPane.showMessageDialog(this, "Xoá thành công");
+                    //                } else {
+                    //                    JOptionPane.showMessageDialog(this, "Xoá thất bại");
+                    //                }
+                //            }
+            //        }
+    }//GEN-LAST:event_jpDeleteMouseClicked
 
     private void loadData() {
         nhaCungCapDAO = new NhaCungCapDAO();

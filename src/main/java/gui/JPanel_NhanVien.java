@@ -37,7 +37,6 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
         }
         svgAdd.setSvgImage("add.svg", 40, 40);
         svgEdit.setSvgImage("edit.svg", 35, 35);
-        svgDelete.setSvgImage("delete.svg", 40, 40);
         svgRefresh.setSvgImage("refresh.svg", 35, 35);
         modelNhanVien = (DefaultTableModel) tableNhanVien.getModel();
         nhanVienDao = new NhanVienDAO();
@@ -59,7 +58,6 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
         jbEmployeeManagerment.setText("EMPLOYEE MANAGERMENT");
         jbAdd.setText("Add");
         jbEdit.setText("Edit");
-        jbDelete.setText("Delete");
         jbRefresh.setText("Refresh");
     }
 
@@ -130,9 +128,6 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
         jbSua = new util.JPanelRounded();
         jbEdit = new javax.swing.JLabel();
         svgEdit = new util.SVGImage();
-        jbXoa = new util.JPanelRounded();
-        jbDelete = new javax.swing.JLabel();
-        svgDelete = new util.SVGImage();
         jbLamMoi = new util.JPanelRounded();
         jbRefresh = new javax.swing.JLabel();
         svgRefresh = new util.SVGImage();
@@ -269,22 +264,6 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
 
         jpFunction.add(jbSua, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 230, 150, 50));
 
-        jbXoa.setBackground(new java.awt.Color(255, 255, 255));
-        jbXoa.setRoundedBottomLeft(10);
-        jbXoa.setRoundedBottomRight(10);
-        jbXoa.setRoundedTopLeft(10);
-        jbXoa.setRoundedTopRight(10);
-        jbXoa.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jbDelete.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jbDelete.setText("Xoá");
-        jbXoa.add(jbDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 100, 50));
-
-        svgDelete.setText(" ");
-        jbXoa.add(svgDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 40, 40));
-
-        jpFunction.add(jbXoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 230, 150, 50));
-
         jbLamMoi.setBackground(new java.awt.Color(255, 255, 255));
         jbLamMoi.setRoundedBottomLeft(10);
         jbLamMoi.setRoundedBottomRight(10);
@@ -304,7 +283,7 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
         svgRefresh.setText(" ");
         jbLamMoi.add(svgRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 40, 40));
 
-        jpFunction.add(jbLamMoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 230, 150, 50));
+        jpFunction.add(jbLamMoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 230, 150, 50));
 
         cbChucVu.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         cbChucVu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nhân viên bán hàng", "Quản lý" }));
@@ -525,13 +504,11 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cbTrangThai;
     private javax.swing.JPanel jPanelEmployeeDetail;
     private javax.swing.JLabel jbAdd;
-    private javax.swing.JLabel jbDelete;
     private javax.swing.JLabel jbEdit;
     private javax.swing.JLabel jbEmployeeManagerment;
     private util.JPanelRounded jbLamMoi;
     private javax.swing.JLabel jbRefresh;
     private util.JPanelRounded jbSua;
-    private util.JPanelRounded jbXoa;
     private com.toedter.calendar.JDateChooser jdNgaySinh;
     private javax.swing.JLabel jdNgaySinh1;
     private javax.swing.JPanel jpFunction;
@@ -549,7 +526,6 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
     private javax.swing.JRadioButton radNu;
     private javax.swing.JScrollPane scrollEmployee;
     private util.SVGImage svgAdd;
-    private util.SVGImage svgDelete;
     private util.SVGImage svgEdit;
     private util.SVGImage svgRefresh;
     private javax.swing.JTable tableNhanVien;

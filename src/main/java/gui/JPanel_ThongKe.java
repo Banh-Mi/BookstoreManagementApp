@@ -2284,7 +2284,17 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
     }//GEN-LAST:event_jpLXuatPDFNVMouseClicked
 
     private void jbLXuatExcelNVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbLXuatExcelNVMouseClicked
-        // TODO add your handling code here:
+       if (modelNhanVien.getRowCount() > 0) {
+            if (JOptionPane.showConfirmDialog(null, "Bạn có muốn xuất excel không", "Xác nhận", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                if (exportToExcel(tableNhanVien, txtThanhTienNV.getText())) {
+                    JOptionPane.showMessageDialog(this, "Xuất file thành công!");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Xuất file không thành công!");
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Không có dữ liệu nên không thể xuất file!");
+        }
     }//GEN-LAST:event_jbLXuatExcelNVMouseClicked
 
     private void jcbChiTieuNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbChiTieuNVActionPerformed
