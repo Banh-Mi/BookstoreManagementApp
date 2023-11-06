@@ -322,7 +322,7 @@ public class JPanel_PhanCa extends javax.swing.JPanel {
         if (!checkNull(jdNgayLam.getDate())) {
             java.sql.Date ngayHienTai = new java.sql.Date(System.currentTimeMillis());
             java.sql.Date ngayLam = new java.sql.Date(jdNgayLam.getDate().getTime());
-            if (ngayLam.after(ngayHienTai) || ngayLam.toString().equals(ngayHienTai.toString())) {
+            if (ngayLam.after(ngayHienTai)) {
                 PhanCaLamViec phanCa = new PhanCaLamViec(maNV, maCa, ngayLam);
                 int kiemTra = phanCaLamViecDAO.phanCaLamViec(phanCa);
 
@@ -346,7 +346,7 @@ public class JPanel_PhanCa extends javax.swing.JPanel {
                 }
 
             } else {
-                JOptionPane.showMessageDialog(null, "Ngày làm không được nhỏ hơn ngày hiện tại");
+                JOptionPane.showMessageDialog(null, "Ngày làm phải lớn hơn ngày hiện tại");
             }
         } else {
             JOptionPane.showMessageDialog(null, "Vui lòng chọn ngày làm");
