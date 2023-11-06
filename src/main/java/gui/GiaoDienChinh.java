@@ -18,6 +18,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import static gui.GiaoDienDangNhap.ngonNgu;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -32,7 +33,6 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
         this.nhanVien = nhanVien;
         jpanel_banHang = new JPanel_BanHang(nhanVien.getMaNV());
         initComponents();
-        
 
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setThongTin();
@@ -45,14 +45,11 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
         lblTen.setText(nhanVien.getTenNV());
         lbChucVu.setText(nhanVien.getChucVu());
     }
-    public String chuyenNN(String kiTu,String ngonNgu1)
-    {
-        if(ngonNgu==2)
-        {
+
+    public String chuyenNN(String kiTu, String ngonNgu1) {
+        if (ngonNgu == 2) {
             return ngonNgu1;
-        }
-        else 
-        {
+        } else {
             return kiTu;
         }
     }
@@ -68,7 +65,7 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
         String iconAccount = "/menuItems/account.svg";
         pnView.add(new JPanel_TrangChu());
 
-        MenuItem menuQuanLyNV = new MenuItem(null, chuyenNN("Quản lý NV","Employee Manager"), new ActionListener() {
+        MenuItem menuQuanLyNV = new MenuItem(null, chuyenNN("Quản lý NV", "Employee Manager"), new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
@@ -77,7 +74,7 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
                 pnView.revalidate();
             }
         });
-        MenuItem menuTimNV = new MenuItem(null, chuyenNN("Tìm kiếm NV","Search for employees"), new ActionListener() {
+        MenuItem menuTimNV = new MenuItem(null, chuyenNN("Tìm kiếm NV", "Search for employees"), new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
@@ -86,7 +83,7 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
                 pnView.revalidate();
             }
         });
-        MenuItem menuPhanCa = new MenuItem(null, chuyenNN("Phân ca","Shift assignment"), new ActionListener() {
+        MenuItem menuPhanCa = new MenuItem(null, chuyenNN("Phân ca", "Shift assignment"), new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
@@ -95,7 +92,7 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
                 pnView.revalidate();
             }
         });
-        MenuItem menuBanHang = new MenuItem(null,chuyenNN("Bán hàng","Sell") , new ActionListener() {
+        MenuItem menuBanHang = new MenuItem(null, chuyenNN("Bán hàng", "Sell"), new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
@@ -105,7 +102,7 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
             }
         });
 
-        MenuItem menuQuanLyKH = new MenuItem(null, chuyenNN("Quản lý KH","Customer management"), new ActionListener() {
+        MenuItem menuQuanLyKH = new MenuItem(null, chuyenNN("Quản lý KH", "Customer management"), new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
@@ -114,7 +111,7 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
                 pnView.revalidate();
             }
         });
-        MenuItem menuTimKiemKH = new MenuItem(null, chuyenNN("Tìm kiếm KH","Search for customers"), new ActionListener() {
+        MenuItem menuTimKiemKH = new MenuItem(null, chuyenNN("Tìm kiếm KH", "Search for customers"), new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
@@ -124,7 +121,7 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
             }
         });
 
-        MenuItem menuQuanLySP = new MenuItem(null, chuyenNN("Quản lý SP","Product management"), new ActionListener() {
+        MenuItem menuQuanLySP = new MenuItem(null, chuyenNN("Quản lý SP", "Product management"), new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
@@ -134,7 +131,7 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
             }
         });
 
-        MenuItem menuTimKiemSP = new MenuItem(null, chuyenNN("Tìm kiếm SP","Search for products"), new ActionListener() {
+        MenuItem menuTimKiemSP = new MenuItem(null, chuyenNN("Tìm kiếm SP", "Search for products"), new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
@@ -144,7 +141,7 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
             }
         });
 
-        MenuItem menuQLNhaCC = new MenuItem(null, chuyenNN("Quản lý NCC","Quản lý NCC"), new ActionListener() {
+        MenuItem menuQLNhaCC = new MenuItem(null, chuyenNN("Quản lý NCC", "Quản lý NCC"), new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
@@ -154,7 +151,7 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
             }
         });
 
-        MenuItem menuTimKiemNCC = new MenuItem(null, chuyenNN("Tìm kiếm NCC","Search for suppliers"), new ActionListener() {
+        MenuItem menuTimKiemNCC = new MenuItem(null, chuyenNN("Tìm kiếm NCC", "Search for suppliers"), new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
@@ -164,7 +161,7 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
             }
         });
 
-        MenuItem menuTimKiemHD = new MenuItem(null, chuyenNN("Tìm kiếm HĐ","Invoice managemen"), new ActionListener() {
+        MenuItem menuTimKiemHD = new MenuItem(null, chuyenNN("Tìm kiếm HĐ", "Invoice managemen"), new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
@@ -173,7 +170,7 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
                 pnView.revalidate();
             }
         });
-        MenuItem menuQuanLyTK = new MenuItem(null, chuyenNN("Quản lý tài khoản","Account management"), new ActionListener() {
+        MenuItem menuQuanLyTK = new MenuItem(null, chuyenNN("Quản lý tài khoản", "Account management"), new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
@@ -184,7 +181,7 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
             }
         });
 
-        MenuItem menuQuanLyKM = new MenuItem(null, chuyenNN("Quản lý KM","Discount management"), new ActionListener() {
+        MenuItem menuQuanLyKM = new MenuItem(null, chuyenNN("Quản lý KM", "Discount management"), new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
@@ -194,7 +191,7 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
             }
         });
 
-        MenuItem menuHome = new MenuItem(iconHome, chuyenNN("Trang chủ","Home"), new ActionListener() {
+        MenuItem menuHome = new MenuItem(iconHome, chuyenNN("Trang chủ", "Home"), new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
@@ -203,7 +200,7 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
                 pnView.revalidate();
             }
         });
-        MenuItem menuThongKe = new MenuItem(null, chuyenNN("Thống kê","Statistics"), new ActionListener() {
+        MenuItem menuThongKe = new MenuItem(null, chuyenNN("Thống kê", "Statistics"), new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();
@@ -213,33 +210,37 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
             }
         });
 
-        MenuItem menuDangXuat = new MenuItem(iconLogout, chuyenNN("Đăng Xuất","Log out"), new ActionListener() {
+        MenuItem menuDangXuat = new MenuItem(iconLogout, chuyenNN("Đăng Xuất", "Log out"), new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                try {
-                    dangXuat();
-                    new GiaoDienDangNhap().setVisible(true);
-                } catch (SQLException ex) {
-                    Logger.getLogger(GiaoDienChinh.class.getName()).log(Level.SEVERE, null, ex);
+                int result = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn đăng xuất?", "Xác nhận đăng xuất", JOptionPane.YES_NO_OPTION);
+                if (result == JOptionPane.YES_OPTION) {
+                    try {
+                        dangXuat();
+                        new GiaoDienDangNhap().setVisible(true);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(GiaoDienChinh.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
+
             }
         });
 
         //----------------------------------------------------------------------------------------------------------------------
         if (nhanVien.getChucVu().equals("Quản lý")) {
-            MenuItem menuEmployee = new MenuItem(iconEmployee, chuyenNN("Nhân viên","Employee"), null, menuQuanLyNV, menuTimNV, menuPhanCa, menuBanHang, menuThongKe, menuQuanLyKM);
-            MenuItem menuCustomer = new MenuItem(iconCustomer, chuyenNN("Khách hàng","Customer"), null, menuQuanLyKH, menuTimKiemKH);
-            MenuItem menuProduct = new MenuItem(iconProduct, chuyenNN("Sản phẩm","Product"), null, menuQuanLySP, menuTimKiemSP);
-            MenuItem menuSupplier = new MenuItem(iconSupplier, chuyenNN("Nhà cung cấp","Supplier"), null, menuQLNhaCC, menuTimKiemNCC);
-            MenuItem menuInvoice = new MenuItem(iconInvoice, chuyenNN("Hoá đơn","Invoice"), null, menuTimKiemHD);
-            MenuItem menuAccount = new MenuItem(iconAccount, chuyenNN("Tài khoản","Account"), null, menuQuanLyTK);
+            MenuItem menuEmployee = new MenuItem(iconEmployee, chuyenNN("Nhân viên", "Employee"), null, menuQuanLyNV, menuTimNV, menuPhanCa, menuBanHang, menuThongKe, menuQuanLyKM);
+            MenuItem menuCustomer = new MenuItem(iconCustomer, chuyenNN("Khách hàng", "Customer"), null, menuQuanLyKH, menuTimKiemKH);
+            MenuItem menuProduct = new MenuItem(iconProduct, chuyenNN("Sản phẩm", "Product"), null, menuQuanLySP, menuTimKiemSP);
+            MenuItem menuSupplier = new MenuItem(iconSupplier, chuyenNN("Nhà cung cấp", "Supplier"), null, menuQLNhaCC, menuTimKiemNCC);
+            MenuItem menuInvoice = new MenuItem(iconInvoice, chuyenNN("Hoá đơn", "Invoice"), null, menuTimKiemHD);
+            MenuItem menuAccount = new MenuItem(iconAccount, chuyenNN("Tài khoản", "Account"), null, menuQuanLyTK);
             addMenu(menuHome, menuEmployee, menuCustomer, menuProduct, menuSupplier, menuInvoice, menuAccount, menuDangXuat);
         } else {
-            MenuItem menuEmployee = new MenuItem(iconEmployee, chuyenNN("Nhân viên","Employee"), null, menuBanHang, menuThongKe);
-            MenuItem menuCustomer = new MenuItem(iconCustomer, chuyenNN("Khách hàng","Customer"), null, menuQuanLyKH, menuTimKiemKH);
-            MenuItem menuProduct = new MenuItem(iconProduct, chuyenNN("Sản phẩm","Product"), null, menuTimKiemSP);
-            MenuItem menuInvoice = new MenuItem(iconInvoice, chuyenNN("Hoá đơn","Invoice"), null, menuTimKiemHD);
-            MenuItem menuAccount = new MenuItem(iconAccount, chuyenNN("Tài khoản","Account"), null, menuQuanLyTK);
+            MenuItem menuEmployee = new MenuItem(iconEmployee, chuyenNN("Nhân viên", "Employee"), null, menuBanHang, menuThongKe);
+            MenuItem menuCustomer = new MenuItem(iconCustomer, chuyenNN("Khách hàng", "Customer"), null, menuQuanLyKH, menuTimKiemKH);
+            MenuItem menuProduct = new MenuItem(iconProduct, chuyenNN("Sản phẩm", "Product"), null, menuTimKiemSP);
+            MenuItem menuInvoice = new MenuItem(iconInvoice, chuyenNN("Hoá đơn", "Invoice"), null, menuTimKiemHD);
+            MenuItem menuAccount = new MenuItem(iconAccount, chuyenNN("Tài khoản", "Account"), null, menuQuanLyTK);
             addMenu(menuHome, menuEmployee, menuCustomer, menuProduct, menuInvoice, menuAccount, menuDangXuat);
         }
 
