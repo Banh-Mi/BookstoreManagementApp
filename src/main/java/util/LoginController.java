@@ -67,7 +67,6 @@ public class LoginController {
                 if (taiKhoan == null) {
                     jbMessage.setText("Tên đăng nhập hoặc mật khẩu không đúng!");
                 } else {
-                    System.out.println(taiKhoan.getTrangThaiTaiKhoan());
                     if (taiKhoan.getTrangThaiTaiKhoan().equals("Tạm khoá")) {
                         jbMessage.setText("Tài khoản của bạn đang bị tạm khóa!");
                     } else {

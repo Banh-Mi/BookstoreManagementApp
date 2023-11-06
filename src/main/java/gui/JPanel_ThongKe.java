@@ -1,4 +1,5 @@
 package gui;
+
 import dao.KhachHangDAO;
 import dao.SanPhamDAO;
 import dao.ThongKeDoanhThuDAO;
@@ -58,8 +59,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
 
     public JPanel_ThongKe() {
         initComponents();
-        if(ngonNgu==2)
-        {
+        if (ngonNgu == 2) {
             ChuyenDoiNN();
         }
         modelDoanhThu = (DefaultTableModel) tableDoanhThu.getModel();
@@ -72,8 +72,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         loadDuLieuNhanVien();
     }
 
-    public void ChuyenDoiNN()
-    {
+    public void ChuyenDoiNN() {
         lblLuaChonDoanhThu.setText("Statistics by:");
         lblTuNgay.setText("From:");
         lblDenNgay.setText("To:");
@@ -89,7 +88,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         lblGiamGia.setText("Discount:");
         lblDoanhThu.setText("Revenue");
         jButton3.setText("View chart");
-        
+
         lblLuaChonSP.setText("Statistics by:");
         lblTuNgaySP.setText("From:");
         lblDenNgaySanPham.setText("To:");
@@ -103,7 +102,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         lblSoLuongHoaDonSP.setText("Quantity of products sold:");
         lblDoanhThuSanPham.setText("Total amount:");
         btnBieuDoSP.setText("View chart");
-        
+
         lblLuaChonKH.setText("Statistics by:");
         lblTuNgayKH.setText("From:");
         lblDenNgayKH.setText("To:");
@@ -119,7 +118,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         lblDoanhThuKH.setText("Total amount:");
         lblDoanhThuKH1.setText("Number of registrations:");
         btnBieuDoKH.setText("View chart");
-        
+
         lblLuaChonKH1.setText("Statistics by:");
         jLabel1.setText("Employee ID:");
         lblTuNgayKH1.setText("From:");
@@ -134,7 +133,8 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         lblSoLuongHoaDonKH3.setText("Quantity of orders:");
         lblDoanhThuKH2.setText("Total amount:");
         btnBieuDoNV.setText("View chart");
-   }
+    }
+
     private void setComponentState(boolean set, JComponent... components) {
         for (JComponent component : components) {
             component.setEnabled(set);
@@ -172,12 +172,16 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         txtDoanhThu.setText(nf.format(thanhTien));
         svgThongKeDoanhThu.setSvgImage("statistical.svg", 35, 35);
         svgLamMoiDoanhThu.setSvgImage("refresh.svg", 35, 35);
-
+        svgXuatExcelDoanhThu.setSvgImage("excel.svg", 35, 35);
+        svgXuatPDFDoanhThu.setSvgImage("pdf.svg", 35, 35);
     }
 
     private void loadDuLieuKhachHang() {
         svgThongKeKH.setSvgImage("statistical.svg", 35, 35);
         svgLamMoiKH.setSvgImage("refresh.svg", 35, 35);
+        svgXuatExcelKhachHang.setSvgImage("excel.svg", 35, 35);
+        svgXuatPDFKhachHang.setSvgImage("pdf.svg", 35, 35);
+        
 //Tạo mảng không trùng bằng set và sử dụng HashSet để lọc
         thongKeKhachHangDAO = new ThongKeKhachHangDAO();
         modelKhachHang.setRowCount(0);
@@ -207,6 +211,29 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         txtsoLuongNDK.setText(soLuongNDK + "");
     }
 
+    private void loadDuLieuSanPham() {
+        //Tạo mảng không trùng bằng set và sử dụng HashSet để lọc
+        Set<Integer> uniqueYears = new HashSet<>();
+        thongKeSanPhamDAO = new ThongKeSanPhamDAO();
+        modelSanPham.setRowCount(0);
+        int soHoaDon = 0;
+        double tongTien = 0;
+        sanPhamList = thongKeSanPhamDAO.getSanPham(null, null);
+        for (ThongKeSanPham dtsp : sanPhamList) {
+            Object row[] = {dtsp.getMa(), dtsp.getTen(), dtsp.getSoLuong(), nf.format(dtsp.getThanhtien())};
+            modelSanPham.addRow(row);
+            tongTien += dtsp.getThanhtien();
+            soHoaDon += dtsp.getSoLuong();
+        }
+
+        txtSoLuongHoaDon1.setText(soHoaDon + "");
+        txtDoanhThuSP.setText(nf.format(tongTien));
+        svgThongKeSP.setSvgImage("statistical.svg", 35, 35);
+        svgLamMoiSP.setSvgImage("refresh.svg", 35, 35);
+        svgXuatExcelSanPham.setSvgImage("excel.svg", 35, 35);
+        svgXuatPDFSanPham.setSvgImage("pdf.svg", 35, 35);
+    }
+
     private void loadDuLieuNhanVien() {
         doanhThuNhanVienDAO = new ThongKeDoanhThuNhanVienDAO();
         modelNhanVien.setRowCount(0);
@@ -231,7 +258,8 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         txtThanhTienNV.setText(nf.format(thanhTien));
         svgThongKeNV.setSvgImage("statistical.svg", 35, 35);
         svgLamMoiNV.setSvgImage("refresh.svg", 35, 35);
-
+        svgXuatExcelNV.setSvgImage("excel.svg", 35, 35);
+        svgXuatPDFNV.setSvgImage("pdf.svg", 35, 35);
     }
 
     @SuppressWarnings("unchecked")
@@ -272,7 +300,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         txtGiamGia = new javax.swing.JLabel();
         jbLXuatExcelDoanhThu = new util.JPanelRounded();
         lblLamMoiSP3 = new javax.swing.JLabel();
-        XuatExcelDoanhThu = new util.SVGImage();
+        svgXuatExcelDoanhThu = new util.SVGImage();
         jpLXuatPDFDoanhThu = new util.JPanelRounded();
         lblInBaoCaoSP2 = new javax.swing.JLabel();
         svgXuatPDFDoanhThu = new util.SVGImage();
@@ -578,8 +606,8 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         lblLamMoiSP3.setText("Xuất excel");
         jbLXuatExcelDoanhThu.add(lblLamMoiSP3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 100, 50));
 
-        XuatExcelDoanhThu.setText(" ");
-        jbLXuatExcelDoanhThu.add(XuatExcelDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 40, 40));
+        svgXuatExcelDoanhThu.setText(" ");
+        jbLXuatExcelDoanhThu.add(svgXuatExcelDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 40, 40));
 
         jpChucNangDoanhThu.add(jbLXuatExcelDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 150, 50));
 
@@ -1418,27 +1446,6 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
             e.printStackTrace();
         }
     }//GEN-LAST:event_jpLXuatPDFSanPhamMouseClicked
-
-    private void loadDuLieuSanPham() {
-        //Tạo mảng không trùng bằng set và sử dụng HashSet để lọc
-        Set<Integer> uniqueYears = new HashSet<>();
-        thongKeSanPhamDAO = new ThongKeSanPhamDAO();
-        modelSanPham.setRowCount(0);
-        int soHoaDon = 0;
-        double tongTien = 0;
-        sanPhamList = thongKeSanPhamDAO.getSanPham(null, null);
-        for (ThongKeSanPham dtsp : sanPhamList) {
-            Object row[] = {dtsp.getMa(), dtsp.getTen(), dtsp.getSoLuong(), nf.format(dtsp.getThanhtien())};
-            modelSanPham.addRow(row);
-            tongTien += dtsp.getThanhtien();
-            soHoaDon += dtsp.getSoLuong();
-        }
-
-        txtSoLuongHoaDon1.setText(soHoaDon + "");
-        txtDoanhThuSP.setText(nf.format(tongTien));
-        svgThongKeSP.setSvgImage("statistical.svg", 35, 35);
-        svgLamMoiSP.setSvgImage("refresh.svg", 35, 35);
-    }
 
     //xu li su kien cua sanpham khi an thong ke
     private void jpThongKeSPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpThongKeSPMouseClicked
@@ -2311,7 +2318,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
     }//GEN-LAST:event_tableNhanVienMouseClicked
 
     private void jpLXuatPDFNVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpLXuatPDFNVMouseClicked
-       JFramePDFNhanVien sanPham = new JFramePDFNhanVien(tableNhanVien, jcbchonsanpham.getSelectedItem().toString(), txtSoLuongDHNV.getText(),txtThanhTienNV.getText());
+        JFramePDFNhanVien sanPham = new JFramePDFNhanVien(tableNhanVien, jcbchonsanpham.getSelectedItem().toString(), txtSoLuongDHNV.getText(), txtThanhTienNV.getText());
         sanPham.setLocationRelativeTo(null);
         sanPham.setVisible(true); // Do not display the JFrame
         try {
@@ -2350,7 +2357,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
     }//GEN-LAST:event_jpLXuatPDFNVMouseClicked
 
     private void jbLXuatExcelNVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbLXuatExcelNVMouseClicked
-       if (modelNhanVien.getRowCount() > 0) {
+        if (modelNhanVien.getRowCount() > 0) {
             if (JOptionPane.showConfirmDialog(null, "Bạn có muốn xuất excel không", "Xác nhận", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                 if (exportToExcel(tableNhanVien, txtThanhTienNV.getText())) {
                     JOptionPane.showMessageDialog(this, "Xuất file thành công!");
@@ -2469,7 +2476,6 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private util.SVGImage XuatExcelDoanhThu;
     private javax.swing.JButton btnBieuDoKH;
     private javax.swing.JButton btnBieuDoNV;
     private javax.swing.JButton btnBieuDoSP;
@@ -2587,6 +2593,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
     private util.SVGImage svgThongKeKH;
     private util.SVGImage svgThongKeNV;
     private util.SVGImage svgThongKeSP;
+    private util.SVGImage svgXuatExcelDoanhThu;
     private util.SVGImage svgXuatExcelKhachHang;
     private util.SVGImage svgXuatExcelNV;
     private util.SVGImage svgXuatExcelSanPham;
