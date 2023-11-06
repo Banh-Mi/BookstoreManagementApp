@@ -4,6 +4,18 @@
  */
 package gui;
 
+import dao.NhanVienDAO;
+import dao.TaiKhoanDAO;
+import entity.NhanVien;
+import entity.TaiKhoan;
+import java.awt.Window;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import org.apache.commons.codec.digest.DigestUtils;
+
 /**
  *
  * @author BanhMi88
@@ -11,6 +23,9 @@ package gui;
 public class Frame_TaiKhoan extends javax.swing.JFrame {
 
     private boolean setShow = false;
+
+    private TaiKhoanDAO taiKhoanDAO;
+
     public Frame_TaiKhoan(String maNhanVien, String chucVu) {
         initComponents();
         passWordShow(setShow);
@@ -18,15 +33,16 @@ public class Frame_TaiKhoan extends javax.swing.JFrame {
         lblChucVu.setText(chucVu);
     }
 
-     private void passWordShow(boolean check) {
+    private void passWordShow(boolean check) {
         if (check) {
             passCu.setEchoChar((char) 0);
             passMoi.setEchoChar((char) 0);
         } else {
-            passCu.setEchoChar((char) 8226);        
+            passCu.setEchoChar((char) 8226);
             passMoi.setEchoChar((char) 8226);
         }
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -45,10 +61,11 @@ public class Frame_TaiKhoan extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jCheckBox1 = new javax.swing.JCheckBox();
+        lblMessage = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(500, 500));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setPreferredSize(new java.awt.Dimension(309, 70));
         jPanel1.setLayout(new java.awt.BorderLayout());
@@ -59,18 +76,18 @@ public class Frame_TaiKhoan extends javax.swing.JFrame {
         jLabel1.setPreferredSize(new java.awt.Dimension(309, 50));
         jPanel1.add(jLabel1, java.awt.BorderLayout.CENTER);
 
-        getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_START);
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 634, -1));
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblTenDangNhap.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jPanel2.add(lblTenDangNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 40, 230, 40));
-        jPanel2.add(passCu, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 150, 230, 40));
+        jPanel2.add(passCu, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 150, 260, 40));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setText("Mật khẩu mới:");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, -1, 40));
-        jPanel2.add(passMoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 210, 230, 40));
+        jPanel2.add(passMoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 210, 260, 40));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel4.setText("Mật khẩu cũ:");
@@ -107,12 +124,12 @@ public class Frame_TaiKhoan extends javax.swing.JFrame {
         jButton3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
         jButton3.setText("Đổi mật khẩu");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton3MouseClicked(evt);
             }
         });
-        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 320, 160, 50));
+        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 320, 160, 50));
 
         jCheckBox1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jCheckBox1.setText("Hiện mật khẩu");
@@ -121,9 +138,12 @@ public class Frame_TaiKhoan extends javax.swing.JFrame {
                 jCheckBox1ActionPerformed(evt);
             }
         });
-        jPanel2.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 270, -1, -1));
+        jPanel2.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 270, -1, -1));
 
-        getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
+        lblMessage.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jPanel2.add(lblMessage, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 266, 250, 30));
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 550, 430));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -132,23 +152,51 @@ public class Frame_TaiKhoan extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
-
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         this.setVisible(false);
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-       setShow = !setShow;
+        setShow = !setShow;
         passWordShow(setShow);
     }//GEN-LAST:event_jCheckBox1ActionPerformed
+
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+        String oldPass = new String(passCu.getPassword());
+        String newPass = new String(passMoi.getPassword());
+        taiKhoanDAO = new TaiKhoanDAO();
+        if (!newPass.trim().equals("")) {
+            TaiKhoan taiKhoan = taiKhoanDAO.login(lblTenDangNhap.getText(), DigestUtils.md5Hex(oldPass).toUpperCase());
+            if (taiKhoan == null) {
+                lblMessage.setText("Mật khẩu cũ không đúng!");
+            } else {
+                if (taiKhoanDAO.doiMatKhau(lblTenDangNhap.getText(), newPass)) {
+                    int result = JOptionPane.showConfirmDialog(null, "Đổi mật khẩu thành công", "Thông báo", JOptionPane.DEFAULT_OPTION);
+                    if (result == JOptionPane.OK_OPTION) {
+                        Window[] windows = Window.getWindows();
+                        for (Window window : windows) {
+                            window.dispose();
+                        }
+                        try {
+                            new GiaoDienDangNhap().setVisible(true);
+                        } catch (SQLException ex) {
+                            Logger.getLogger(Frame_TaiKhoan.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Đổi mật khẩu không thành công");
+                }
+
+            }
+        } else {
+            lblMessage.setText("Không được để trống mật khẩu mới");
+        }
+
+    }//GEN-LAST:event_jButton3MouseClicked
 
     /**
      * @param args the command line arguments
      */
-   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
@@ -162,6 +210,7 @@ public class Frame_TaiKhoan extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblChucVu;
+    private javax.swing.JLabel lblMessage;
     private javax.swing.JLabel lblTenDangNhap;
     private javax.swing.JPasswordField passCu;
     private javax.swing.JPasswordField passMoi;

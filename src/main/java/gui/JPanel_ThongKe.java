@@ -1,5 +1,4 @@
 package gui;
-
 import dao.KhachHangDAO;
 import dao.SanPhamDAO;
 import dao.ThongKeDoanhThuDAO;
@@ -12,6 +11,7 @@ import entity.ThongKeDoanhThu;
 import entity.ThongKeDoanhThuNhanVien;
 import entity.ThongKeKhachHang;
 import entity.ThongKeSanPham;
+import static gui.GiaoDienDangNhap.ngonNgu;
 import java.awt.Graphics2D;
 import java.sql.SQLException;
 import java.text.NumberFormat;
@@ -31,7 +31,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.Collections;
 import java.util.List;
-import javax.swing.JTable;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -59,6 +58,10 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
 
     public JPanel_ThongKe() {
         initComponents();
+        if(ngonNgu==2)
+        {
+            ChuyenDoiNN();
+        }
         modelDoanhThu = (DefaultTableModel) tableDoanhThu.getModel();
         modelSanPham = (DefaultTableModel) tableSanPham.getModel();
         modelKhachHang = (DefaultTableModel) tableKhachHang.getModel();
@@ -69,6 +72,69 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         loadDuLieuNhanVien();
     }
 
+    public void ChuyenDoiNN()
+    {
+        lblLuaChonDoanhThu.setText("Statistics by:");
+        lblTuNgay.setText("From:");
+        lblDenNgay.setText("To:");
+        lblThangDoanhThu.setText("Month:");
+        lblNamDoanhThu.setText("Year:");
+        lblThongKeDoanhThu.setText("Statistics");
+        lblLamMoiDoanhThu.setText("Refresh");
+        lblLamMoiSP3.setText("Export to Excel");
+        lblInBaoCaoSP2.setText("Export to PDF");
+        lblTongDoanhThu.setText("STATISTICS");
+        lblSoLuongHoaDon.setText("Quantity of invoices sold:");
+        lblTongTien.setText("Total amount:");
+        lblGiamGia.setText("Discount:");
+        lblDoanhThu.setText("Revenue");
+        jButton3.setText("View chart");
+        
+        lblLuaChonSP.setText("Statistics by:");
+        lblTuNgaySP.setText("From:");
+        lblDenNgaySanPham.setText("To:");
+        lblThangSP.setText("Month:");
+        lblNamSP.setText("Year:");
+        lblThongKeSP.setText("statistics");
+        lblLamMoiSP.setText("Refresh");
+        lblLamMoiSP1.setText("Export to Excel");
+        lblInBaoCaoSP.setText("Export to PDF");
+        lblTongDoanhThuSanPham.setText("STATISTICS");
+        lblSoLuongHoaDonSP.setText("Quantity of products sold:");
+        lblDoanhThuSanPham.setText("Total amount:");
+        btnBieuDoSP.setText("View chart");
+        
+        lblLuaChonKH.setText("Statistics by:");
+        lblTuNgayKH.setText("From:");
+        lblDenNgayKH.setText("To:");
+        lblThangKH.setText("Month:");
+        lblNamKH.setText("Year:");
+        lblThongKeKH.setText("statistics");
+        lblLamMoiKH.setText("Refresh");
+        lblLamMoiSP2.setText("Export to Excel");
+        lblInBaoCaoSP1.setText("Export to PDF");
+        lblTongDoanhThuKH.setText("STATISTICS");
+        lblSoLuongHoaDonKH.setText("Quantity of products:");
+        lblSoLuongHoaDonKH1.setText("Quantity of orders:");
+        lblDoanhThuKH.setText("Total amount:");
+        lblDoanhThuKH1.setText("Number of registrations:");
+        btnBieuDoKH.setText("View chart");
+        
+        lblLuaChonKH1.setText("Statistics by:");
+        jLabel1.setText("Employee ID:");
+        lblTuNgayKH1.setText("From:");
+        lblDenNgayKH1.setText("To:");
+        lblThangKH1.setText("Month:");
+        lblNamKH1.setText("Year:");
+        lblThongKeKH1.setText("Statistics");
+        lblLamMoiKH1.setText("Refresh");
+        lblLamMoiSP4.setText("Export to Excel");
+        lblInBaoCaoSP3.setText("Export to PDF");
+        lblTongDoanhThuKH1.setText("STATISTICS");
+        lblSoLuongHoaDonKH3.setText("Quantity of orders:");
+        lblDoanhThuKH2.setText("Total amount:");
+        btnBieuDoNV.setText("View chart");
+   }
     private void setComponentState(boolean set, JComponent... components) {
         for (JComponent component : components) {
             component.setEnabled(set);

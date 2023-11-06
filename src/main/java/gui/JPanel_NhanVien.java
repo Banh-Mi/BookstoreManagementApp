@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.table.DefaultTableModel;
+import org.apache.commons.codec.digest.DigestUtils;
 import static util.Validator.*;
 
 import static util.Validator.checkDate;
@@ -361,10 +362,10 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
 
                 java.sql.Date ngaySinh = new java.sql.Date(jdNgaySinh.getDate().getTime());
                 taiKhoanDao = new TaiKhoanDAO();
-                TaiKhoan taiKhoan = new TaiKhoan(taiKhoanDao.taMaTK(), maNV, "1111", "User", "Đang hoạt động");
+                TaiKhoan taiKhoan = new TaiKhoan(taiKhoanDao.taoMaTK(), maNV, DigestUtils.md5Hex("1111").toUpperCase(), "User", "Đang hoạt động");
 
                 if (checkText(tenNV, "Tên nhân viên không hợp lệ") && checkPhone(soDienThoai, "Số điện thoại không hợp lệ") && checkName(diaChi, "Địa chỉ không hợp lệ") && checkDate(ngaySinh, "Chưa đủ 18 tuổi") && checkMail(email, "Email không hợp lệ")) {
-                    if (taiKhoanDao.insert(taiKhoan)) {
+                    if (taiKhoanDao.themTaiKhoan(taiKhoan)) {
                         NhanVien nhanVien = new NhanVien(maNV, tenNV, soDienThoai, email, ngaySinh, taiKhoan.getMaTK(), diaChi, gioiTinh, chucVu, trangThai);
                         if (nhanVienDao.themNhanVien(nhanVien)) {
                             loadData();

@@ -15,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
+import org.apache.commons.codec.digest.DigestUtils;
 
 public class LoginController {
 
@@ -62,7 +63,7 @@ public class LoginController {
                 jbMessage.setText("Vui lòng nhập dữ liệu bắt buộc!");
             } else {
                 TaiKhoanDAO taiKhoanDAO = new TaiKhoanDAO();
-                TaiKhoan taiKhoan = taiKhoanDAO.login(userName, password);
+                TaiKhoan taiKhoan = taiKhoanDAO.login(userName, DigestUtils.md5Hex(password).toUpperCase());
                 if (taiKhoan == null) {
                     jbMessage.setText("Tên đăng nhập hoặc mật khẩu không đúng!");
                 } else {

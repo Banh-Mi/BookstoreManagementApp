@@ -25,7 +25,6 @@ gui\JPanel_HoaDon$18.class
 gui\JPanel_KhachHang.class
 gui\JPanel_ThongKe$21.class
 Dao\ThongKeDoanhThuDAO.class
-gui\JPanel_TaiKhoan$4.class
 gui\JPanel_TimKiemNhanVien$2.class
 gui\GiaoDienChinh$12.class
 gui\JPanel_ThongKe$15.class
@@ -292,7 +291,6 @@ gui\JPanel_SanPham$9.class
 gui\GiaoDienDangNhap$3.class
 gui\GiaoDienChinh$10.class
 gui\JFramePDFNhanVien$2.class
-gui\JPanel_TaiKhoan$2.class
 gui\JFramePDFKhachHang.class
 gui\JPanel_TimKiemKhachHang$1.class
 gui\JPanel_KhuyenMai$15.class
@@ -339,11 +337,9 @@ gui\BangNhapExcel$2.class
 gui\JFrame_ChiTietSanPham.class
 gui\JPanel_ThongKe$8.class
 gui\JPanel_ThongKe$5.class
-gui\JPanel_TaiKhoan.class
 gui\BieuDoDoanhThu$2.class
 gui\JFrame_ChiTietKhachHang$2.class
 gui\JPanel_ThongKe$40.class
-gui\JPanel_TaiKhoan$3.class
 gui\JPanel_HoaDon$17.class
 gui\JPanel_SanPham$11.class
 gui\GiaoDienChinh$11.class
@@ -355,7 +351,6 @@ entity\NhaCungCap.class
 util\LoginController$1.class
 gui\JPanel_NhanVien$2.class
 entity\ThongKeSanPham.class
-gui\JPanel_TaiKhoan$1.class
 gui\JPanel_PhanCa$8.class
 gui\JPanel_ThongKe$36.class
 gui\BieuDoDoanhThu$4.class

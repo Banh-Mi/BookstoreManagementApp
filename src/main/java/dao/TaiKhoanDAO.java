@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
+import org.apache.commons.codec.digest.DigestUtils;
 
 public class TaiKhoanDAO {
 
@@ -36,28 +36,10 @@ public class TaiKhoanDAO {
         }
         return null;
     }
-
     
     
-    public ArrayList<TaiKhoan> getAllTaiKhoan() {
-        ArrayList<TaiKhoan> listAccount = new ArrayList<>();
-        ConnectDB.getInstance();
-        Connection con = ConnectDB.getConnection();
-        try {
-            String sql = "select * from TaiKhoan";
-            Statement statement = con.createStatement();
-            ResultSet rs = statement.executeQuery(sql);
-            while (rs.next()) {
-                listAccount.add(new TaiKhoan(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return listAccount;
 
-    }
-
-    public boolean insert(TaiKhoan account) {
+    public boolean themTaiKhoan(TaiKhoan account) {
         Connection con = ConnectDB.getInstance().getConnection();
         PreparedStatement stmt = null;
         String sql = "insert into TaiKhoan values(?,?,?,?,?)";
@@ -79,7 +61,25 @@ public class TaiKhoanDAO {
         }
     }
 
-    public String taMaTK() {
+     public boolean doiMatKhau(String userName, String pass) {
+        System.out.println(userName + "  " + pass);
+        Connection con = ConnectDB.getInstance().getConnection();
+        PreparedStatement stmt = null;
+        String sql = " Update TaiKhoan Set matKhau = ? where tenDangNhap like ?";
+        try {
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1, DigestUtils.md5Hex(pass).toUpperCase());
+            stmt.setString(2, userName);
+            int executeUpdate = stmt.executeUpdate();
+            return executeUpdate>0;
+        } catch (SQLException ex) {
+            return false;
+
+        } finally {
+            close(stmt);
+        }
+     }
+    public String taoMaTK() {
         try {
             String sql = "SELECT TOP 1 maTK FROM TaiKhoan ORDER BY maTK DESC";
             Statement statement = ConnectDB.getInstance().getConnection().createStatement();
@@ -103,22 +103,7 @@ public class TaiKhoanDAO {
         }
         return null;
     }
-//    public void xoa(String mahocvien) 
-//	{
-//		Connection con = ConnectDB.getInstance().getConnection();
-//		PreparedStatement stmt =null;
-//		String sql="delete from QLHV1 where mahocvien = ?";
-//		try {
-//			stmt=con.prepareStatement(sql);
-//			stmt.setString(1, mahocvien);
-//			stmt.executeUpdate();
-//		} catch (SQLException ex) {
-//			ex.printStackTrace();
-//		}
-//		finally {
-//			close(stmt);
-//		}
-//	}
+
 
     public void close(PreparedStatement stmt) {
         if (stmt != null) {
