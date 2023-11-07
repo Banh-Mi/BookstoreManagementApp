@@ -1,17 +1,20 @@
 package dao;
 
 import connectDB.ConnectDB;
+import static connectDB.ConnectDB.con;
 import entity.TaiKhoan;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 import org.apache.commons.codec.digest.DigestUtils;
 
 public class TaiKhoanDAO {
 
-    public TaiKhoan login(String userName, String password) {
+    public TaiKhoan checkAccount(String userName, String password) {
         ConnectDB.getInstance();
         Connection cons = ConnectDB.getConnection();
         String sql = "SELECT * FROM TaiKhoan WHERE tenDangNhap LIKE ? AND matKhau LIKE ?";
@@ -36,8 +39,24 @@ public class TaiKhoanDAO {
         }
         return null;
     }
-    
-    
+
+    public boolean checkCaLamViec(String tenDangNhap) {
+        ConnectDB.getInstance();
+        Connection con = ConnectDB.getConnection();
+        CallableStatement cstmt = null;
+        try {
+            String sql = "{call CheckLogin(?, ?)}";
+            cstmt = con.prepareCall(sql);
+            cstmt.registerOutParameter(2, Types.INTEGER);
+            cstmt.setString(1, tenDangNhap);
+            cstmt.execute();
+            int result = cstmt.getInt(2);
+            return result == 1;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
     public boolean themTaiKhoan(TaiKhoan account) {
         Connection con = ConnectDB.getInstance().getConnection();
@@ -61,7 +80,7 @@ public class TaiKhoanDAO {
         }
     }
 
-     public boolean doiMatKhau(String userName, String pass) {
+    public boolean doiMatKhau(String userName, String pass) {
         System.out.println(userName + "  " + pass);
         Connection con = ConnectDB.getInstance().getConnection();
         PreparedStatement stmt = null;
@@ -71,14 +90,15 @@ public class TaiKhoanDAO {
             stmt.setString(1, DigestUtils.md5Hex(pass).toUpperCase());
             stmt.setString(2, userName);
             int executeUpdate = stmt.executeUpdate();
-            return executeUpdate>0;
+            return executeUpdate > 0;
         } catch (SQLException ex) {
             return false;
 
         } finally {
             close(stmt);
         }
-     }
+    }
+
     public String taoMaTK() {
         try {
             String sql = "SELECT TOP 1 maTK FROM TaiKhoan ORDER BY maTK DESC";
@@ -103,7 +123,6 @@ public class TaiKhoanDAO {
         }
         return null;
     }
-
 
     public void close(PreparedStatement stmt) {
         if (stmt != null) {

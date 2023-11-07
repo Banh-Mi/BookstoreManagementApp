@@ -351,6 +351,7 @@ entity\NhaCungCap.class
 util\LoginController$1.class
 gui\JPanel_NhanVien$2.class
 entity\ThongKeSanPham.class
+gui\GiaoDienDangNhap$5.class
 gui\JPanel_PhanCa$8.class
 gui\JPanel_ThongKe$36.class
 gui\BieuDoDoanhThu$4.class

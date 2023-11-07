@@ -182,6 +182,7 @@ public class GiaoDienDangNhap extends javax.swing.JFrame {
         txtPassword.setBackground(new java.awt.Color(0, 133, 255));
         txtPassword.setFont(txtPassword.getFont().deriveFont(txtPassword.getFont().getSize()+2f));
         txtPassword.setForeground(new java.awt.Color(255, 255, 255));
+        txtPassword.setText("1111");
         txtPassword.setBorder(null);
         txtPassword.setCaretColor(new java.awt.Color(255, 255, 255));
         txtPassword.addActionListener(new java.awt.event.ActionListener() {

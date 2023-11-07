@@ -166,7 +166,7 @@ public class Frame_TaiKhoan extends javax.swing.JFrame {
         String newPass = new String(passMoi.getPassword());
         taiKhoanDAO = new TaiKhoanDAO();
         if (!newPass.trim().equals("")) {
-            TaiKhoan taiKhoan = taiKhoanDAO.login(lblTenDangNhap.getText(), DigestUtils.md5Hex(oldPass).toUpperCase());
+            TaiKhoan taiKhoan = taiKhoanDAO.checkAccount(lblTenDangNhap.getText(), DigestUtils.md5Hex(oldPass).toUpperCase());
             if (taiKhoan == null) {
                 lblMessage.setText("Mật khẩu cũ không đúng!");
             } else {

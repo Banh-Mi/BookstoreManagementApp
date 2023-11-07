@@ -63,19 +63,21 @@ public class LoginController {
                 jbMessage.setText("Vui lòng nhập dữ liệu bắt buộc!");
             } else {
                 TaiKhoanDAO taiKhoanDAO = new TaiKhoanDAO();
-                TaiKhoan taiKhoan = taiKhoanDAO.login(userName, DigestUtils.md5Hex(password).toUpperCase());
+                TaiKhoan taiKhoan = taiKhoanDAO.checkAccount(userName, DigestUtils.md5Hex(password).toUpperCase());
                 if (taiKhoan == null) {
                     jbMessage.setText("Tên đăng nhập hoặc mật khẩu không đúng!");
                 } else {
                     if (taiKhoan.getTrangThaiTaiKhoan().equals("Tạm khoá")) {
                         jbMessage.setText("Tài khoản của bạn đang bị tạm khóa!");
-                    } else {
+                    } else if(taiKhoanDAO.checkCaLamViec(userName)) {
                         frame.dispose();
                         NhanVienDAO nhanVienDao = new NhanVienDAO();
                         NhanVien nhanVien = nhanVienDao.searchEmployee(userName);
                         GiaoDienChinh aplFrame = new GiaoDienChinh(nhanVien);
                         aplFrame.setVisible(true);
 
+                    }else {
+                         jbMessage.setText("Chưa đến giờ làm việc!");
                     }
                 }
             }
