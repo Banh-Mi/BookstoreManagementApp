@@ -3,10 +3,12 @@ package gui;
 import dao.ChiTietHoaDonDAO;
 import dao.HoaDonDAO;
 import dao.KhachHangDAO;
+import dao.KhuyenMaiDAO;
 import dao.NhanVienDAO;
 import dao.SanPhamDAO;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
+import entity.KhuyenMai;
 import entity.SanPham;
 import static gui.GiaoDienDangNhap.ngonNgu;
 import java.text.NumberFormat;
@@ -30,12 +32,12 @@ public class JPanel_HoaDon extends javax.swing.JPanel {
     private SanPhamDAO sanPhamDAO = new SanPhamDAO();
     private NhanVienDAO nhanVienDAO = new NhanVienDAO();
     private KhachHangDAO khachHangDAO = new KhachHangDAO();
+    private KhuyenMaiDAO khuyenMaiDAO = new KhuyenMaiDAO();
     private NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
 
     public JPanel_HoaDon() {
         initComponents();
-        if(ngonNgu==2)
-        {
+        if (ngonNgu == 2) {
             ChuyenDoiNN();
         }
         modelOrder = (DefaultTableModel) tbl_Order.getModel();
@@ -45,6 +47,7 @@ public class JPanel_HoaDon extends javax.swing.JPanel {
         rightRenderer.setHorizontalAlignment(SwingConstants.RIGHT);
         tbl_Order.getColumnModel().getColumn(8).setCellRenderer(rightRenderer);
         tbl_Order.getColumnModel().getColumn(9).setCellRenderer(rightRenderer);
+        tbl_Order.getColumnModel().getColumn(10).setCellRenderer(rightRenderer);
         tbl_OrderDetail.getColumnModel().getColumn(2).setCellRenderer(rightRenderer);
         tbl_OrderDetail.getColumnModel().getColumn(3).setCellRenderer(rightRenderer);
         tbl_OrderDetail.getColumnModel().getColumn(4).setCellRenderer(rightRenderer);
@@ -53,19 +56,21 @@ public class JPanel_HoaDon extends javax.swing.JPanel {
 
         loadData();
     }
-    public void ChuyenDoiNN()
-    {
-       lbl_SearchOrder1.setText("Find Orders:");
-       lbl_SearchSearchByTimeFrom.setText("From");
-       lbl_SearchByTimeTo.setText("To");
-       
+
+    public void ChuyenDoiNN() {
+        lbl_SearchOrder1.setText("Find Orders:");
+        lbl_SearchSearchByTimeFrom.setText("From");
+        lbl_SearchByTimeTo.setText("To");
+
     }
 
     private void loadData() {
         modelOrder.setRowCount(0);
         modelOrderDetail.setRowCount(0);
         for (HoaDon hoaDon : hoaDonDAO.selectAll()) {
-            String[] data = {hoaDon.getMaHoaDon(), hoaDon.getNgayLapHoaDon() + "", hoaDon.getMaNV(), nhanVienDAO.searchEmployee(hoaDon.getMaNV()).getTenNV(), hoaDon.getMaKH(), khachHangDAO.search(hoaDon.getMaKH()).getTenKH(), hoaDon.getLoaiHoaDon(), hoaDon.getPhuongThucThanhToan(), "", nf.format(hoaDon.getTongTien()), hoaDon.getTrangThai(), hoaDon.getGhiChu()};
+            KhuyenMai khuyenMai = khuyenMaiDAO.getKhuyenMaiById(hoaDon.getMaKhuyenMai());
+            float giamGia = (khuyenMai == null) ? 0 : khuyenMai.getPhanTramKhuyenMai();
+            String[] data = {hoaDon.getMaHoaDon(), hoaDon.getNgayLapHoaDon() + "", hoaDon.getMaNV(), nhanVienDAO.searchEmployee(hoaDon.getMaNV()).getTenNV(), hoaDon.getMaKH(), khachHangDAO.search(hoaDon.getMaKH()).getTenKH(), hoaDon.getLoaiHoaDon(), hoaDon.getPhuongThucThanhToan(), nf.format(hoaDon.getTongTien()), nf.format(hoaDon.getTongTien() * giamGia / 100), nf.format(hoaDon.getTongTien() - hoaDon.getTongTien() * giamGia / 100), hoaDon.getTrangThai(), hoaDon.getGhiChu()};
             modelOrder.addRow(data);
         }
     }
@@ -74,7 +79,9 @@ public class JPanel_HoaDon extends javax.swing.JPanel {
         modelOrder.setRowCount(0);
         modelOrderDetail.setRowCount(0);
         for (HoaDon hoaDon : danhSachHoaDon) {
-            String[] data = {hoaDon.getMaHoaDon(), hoaDon.getNgayLapHoaDon() + "", hoaDon.getMaNV(), nhanVienDAO.searchEmployee(hoaDon.getMaNV()).getTenNV(), hoaDon.getMaKH(), khachHangDAO.search(hoaDon.getMaKH()).getTenKH(), hoaDon.getLoaiHoaDon(), hoaDon.getPhuongThucThanhToan(), "", nf.format(hoaDon.getTongTien()), hoaDon.getTrangThai(), hoaDon.getGhiChu()};
+            KhuyenMai khuyenMai = khuyenMaiDAO.getKhuyenMaiById(hoaDon.getMaKhuyenMai());
+            float giamGia = (khuyenMai == null) ? 0 : khuyenMai.getPhanTramKhuyenMai();
+            String[] data = {hoaDon.getMaHoaDon(), hoaDon.getNgayLapHoaDon() + "", hoaDon.getMaNV(), nhanVienDAO.searchEmployee(hoaDon.getMaNV()).getTenNV(), hoaDon.getMaKH(), khachHangDAO.search(hoaDon.getMaKH()).getTenKH(), hoaDon.getLoaiHoaDon(), hoaDon.getPhuongThucThanhToan(), nf.format(hoaDon.getTongTien()), nf.format(hoaDon.getTongTien() * giamGia / 100), nf.format(hoaDon.getTongTien() - hoaDon.getTongTien() * giamGia / 100), hoaDon.getTrangThai(), hoaDon.getGhiChu()};
             modelOrder.addRow(data);
         }
     }
@@ -241,47 +248,52 @@ public class JPanel_HoaDon extends javax.swing.JPanel {
         lbl_SearchOrder1.setText("Tìm kiếm hóa đơn:");
         jPanel_Order.add(lbl_SearchOrder1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 30, 130, 30));
 
+        tbl_Order.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Mã HD", "Ngày lập", "Mã nhân viên", "Tên nhân viên", "Mã khách hàng", "Tên khách hàng", "Loại hóa đơn", "Phương thức thanh toán", "Tổng tiền", "Giảm giá", "Thanh toán", "Trạng thái", "Ghi chú"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         if(ngonNgu==2)
         {
             tbl_Order.setModel(new javax.swing.table.DefaultTableModel(
                 new Object [][] {
-                    {null, null, null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null, null, null}
+
                 },
                 new String [] {
-                    "Order ID", "Invoice date", "Employee ID", "Employee Name", "Customer ID", "Customer Name", "Category Order", "payment methods", "discount", "total amount", "Status", "Note"
+                    "Order ID", "Order Date", "Employee Id", "Employee Name", "Customer ID", "Customer Name", "Order Category", "Payment Method", "Total Amount", "Discount", "Pay", "Status", "Note"
                 }
             ) {
                 Class[] types = new Class [] {
-                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                };
+                boolean[] canEdit = new boolean [] {
+                    false, false, false, false, false, false, false, false, false, false, false, false, false
                 };
 
                 public Class getColumnClass(int columnIndex) {
                     return types [columnIndex];
                 }
-            });
-        }
-        else
-        {
-            tbl_Order.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
-                    {null, null, null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null, null, null}
-                },
-                new String [] {
-                    "Mã hóa đơn", "Ngày lập", "Mã nhân viên", "Tên nhân viên", "Mã khách hàng", "Tên khách hàng", "Loại hóa đơn", "Phương thức thanh toán", "Giảm giá", "Tổng tiền", "Trạng thái", "Ghi chú"
-                }
-            ) {
-                Class[] types = new Class [] {
-                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-                };
 
-                public Class getColumnClass(int columnIndex) {
-                    return types [columnIndex];
+                public boolean isCellEditable(int rowIndex, int columnIndex) {
+                    return canEdit [columnIndex];
                 }
             });
         }
@@ -341,6 +353,29 @@ public class JPanel_HoaDon extends javax.swing.JPanel {
 
         scr_OrderDetail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
+        tbl_OrderDetail.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Mã sản phẩm", "Tên sản phẩm", "Giá", "Số lượng", "Thành tiền"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         if(ngonNgu==2)
         {
             tbl_OrderDetail.setModel(new javax.swing.table.DefaultTableModel(

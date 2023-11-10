@@ -13,6 +13,7 @@ import com.google.zxing.common.HybridBinarizer;
 import dao.ChiTietHoaDonDAO;
 import dao.HoaDonDAO;
 import dao.KhachHangDAO;
+import dao.KhuyenMaiDAO;
 import dao.SanPhamDAO;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
@@ -21,7 +22,7 @@ import entity.SanPham;
 import static gui.GiaoDienDangNhap.ngonNgu;
 import java.awt.BorderLayout;
 import java.awt.Cursor;
-import java.awt.Graphics2D;
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -37,22 +38,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Locale;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.graphics.image.LosslessFactory;
-import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.imgscalr.Scalr;
 import util.Email;
 import util.ExportPDF;
@@ -70,18 +61,18 @@ public class JPanel_BanHang extends javax.swing.JPanel {
     private HoaDonDAO hoaDonDAO = new HoaDonDAO();
     private KhachHangDAO khachHangDAO = new KhachHangDAO();
     private ChiTietHoaDonDAO chiTietHoaDonDAO = new ChiTietHoaDonDAO();
+    private KhuyenMaiDAO khuyenMaiDAO = new KhuyenMaiDAO();
     private NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
     private DecimalFormat decimalFormat = new DecimalFormat("#,###");
     private int infoPage = 1;
     private int infoPageCategory;
     private int totalAmount = 0;
-    private int discount = 0;
+    private float discount = 0;
 
     public JPanel_BanHang(String maNhanVien) {
         this.maNhanVien = maNhanVien;
         initComponents();
-        if(ngonNgu==2)
-        {
+        if (ngonNgu == 2) {
             ChuyenDoiNN();
         }
 
@@ -110,6 +101,8 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         svgDeleteAll.setSvgImage("delete.svg", 30, 30);
         svgReload.setSvgImage("refresh.svg", 20, 20);
         svgSelectCustomer.setSvgImage("select.svg", 15, 15);
+        svgCancelSale.setSvgImage("delete.svg", 30, 30);
+        svgCancelOrder.setSvgImage("delete.svg", 30, 30);
 
         setCursor();
         refreshOrderSale();
@@ -117,50 +110,50 @@ public class JPanel_BanHang extends javax.swing.JPanel {
 
         loadData();
     }
-     public void ChuyenDoiNN()
-    {
-       chkOrder.setText("Order");
-       lblCreateInvoice.setText("Create ");
-       lblDelete.setText("Delete");
-       lblDeleteAll.setText("Delete All");
-       lblSearchProduct1.setText("Search Product:");
-       lblSearch.setText("Find");
-       lblCategory.setText("Category");
-       
-       lblOrderId.setText("Order Id:");
-       lblOrderDate1.setText("Order Date:");
-       lblEmployeeId.setText("Employee ID:");
-       lblCustomerId.setText("Customer ID:");
-       lblCustomerName.setText("Customer Name:");
-       lblSelectCustomer.setText("Choose");
-       lblTotalAmount.setText("Total Amount:");
-       lblDiscount.setText("Discount:");
-       lblMustPay.setText("MustPay:");
-       lblCustomerMoneyGive.setText("MoneyGive:");
-       lblReturnMoneyToCustomer.setText("give back money:");
-       lblNote.setText("Note:");
-       chk_waitPay.setText("WaitPay");
-       lblPay1.setText("Pay");
-       
-       lblOrderId2.setText("Order Id:");
-       lblOrderDate2.setText("Order Date:");
-       lblEmployeeId2.setText("Employee ID:");
-       lblCustomerName3.setText("Customer Name:");
-       lblCustomerName4.setText("Phone:");
-       lblNote3.setText("Address:");
-       lblTotalAmount1.setText("TotalAmount:");
-       lblDiscount1.setText("Discount:");
-       lblMustPay1.setText("MustPay:");
-       lblNote2.setText("Note");
-       lblPay2.setText("Delivery");
-       
+
+    public void ChuyenDoiNN() {
+        chkOrder.setText("Order");
+        lblCreateInvoice.setText("Create ");
+        lblDelete.setText("Delete");
+        lblDeleteAll.setText("Delete All");
+        lblSearchProduct1.setText("Search Product:");
+        lblSearch.setText("Find");
+        lblCategory.setText("Category");
+
+        lblOrderId.setText("Order Id:");
+        lblOrderDate1.setText("Order Date:");
+        lblEmployeeId.setText("Employee ID:");
+        lblCustomerId.setText("Customer ID:");
+        lblCustomerName.setText("Customer Name:");
+        lblSelectCustomer.setText("Choose");
+        lblTotalAmount.setText("Total Amount:");
+        lblDiscount.setText("Discount:");
+        lblMustPay.setText("MustPay:");
+        lblCustomerMoneyGive.setText("MoneyGive:");
+        lblReturnMoneyToCustomer.setText("give back money:");
+        lblNote.setText("Note:");
+        chk_waitPay.setText("WaitPay");
+        lblPay1.setText("Pay");
+
+        lblOrderId2.setText("Order Id:");
+        lblOrderDate2.setText("Order Date:");
+        lblEmployeeId2.setText("Employee ID:");
+        lblCustomerName3.setText("Customer Name:");
+        lblCustomerName4.setText("Phone:");
+        lblNote3.setText("Address:");
+        lblTotalAmount1.setText("TotalAmount:");
+        lblDiscount1.setText("Discount:");
+        lblMustPay1.setText("MustPay:");
+        lblNote2.setText("Note");
+        lblPay2.setText("Delivery");
+
     }
 
     private void refreshOrderSale() {
         this.totalAmount = 0;
-        this.discount = 0;
         pnlSelectCustomer.setEnabled(false);
         jpPaySale.setEnabled(false);
+        jpCancelSale.setEnabled(false);
         txt_customerMoneyGive.setEnabled(false);
         txa_noteSale.setEnabled(false);
         lbl_orderIdSale.setText("");
@@ -169,6 +162,7 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         lbl_customerIdSale.setText("");
         lbl_customerNameSale.setText("");
         lbl_totalAmountSale.setText("0");
+        lbl_discountSale.setText("0");
         lbl_mustPay.setText("0");
         txt_customerMoneyGive.setText("0");
         lbl_returnMoneyToCustomer.setText("0");
@@ -180,8 +174,8 @@ public class JPanel_BanHang extends javax.swing.JPanel {
 
     private void refreshOrder() {
         this.totalAmount = 0;
-        this.discount = 0;
         jpDelivery.setEnabled(false);
+        jpCancelOrder.setEnabled(false);
         txt_customerPhone.setEnabled(false);
         txa_customerDeliveryAddress.setEnabled(false);
         txa_noteOrder.setEnabled(false);
@@ -327,6 +321,7 @@ public class JPanel_BanHang extends javax.swing.JPanel {
     }
 
     public void loadData() {
+        discount = (khuyenMaiDAO.getPromotionEnable() == null) ? 0 : khuyenMaiDAO.getPromotionEnable().getPhanTramKhuyenMai();;
         if (cb_category.getSelectedIndex() < 0) {
             int totalProduct = getAvailableProduct().size();
             lbl_infoPage.setText(infoPage + "/" + (int) Math.ceil(totalProduct / 4.0));
@@ -405,7 +400,8 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         totalAmount = (int) (totalAmount + sanPham.getGia() * quantity);
         if (!lbl_orderIdSale.getText().equals("")) {
             lbl_totalAmountSale.setText(decimalFormat.format(totalAmount));
-            lbl_mustPay.setText(decimalFormat.format(totalAmount - discount));
+            lbl_discountSale.setText(decimalFormat.format(totalAmount * discount / 100));
+            lbl_mustPay.setText(decimalFormat.format(totalAmount * (1 - discount / 100)));
             if (!txt_customerMoneyGive.getText().equals("0")) {
                 txt_customerMoneyGive.setText(txt_customerMoneyGive.getText().replace(",", ""));
                 try {
@@ -418,7 +414,8 @@ public class JPanel_BanHang extends javax.swing.JPanel {
             }
         } else {
             lbl_totalAmountOrder.setText(decimalFormat.format(totalAmount));
-            lbl_mustPayOrder.setText(decimalFormat.format(totalAmount - discount));
+            lbl_discountOrder.setText(decimalFormat.format(totalAmount * discount / 100));
+            lbl_mustPayOrder.setText(decimalFormat.format(totalAmount * (1 - discount / 100)));
         }
         for (int i = 0; i < modelCart.getRowCount(); i++) {
             if (sanPham.getMaSanPham().equals(modelCart.getValueAt(i, 1))) {
@@ -454,9 +451,6 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         btn_next = new javax.swing.JButton();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         pnl_salePay = new javax.swing.JPanel();
-        jpPaySale = new util.JPanelRounded();
-        lblPay1 = new javax.swing.JLabel();
-        svgPay1 = new util.SVGImage();
         jPanel2 = new javax.swing.JPanel();
         lblTotalAmount = new javax.swing.JLabel();
         lblDiscount = new javax.swing.JLabel();
@@ -471,7 +465,7 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         lblUnit2 = new javax.swing.JLabel();
         lblUnit1 = new javax.swing.JLabel();
         lbl_totalAmountSale = new javax.swing.JLabel();
-        lblValueDiscount = new javax.swing.JLabel();
+        lbl_discountSale = new javax.swing.JLabel();
         lbl_mustPay = new javax.swing.JLabel();
         lblNote = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -491,6 +485,12 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         lblSelectCustomer = new javax.swing.JLabel();
         svgSelectCustomer = new util.SVGImage();
         chk_waitPay = new javax.swing.JCheckBox();
+        jpCancelSale = new util.JPanelRounded();
+        lblCancelSale = new javax.swing.JLabel();
+        svgCancelSale = new util.SVGImage();
+        jpPaySale = new util.JPanelRounded();
+        lblPay1 = new javax.swing.JLabel();
+        svgPay1 = new util.SVGImage();
         pnl_orderPage = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
         lblOrderId2 = new javax.swing.JLabel();
@@ -522,6 +522,9 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         jpDelivery = new util.JPanelRounded();
         lblPay2 = new javax.swing.JLabel();
         svgDelivery = new util.SVGImage();
+        jpCancelOrder = new util.JPanelRounded();
+        lblCancelOrder = new javax.swing.JLabel();
+        svgCancelOrder = new util.SVGImage();
         pnl_deleteAll = new util.JPanelRounded();
         lblDeleteAll = new javax.swing.JLabel();
         svgDeleteAll = new util.SVGImage();
@@ -697,27 +700,6 @@ public class JPanel_BanHang extends javax.swing.JPanel {
 
         pnl_salePay.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jpPaySale.setBackground(new java.awt.Color(255, 255, 255));
-        jpPaySale.setRoundedBottomLeft(10);
-        jpPaySale.setRoundedBottomRight(10);
-        jpPaySale.setRoundedTopLeft(10);
-        jpPaySale.setRoundedTopRight(10);
-        jpPaySale.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jpPaySaleMouseClicked(evt);
-            }
-        });
-        jpPaySale.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        lblPay1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblPay1.setText("Thanh toán");
-        jpPaySale.add(lblPay1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 80, 40));
-
-        svgPay1.setText(" ");
-        jpPaySale.add(svgPay1, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
-
-        pnl_salePay.add(jpPaySale, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 730, 120, 40));
-
         if(ngonNgu==2)
         {
             jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detail", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14)));
@@ -797,10 +779,10 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         lbl_totalAmountSale.setText("0");
         jPanel2.add(lbl_totalAmountSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 40, 140, 30));
 
-        lblValueDiscount.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblValueDiscount.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblValueDiscount.setText("0");
-        jPanel2.add(lblValueDiscount, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 90, 140, 30));
+        lbl_discountSale.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbl_discountSale.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lbl_discountSale.setText("0");
+        jPanel2.add(lbl_discountSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 90, 140, 30));
 
         lbl_mustPay.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         lbl_mustPay.setForeground(new java.awt.Color(255, 51, 51));
@@ -898,6 +880,48 @@ public class JPanel_BanHang extends javax.swing.JPanel {
             }
         });
         pnl_salePay.add(chk_waitPay, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 730, 110, 40));
+
+        jpCancelSale.setBackground(new java.awt.Color(255, 255, 255));
+        jpCancelSale.setRoundedBottomLeft(10);
+        jpCancelSale.setRoundedBottomRight(10);
+        jpCancelSale.setRoundedTopLeft(10);
+        jpCancelSale.setRoundedTopRight(10);
+        jpCancelSale.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jpCancelSaleMouseClicked(evt);
+            }
+        });
+        jpCancelSale.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblCancelSale.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblCancelSale.setText("Hủy");
+        jpCancelSale.add(lblCancelSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 30, 40));
+
+        svgCancelSale.setText(" ");
+        jpCancelSale.add(svgCancelSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
+
+        pnl_salePay.add(jpCancelSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 730, 70, 40));
+
+        jpPaySale.setBackground(new java.awt.Color(255, 255, 255));
+        jpPaySale.setRoundedBottomLeft(10);
+        jpPaySale.setRoundedBottomRight(10);
+        jpPaySale.setRoundedTopLeft(10);
+        jpPaySale.setRoundedTopRight(10);
+        jpPaySale.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jpPaySaleMouseClicked(evt);
+            }
+        });
+        jpPaySale.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblPay1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblPay1.setText("Thanh toán");
+        jpPaySale.add(lblPay1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 80, 40));
+
+        svgPay1.setText(" ");
+        jpPaySale.add(svgPay1, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
+
+        pnl_salePay.add(jpPaySale, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 730, -1, -1));
 
         jTabbedPane2.addTab("Đơn hàng", pnl_salePay);
 
@@ -1057,6 +1081,27 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         jpDelivery.add(svgDelivery, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
 
         pnl_orderPage.add(jpDelivery, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 720, 130, 40));
+
+        jpCancelOrder.setBackground(new java.awt.Color(255, 255, 255));
+        jpCancelOrder.setRoundedBottomLeft(10);
+        jpCancelOrder.setRoundedBottomRight(10);
+        jpCancelOrder.setRoundedTopLeft(10);
+        jpCancelOrder.setRoundedTopRight(10);
+        jpCancelOrder.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jpCancelOrderMouseClicked(evt);
+            }
+        });
+        jpCancelOrder.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblCancelOrder.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblCancelOrder.setText("Hủy");
+        jpCancelOrder.add(lblCancelOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 30, 40));
+
+        svgCancelOrder.setText(" ");
+        jpCancelOrder.add(svgCancelOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
+
+        pnl_orderPage.add(jpCancelOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 720, 70, 40));
 
         jTabbedPane2.addTab("Đặt hàng", pnl_orderPage);
 
@@ -1365,7 +1410,6 @@ public class JPanel_BanHang extends javax.swing.JPanel {
     private void pnl_deleteAllMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnl_deleteAllMouseClicked
         if (tbl_Cart.getRowCount() > 0) {
             this.totalAmount = 0;
-            this.discount = 0;
             if (JOptionPane.showConfirmDialog(this, "Bạn chắc chắn muốn xóa toàn bộ giỏ hàng?", "Cảnh báo", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                 for (int i = 0; i < modelCart.getRowCount(); i++) {
                     SanPham sanPham = sanPhamDAO.selectbyId(new SanPham(modelCart.getValueAt(i, 1) + ""));
@@ -1373,9 +1417,11 @@ public class JPanel_BanHang extends javax.swing.JPanel {
                     sanPhamDAO.update(sanPham);
                     if (!lbl_orderIdSale.getText().equals("")) {
                         lbl_totalAmountSale.setText(totalAmount + "");
+                        lbl_discountSale.setText("0");
                         lbl_mustPay.setText((totalAmount - discount) + "");
                     } else {
                         lbl_totalAmountOrder.setText(decimalFormat.format(totalAmount));
+                        lbl_discountOrder.setText("0");
                         lbl_mustPayOrder.setText(decimalFormat.format(totalAmount - discount));
                     }
                 }
@@ -1396,7 +1442,7 @@ public class JPanel_BanHang extends javax.swing.JPanel {
                 String maHoaDon = lbl_orderIdSale.getText();
                 String maKH = lbl_customerIdSale.getText();
                 String maNV = lbl_employeeIdSale.getText();
-                String maKhuyenMai = null;
+                String maKhuyenMai = (discount == 0)?null:khuyenMaiDAO.getPromotionEnable().getMaKhuyenMai();
                 String phuongThucThanhToan = "Tiền mặt";
                 Date ngayLapHoaDon = Date.valueOf(LocalDateTime.parse(lblOrderDate.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm a")).toLocalDate());
                 String loaiHoaDon = "Bán hàng";
@@ -1421,8 +1467,12 @@ public class JPanel_BanHang extends javax.swing.JPanel {
                     if (JOptionPane.showConfirmDialog(this, "Bạn có muốn in hóa đơn không?", "Nhận hóa đơn", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                         ThongTinHoaDon thongTinHoaDon = new ThongTinHoaDon(hoaDon);
                         thongTinHoaDon.setVisible(true);
-                        ExportPDF.exportPDF(thongTinHoaDon, "D:\\" + hoaDon.getMaHoaDon() + ".pdf");
+                        String filePath = "D:\\" + hoaDon.getMaHoaDon() + ".pdf";
+                        ExportPDF.exportPDF(thongTinHoaDon, filePath);
                         thongTinHoaDon.setVisible(false);
+                        if (JOptionPane.showConfirmDialog(this, "Bạn có muốn xem hóa đơn?", "Thông báo", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                            openPDF(filePath);
+                        }
                     }
                     if (!hoaDon.getMaKH().equals("KH000")) {
                         Email.sendEmail(khachHangDAO.search(maKH).getEmail(), "Cảm ơn bạn đã mua hàng tại cửa hàng!", getEmailContentSale(hoaDon));
@@ -1458,7 +1508,7 @@ public class JPanel_BanHang extends javax.swing.JPanel {
             String maHoaDon = lbl_orderIdOrder.getText();
             String maKH = (lbl_customerNameOrder.getText().equals("Khách hàng bán lẻ")) ? "KH000" : khachHangDAO.searchByPhone(txt_customerPhone.getText()).getMaKH();
             String maNV = lbl_employeeIdOrder.getText();
-            String maKhuyenMai = null;
+            String maKhuyenMai = (discount == 0)?null:khuyenMaiDAO.getPromotionEnable().getMaKhuyenMai();
             String phuongThucThanhToan = "Tiền mặt";
             Date ngayLapHoaDon = Date.valueOf(LocalDateTime.parse(lbl_orderDateOrder.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm a")).toLocalDate());
             String loaiHoaDon = "Đặt hàng";
@@ -1480,9 +1530,13 @@ public class JPanel_BanHang extends javax.swing.JPanel {
                     }
                     if (JOptionPane.showConfirmDialog(this, "Bạn có muốn in hóa đơn không?", "Nhận hóa đơn", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                         ThongTinHoaDon thongTinHoaDon = new ThongTinHoaDon(hoaDon);
+                        String filePath = "D:\\" + hoaDon.getMaHoaDon() + ".pdf";
                         thongTinHoaDon.setVisible(true);
-                        ExportPDF.exportPDF(thongTinHoaDon, "D:\\" + hoaDon.getMaHoaDon() + ".pdf");
+                        ExportPDF.exportPDF(thongTinHoaDon, filePath);
                         thongTinHoaDon.setVisible(false);
+                        if (JOptionPane.showConfirmDialog(this, "Bạn có muốn xem hóa đơn?", "Thông báo", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                            openPDF(filePath);
+                        }
                     }
                     if (!hoaDon.getMaKH().equals("KH000")) {
                         Email.sendEmail(khachHangDAO.search(maKH).getEmail(), "Thông báo về đơn hàng", getEmailContentOrder(hoaDon));
@@ -1520,10 +1574,12 @@ public class JPanel_BanHang extends javax.swing.JPanel {
                 totalAmount = (int) (totalAmount - (int) Integer.valueOf((modelCart.getValueAt(row, 3) + "")) * sanPham.getGia());
                 if (!lbl_orderIdSale.getText().equals("")) {
                     lbl_totalAmountSale.setText(decimalFormat.format(totalAmount));
-                    lbl_mustPay.setText(decimalFormat.format(totalAmount - discount));
+                    lbl_discountSale.setText(decimalFormat.format(totalAmount * discount / 100));
+                    lbl_mustPay.setText(decimalFormat.format(totalAmount * (1 - discount / 100)));
                 } else {
                     lbl_totalAmountOrder.setText(decimalFormat.format(totalAmount));
-                    lbl_mustPayOrder.setText(decimalFormat.format(totalAmount - discount));
+                    lbl_discountOrder.setText(decimalFormat.format(totalAmount * discount / 100));
+                    lbl_mustPayOrder.setText(decimalFormat.format(totalAmount * (1 - discount / 100)));
                 }
 
                 sanPhamDAO.update(sanPham);
@@ -1545,6 +1601,7 @@ public class JPanel_BanHang extends javax.swing.JPanel {
             webcam.open(); // Mở webcam trước khi hiển thị
             webcamPanel.start();
             webcamPanel.resume();
+            loadData();
             pnlCreateInvoice.setEnabled(false);
             tbl_Cart.setEnabled(true);
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm a");
@@ -1552,6 +1609,7 @@ public class JPanel_BanHang extends javax.swing.JPanel {
                 // Set enable fields
                 pnlSelectCustomer.setEnabled(true);
                 jpPaySale.setEnabled(true);
+                jpCancelSale.setEnabled(true);
                 txt_customerMoneyGive.setEnabled(true);
                 txa_noteSale.setEnabled(true);
                 lbl_orderIdSale.setText(hoaDonDAO.createOrderId());
@@ -1561,6 +1619,7 @@ public class JPanel_BanHang extends javax.swing.JPanel {
                 lbl_customerNameSale.setText("Khách hàng bán lẻ");
             } else {
                 jpDelivery.setEnabled(true);
+                jpCancelOrder.setEnabled(true);
                 txt_customerPhone.setEnabled(true);
                 txa_customerDeliveryAddress.setEnabled(true);
                 txa_noteOrder.setEnabled(true);
@@ -1845,7 +1904,7 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         if (txt_customerMoneyGive.getText().matches("^\\d[\\d\\,]*$")) {
             txt_customerMoneyGive.setText(txt_customerMoneyGive.getText().replace(",", ""));
             try {
-                lbl_returnMoneyToCustomer.setText(decimalFormat.format(Integer.valueOf(txt_customerMoneyGive.getText()) - (totalAmount - discount)));
+                lbl_returnMoneyToCustomer.setText(decimalFormat.format(Integer.valueOf(txt_customerMoneyGive.getText()) - (totalAmount * (1 - discount / 100))));
                 txt_customerMoneyGive.setText(decimalFormat.format((Integer.valueOf(txt_customerMoneyGive.getText()))));
 
             } catch (Exception e) {
@@ -1908,10 +1967,12 @@ public class JPanel_BanHang extends javax.swing.JPanel {
 
                                 if (!lbl_orderIdSale.getText().equals("")) {
                                     lbl_totalAmountSale.setText(decimalFormat.format(totalAmount));
-                                    lbl_mustPay.setText(decimalFormat.format(totalAmount - discount));
+                                    lbl_discountSale.setText(decimalFormat.format(totalAmount * discount / 100));
+                                    lbl_mustPay.setText(decimalFormat.format(totalAmount * (1 - discount / 100)));
                                 } else {
                                     lbl_totalAmountOrder.setText(decimalFormat.format(totalAmount));
-                                    lbl_mustPayOrder.setText(decimalFormat.format(totalAmount - discount));
+                                    lbl_discountOrder.setText(decimalFormat.format(totalAmount * discount / 100));
+                                    lbl_mustPayOrder.setText(decimalFormat.format(totalAmount * (1 - discount / 100)));
                                 }
                                 JOptionPane.showMessageDialog(this, "Cập nhật số lượng thành công");
                                 loadData();
@@ -1926,10 +1987,12 @@ public class JPanel_BanHang extends javax.swing.JPanel {
 
                                 if (!lbl_orderIdSale.getText().equals("")) {
                                     lbl_totalAmountSale.setText(decimalFormat.format(totalAmount));
-                                    lbl_mustPay.setText(decimalFormat.format(totalAmount - discount));
+                                    lbl_discountSale.setText(decimalFormat.format(totalAmount * discount / 100));
+                                    lbl_mustPay.setText(decimalFormat.format(totalAmount * (1 - discount / 100)));
                                 } else {
                                     lbl_totalAmountOrder.setText(decimalFormat.format(totalAmount));
-                                    lbl_mustPayOrder.setText(decimalFormat.format(totalAmount - discount));
+                                    lbl_discountOrder.setText(decimalFormat.format(totalAmount * discount / 100));
+                                    lbl_mustPayOrder.setText(decimalFormat.format(totalAmount * (1 - discount / 100)));
                                 }
 
                                 JOptionPane.showMessageDialog(this, "Cập nhật số lượng thành công");
@@ -1943,6 +2006,108 @@ public class JPanel_BanHang extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_tbl_CartMouseClicked
+
+    private void jpCancelSaleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpCancelSaleMouseClicked
+        if (jpCancelSale.isEnabled()) {
+            if (JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn hủy hóa đơn không?", "Cảnh báo", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                String maHoaDon = lbl_orderIdSale.getText();
+                String maKH = lbl_customerIdSale.getText();
+                String maNV = lbl_employeeIdSale.getText();
+                String maKhuyenMai = null;
+                String phuongThucThanhToan = "Tiền mặt";
+                Date ngayLapHoaDon = Date.valueOf(LocalDateTime.parse(lblOrderDate.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm a")).toLocalDate());
+                String loaiHoaDon = "Bán hàng";
+                String soDienThoai = (maKH.equals("KH000") ? null : khachHangDAO.search(maKH).getSoDienThoai());
+                String diaChiGiaoHang = null;
+                String trangThai = "Đã hủy";
+                String ghiChu = txa_noteSale.getText();
+
+                HoaDon hoaDon = new HoaDon(maHoaDon, maKH, maNV, maKhuyenMai, phuongThucThanhToan, ngayLapHoaDon, loaiHoaDon, soDienThoai, diaChiGiaoHang, trangThai, ghiChu);
+
+                if (modelCart.getRowCount() > 0) {
+                    if (hoaDonDAO.insert(hoaDon) > 0) {
+                        for (int i = 0; i < modelCart.getRowCount(); i++) {
+                            String maSanPham = modelCart.getValueAt(i, 1) + "";
+                            int soLuong = Integer.valueOf(modelCart.getValueAt(i, 3) + "");
+                            double gia = sanPhamDAO.selectbyId(new SanPham(maSanPham)).getGia();
+                            ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(maHoaDon, maSanPham, soLuong, gia);
+                            chiTietHoaDonDAO.insert(chiTietHoaDon);
+
+                            SanPham sanPham = sanPhamDAO.selectbyId(new SanPham(maSanPham));
+                            sanPham.setSoLuong(sanPham.getSoLuong() + soLuong);
+                            sanPhamDAO.update(sanPham);
+                        }
+                        refreshOrderSale();
+                        loadData();
+                        JOptionPane.showMessageDialog(this, "Hủy hóa đơn thành công");
+
+                        modelCart.setRowCount(0);
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Đã xảy ra lỗi trong quá trình hủy!");
+                    }
+                } else {
+                    if (hoaDonDAO.insert(hoaDon) > 0) {
+                        refreshOrderSale();
+                        loadData();
+                        JOptionPane.showMessageDialog(this, "Hủy hóa đơn thành công");
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Đã xảy ra lỗi trong quá trình hủy!");
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_jpCancelSaleMouseClicked
+
+    private void jpCancelOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpCancelOrderMouseClicked
+        if (jpCancelOrder.isEnabled()) {
+            if (JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn hủy hóa đơn không?", "Cảnh báo", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                String maHoaDon = lbl_orderIdOrder.getText();
+                String maKH = (lbl_customerNameOrder.getText().equals("Khách hàng bán lẻ")) ? "KH000" : khachHangDAO.searchByPhone(txt_customerPhone.getText()).getMaKH();
+                String maNV = lbl_employeeIdOrder.getText();
+                String maKhuyenMai = null;
+                String phuongThucThanhToan = "Tiền mặt";
+                Date ngayLapHoaDon = Date.valueOf(LocalDateTime.parse(lbl_orderDateOrder.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm a")).toLocalDate());
+                String loaiHoaDon = "Đặt hàng";
+                String soDienThoai = txt_customerPhone.getText();
+                String diaChiGiaoHang = txa_customerDeliveryAddress.getText();
+                String trangThai = "Đã hủy";
+                String ghiChu = txa_noteSale.getText();
+
+                HoaDon hoaDon = new HoaDon(maHoaDon, maKH, maNV, maKhuyenMai, phuongThucThanhToan, ngayLapHoaDon, loaiHoaDon, soDienThoai, diaChiGiaoHang, trangThai, ghiChu);
+
+                if (modelCart.getRowCount() > 0) {
+                    if (hoaDonDAO.insert(hoaDon) > 0) {
+                        for (int i = 0; i < modelCart.getRowCount(); i++) {
+                            String maSanPham = modelCart.getValueAt(i, 1) + "";
+                            int soLuong = Integer.valueOf(modelCart.getValueAt(i, 3) + "");
+                            double gia = sanPhamDAO.selectbyId(new SanPham(maSanPham)).getGia();
+                            ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(maHoaDon, maSanPham, soLuong, gia);
+                            chiTietHoaDonDAO.insert(chiTietHoaDon);
+
+                            SanPham sanPham = sanPhamDAO.selectbyId(new SanPham(maSanPham));
+                            sanPham.setSoLuong(sanPham.getSoLuong() + soLuong);
+                            sanPhamDAO.update(sanPham);
+                        }
+                        refreshOrder();
+                        loadData();
+                        JOptionPane.showMessageDialog(this, "Hủy hóa đơn thành công");
+
+                        modelCart.setRowCount(0);
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Đã xảy ra lỗi trong quá trình hủy!");
+                    }
+                } else {
+                    if (hoaDonDAO.insert(hoaDon) > 0) {
+                        refreshOrder();
+                        loadData();
+                        JOptionPane.showMessageDialog(this, "Hủy hóa đơn thành công");
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Đã xảy ra lỗi trong quá trình hủy!");
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_jpCancelOrderMouseClicked
 
     private void addDataToListProduct(SanPham sanPham) {
         lbl_productImage1.setIcon(createImageIcon(sanPham.getHinhAnh()));
@@ -2062,6 +2227,17 @@ public class JPanel_BanHang extends javax.swing.JPanel {
                 pnl_salePay.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             }
         });
+        jpCancelSale.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent e) {
+                if (jpCancelSale.isEnabled()) {
+                    jpCancelSale.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                }
+            }
+
+            public void mouseExited(MouseEvent e) {
+                jpCancelSale.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            }
+        });
         jpDelivery.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent e) {
                 if (jpDelivery.isEnabled()) {
@@ -2071,6 +2247,17 @@ public class JPanel_BanHang extends javax.swing.JPanel {
 
             public void mouseExited(MouseEvent e) {
                 jpDelivery.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            }
+        });
+        jpCancelOrder.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent e) {
+                if (jpCancelOrder.isEnabled()) {
+                    jpCancelOrder.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                }
+            }
+
+            public void mouseExited(MouseEvent e) {
+                jpCancelOrder.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             }
         });
         pnlDelete.addMouseListener(new MouseAdapter() {
@@ -2106,6 +2293,24 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         });
     }
 
+    public void openPDF(String filePath) {
+        if (Desktop.isDesktopSupported()) {
+            try {
+                File file = new File(filePath);
+                if (file.exists()) {
+                    Desktop.getDesktop().browse(file.toURI());
+                } else {
+                    System.out.println("File does not exist.");
+                }
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(this, "Không thể mở file!");
+                System.out.println("Could not open the file. " + e.getMessage());
+            }
+        } else {
+            System.out.println("Desktop is not supported on this platform.");
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_next;
     private javax.swing.JButton btn_previous;
@@ -2121,10 +2326,14 @@ public class JPanel_BanHang extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane2;
+    private util.JPanelRounded jpCancelOrder;
+    private util.JPanelRounded jpCancelSale;
     private util.JPanelRounded jpDelivery;
     private util.JPanelRounded jpPaySale;
     private util.JPanelRounded jpSearch;
     private util.JPanelRounded jp_reload;
+    private javax.swing.JLabel lblCancelOrder;
+    private javax.swing.JLabel lblCancelSale;
     private javax.swing.JLabel lblCategory;
     private javax.swing.JLabel lblCreateInvoice;
     private javax.swing.JLabel lblCustomerId;
@@ -2172,11 +2381,11 @@ public class JPanel_BanHang extends javax.swing.JPanel {
     private javax.swing.JLabel lblUnit3;
     private javax.swing.JLabel lblUnit4;
     private javax.swing.JLabel lblUnit5;
-    private javax.swing.JLabel lblValueDiscount;
     private javax.swing.JLabel lbl_customerIdSale;
     private javax.swing.JLabel lbl_customerNameOrder;
     private javax.swing.JLabel lbl_customerNameSale;
     private javax.swing.JLabel lbl_discountOrder;
+    private javax.swing.JLabel lbl_discountSale;
     private javax.swing.JLabel lbl_employeeIdOrder;
     private javax.swing.JLabel lbl_employeeIdSale;
     private javax.swing.JLabel lbl_infoPage;
@@ -2217,6 +2426,8 @@ public class JPanel_BanHang extends javax.swing.JPanel {
     private javax.swing.JPanel pnl_scanCode;
     private javax.swing.JPanel s;
     private javax.swing.JScrollPane scr_cart;
+    private util.SVGImage svgCancelOrder;
+    private util.SVGImage svgCancelSale;
     private util.SVGImage svgCreateInvoice;
     private util.SVGImage svgDelete;
     private util.SVGImage svgDeleteAll;

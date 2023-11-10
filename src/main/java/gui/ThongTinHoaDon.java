@@ -3,16 +3,19 @@ package gui;
 import dao.ChiTietHoaDonDAO;
 import dao.HoaDonDAO;
 import dao.KhachHangDAO;
+import dao.KhuyenMaiDAO;
 import dao.NhanVienDAO;
 import dao.SanPhamDAO;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
 import entity.KhachHang;
+import entity.KhuyenMai;
 import entity.SanPham;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
-import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -26,27 +29,31 @@ public class ThongTinHoaDon extends javax.swing.JFrame {
     private KhachHangDAO khachHangDAO = new KhachHangDAO();
     private NhanVienDAO nhanVienDAO = new NhanVienDAO();
     private ChiTietHoaDonDAO chiTietHoaDonDAO = new ChiTietHoaDonDAO();
+    private KhuyenMaiDAO khuyenMaiDAO = new KhuyenMaiDAO();
     private DefaultTableModel modelListProduct;
     private NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
 
     public ThongTinHoaDon(HoaDon hoaDon) {
         this.hoaDon = hoaDon;
         initComponents();
-        modelListProduct = (DefaultTableModel)tbl_productList.getModel();
+        modelListProduct = (DefaultTableModel) tbl_productList.getModel();
+        DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+        rightRenderer.setHorizontalAlignment(SwingConstants.RIGHT);
+        tbl_productList.getColumnModel().getColumn(2).setCellRenderer(rightRenderer);
+        tbl_productList.getColumnModel().getColumn(3).setCellRenderer(rightRenderer);
+        tbl_productList.getColumnModel().getColumn(4).setCellRenderer(rightRenderer);
         generateValue(hoaDon);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
     }
 
     private void generateValue(HoaDon hoaDon) {
-        if(hoaDon.getLoaiHoaDon().equals("Đặt hàng")){
+        if (hoaDon.getLoaiHoaDon().equals("Đặt hàng")) {
             lbl_title.setText("HÓA ĐƠN ĐẶT HÀNG");
-            lbl_pay.setVisible(false);
-            jLabel20.setVisible(false);
         }
         KhachHang khachHang = khachHangDAO.search(hoaDon.getMaKH());
         lbl_orderId.setText(hoaDon.getMaHoaDon());
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm a");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         lbl_orderDate.setText(dateFormat.format(hoaDon.getNgayLapHoaDon()));
         lbl_customerName.setText(khachHang.getTenKH());
         if (khachHang.getMaKH().equals("KH000") && hoaDon.getLoaiHoaDon().equals("Bán hàng")) {
@@ -64,13 +71,20 @@ public class ThongTinHoaDon extends javax.swing.JFrame {
         }
         for (ChiTietHoaDon chiTietHoaDon : chiTietHoaDonDAO.selectbyId(hoaDon.getMaHoaDon())) {
             SanPham sanPham = sanPhamDAO.selectbyId(new SanPham(chiTietHoaDon.getMaSanPham()));
-            String[] data = {sanPham.getMaSanPham(), sanPham.getTenSanPham(), chiTietHoaDon.getSoLuong()+"", nf.format(sanPham.getGia()), nf.format(sanPham.getGia() * chiTietHoaDon.getSoLuong())};
+            String[] data = {sanPham.getMaSanPham(), sanPham.getTenSanPham(), chiTietHoaDon.getSoLuong() + "", nf.format(sanPham.getGia()), nf.format(sanPham.getGia() * chiTietHoaDon.getSoLuong())};
             modelListProduct.addRow(data);
         }
+        KhuyenMai khuyenMai = khuyenMaiDAO.getKhuyenMaiById(hoaDon.getMaKhuyenMai());
+
+        float giamGia = 0;
+        if (khuyenMai != null) {
+            giamGia = khuyenMai.getPhanTramKhuyenMai()/100;
+        }
+
         lbl_employeeName.setText(nhanVienDAO.searchEmployee(hoaDon.getMaNV()).getTenNV());
         lbl_totalAmount.setText(nf.format(hoaDon.getTongTien()));
-        lbl_discount.setText("0");
-        lbl_pay.setText(nf.format(hoaDon.getTongTien()));
+        lbl_discount.setText(nf.format(hoaDon.getTongTien() * giamGia));
+        lbl_pay.setText(nf.format(hoaDon.getTongTien() - (hoaDon.getTongTien() * giamGia)));
     }
 
     @SuppressWarnings("unchecked")
@@ -102,6 +116,7 @@ public class ThongTinHoaDon extends javax.swing.JFrame {
         pnl_productList = new javax.swing.JPanel();
         scr_prosuctList = new javax.swing.JScrollPane();
         tbl_productList = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -166,20 +181,23 @@ public class ThongTinHoaDon extends javax.swing.JFrame {
         getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 630, 80, 30));
 
         lbl_totalAmount.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbl_totalAmount.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lbl_totalAmount.setText("690.000");
-        getContentPane().add(lbl_totalAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 630, 130, 30));
+        getContentPane().add(lbl_totalAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 630, 140, 30));
 
         jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel17.setText("Đã giảm:");
+        jLabel17.setText("Giảm giá:");
         getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 660, 100, 30));
 
         lbl_discount.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbl_discount.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lbl_discount.setText("0");
-        getContentPane().add(lbl_discount, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 660, 130, 30));
+        getContentPane().add(lbl_discount, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 660, 140, 30));
 
         lbl_pay.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        lbl_pay.setText("0343098508");
-        getContentPane().add(lbl_pay, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 690, 130, 30));
+        lbl_pay.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lbl_pay.setText("0.343.098.508");
+        getContentPane().add(lbl_pay, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 690, 140, 30));
 
         jLabel20.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel20.setText("Thanh toán:");
@@ -220,12 +238,14 @@ public class ThongTinHoaDon extends javax.swing.JFrame {
         pnl_productList.add(scr_prosuctList, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(pnl_productList, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 340, 720, 280));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 730, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel17;
