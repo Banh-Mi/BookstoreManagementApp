@@ -3,6 +3,7 @@ package gui;
 import connectDB.ConnectDB;
 import dao.ThongKeKhachHangDAO;
 import entity.DoanhThuBieuDo;
+import static gui.GiaoDienDangNhap.ngonNgu;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.sql.SQLException;
@@ -23,7 +24,17 @@ public class BieuDoKhachHang extends javax.swing.JFrame {
         initComponents();
         ConnectDB.getInstance().connect();
         showLineChart();
+        if(ngonNgu==2)
+        {
+            ChuyenDoiNN();
+        }
     }
+    public void ChuyenDoiNN() {
+         jLabel1.setText("Year");
+         jButtonXemThongKe.setText("view statistics");
+         jButtonThoat.setText("Exit");
+         jLabel2.setText("Customer Statistics Chart");
+     }
      public void showLineChart() {
         //create dataset for the graph
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();

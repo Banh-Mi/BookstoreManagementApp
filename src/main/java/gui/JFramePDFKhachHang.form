@@ -199,6 +199,9 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="24" style="1"/>
                 </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="33" red="0" type="rgb"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="TH&#x1ed0;NG K&#xca; DANH S&#xc1;CH KH&#xc1;CH H&#xc0;NG"/>
               </Properties>
             </Component>
@@ -330,7 +333,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="0" red="0" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Nh&#xe0; s&#xe1;ch t&#x1b0; nh&#xe2;n  "/>
+            <Property name="text" type="java.lang.String" value="Nh&#xe0; s&#xe1;ch t&#x1b0; nh&#xe2;n Thu&#x1ead;n Nh&#x1ee9;t L&#x1ee3;i "/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">

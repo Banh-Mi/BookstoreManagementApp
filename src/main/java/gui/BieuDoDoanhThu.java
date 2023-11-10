@@ -16,7 +16,7 @@ import connectDB.ConnectDB;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import static gui.GiaoDienDangNhap.ngonNgu;
 /**
  *
  * @author VONG VINH LOI
@@ -29,7 +29,17 @@ public class BieuDoDoanhThu extends javax.swing.JFrame {
         initComponents();
         ConnectDB.getInstance().connect();
         showBarChart();
+        if(ngonNgu==2)
+        {
+            ChuyenDoiNN();
+        }
     }
+     public void ChuyenDoiNN() {
+         jLabel1.setText("Year");
+         jButton1.setText("view statistics");
+         jButton3.setText("Exit");
+         jLabel2.setText("Revenue Statistics Chart");
+     }
 
     public void showBarChart() {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
@@ -79,7 +89,7 @@ public class BieuDoDoanhThu extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel2.setText("THỐNG KÊ DOANH THU BIỂU ĐỒ");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 20, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 20, -1, -1));
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton1.setText("Xem thống kê");

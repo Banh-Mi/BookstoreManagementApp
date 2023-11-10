@@ -8,6 +8,7 @@ import dao.NhanVienDAO;
 import dao.TaiKhoanDAO;
 import entity.NhanVien;
 import entity.TaiKhoan;
+import static gui.GiaoDienDangNhap.ngonNgu;
 import java.awt.Window;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -31,7 +32,22 @@ public class Frame_TaiKhoan extends javax.swing.JFrame {
         passWordShow(setShow);
         lblTenDangNhap.setText(maNhanVien);
         lblChucVu.setText(chucVu);
+        if(ngonNgu==2)
+        {
+            ChuyenDoiNN();
+        }
     }
+    public void ChuyenDoiNN()
+    {
+        jLabel1.setText("CHANGE PASSWORD");
+        jLabel5.setText("Username:");
+        jLabel6.setText("Position:");
+        jLabel4.setText("Old password:");
+        jLabel3.setText("New password");
+        jButton2.setText("Exit");
+        jButton3.setText("Change Password");
+        jCheckBox1.setText("Show Password");
+  }
 
     private void passWordShow(boolean check) {
         if (check) {

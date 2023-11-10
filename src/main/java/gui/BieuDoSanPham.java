@@ -3,6 +3,7 @@ package gui;
 
 import dao.BieuDoSanPhamDAO;
 import entity.SanPhamBieuDo;
+import static gui.GiaoDienDangNhap.ngonNgu;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import org.jfree.chart.ChartFactory;
@@ -21,7 +22,24 @@ public class BieuDoSanPham extends javax.swing.JFrame {
         sanPhamDao = new BieuDoSanPhamDAO();
         initComponents();
         showPieChart();
+        if(ngonNgu==2)
+        {
+            ChuyenDoiNN();
+        }
     }
+    public void ChuyenDoiNN() {
+         jLabel1.setText("Year");
+         jbtThongKe.setText("view statistics");
+         jButton3.setText("Exit");
+         jLabel2.setText("Product Statistics Chart");
+         jLabel11.setText("From:");
+         jLabel3.setText("To:");
+         jLabel4.setText("Book");
+         jLabel5.setText("Learning tools");
+         jLabel6.setText("Toys");
+         jLabel7.setText("Office supplies");
+         jLabel8.setText("Souvenir");
+     }
 
 
    public void showPieChart() {

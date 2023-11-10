@@ -2,6 +2,7 @@
 package gui;
 
 
+import static gui.GiaoDienDangNhap.ngonNgu;
 import java.awt.Color;
 import java.awt.Font;
 import java.text.SimpleDateFormat;
@@ -23,8 +24,7 @@ public class JFramePDFDoanhThu extends javax.swing.JFrame {
         for (int j = 0; j < table.getColumnCount(); j++) {
             row.add(table.getValueAt(i, j));
         }
-        model.addRow(row);
-        
+        model.addRow(row);       
     }
        Date currentDate = new Date();
 
@@ -39,7 +39,9 @@ public class JFramePDFDoanhThu extends javax.swing.JFrame {
         txtTongTien.setText(text);
         txtGiamGia.setText(text1);
         txtDoanhThu.setText(text2);
+      
     }
+   
     
 
     private JFramePDFDoanhThu() {
@@ -79,7 +81,8 @@ public class JFramePDFDoanhThu extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 204)));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setText("THỐNG KÊ DANH SÁCH KHÁCH HÀNG");
+        jLabel1.setForeground(new java.awt.Color(0, 51, 255));
+        jLabel1.setText("THỐNG KÊ DOANH THU CỬA HÀNG");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -146,7 +149,7 @@ public class JFramePDFDoanhThu extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 255));
-        jLabel3.setText("Nhà sách tư nhân  ");
+        jLabel3.setText("Nhà sách tư nhân Thuận Nhứt Lợi  ");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 255));
