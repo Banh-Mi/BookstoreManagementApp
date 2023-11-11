@@ -916,9 +916,19 @@ public class JPanel_BanHang extends javax.swing.JPanel {
 
         lblPay1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblPay1.setText("Thanh toán");
+        lblPay1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblPay1MouseClicked(evt);
+            }
+        });
         jpPaySale.add(lblPay1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 80, 40));
 
         svgPay1.setText(" ");
+        svgPay1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                svgPay1MouseClicked(evt);
+            }
+        });
         jpPaySale.add(svgPay1, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
 
         pnl_salePay.add(jpPaySale, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 730, -1, -1));
@@ -1339,6 +1349,11 @@ public class JPanel_BanHang extends javax.swing.JPanel {
 
         lblDelete.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblDelete.setText("Xóa");
+        lblDelete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblDeleteMouseClicked(evt);
+            }
+        });
         pnlDelete.add(lblDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 50, 40));
 
         svgDelete.setText(" ");
@@ -1408,82 +1423,164 @@ public class JPanel_BanHang extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_nextActionPerformed
 
     private void pnl_deleteAllMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnl_deleteAllMouseClicked
-        if (tbl_Cart.getRowCount() > 0) {
-            this.totalAmount = 0;
-            if (JOptionPane.showConfirmDialog(this, "Bạn chắc chắn muốn xóa toàn bộ giỏ hàng?", "Cảnh báo", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                for (int i = 0; i < modelCart.getRowCount(); i++) {
-                    SanPham sanPham = sanPhamDAO.selectbyId(new SanPham(modelCart.getValueAt(i, 1) + ""));
-                    sanPham.setSoLuong(sanPham.getSoLuong() + Integer.valueOf((modelCart.getValueAt(i, 3) + "")));
-                    sanPhamDAO.update(sanPham);
-                    if (!lbl_orderIdSale.getText().equals("")) {
-                        lbl_totalAmountSale.setText(totalAmount + "");
-                        lbl_discountSale.setText("0");
-                        lbl_mustPay.setText((totalAmount - discount) + "");
-                    } else {
-                        lbl_totalAmountOrder.setText(decimalFormat.format(totalAmount));
-                        lbl_discountOrder.setText("0");
-                        lbl_mustPayOrder.setText(decimalFormat.format(totalAmount - discount));
+        if (ngonNgu == 2) {
+            if (tbl_Cart.getRowCount() > 0) {
+                this.totalAmount = 0;
+                if (JOptionPane.showConfirmDialog(this, "Are you sure you want to delete the entire cart?", "Warning", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                    for (int i = 0; i < modelCart.getRowCount(); i++) {
+                        SanPham sanPham = sanPhamDAO.selectbyId(new SanPham(modelCart.getValueAt(i, 1) + ""));
+                        sanPham.setSoLuong(sanPham.getSoLuong() + Integer.valueOf((modelCart.getValueAt(i, 3) + "")));
+                        sanPhamDAO.update(sanPham);
+                        if (!lbl_orderIdSale.getText().equals("")) {
+                            lbl_totalAmountSale.setText(totalAmount + "");
+                            lbl_discountSale.setText("0");
+                            lbl_mustPay.setText((totalAmount - discount) + "");
+                        } else {
+                            lbl_totalAmountOrder.setText(decimalFormat.format(totalAmount));
+                            lbl_discountOrder.setText("0");
+                            lbl_mustPayOrder.setText(decimalFormat.format(totalAmount - discount));
+                        }
                     }
+                    JOptionPane.showMessageDialog(this, "Deleted successfully!");
+                    modelCart.setRowCount(0);
+                    loadData();
                 }
-                JOptionPane.showMessageDialog(this, "Đã xóa thành công!");
-                modelCart.setRowCount(0);
-                loadData();
+            }
+        } else {
+            if (tbl_Cart.getRowCount() > 0) {
+                this.totalAmount = 0;
+                if (JOptionPane.showConfirmDialog(this, "Bạn chắc chắn muốn xóa toàn bộ giỏ hàng?", "Cảnh báo", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                    for (int i = 0; i < modelCart.getRowCount(); i++) {
+                        SanPham sanPham = sanPhamDAO.selectbyId(new SanPham(modelCart.getValueAt(i, 1) + ""));
+                        sanPham.setSoLuong(sanPham.getSoLuong() + Integer.valueOf((modelCart.getValueAt(i, 3) + "")));
+                        sanPhamDAO.update(sanPham);
+                        if (!lbl_orderIdSale.getText().equals("")) {
+                            lbl_totalAmountSale.setText(totalAmount + "");
+                            lbl_discountSale.setText("0");
+                            lbl_mustPay.setText((totalAmount - discount) + "");
+                        } else {
+                            lbl_totalAmountOrder.setText(decimalFormat.format(totalAmount));
+                            lbl_discountOrder.setText("0");
+                            lbl_mustPayOrder.setText(decimalFormat.format(totalAmount - discount));
+                        }
+                    }
+                    JOptionPane.showMessageDialog(this, "Đã xóa thành công!");
+                    modelCart.setRowCount(0);
+                    loadData();
+                }
             }
         }
     }//GEN-LAST:event_pnl_deleteAllMouseClicked
 
     private void jpPaySaleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpPaySaleMouseClicked
-        if (jpPaySale.isEnabled()) {
-            if (lbl_totalAmountSale.getText().equals("0")) {
-                JOptionPane.showMessageDialog(this, "Vui lòng chọn sản phẩm để thanh toán!");
-            } else if (lbl_returnMoneyToCustomer.getText().charAt(0) == '-' || txt_customerMoneyGive.getText().equals("0")) {
-                JOptionPane.showMessageDialog(this, "Không thể thanh toán. Tiền khách đưa chưa đủ!");
-            } else {
-                String maHoaDon = lbl_orderIdSale.getText();
-                String maKH = lbl_customerIdSale.getText();
-                String maNV = lbl_employeeIdSale.getText();
-                String maKhuyenMai = (discount == 0)?null:khuyenMaiDAO.getPromotionEnable().getMaKhuyenMai();
-                String phuongThucThanhToan = "Tiền mặt";
-                Date ngayLapHoaDon = Date.valueOf(LocalDateTime.parse(lblOrderDate.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm a")).toLocalDate());
-                String loaiHoaDon = "Bán hàng";
-                String soDienThoai = (maKH.equals("KH000") ? null : khachHangDAO.search(maKH).getSoDienThoai());
-                String diaChiGiaoHang = null;
-                String trangThai = "Đã thanh toán";
-                String ghiChu = txa_noteSale.getText();
-                if (chk_waitPay.isSelected()) {
-                    trangThai = "Chờ thanh toán";
-                }
-
-                HoaDon hoaDon = new HoaDon(maHoaDon, maKH, maNV, maKhuyenMai, phuongThucThanhToan, ngayLapHoaDon, loaiHoaDon, soDienThoai, diaChiGiaoHang, trangThai, ghiChu);
-
-                if (hoaDonDAO.insert(hoaDon) > 0) {
-                    for (int i = 0; i < modelCart.getRowCount(); i++) {
-                        String maSanPham = modelCart.getValueAt(i, 1) + "";
-                        int soLuong = Integer.valueOf(modelCart.getValueAt(i, 3) + "");
-                        double gia = sanPhamDAO.selectbyId(new SanPham(maSanPham)).getGia();
-                        ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(maHoaDon, maSanPham, soLuong, gia);
-                        chiTietHoaDonDAO.insert(chiTietHoaDon);
-                    }
-                    if (JOptionPane.showConfirmDialog(this, "Bạn có muốn in hóa đơn không?", "Nhận hóa đơn", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                        ThongTinHoaDon thongTinHoaDon = new ThongTinHoaDon(hoaDon);
-                        thongTinHoaDon.setVisible(true);
-                        String filePath = "D:\\" + hoaDon.getMaHoaDon() + ".pdf";
-                        ExportPDF.exportPDF(thongTinHoaDon, filePath);
-                        thongTinHoaDon.setVisible(false);
-                        if (JOptionPane.showConfirmDialog(this, "Bạn có muốn xem hóa đơn?", "Thông báo", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                            openPDF(filePath);
-                        }
-                    }
-                    if (!hoaDon.getMaKH().equals("KH000")) {
-                        Email.sendEmail(khachHangDAO.search(maKH).getEmail(), "Cảm ơn bạn đã mua hàng tại cửa hàng!", getEmailContentSale(hoaDon));
-                    }
-                    JOptionPane.showMessageDialog(this, "Thanh toán thành công");
-                    refreshOrderSale();
-
-                    modelCart.setRowCount(0);
+        if (ngonNgu == 2) {
+            if (jpPaySale.isEnabled()) {
+                if (lbl_totalAmountSale.getText().equals("0")) {
+                    JOptionPane.showMessageDialog(this, "Please select products for payment!");
+                } else if (lbl_returnMoneyToCustomer.getText().charAt(0) == '-' || txt_customerMoneyGive.getText().equals("0")) {
+                    JOptionPane.showMessageDialog(this, "Unable to process payment. Insufficient customer funds!");
                 } else {
-                    JOptionPane.showMessageDialog(this, "Thanh toán thất bại vui lòng thử lại sau!");
-                    refreshOrderSale();
+                    String maHoaDon = lbl_orderIdSale.getText();
+                    String maKH = lbl_customerIdSale.getText();
+                    String maNV = lbl_employeeIdSale.getText();
+                    String maKhuyenMai = (discount == 0) ? null : khuyenMaiDAO.getPromotionEnable().getMaKhuyenMai();
+                    String phuongThucThanhToan = "Tiền mặt";
+                    Date ngayLapHoaDon = Date.valueOf(LocalDateTime.parse(lblOrderDate.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm a")).toLocalDate());
+                    String loaiHoaDon = "Bán hàng";
+                    String soDienThoai = (maKH.equals("KH000") ? null : khachHangDAO.search(maKH).getSoDienThoai());
+                    String diaChiGiaoHang = null;
+                    String trangThai = "Đã thanh toán";
+                    String ghiChu = txa_noteSale.getText();
+                    if (chk_waitPay.isSelected()) {
+                        trangThai = "Chờ thanh toán";
+                    }
+
+                    HoaDon hoaDon = new HoaDon(maHoaDon, maKH, maNV, maKhuyenMai, phuongThucThanhToan, ngayLapHoaDon, loaiHoaDon, soDienThoai, diaChiGiaoHang, trangThai, ghiChu);
+
+                    if (hoaDonDAO.insert(hoaDon) > 0) {
+                        for (int i = 0; i < modelCart.getRowCount(); i++) {
+                            String maSanPham = modelCart.getValueAt(i, 1) + "";
+                            int soLuong = Integer.valueOf(modelCart.getValueAt(i, 3) + "");
+                            double gia = sanPhamDAO.selectbyId(new SanPham(maSanPham)).getGia();
+                            ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(maHoaDon, maSanPham, soLuong, gia);
+                            chiTietHoaDonDAO.insert(chiTietHoaDon);
+                        }
+                        if (JOptionPane.showConfirmDialog(this, "Do you want to print the invoice?", "Receive invoice", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                            ThongTinHoaDon thongTinHoaDon = new ThongTinHoaDon(hoaDon);
+                            thongTinHoaDon.setVisible(true);
+                            String filePath = "D:\\" + hoaDon.getMaHoaDon() + ".pdf";
+                            ExportPDF.exportPDF(thongTinHoaDon, filePath);
+                            thongTinHoaDon.setVisible(false);
+                            if (JOptionPane.showConfirmDialog(this, "Do you want to view the invoice?", "Notification", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                                openPDF(filePath);
+                            }
+                        }
+                        if (!hoaDon.getMaKH().equals("KH000")) {
+                            Email.sendEmail(khachHangDAO.search(maKH).getEmail(), "Thank you for shopping at our store!", getEmailContentSale(hoaDon));
+                        }
+                        JOptionPane.showMessageDialog(this, "Payment successful");
+                        refreshOrderSale();
+
+                        modelCart.setRowCount(0);
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Payment failed. Please try again later!");
+                        refreshOrderSale();
+                    }
+                }
+            }
+        } else {
+            if (jpPaySale.isEnabled()) {
+                if (lbl_totalAmountSale.getText().equals("0")) {
+                    JOptionPane.showMessageDialog(this, "Vui lòng chọn sản phẩm để thanh toán!");
+                } else if (lbl_returnMoneyToCustomer.getText().charAt(0) == '-' || txt_customerMoneyGive.getText().equals("0")) {
+                    JOptionPane.showMessageDialog(this, "Không thể thanh toán. Tiền khách đưa chưa đủ!");
+                } else {
+                    String maHoaDon = lbl_orderIdSale.getText();
+                    String maKH = lbl_customerIdSale.getText();
+                    String maNV = lbl_employeeIdSale.getText();
+                    String maKhuyenMai = (discount == 0) ? null : khuyenMaiDAO.getPromotionEnable().getMaKhuyenMai();
+                    String phuongThucThanhToan = "Tiền mặt";
+                    Date ngayLapHoaDon = Date.valueOf(LocalDateTime.parse(lblOrderDate.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm a")).toLocalDate());
+                    String loaiHoaDon = "Bán hàng";
+                    String soDienThoai = (maKH.equals("KH000") ? null : khachHangDAO.search(maKH).getSoDienThoai());
+                    String diaChiGiaoHang = null;
+                    String trangThai = "Đã thanh toán";
+                    String ghiChu = txa_noteSale.getText();
+                    if (chk_waitPay.isSelected()) {
+                        trangThai = "Chờ thanh toán";
+                    }
+
+                    HoaDon hoaDon = new HoaDon(maHoaDon, maKH, maNV, maKhuyenMai, phuongThucThanhToan, ngayLapHoaDon, loaiHoaDon, soDienThoai, diaChiGiaoHang, trangThai, ghiChu);
+
+                    if (hoaDonDAO.insert(hoaDon) > 0) {
+                        for (int i = 0; i < modelCart.getRowCount(); i++) {
+                            String maSanPham = modelCart.getValueAt(i, 1) + "";
+                            int soLuong = Integer.valueOf(modelCart.getValueAt(i, 3) + "");
+                            double gia = sanPhamDAO.selectbyId(new SanPham(maSanPham)).getGia();
+                            ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(maHoaDon, maSanPham, soLuong, gia);
+                            chiTietHoaDonDAO.insert(chiTietHoaDon);
+                        }
+                        if (JOptionPane.showConfirmDialog(this, "Bạn có muốn in hóa đơn không?", "Nhận hóa đơn", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                            ThongTinHoaDon thongTinHoaDon = new ThongTinHoaDon(hoaDon);
+                            thongTinHoaDon.setVisible(true);
+                            String filePath = "D:\\" + hoaDon.getMaHoaDon() + ".pdf";
+                            ExportPDF.exportPDF(thongTinHoaDon, filePath);
+                            thongTinHoaDon.setVisible(false);
+                            if (JOptionPane.showConfirmDialog(this, "Bạn có muốn xem hóa đơn?", "Thông báo", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                                openPDF(filePath);
+                            }
+                        }
+                        if (!hoaDon.getMaKH().equals("KH000")) {
+                            Email.sendEmail(khachHangDAO.search(maKH).getEmail(), "Cảm ơn bạn đã mua hàng tại cửa hàng!", getEmailContentSale(hoaDon));
+                        }
+                        JOptionPane.showMessageDialog(this, "Thanh toán thành công");
+                        refreshOrderSale();
+
+                        modelCart.setRowCount(0);
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Thanh toán thất bại vui lòng thử lại sau!");
+                        refreshOrderSale();
+                    }
                 }
             }
         }
@@ -1500,55 +1597,110 @@ public class JPanel_BanHang extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_previousActionPerformed
 
     private void jpDeliveryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpDeliveryMouseClicked
-        if (txt_customerPhone.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Vui lòng số điện thoại khách hàng");
-        } else if (txa_customerDeliveryAddress.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập địa chỉ của khách hàng");
-        } else {
-            String maHoaDon = lbl_orderIdOrder.getText();
-            String maKH = (lbl_customerNameOrder.getText().equals("Khách hàng bán lẻ")) ? "KH000" : khachHangDAO.searchByPhone(txt_customerPhone.getText()).getMaKH();
-            String maNV = lbl_employeeIdOrder.getText();
-            String maKhuyenMai = (discount == 0)?null:khuyenMaiDAO.getPromotionEnable().getMaKhuyenMai();
-            String phuongThucThanhToan = "Tiền mặt";
-            Date ngayLapHoaDon = Date.valueOf(LocalDateTime.parse(lbl_orderDateOrder.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm a")).toLocalDate());
-            String loaiHoaDon = "Đặt hàng";
-            String soDienThoai = txt_customerPhone.getText();
-            String diaChiGiaoHang = txa_customerDeliveryAddress.getText();
-            String trangThai = "Đang giao";
-            String ghiChu = txa_noteSale.getText();
-            if (JOptionPane.showConfirmDialog(this, "Bạn đã gọi điện và xác nhận với khách hàng?", "Xác nhận", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+        if (ngonNgu == 2) {
+            if (txt_customerPhone.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "Please enter the customer's phone number");
+            } else if (txa_customerDeliveryAddress.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "Please enter the customer's delivery address");
+            } else {
+                String maHoaDon = lbl_orderIdOrder.getText();
+                String maKH = (lbl_customerNameOrder.getText().equals("Khách hàng bán lẻ")) ? "KH000" : khachHangDAO.searchByPhone(txt_customerPhone.getText()).getMaKH();
+                String maNV = lbl_employeeIdOrder.getText();
+                String maKhuyenMai = (discount == 0) ? null : khuyenMaiDAO.getPromotionEnable().getMaKhuyenMai();
+                String phuongThucThanhToan = "Tiền mặt";
+                Date ngayLapHoaDon = Date.valueOf(LocalDateTime.parse(lbl_orderDateOrder.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm a")).toLocalDate());
+                String loaiHoaDon = "Đặt hàng";
+                String soDienThoai = txt_customerPhone.getText();
+                String diaChiGiaoHang = txa_customerDeliveryAddress.getText();
+                String trangThai = "Đang giao";
+                String ghiChu = txa_noteSale.getText();
+                if (JOptionPane.showConfirmDialog(this, "Have you called and confirmed with the customer?", "Confirm", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 
-                HoaDon hoaDon = new HoaDon(maHoaDon, maKH, maNV, maKhuyenMai, phuongThucThanhToan, ngayLapHoaDon, loaiHoaDon, soDienThoai, diaChiGiaoHang, trangThai, ghiChu);
+                    HoaDon hoaDon = new HoaDon(maHoaDon, maKH, maNV, maKhuyenMai, phuongThucThanhToan, ngayLapHoaDon, loaiHoaDon, soDienThoai, diaChiGiaoHang, trangThai, ghiChu);
 
-                if (hoaDonDAO.insert(hoaDon) > 0) {
-                    for (int i = 0; i < modelCart.getRowCount(); i++) {
-                        String maSanPham = modelCart.getValueAt(i, 1) + "";
-                        int soLuong = Integer.valueOf(modelCart.getValueAt(i, 3) + "");
-                        double gia = sanPhamDAO.selectbyId(new SanPham(maSanPham)).getGia();
-                        ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(maHoaDon, maSanPham, soLuong, gia);
-                        chiTietHoaDonDAO.insert(chiTietHoaDon);
-                    }
-                    if (JOptionPane.showConfirmDialog(this, "Bạn có muốn in hóa đơn không?", "Nhận hóa đơn", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                        ThongTinHoaDon thongTinHoaDon = new ThongTinHoaDon(hoaDon);
-                        String filePath = "D:\\" + hoaDon.getMaHoaDon() + ".pdf";
-                        thongTinHoaDon.setVisible(true);
-                        ExportPDF.exportPDF(thongTinHoaDon, filePath);
-                        thongTinHoaDon.setVisible(false);
-                        if (JOptionPane.showConfirmDialog(this, "Bạn có muốn xem hóa đơn?", "Thông báo", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                            openPDF(filePath);
+                    if (hoaDonDAO.insert(hoaDon) > 0) {
+                        for (int i = 0; i < modelCart.getRowCount(); i++) {
+                            String maSanPham = modelCart.getValueAt(i, 1) + "";
+                            int soLuong = Integer.valueOf(modelCart.getValueAt(i, 3) + "");
+                            double gia = sanPhamDAO.selectbyId(new SanPham(maSanPham)).getGia();
+                            ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(maHoaDon, maSanPham, soLuong, gia);
+                            chiTietHoaDonDAO.insert(chiTietHoaDon);
                         }
-                    }
-                    if (!hoaDon.getMaKH().equals("KH000")) {
-                        Email.sendEmail(khachHangDAO.search(maKH).getEmail(), "Thông báo về đơn hàng", getEmailContentOrder(hoaDon));
-                    }
-                    JOptionPane.showMessageDialog(this, "Hóa đơn đặt hàng đã được tạo thành công và sẵn sàng để giao hàng!");
-                    refreshOrder();
+                        if (JOptionPane.showConfirmDialog(this, "Do you want to print the invoice?", "Receive invoice", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                            ThongTinHoaDon thongTinHoaDon = new ThongTinHoaDon(hoaDon);
+                            String filePath = "D:\\" + hoaDon.getMaHoaDon() + ".pdf";
+                            thongTinHoaDon.setVisible(true);
+                            ExportPDF.exportPDF(thongTinHoaDon, filePath);
+                            thongTinHoaDon.setVisible(false);
+                            if (JOptionPane.showConfirmDialog(this, "Do you want to view the invoice?", "Notification", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                                openPDF(filePath);
+                            }
+                        }
+                        if (!hoaDon.getMaKH().equals("KH000")) {
+                            Email.sendEmail(khachHangDAO.search(maKH).getEmail(), "Thông báo về đơn hàng", getEmailContentOrder(hoaDon));
+                        }
+                        JOptionPane.showMessageDialog(this, "Order invoice has been created successfully and is ready for delivery!");
+                        refreshOrder();
 
-                    modelCart.setRowCount(0);
+                        modelCart.setRowCount(0);
 
-                } else {
-                    JOptionPane.showMessageDialog(this, "Tạo hóa đơn thất bại vui lòng thử lại sau!");
-                    refreshOrderSale();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Failed to create invoice, please try again later!");
+                        refreshOrderSale();
+                    }
+                }
+            }
+        } else {
+            if (txt_customerPhone.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "Vui lòng số điện thoại khách hàng");
+            } else if (txa_customerDeliveryAddress.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập địa chỉ của khách hàng");
+            } else {
+                String maHoaDon = lbl_orderIdOrder.getText();
+                String maKH = (lbl_customerNameOrder.getText().equals("Khách hàng bán lẻ")) ? "KH000" : khachHangDAO.searchByPhone(txt_customerPhone.getText()).getMaKH();
+                String maNV = lbl_employeeIdOrder.getText();
+                String maKhuyenMai = (discount == 0) ? null : khuyenMaiDAO.getPromotionEnable().getMaKhuyenMai();
+                String phuongThucThanhToan = "Tiền mặt";
+                Date ngayLapHoaDon = Date.valueOf(LocalDateTime.parse(lbl_orderDateOrder.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm a")).toLocalDate());
+                String loaiHoaDon = "Đặt hàng";
+                String soDienThoai = txt_customerPhone.getText();
+                String diaChiGiaoHang = txa_customerDeliveryAddress.getText();
+                String trangThai = "Đang giao";
+                String ghiChu = txa_noteSale.getText();
+                if (JOptionPane.showConfirmDialog(this, "Bạn đã gọi điện và xác nhận với khách hàng?", "Xác nhận", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+
+                    HoaDon hoaDon = new HoaDon(maHoaDon, maKH, maNV, maKhuyenMai, phuongThucThanhToan, ngayLapHoaDon, loaiHoaDon, soDienThoai, diaChiGiaoHang, trangThai, ghiChu);
+
+                    if (hoaDonDAO.insert(hoaDon) > 0) {
+                        for (int i = 0; i < modelCart.getRowCount(); i++) {
+                            String maSanPham = modelCart.getValueAt(i, 1) + "";
+                            int soLuong = Integer.valueOf(modelCart.getValueAt(i, 3) + "");
+                            double gia = sanPhamDAO.selectbyId(new SanPham(maSanPham)).getGia();
+                            ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(maHoaDon, maSanPham, soLuong, gia);
+                            chiTietHoaDonDAO.insert(chiTietHoaDon);
+                        }
+                        if (JOptionPane.showConfirmDialog(this, "Bạn có muốn in hóa đơn không?", "Nhận hóa đơn", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                            ThongTinHoaDon thongTinHoaDon = new ThongTinHoaDon(hoaDon);
+                            String filePath = "D:\\" + hoaDon.getMaHoaDon() + ".pdf";
+                            thongTinHoaDon.setVisible(true);
+                            ExportPDF.exportPDF(thongTinHoaDon, filePath);
+                            thongTinHoaDon.setVisible(false);
+                            if (JOptionPane.showConfirmDialog(this, "Bạn có muốn xem hóa đơn?", "Thông báo", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                                openPDF(filePath);
+                            }
+                        }
+                        if (!hoaDon.getMaKH().equals("KH000")) {
+                            Email.sendEmail(khachHangDAO.search(maKH).getEmail(), "Thông báo về đơn hàng", getEmailContentOrder(hoaDon));
+                        }
+                        JOptionPane.showMessageDialog(this, "Hóa đơn đặt hàng đã được tạo thành công và sẵn sàng để giao hàng!");
+                        refreshOrder();
+
+                        modelCart.setRowCount(0);
+
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Tạo hóa đơn thất bại vui lòng thử lại sau!");
+                        refreshOrderSale();
+                    }
                 }
             }
         }
@@ -1566,7 +1718,11 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         if (tbl_Cart.getRowCount() > 0) {
             int row = tbl_Cart.getSelectedRow();
             if (row < 0) {
-                JOptionPane.showMessageDialog(this, "Vui lòng chọn sản phẩm cần xóa khỏi giỏ hàng!");
+                if (ngonNgu == 2) {
+                    JOptionPane.showMessageDialog(this, "Please select the product you want to remove from the cart!");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Vui lòng chọn sản phẩm cần xóa khỏi giỏ hàng!");
+                }
             } else {
                 SanPham sanPham = sanPhamDAO.selectbyId(new SanPham(modelCart.getValueAt(row, 1) + ""));
                 sanPham.setSoLuong(sanPham.getSoLuong() + Integer.valueOf((modelCart.getValueAt(row, 3) + "")));
@@ -2008,50 +2164,101 @@ public class JPanel_BanHang extends javax.swing.JPanel {
     }//GEN-LAST:event_tbl_CartMouseClicked
 
     private void jpCancelSaleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpCancelSaleMouseClicked
-        if (jpCancelSale.isEnabled()) {
-            if (JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn hủy hóa đơn không?", "Cảnh báo", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                String maHoaDon = lbl_orderIdSale.getText();
-                String maKH = lbl_customerIdSale.getText();
-                String maNV = lbl_employeeIdSale.getText();
-                String maKhuyenMai = null;
-                String phuongThucThanhToan = "Tiền mặt";
-                Date ngayLapHoaDon = Date.valueOf(LocalDateTime.parse(lblOrderDate.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm a")).toLocalDate());
-                String loaiHoaDon = "Bán hàng";
-                String soDienThoai = (maKH.equals("KH000") ? null : khachHangDAO.search(maKH).getSoDienThoai());
-                String diaChiGiaoHang = null;
-                String trangThai = "Đã hủy";
-                String ghiChu = txa_noteSale.getText();
+        if (ngonNgu == 2) {
+            if (jpCancelSale.isEnabled()) {
+                if (JOptionPane.showConfirmDialog(this, "Are you sure you want to cancel the invoice?", "Warning", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                    String maHoaDon = lbl_orderIdSale.getText();
+                    String maKH = lbl_customerIdSale.getText();
+                    String maNV = lbl_employeeIdSale.getText();
+                    String maKhuyenMai = null;
+                    String phuongThucThanhToan = "Tiền mặt";
+                    Date ngayLapHoaDon = Date.valueOf(LocalDateTime.parse(lblOrderDate.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm a")).toLocalDate());
+                    String loaiHoaDon = "Bán hàng";
+                    String soDienThoai = (maKH.equals("KH000") ? null : khachHangDAO.search(maKH).getSoDienThoai());
+                    String diaChiGiaoHang = null;
+                    String trangThai = "Đã hủy";
+                    String ghiChu = txa_noteSale.getText();
 
-                HoaDon hoaDon = new HoaDon(maHoaDon, maKH, maNV, maKhuyenMai, phuongThucThanhToan, ngayLapHoaDon, loaiHoaDon, soDienThoai, diaChiGiaoHang, trangThai, ghiChu);
+                    HoaDon hoaDon = new HoaDon(maHoaDon, maKH, maNV, maKhuyenMai, phuongThucThanhToan, ngayLapHoaDon, loaiHoaDon, soDienThoai, diaChiGiaoHang, trangThai, ghiChu);
 
-                if (modelCart.getRowCount() > 0) {
-                    if (hoaDonDAO.insert(hoaDon) > 0) {
-                        for (int i = 0; i < modelCart.getRowCount(); i++) {
-                            String maSanPham = modelCart.getValueAt(i, 1) + "";
-                            int soLuong = Integer.valueOf(modelCart.getValueAt(i, 3) + "");
-                            double gia = sanPhamDAO.selectbyId(new SanPham(maSanPham)).getGia();
-                            ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(maHoaDon, maSanPham, soLuong, gia);
-                            chiTietHoaDonDAO.insert(chiTietHoaDon);
+                    if (modelCart.getRowCount() > 0) {
+                        if (hoaDonDAO.insert(hoaDon) > 0) {
+                            for (int i = 0; i < modelCart.getRowCount(); i++) {
+                                String maSanPham = modelCart.getValueAt(i, 1) + "";
+                                int soLuong = Integer.valueOf(modelCart.getValueAt(i, 3) + "");
+                                double gia = sanPhamDAO.selectbyId(new SanPham(maSanPham)).getGia();
+                                ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(maHoaDon, maSanPham, soLuong, gia);
+                                chiTietHoaDonDAO.insert(chiTietHoaDon);
 
-                            SanPham sanPham = sanPhamDAO.selectbyId(new SanPham(maSanPham));
-                            sanPham.setSoLuong(sanPham.getSoLuong() + soLuong);
-                            sanPhamDAO.update(sanPham);
+                                SanPham sanPham = sanPhamDAO.selectbyId(new SanPham(maSanPham));
+                                sanPham.setSoLuong(sanPham.getSoLuong() + soLuong);
+                                sanPhamDAO.update(sanPham);
+                            }
+                            refreshOrderSale();
+                            loadData();
+                            JOptionPane.showMessageDialog(this, "Invoice cancelled successfully");
+
+                            modelCart.setRowCount(0);
+                        } else {
+                            JOptionPane.showMessageDialog(this, "An error occurred while cancelling!");
                         }
-                        refreshOrderSale();
-                        loadData();
-                        JOptionPane.showMessageDialog(this, "Hủy hóa đơn thành công");
-
-                        modelCart.setRowCount(0);
                     } else {
-                        JOptionPane.showMessageDialog(this, "Đã xảy ra lỗi trong quá trình hủy!");
+                        if (hoaDonDAO.insert(hoaDon) > 0) {
+                            refreshOrderSale();
+                            loadData();
+                            JOptionPane.showMessageDialog(this, "Invoice cancelled successfully");
+                        } else {
+                            JOptionPane.showMessageDialog(this, "An error occurred while cancelling!");
+                        }
                     }
-                } else {
-                    if (hoaDonDAO.insert(hoaDon) > 0) {
-                        refreshOrderSale();
-                        loadData();
-                        JOptionPane.showMessageDialog(this, "Hủy hóa đơn thành công");
+                }
+            }
+        } else {
+            if (jpCancelSale.isEnabled()) {
+                if (JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn hủy hóa đơn không?", "Cảnh báo", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                    String maHoaDon = lbl_orderIdSale.getText();
+                    String maKH = lbl_customerIdSale.getText();
+                    String maNV = lbl_employeeIdSale.getText();
+                    String maKhuyenMai = null;
+                    String phuongThucThanhToan = "Tiền mặt";
+                    Date ngayLapHoaDon = Date.valueOf(LocalDateTime.parse(lblOrderDate.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm a")).toLocalDate());
+                    String loaiHoaDon = "Bán hàng";
+                    String soDienThoai = (maKH.equals("KH000") ? null : khachHangDAO.search(maKH).getSoDienThoai());
+                    String diaChiGiaoHang = null;
+                    String trangThai = "Đã hủy";
+                    String ghiChu = txa_noteSale.getText();
+
+                    HoaDon hoaDon = new HoaDon(maHoaDon, maKH, maNV, maKhuyenMai, phuongThucThanhToan, ngayLapHoaDon, loaiHoaDon, soDienThoai, diaChiGiaoHang, trangThai, ghiChu);
+
+                    if (modelCart.getRowCount() > 0) {
+                        if (hoaDonDAO.insert(hoaDon) > 0) {
+                            for (int i = 0; i < modelCart.getRowCount(); i++) {
+                                String maSanPham = modelCart.getValueAt(i, 1) + "";
+                                int soLuong = Integer.valueOf(modelCart.getValueAt(i, 3) + "");
+                                double gia = sanPhamDAO.selectbyId(new SanPham(maSanPham)).getGia();
+                                ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(maHoaDon, maSanPham, soLuong, gia);
+                                chiTietHoaDonDAO.insert(chiTietHoaDon);
+
+                                SanPham sanPham = sanPhamDAO.selectbyId(new SanPham(maSanPham));
+                                sanPham.setSoLuong(sanPham.getSoLuong() + soLuong);
+                                sanPhamDAO.update(sanPham);
+                            }
+                            refreshOrderSale();
+                            loadData();
+                            JOptionPane.showMessageDialog(this, "Hủy hóa đơn thành công");
+
+                            modelCart.setRowCount(0);
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Đã xảy ra lỗi trong quá trình hủy!");
+                        }
                     } else {
-                        JOptionPane.showMessageDialog(this, "Đã xảy ra lỗi trong quá trình hủy!");
+                        if (hoaDonDAO.insert(hoaDon) > 0) {
+                            refreshOrderSale();
+                            loadData();
+                            JOptionPane.showMessageDialog(this, "Hủy hóa đơn thành công");
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Đã xảy ra lỗi trong quá trình hủy!");
+                        }
                     }
                 }
             }
@@ -2059,55 +2266,118 @@ public class JPanel_BanHang extends javax.swing.JPanel {
     }//GEN-LAST:event_jpCancelSaleMouseClicked
 
     private void jpCancelOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpCancelOrderMouseClicked
-        if (jpCancelOrder.isEnabled()) {
-            if (JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn hủy hóa đơn không?", "Cảnh báo", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                String maHoaDon = lbl_orderIdOrder.getText();
-                String maKH = (lbl_customerNameOrder.getText().equals("Khách hàng bán lẻ")) ? "KH000" : khachHangDAO.searchByPhone(txt_customerPhone.getText()).getMaKH();
-                String maNV = lbl_employeeIdOrder.getText();
-                String maKhuyenMai = null;
-                String phuongThucThanhToan = "Tiền mặt";
-                Date ngayLapHoaDon = Date.valueOf(LocalDateTime.parse(lbl_orderDateOrder.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm a")).toLocalDate());
-                String loaiHoaDon = "Đặt hàng";
-                String soDienThoai = txt_customerPhone.getText();
-                String diaChiGiaoHang = txa_customerDeliveryAddress.getText();
-                String trangThai = "Đã hủy";
-                String ghiChu = txa_noteSale.getText();
+        if (ngonNgu == 2) {
+            if (jpCancelOrder.isEnabled()) {
+                if (JOptionPane.showConfirmDialog(this, "Are you sure you want to cancel the order?", "Warning", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                    String maHoaDon = lbl_orderIdOrder.getText();
+                    String maKH = (lbl_customerNameOrder.getText().equals("Khách hàng bán lẻ")) ? "KH000" : khachHangDAO.searchByPhone(txt_customerPhone.getText()).getMaKH();
+                    String maNV = lbl_employeeIdOrder.getText();
+                    String maKhuyenMai = null;
+                    String phuongThucThanhToan = "Tiền mặt";
+                    Date ngayLapHoaDon = Date.valueOf(LocalDateTime.parse(lbl_orderDateOrder.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm a")).toLocalDate());
+                    String loaiHoaDon = "Đặt hàng";
+                    String soDienThoai = txt_customerPhone.getText();
+                    String diaChiGiaoHang = txa_customerDeliveryAddress.getText();
+                    String trangThai = "Đã hủy";
+                    String ghiChu = txa_noteSale.getText();
 
-                HoaDon hoaDon = new HoaDon(maHoaDon, maKH, maNV, maKhuyenMai, phuongThucThanhToan, ngayLapHoaDon, loaiHoaDon, soDienThoai, diaChiGiaoHang, trangThai, ghiChu);
+                    HoaDon hoaDon = new HoaDon(maHoaDon, maKH, maNV, maKhuyenMai, phuongThucThanhToan, ngayLapHoaDon, loaiHoaDon, soDienThoai, diaChiGiaoHang, trangThai, ghiChu);
 
-                if (modelCart.getRowCount() > 0) {
-                    if (hoaDonDAO.insert(hoaDon) > 0) {
-                        for (int i = 0; i < modelCart.getRowCount(); i++) {
-                            String maSanPham = modelCart.getValueAt(i, 1) + "";
-                            int soLuong = Integer.valueOf(modelCart.getValueAt(i, 3) + "");
-                            double gia = sanPhamDAO.selectbyId(new SanPham(maSanPham)).getGia();
-                            ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(maHoaDon, maSanPham, soLuong, gia);
-                            chiTietHoaDonDAO.insert(chiTietHoaDon);
+                    if (modelCart.getRowCount() > 0) {
+                        if (hoaDonDAO.insert(hoaDon) > 0) {
+                            for (int i = 0; i < modelCart.getRowCount(); i++) {
+                                String maSanPham = modelCart.getValueAt(i, 1) + "";
+                                int soLuong = Integer.valueOf(modelCart.getValueAt(i, 3) + "");
+                                double gia = sanPhamDAO.selectbyId(new SanPham(maSanPham)).getGia();
+                                ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(maHoaDon, maSanPham, soLuong, gia);
+                                chiTietHoaDonDAO.insert(chiTietHoaDon);
 
-                            SanPham sanPham = sanPhamDAO.selectbyId(new SanPham(maSanPham));
-                            sanPham.setSoLuong(sanPham.getSoLuong() + soLuong);
-                            sanPhamDAO.update(sanPham);
+                                SanPham sanPham = sanPhamDAO.selectbyId(new SanPham(maSanPham));
+                                sanPham.setSoLuong(sanPham.getSoLuong() + soLuong);
+                                sanPhamDAO.update(sanPham);
+                            }
+                            refreshOrder();
+                            loadData();
+                            JOptionPane.showMessageDialog(this, "Order canceled successfully");
+
+                            modelCart.setRowCount(0);
+                        } else {
+                            JOptionPane.showMessageDialog(this, "An error occurred during the cancellation process!");
                         }
-                        refreshOrder();
-                        loadData();
-                        JOptionPane.showMessageDialog(this, "Hủy hóa đơn thành công");
-
-                        modelCart.setRowCount(0);
                     } else {
-                        JOptionPane.showMessageDialog(this, "Đã xảy ra lỗi trong quá trình hủy!");
+                        if (hoaDonDAO.insert(hoaDon) > 0) {
+                            refreshOrder();
+                            loadData();
+                            JOptionPane.showMessageDialog(this, "Order canceled successfully");
+                        } else {
+                            JOptionPane.showMessageDialog(this, "An error occurred during the cancellation process!");
+                        }
                     }
-                } else {
-                    if (hoaDonDAO.insert(hoaDon) > 0) {
-                        refreshOrder();
-                        loadData();
-                        JOptionPane.showMessageDialog(this, "Hủy hóa đơn thành công");
+                }
+            }
+        } else {
+            if (jpCancelOrder.isEnabled()) {
+                if (JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn hủy hóa đơn không?", "Cảnh báo", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                    String maHoaDon = lbl_orderIdOrder.getText();
+                    String maKH = (lbl_customerNameOrder.getText().equals("Khách hàng bán lẻ")) ? "KH000" : khachHangDAO.searchByPhone(txt_customerPhone.getText()).getMaKH();
+                    String maNV = lbl_employeeIdOrder.getText();
+                    String maKhuyenMai = null;
+                    String phuongThucThanhToan = "Tiền mặt";
+                    Date ngayLapHoaDon = Date.valueOf(LocalDateTime.parse(lbl_orderDateOrder.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm a")).toLocalDate());
+                    String loaiHoaDon = "Đặt hàng";
+                    String soDienThoai = txt_customerPhone.getText();
+                    String diaChiGiaoHang = txa_customerDeliveryAddress.getText();
+                    String trangThai = "Đã hủy";
+                    String ghiChu = txa_noteSale.getText();
+
+                    HoaDon hoaDon = new HoaDon(maHoaDon, maKH, maNV, maKhuyenMai, phuongThucThanhToan, ngayLapHoaDon, loaiHoaDon, soDienThoai, diaChiGiaoHang, trangThai, ghiChu);
+
+                    if (modelCart.getRowCount() > 0) {
+                        if (hoaDonDAO.insert(hoaDon) > 0) {
+                            for (int i = 0; i < modelCart.getRowCount(); i++) {
+                                String maSanPham = modelCart.getValueAt(i, 1) + "";
+                                int soLuong = Integer.valueOf(modelCart.getValueAt(i, 3) + "");
+                                double gia = sanPhamDAO.selectbyId(new SanPham(maSanPham)).getGia();
+                                ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(maHoaDon, maSanPham, soLuong, gia);
+                                chiTietHoaDonDAO.insert(chiTietHoaDon);
+
+                                SanPham sanPham = sanPhamDAO.selectbyId(new SanPham(maSanPham));
+                                sanPham.setSoLuong(sanPham.getSoLuong() + soLuong);
+                                sanPhamDAO.update(sanPham);
+                            }
+                            refreshOrder();
+                            loadData();
+                            JOptionPane.showMessageDialog(this, "Hủy hóa đơn thành công");
+
+                            modelCart.setRowCount(0);
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Đã xảy ra lỗi trong quá trình hủy!");
+                        }
                     } else {
-                        JOptionPane.showMessageDialog(this, "Đã xảy ra lỗi trong quá trình hủy!");
+                        if (hoaDonDAO.insert(hoaDon) > 0) {
+                            refreshOrder();
+                            loadData();
+                            JOptionPane.showMessageDialog(this, "Hủy hóa đơn thành công");
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Đã xảy ra lỗi trong quá trình hủy!");
+                        }
                     }
                 }
             }
         }
     }//GEN-LAST:event_jpCancelOrderMouseClicked
+
+    private void lblDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDeleteMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblDeleteMouseClicked
+
+    private void lblPay1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPay1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblPay1MouseClicked
+
+    private void svgPay1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_svgPay1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_svgPay1MouseClicked
 
     private void addDataToListProduct(SanPham sanPham) {
         lbl_productImage1.setIcon(createImageIcon(sanPham.getHinhAnh()));
