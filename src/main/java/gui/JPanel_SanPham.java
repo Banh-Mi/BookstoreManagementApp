@@ -38,8 +38,7 @@ public class JPanel_SanPham extends javax.swing.JPanel {
 
     public JPanel_SanPham() {
         initComponents();
-        if(ngonNgu==2)
-        {
+        if (ngonNgu == 2) {
             ChuyenDoiNN();
         }
         svgAdd.setSvgImage("add.svg", 30, 30);
@@ -51,8 +50,8 @@ public class JPanel_SanPham extends javax.swing.JPanel {
         loadData();
 
     }
-    public void ChuyenDoiNN()
-    {
+
+    public void ChuyenDoiNN() {
         lbl_ProductId.setText("Product ID:");
         lbl_ProductName.setText("Product Name:");
         lbl_Supplier.setText("Supplier:");
@@ -70,7 +69,7 @@ public class JPanel_SanPham extends javax.swing.JPanel {
         lblAdd.setText("Add");
         jbDelete.setText("Delete");
         jbRefresh.setText("Refresh");
-        jbEdit.setText("Edit");           
+        jbEdit.setText("Edit");
     }
 
     public void loadData() {
@@ -556,37 +555,76 @@ public class JPanel_SanPham extends javax.swing.JPanel {
     }//GEN-LAST:event_txt_PageCountActionPerformed
 
     private void jpAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpAddMouseClicked
-        if (lblAdd.getText().equals("Thêm")) {
-            txt_ProductId.setEnabled(true);
-            lblAdd.setText("Lưu");
-        } else if (lblAdd.getText().equals("Lưu")) {
-            if (checkEmpty(cb_Category.getSelectedItem() + "")) {
-                JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!");
-            } else {
-                if (checkCondition(cb_Category.getSelectedItem() + "")) {
-                    if (checkDuplicateCode(txt_ProductId.getText()) && sanPhamDAO.selectbyId(new SanPham(txt_ProductId.getText())).isTrangThai() == false) {
-                        if (sanPhamDAO.update(getInfoFromView()) == 1) {
-                            JOptionPane.showMessageDialog(this, "Thêm sản phẩm thành công!");
-                            loadData();
-                            lblAdd.setText("Thêm");
-                        } else if (sanPhamDAO.update(getInfoFromView()) == 0) {
-                            JOptionPane.showMessageDialog(this, "Thêm sản phẩm thất bại vui lòng thử lại sau!");
+        if (ngonNgu == 2) {
+            if (lblAdd.getText().equals("Thêm")) {
+                txt_ProductId.setEnabled(true);
+                lblAdd.setText("Lưu");
+            } else if (lblAdd.getText().equals("Lưu")) {
+                if (checkEmpty(cb_Category.getSelectedItem() + "")) {
+                    JOptionPane.showMessageDialog(this, "Please enter complete information!");
+                } else {
+                    if (checkCondition(cb_Category.getSelectedItem() + "")) {
+                        if (checkDuplicateCode(txt_ProductId.getText()) && sanPhamDAO.selectbyId(new SanPham(txt_ProductId.getText())).isTrangThai() == false) {
+                            if (sanPhamDAO.update(getInfoFromView()) == 1) {
+                                JOptionPane.showMessageDialog(this, "Product updated successfully!");
+                                loadData();
+                                lblAdd.setText("Thêm");
+                            } else if (sanPhamDAO.update(getInfoFromView()) == 0) {
+                                JOptionPane.showMessageDialog(this, "Failed to update product. Please try again later!");
+                            } else {
+                                JOptionPane.showMessageDialog(this, "The system is experiencing issues. Please contact technical support!");
+                            }
+                        } else if (checkDuplicateCode(txt_ProductId.getText())) {
+                            JOptionPane.showMessageDialog(this, "This product already exists!");
                         } else {
-                            JOptionPane.showMessageDialog(this, "Hệ thống đang gặp trục trặc, Vui lòng liên hệ bộ phận kỹ thuật!");
+                            SanPham sanPham = getInfoFromView();
+                            int result = sanPhamDAO.insert(sanPham);
+                            if (result == 1) {
+                                lblAdd.setText("Thêm");
+                                JOptionPane.showMessageDialog(this, "New product added successfully!");
+                                loadData();
+                            } else if (result == 0) {
+                                JOptionPane.showMessageDialog(this, "Failed to add product. Please try again later!");
+                            } else {
+                                JOptionPane.showMessageDialog(this, "The system is experiencing issues. Please contact technical support!");
+                            }
                         }
-                    } else if (checkDuplicateCode(txt_ProductId.getText())) {
-                        JOptionPane.showMessageDialog(this, "Sản phẩm này đã tồn tại!");
-                    } else {
-                        SanPham sanPham = getInfoFromView();
-                        int result = sanPhamDAO.insert(sanPham);
-                        if (result == 1) {
-                            lblAdd.setText("Thêm");
-                            JOptionPane.showMessageDialog(this, "Thêm sản phẩm mới thành công!");
-                            loadData();
-                        } else if (result == 0) {
-                            JOptionPane.showMessageDialog(this, "Thêm sản phẩm thất bại vui lòng thử lại sau!");
+                    }
+                }
+            }
+        } else {
+            if (lblAdd.getText().equals("Thêm")) {
+                txt_ProductId.setEnabled(true);
+                lblAdd.setText("Lưu");
+            } else if (lblAdd.getText().equals("Lưu")) {
+                if (checkEmpty(cb_Category.getSelectedItem() + "")) {
+                    JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!");
+                } else {
+                    if (checkCondition(cb_Category.getSelectedItem() + "")) {
+                        if (checkDuplicateCode(txt_ProductId.getText()) && sanPhamDAO.selectbyId(new SanPham(txt_ProductId.getText())).isTrangThai() == false) {
+                            if (sanPhamDAO.update(getInfoFromView()) == 1) {
+                                JOptionPane.showMessageDialog(this, "Thêm sản phẩm thành công!");
+                                loadData();
+                                lblAdd.setText("Thêm");
+                            } else if (sanPhamDAO.update(getInfoFromView()) == 0) {
+                                JOptionPane.showMessageDialog(this, "Thêm sản phẩm thất bại vui lòng thử lại sau!");
+                            } else {
+                                JOptionPane.showMessageDialog(this, "Hệ thống đang gặp trục trặc, Vui lòng liên hệ bộ phận kỹ thuật!");
+                            }
+                        } else if (checkDuplicateCode(txt_ProductId.getText())) {
+                            JOptionPane.showMessageDialog(this, "Sản phẩm này đã tồn tại!");
                         } else {
-                            JOptionPane.showMessageDialog(this, "Hệ thống đang gặp trục trặc, Vui lòng liên hệ bộ phận kỹ thuật!");
+                            SanPham sanPham = getInfoFromView();
+                            int result = sanPhamDAO.insert(sanPham);
+                            if (result == 1) {
+                                lblAdd.setText("Thêm");
+                                JOptionPane.showMessageDialog(this, "Thêm sản phẩm mới thành công!");
+                                loadData();
+                            } else if (result == 0) {
+                                JOptionPane.showMessageDialog(this, "Thêm sản phẩm thất bại vui lòng thử lại sau!");
+                            } else {
+                                JOptionPane.showMessageDialog(this, "Hệ thống đang gặp trục trặc, Vui lòng liên hệ bộ phận kỹ thuật!");
+                            }
                         }
                     }
                 }
@@ -618,39 +656,75 @@ public class JPanel_SanPham extends javax.swing.JPanel {
     }
 
     public boolean checkCondition(String category) {
-        boolean result = true;
-        if (!txt_ProductId.getText().matches("^[0-9]{13}$")) {
-            JOptionPane.showMessageDialog(this, "Mã sản phẩm phải là mã vạch sản phẩm với 13 ký tự số!");
-            result = false;
-        } else if (!txt_Quantity.getText().matches("^[1-9]\\d*$")) {
-            JOptionPane.showMessageDialog(this, "Số lượng phải là số nguyên dương!");
-            result = false;
-        } else if (!txt_ProductName.getText().matches("^[\\p{L}0-9.,:\\s'-]{1,100}$")) {
-            JOptionPane.showMessageDialog(this, "Tên sản phẩm không hợp lệ!");
-            result = false;
-        } else if (!txt_Unit.getText().matches("^[\\p{L} ]+$")) {
-            JOptionPane.showMessageDialog(this, "Đơn vị tính phải là chữ cái!");
-            result = false;
-        } else if (!txt_Price.getText().matches("^\\d+$")) {
-            JOptionPane.showMessageDialog(this, "Giá phải là số dương!");
-            result = false;
-        }
-        if (category.equals("Sách")) {
-            if (!txt_Author.getText().matches("^[\\p{L}][\\p{L}.\\s]*[\\p{L}]")) {
-                JOptionPane.showMessageDialog(this, "Tên tác giả phải là chữ cái!");
+        if (ngonNgu == 2) {
+            boolean result = true;
+            if (!txt_ProductId.getText().matches("^[0-9]{13}$")) {
+                JOptionPane.showMessageDialog(this, "Product ID must be a 13-digit numeric product barcode!");
                 result = false;
-            } else if (!txt_Publisher.getText().matches("^[\\p{L}0-9.&\\s'-]{1,100}$")) {
-                JOptionPane.showMessageDialog(this, "Nhà xuất bản không hợp lệ!");
+            } else if (!txt_Quantity.getText().matches("^[1-9]\\d*$")) {
+                JOptionPane.showMessageDialog(this, "Quantity must be a positive integer!");
                 result = false;
-            } else if (!txt_PublishingYear.getText().matches("^(18[3-9]\\d|19\\d\\d|20[0-1]\\d|202[0-3])$")) {
-                JOptionPane.showMessageDialog(this, "Năm xuất bản phải bằng hoặc trước năm hiện tại!");
+            } else if (!txt_ProductName.getText().matches("^[\\p{L}0-9.,:\\s'-]{1,100}$")) {
+                JOptionPane.showMessageDialog(this, "Invalid product name!");
                 result = false;
-            } else if (!txt_PageCount.getText().matches("^[1-9]\\d*$")) {
-                JOptionPane.showMessageDialog(this, "Số trang sách phải lớn hơn 0!");
+            } else if (!txt_Unit.getText().matches("^[\\p{L} ]+$")) {
+                JOptionPane.showMessageDialog(this, "Unit must be alphabetic characters!");
+                result = false;
+            } else if (!txt_Price.getText().matches("^\\d+$")) {
+                JOptionPane.showMessageDialog(this, "Price must be a positive number!");
                 result = false;
             }
+            if (category.equals("Sách")) {
+                if (!txt_Author.getText().matches("^[\\p{L}][\\p{L}.\\s]*[\\p{L}]")) {
+                    JOptionPane.showMessageDialog(this, "Author name must be alphabetic!");
+                    result = false;
+                } else if (!txt_Publisher.getText().matches("^[\\p{L}0-9.&\\s'-]{1,100}$")) {
+                    JOptionPane.showMessageDialog(this, "Invalid publisher name!");
+                    result = false;
+                } else if (!txt_PublishingYear.getText().matches("^(18[3-9]\\d|19\\d\\d|20[0-1]\\d|202[0-3])$")) {
+                    JOptionPane.showMessageDialog(this, "Publishing year must be equal to or before the current year!");
+                    result = false;
+                } else if (!txt_PageCount.getText().matches("^[1-9]\\d*$")) {
+                    JOptionPane.showMessageDialog(this, "Number of pages must be greater than 0!");
+                    result = false;
+                }
+            }
+            return result;
+        } else {
+            boolean result = true;
+            if (!txt_ProductId.getText().matches("^[0-9]{13}$")) {
+                JOptionPane.showMessageDialog(this, "Mã sản phẩm phải là mã vạch sản phẩm với 13 ký tự số!");
+                result = false;
+            } else if (!txt_Quantity.getText().matches("^[1-9]\\d*$")) {
+                JOptionPane.showMessageDialog(this, "Số lượng phải là số nguyên dương!");
+                result = false;
+            } else if (!txt_ProductName.getText().matches("^[\\p{L}0-9.,:\\s'-]{1,100}$")) {
+                JOptionPane.showMessageDialog(this, "Tên sản phẩm không hợp lệ!");
+                result = false;
+            } else if (!txt_Unit.getText().matches("^[\\p{L} ]+$")) {
+                JOptionPane.showMessageDialog(this, "Đơn vị tính phải là chữ cái!");
+                result = false;
+            } else if (!txt_Price.getText().matches("^\\d+$")) {
+                JOptionPane.showMessageDialog(this, "Giá phải là số dương!");
+                result = false;
+            }
+            if (category.equals("Sách")) {
+                if (!txt_Author.getText().matches("^[\\p{L}][\\p{L}.\\s]*[\\p{L}]")) {
+                    JOptionPane.showMessageDialog(this, "Tên tác giả phải là chữ cái!");
+                    result = false;
+                } else if (!txt_Publisher.getText().matches("^[\\p{L}0-9.&\\s'-]{1,100}$")) {
+                    JOptionPane.showMessageDialog(this, "Nhà xuất bản không hợp lệ!");
+                    result = false;
+                } else if (!txt_PublishingYear.getText().matches("^(18[3-9]\\d|19\\d\\d|20[0-1]\\d|202[0-3])$")) {
+                    JOptionPane.showMessageDialog(this, "Năm xuất bản phải bằng hoặc trước năm hiện tại!");
+                    result = false;
+                } else if (!txt_PageCount.getText().matches("^[1-9]\\d*$")) {
+                    JOptionPane.showMessageDialog(this, "Số trang sách phải lớn hơn 0!");
+                    result = false;
+                }
+            }
+            return result;
         }
-        return result;
     }
 
     public String searchSupplierId(String supplierName) {
@@ -691,23 +765,48 @@ public class JPanel_SanPham extends javax.swing.JPanel {
     }
 
     private void jpEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpEditMouseClicked
-        int row = tbl_ListProduct.getSelectedRow();
-        if (row < 0) {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn sản phẩm cần chỉnh sửa thông tin!");
-            return;
+        if (ngonNgu == 2) {
+            int row = tbl_ListProduct.getSelectedRow();
+            if (row < 0) {
+                JOptionPane.showMessageDialog(this, "Please select the product to edit information!");
+                return;
+            } else {
+                if (JOptionPane.showConfirmDialog(this, "Are you sure you want to change the information of this product?", "Edit", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                    if (checkEmpty(cb_Category.getSelectedItem() + "")) {
+                        JOptionPane.showMessageDialog(this, "Please enter complete information!");
+                    } else {
+                        if (checkCondition(cb_Category.getSelectedItem() + "")) {
+                            if (sanPhamDAO.update(getInfoFromView()) == 1) {
+                                JOptionPane.showMessageDialog(this, "Update product information successfully!");
+                                loadData();
+                            } else if (sanPhamDAO.update(getInfoFromView()) == 0) {
+                                JOptionPane.showMessageDialog(this, "Update failed. Please try again later!");
+                            } else {
+                                JOptionPane.showMessageDialog(this, "The system is encountering technical issues. Please contact the technical department!");
+                            }
+                        }
+                    }
+                }
+            }
         } else {
-            if (JOptionPane.showConfirmDialog(this, "Bạn chắc chắn muốn thay đổi thông tin sản phẩm này?", "Edit", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                if (checkEmpty(cb_Category.getSelectedItem() + "")) {
-                    JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!");
-                } else {
-                    if (checkCondition(cb_Category.getSelectedItem() + "")) {
-                        if (sanPhamDAO.update(getInfoFromView()) == 1) {
-                            JOptionPane.showMessageDialog(this, "Cập nhật thông tin sản phẩm thành công!");
-                            loadData();
-                        } else if (sanPhamDAO.update(getInfoFromView()) == 0) {
-                            JOptionPane.showMessageDialog(this, "Cập nhật thất bại, Vui lòng thử lại sau!");
-                        } else {
-                            JOptionPane.showMessageDialog(this, "Hệ thống đang gặp trục trặc, Vui lòng liên hệ bộ phận kỹ thuật!");
+            int row = tbl_ListProduct.getSelectedRow();
+            if (row < 0) {
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn sản phẩm cần chỉnh sửa thông tin!");
+                return;
+            } else {
+                if (JOptionPane.showConfirmDialog(this, "Bạn chắc chắn muốn thay đổi thông tin sản phẩm này?", "Edit", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                    if (checkEmpty(cb_Category.getSelectedItem() + "")) {
+                        JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!");
+                    } else {
+                        if (checkCondition(cb_Category.getSelectedItem() + "")) {
+                            if (sanPhamDAO.update(getInfoFromView()) == 1) {
+                                JOptionPane.showMessageDialog(this, "Cập nhật thông tin sản phẩm thành công!");
+                                loadData();
+                            } else if (sanPhamDAO.update(getInfoFromView()) == 0) {
+                                JOptionPane.showMessageDialog(this, "Cập nhật thất bại, Vui lòng thử lại sau!");
+                            } else {
+                                JOptionPane.showMessageDialog(this, "Hệ thống đang gặp trục trặc, Vui lòng liên hệ bộ phận kỹ thuật!");
+                            }
                         }
                     }
                 }
@@ -716,18 +815,36 @@ public class JPanel_SanPham extends javax.swing.JPanel {
     }//GEN-LAST:event_jpEditMouseClicked
 
     private void jpDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpDeleteMouseClicked
-        int row = tbl_ListProduct.getSelectedRow();
-        if (row < 0) {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn sản phẩm cần xóa!");
-            return;
+        if (ngonNgu == 2) {
+            int row = tbl_ListProduct.getSelectedRow();
+            if (row < 0) {
+                JOptionPane.showMessageDialog(this, "Please select the product to delete!");
+                return;
+            } else {
+                if (JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this product?", "Delete", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                    if (sanPhamDAO.delete(new SanPham(modelSanPham.getValueAt(row, 0) + "")) == 1) {
+                        JOptionPane.showMessageDialog(this, "Deleted successfully");
+                        clearInput();
+                        loadData();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "The system is encountering technical issues. Please contact the technical department!");
+                    }
+                }
+            }
         } else {
-            if (JOptionPane.showConfirmDialog(this, "Bạn chắc chắn muốn xóa sản phẩm này?", "Delete", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                if (sanPhamDAO.delete(new SanPham(modelSanPham.getValueAt(row, 0) + "")) == 1) {
-                    JOptionPane.showMessageDialog(this, "Đã xóa thành công");
-                    clearInput();
-                    loadData();
-                } else {
-                    JOptionPane.showMessageDialog(this, "Hệ thống đang gặp trục trặc, Vui lòng liên hệ bộ phận kỹ thuật!");
+            int row = tbl_ListProduct.getSelectedRow();
+            if (row < 0) {
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn sản phẩm cần xóa!");
+                return;
+            } else {
+                if (JOptionPane.showConfirmDialog(this, "Bạn chắc chắn muốn xóa sản phẩm này?", "Delete", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                    if (sanPhamDAO.delete(new SanPham(modelSanPham.getValueAt(row, 0) + "")) == 1) {
+                        JOptionPane.showMessageDialog(this, "Đã xóa thành công");
+                        clearInput();
+                        loadData();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Hệ thống đang gặp trục trặc, Vui lòng liên hệ bộ phận kỹ thuật!");
+                    }
                 }
             }
         }
@@ -756,7 +873,7 @@ public class JPanel_SanPham extends javax.swing.JPanel {
         lbl_ProductImage.setIcon(null);
         tbl_ListProduct.clearSelection();
     }
-    
+
     private void btn_chooseImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_chooseImageActionPerformed
         JFileChooser chooser = new JFileChooser();
         int returnValue = chooser.showOpenDialog(this);
@@ -783,7 +900,7 @@ public class JPanel_SanPham extends javax.swing.JPanel {
         txt_PublishingYear.setText(modelSanPham.getValueAt(row, 7) + "");
         txt_PageCount.setText(modelSanPham.getValueAt(row, 8) + "");
         txt_Quantity.setText(modelSanPham.getValueAt(row, 9) + "");
-        String price = sanPhamDAO.selectbyId(new SanPham(modelSanPham.getValueAt(row, 0)+"")).getGia()+"";
+        String price = sanPhamDAO.selectbyId(new SanPham(modelSanPham.getValueAt(row, 0) + "")).getGia() + "";
         txt_Price.setText(price.substring(0, price.lastIndexOf(".")));
         lbl_ProductImage.setIcon(createImageIcon(modelSanPham.getValueAt(row, 11) + "", lbl_ProductImage));
         selectedImagePath = modelSanPham.getValueAt(row, 11) + "";

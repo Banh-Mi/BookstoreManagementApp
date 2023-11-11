@@ -1,4 +1,3 @@
-
 package gui;
 
 import com.toedter.calendar.JDateChooser;
@@ -24,8 +23,7 @@ public class JPanel_KhachHang extends javax.swing.JPanel {
 
     public JPanel_KhachHang() {
         initComponents();
-        if(ngonNgu==2)
-        {
+        if (ngonNgu == 2) {
             ChuyenDoiNN();
         }
         svgAdd.setSvgImage("add.svg", 40, 40);
@@ -71,8 +69,8 @@ public class JPanel_KhachHang extends javax.swing.JPanel {
         });
 
     }
-    public void ChuyenDoiNN()
-    {
+
+    public void ChuyenDoiNN() {
         lblCustomerID.setText("Customer ID:");
         lblFullName.setText("Full Name:");
         lblDob.setText("Date:");
@@ -85,7 +83,7 @@ public class JPanel_KhachHang extends javax.swing.JPanel {
         jbAdd.setText("Add");
         jbDelete.setText("Delete");
         jbRefresh.setText("Refresh");
-        jbEdit.setText("Edit");           
+        jbEdit.setText("Edit");
     }
 
     private void loadData() {
@@ -249,6 +247,11 @@ public class JPanel_KhachHang extends javax.swing.JPanel {
 
         jbAdd.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jbAdd.setText("Thêm");
+        jbAdd.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbAddMouseClicked(evt);
+            }
+        });
         jpAdd.add(jbAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 100, 50));
 
         svgAdd.setText(" ");
@@ -467,49 +470,99 @@ public class JPanel_KhachHang extends javax.swing.JPanel {
             khachHangDao.insertKhachHang(kh);
             loadData();
             settext();
-            showmess("Thêm dữ liệu thành công!");
+            if(ngonNgu==2)
+            {
+                 showmess("Data added successfully!");
+            }
+            else 
+            {
+               showmess("Thêm dữ liệu thành công!"); 
+            }
+            
         }
     }//GEN-LAST:event_jpAddMouseClicked
 
     private void jpEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpEditMouseClicked
-        int index = tableCustomer.getSelectedRow();
-        if (index >= 0) {
-            if (kiemtra()) {
-                String maKH = txtmaKhachHang.getText();
-                String hoTen = txtHoTen.getText();
-                String SDT = txtSDT.getText();
-                String Email = txtEmail.getText();
-                String diaChi = txtDiaChi.getText();
-                String gioiTinh = radnam.isSelected() ? "Nam" : "Nữ";
-                String theVip = cboboxthe.getSelectedItem().toString();
-                Date ngaysinh = txtNgaySinh.getDate();
-                Date ngaydangky = txtNgayDangKy.getDate();
-                KhachHang kh = new KhachHang(maKH, hoTen, SDT, Email, ngaysinh, diaChi, gioiTinh, theVip, ngaydangky);
-                khachHangDao = new KhachHangDAO();
-                khachHangDao.updateKhachHang(kh);
-                loadData();
-                settext();
-                showmess("Sửa dữ liệu thành công!");
+        if (ngonNgu == 2) {
+            int index = tableCustomer.getSelectedRow();
+            if (index >= 0) {
+                if (kiemtra()) {
+                    String maKH = txtmaKhachHang.getText();
+                    String hoTen = txtHoTen.getText();
+                    String SDT = txtSDT.getText();
+                    String Email = txtEmail.getText();
+                    String diaChi = txtDiaChi.getText();
+                    String gioiTinh = radnam.isSelected() ? "Nam" : "Nữ";
+                    String theVip = cboboxthe.getSelectedItem().toString();
+                    Date ngaysinh = txtNgaySinh.getDate();
+                    Date ngaydangky = txtNgayDangKy.getDate();
+                    KhachHang kh = new KhachHang(maKH, hoTen, SDT, Email, ngaysinh, diaChi, gioiTinh, theVip, ngaydangky);
+                    khachHangDao = new KhachHangDAO();
+                    khachHangDao.updateKhachHang(kh);
+                    loadData();
+                    settext();
+                    showmess("Data updated successfully!");
+                }
+            } else {
+                showmess("Please select a row to update");
             }
         } else {
-            showmess("Vui lòng chọn dòng muốn sửa");
+            int index = tableCustomer.getSelectedRow();
+            if (index >= 0) {
+                if (kiemtra()) {
+                    String maKH = txtmaKhachHang.getText();
+                    String hoTen = txtHoTen.getText();
+                    String SDT = txtSDT.getText();
+                    String Email = txtEmail.getText();
+                    String diaChi = txtDiaChi.getText();
+                    String gioiTinh = radnam.isSelected() ? "Nam" : "Nữ";
+                    String theVip = cboboxthe.getSelectedItem().toString();
+                    Date ngaysinh = txtNgaySinh.getDate();
+                    Date ngaydangky = txtNgayDangKy.getDate();
+                    KhachHang kh = new KhachHang(maKH, hoTen, SDT, Email, ngaysinh, diaChi, gioiTinh, theVip, ngaydangky);
+                    khachHangDao = new KhachHangDAO();
+                    khachHangDao.updateKhachHang(kh);
+                    loadData();
+                    settext();
+                    showmess("Sửa dữ liệu thành công!");
+                }
+            } else {
+                showmess("Vui lòng chọn dòng muốn sửa");
+            }
         }
     }//GEN-LAST:event_jpEditMouseClicked
 
     private void jpDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpDeleteMouseClicked
-        int[] selectedrows = tableCustomer.getSelectedRows();
-        if (selectedrows.length > 0) {
-            khachHangDao = new KhachHangDAO();
-            DefaultTableModel model = (DefaultTableModel) tableCustomer.getModel();
-            for (int i = selectedrows.length - 1; i >= 0; i--) {
-                int selectedrow = selectedrows[i];
-                String ma = tableCustomer.getValueAt(selectedrow, 0).toString();
-                khachHangDao.deleteKhachHang(ma);
+        if (ngonNgu == 2) {
+            int[] selectedrows = tableCustomer.getSelectedRows();
+            if (selectedrows.length > 0) {
+                khachHangDao = new KhachHangDAO();
+                DefaultTableModel model = (DefaultTableModel) tableCustomer.getModel();
+                for (int i = selectedrows.length - 1; i >= 0; i--) {
+                    int selectedrow = selectedrows[i];
+                    String ma = tableCustomer.getValueAt(selectedrow, 0).toString();
+                    khachHangDao.deleteKhachHang(ma);
+                }
+                loadData();
+                showmess("Deletion successful!");
+            } else {
+                showmess("Please select the row(s) you want to delete");
             }
-            loadData();
-            showmess("Xóa thành công!");
         } else {
-            showmess("Vui lòng chọn dòng muốn xóa");
+            int[] selectedrows = tableCustomer.getSelectedRows();
+            if (selectedrows.length > 0) {
+                khachHangDao = new KhachHangDAO();
+                DefaultTableModel model = (DefaultTableModel) tableCustomer.getModel();
+                for (int i = selectedrows.length - 1; i >= 0; i--) {
+                    int selectedrow = selectedrows[i];
+                    String ma = tableCustomer.getValueAt(selectedrow, 0).toString();
+                    khachHangDao.deleteKhachHang(ma);
+                }
+                loadData();
+                showmess("Xóa thành công!");
+            } else {
+                showmess("Vui lòng chọn dòng muốn xóa");
+            }
         }
     }//GEN-LAST:event_jpDeleteMouseClicked
 
@@ -517,38 +570,76 @@ public class JPanel_KhachHang extends javax.swing.JPanel {
         settext();
         loadData();
     }//GEN-LAST:event_jpRefreshMouseClicked
+
+    private void jbAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbAddMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbAddMouseClicked
     private boolean kiemtra() {
-        Boolean kiemtra = true;
-        try {
-            String maKH = txtmaKhachHang.getText();
-            String hoTen = txtHoTen.getText();
-            String SDT = txtSDT.getText();
-            String Email = txtEmail.getText();
-            String diaChi = txtDiaChi.getText();
-            String gioiTinh = "";
-            String theVip = cboboxthe.getSelectedItem().toString();
-            if (hoTen.equals("") || diaChi.equals("") || Email.equals("") || SDT.equals("")) {
-                showmess("Vui lòng nhập đầy đủ thông tin.");
-                kiemtra = false;
-            } else if (!SDT.matches("(84|0)[35789][0-9]{8}")) {
-                showmess("Số điện thoại gồm 10 số bắt đầu là 84 hoặc 0 tiếp theo là 3,5,7,8,9");
-                kiemtra = false;
-            } else if (!Email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
-                showmess("Email không có kí tự đặc biệt!");
-                kiemtra = false;
-            } else if (isDateRangeValid(txtNgaySinh) == false) {
-                showmess("Ngày sinh phải trước ngày hôm nay!");
-                kiemtra = false;
-            } else if (isDateRangeValid(txtNgayDangKy) == false) {
-                showmess("Ngày đăng ký phải trước ngày hôm nay!");
+        if (ngonNgu == 2) {
+            Boolean kiemtra = true;
+            try {
+                String maKH = txtmaKhachHang.getText();
+                String hoTen = txtHoTen.getText();
+                String SDT = txtSDT.getText();
+                String Email = txtEmail.getText();
+                String diaChi = txtDiaChi.getText();
+                String gioiTinh = "";
+                String theVip = cboboxthe.getSelectedItem().toString();
+                if (hoTen.equals("") || diaChi.equals("") || Email.equals("") || SDT.equals("")) {
+                    showmess("Please enter all required information.");
+                    kiemtra = false;
+                } else if (!SDT.matches("(84|0)[35789][0-9]{8}")) {
+                    showmess("Phone number must have 10 digits and start with 84 or 0, followed by 3, 5, 7, 8, 9.");
+                    kiemtra = false;
+                } else if (!Email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+                    showmess("Email should not contain special characters!");
+                    kiemtra = false;
+                } else if (isDateRangeValid(txtNgaySinh) == false) {
+                    showmess("Birthdate must be before today!");
+                    kiemtra = false;
+                } else if (isDateRangeValid(txtNgayDangKy) == false) {
+                    showmess("Registration date must be before today!");
+                    kiemtra = false;
+                }
+
+            } catch (Exception e) {
+                showmess("Birthdate or registration date is not in the correct format or is empty.");
                 kiemtra = false;
             }
+            return kiemtra;
+        } else {
+            Boolean kiemtra = true;
+            try {
+                String maKH = txtmaKhachHang.getText();
+                String hoTen = txtHoTen.getText();
+                String SDT = txtSDT.getText();
+                String Email = txtEmail.getText();
+                String diaChi = txtDiaChi.getText();
+                String gioiTinh = "";
+                String theVip = cboboxthe.getSelectedItem().toString();
+                if (hoTen.equals("") || diaChi.equals("") || Email.equals("") || SDT.equals("")) {
+                    showmess("Vui lòng nhập đầy đủ thông tin.");
+                    kiemtra = false;
+                } else if (!SDT.matches("(84|0)[35789][0-9]{8}")) {
+                    showmess("Số điện thoại gồm 10 số bắt đầu là 84 hoặc 0 tiếp theo là 3,5,7,8,9");
+                    kiemtra = false;
+                } else if (!Email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+                    showmess("Email không có kí tự đặc biệt!");
+                    kiemtra = false;
+                } else if (isDateRangeValid(txtNgaySinh) == false) {
+                    showmess("Ngày sinh phải trước ngày hôm nay!");
+                    kiemtra = false;
+                } else if (isDateRangeValid(txtNgayDangKy) == false) {
+                    showmess("Ngày đăng ký phải trước ngày hôm nay!");
+                    kiemtra = false;
+                }
 
-        } catch (Exception e) {
-            showmess("Ngày sinh hoặc ngày đăng ký không đúng định dạng hoặc rỗng ");
-            kiemtra = false;
+            } catch (Exception e) {
+                showmess("Ngày sinh hoặc ngày đăng ký không đúng định dạng hoặc rỗng ");
+                kiemtra = false;
+            }
+            return kiemtra;
         }
-        return kiemtra;
     }
 
     private void showmess(String ma) {
