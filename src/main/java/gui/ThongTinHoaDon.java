@@ -17,6 +17,7 @@ import java.util.Locale;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import static gui.GiaoDienDangNhap.ngonNgu;
 
 /**
  * @author Nguyễn Thanh Nhứt
@@ -45,6 +46,24 @@ public class ThongTinHoaDon extends javax.swing.JFrame {
         generateValue(hoaDon);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
+        if(ngonNgu==2)
+        {
+            chuyenNN();
+        }
+    }
+    public void chuyenNN()
+    {
+        jLabel10.setText("Phone: 0283.8940 390");
+        lbl_title.setText("SALES INVOICE");
+        jLabel6.setText("Invoice number:");
+        jLabel7.setText("Creation date");
+        jLabel8.setText("Customer:");
+        jLabel9.setText("Address:");
+        jLabel2.setText("Phone:");
+        jLabel21.setText("Employee responsible for invoicing");
+        jLabel15.setText("Total amount:");
+        jLabel17.setText("Discount:");
+        jLabel20.setText("Payment:");
     }
 
     private void generateValue(HoaDon hoaDon) {
@@ -214,22 +233,44 @@ public class ThongTinHoaDon extends javax.swing.JFrame {
 
         pnl_productList.setLayout(new java.awt.BorderLayout());
 
-        tbl_productList.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+        if(ngonNgu==2)
+        {
+            tbl_productList.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
 
-            },
-            new String [] {
-                "Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Đơn giá", "Thành tiền"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
+                },
+                new String [] {
+                    "Product ID", "Product Name", "Quantity", "Unit Price", "Total"
+                }
+            ) {
+                Class[] types = new Class [] {
+                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
+                public Class getColumnClass(int columnIndex) {
+                    return types [columnIndex];
+                }
+            });
+        }
+        else
+        {
+            tbl_productList.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
+
+                },
+                new String [] {
+                    "Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Đơn giá", "Thành tiền"
+                }
+            ) {
+                Class[] types = new Class [] {
+                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                };
+
+                public Class getColumnClass(int columnIndex) {
+                    return types [columnIndex];
+                }
+            });
+        }
         scr_prosuctList.setViewportView(tbl_productList);
         if (tbl_productList.getColumnModel().getColumnCount() > 0) {
             tbl_productList.getColumnModel().getColumn(0).setResizable(false);

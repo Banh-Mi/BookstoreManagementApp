@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package gui;
-
+import static gui.GiaoDienDangNhap.ngonNgu;
 /**
  *
  * @author VONG VINH LOI
@@ -16,8 +16,27 @@ public class JFrame_ChiTietKhachHang extends javax.swing.JFrame {
     public JFrame_ChiTietKhachHang() {
         setLocationRelativeTo(null);
         initComponents();
+        if(ngonNgu==2)
+        {
+            chuyenNN();
+        }
     }
-
+    public void chuyenNN()
+    {
+        lblCustomerID.setText("Customer ID:");
+        lblFullName.setText("FullName:");
+        lblDob.setText("Date of birth:");
+        lblGender.setText("Card:");
+        lblGender1.setText("Registration date:");
+        lblPhone.setText("Phone:");
+        lblGender2.setText("Gender:");
+        lblDoanhThuKH1.setText("Address:");
+        lblSoLuongHoaDonKH1.setText("Quantity of orders:");
+        lblSoLuongHoaDonKH.setText("Quantity of products:");
+        lblDoanhThuKH.setText("Total amount:");
+        thoat.setText("Exit");
+        jLabel1.setText("DETAILED CUSTOMER INFORMATION");
+  }
     public void chuyenDoiChu1(String maKH,String hoTen,String Email,String ngaySinh,String thevip,String ngayDangKy,String sDT,String gioiTinh,String sLNDK,String sLDonHang,String sLSanPham,String tongTien)
     {
         txtMaKH.setText(maKH);

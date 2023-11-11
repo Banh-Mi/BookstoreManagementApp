@@ -2045,7 +2045,11 @@ public class JPanel_BanHang extends javax.swing.JPanel {
                 public void actionPerformed(ActionEvent e) {
                     int row = thongTinKhachHang.getTbl_customerList().getSelectedRow();
                     if (row < 0) {
-                        JOptionPane.showMessageDialog(thongTinKhachHang, "Vui lòng chọn khách hàng!");
+                        if (ngonNgu == 2) {
+                            JOptionPane.showMessageDialog(thongTinKhachHang, "Please select a customer!");
+                        } else {
+                            JOptionPane.showMessageDialog(thongTinKhachHang, "Vui lòng chọn khách hàng!");
+                        }
                     } else {
                         lbl_customerIdSale.setText(thongTinKhachHang.getModelKhachHang().getValueAt(row, 0) + "");
                         lbl_customerNameSale.setText(thongTinKhachHang.getModelKhachHang().getValueAt(row, 1) + "");

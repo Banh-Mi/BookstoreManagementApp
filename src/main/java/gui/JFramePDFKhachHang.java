@@ -2,6 +2,7 @@
 package gui;
 
 
+import static gui.GiaoDienDangNhap.ngonNgu;
 import java.awt.Color;
 import java.awt.Font;
 import java.text.SimpleDateFormat;
@@ -40,6 +41,18 @@ public class JFramePDFKhachHang extends javax.swing.JFrame {
         txtSoLuongDonHang.setText(text1);
         txtTongTien1.setText(text2);
         txtsoLuongNguoiDangKy.setText(text3);
+         if(ngonNgu==2)
+        {
+            chuyenNN();
+        }
+    }
+    public void chuyenNN()
+    {
+        lblSoLuongHoaDonSP.setText("Quantity of products:");
+        lblDoanhThuSanPham.setText("Number of orders:");
+        lblSoLuongHoaDonSP1.setText("Total amount:");
+        lblDoanhThuSanPham1.setText("Number of registrations:");
+        jLabel1.setText("STATISTICS OF CUSTOMER LIST");
     }
     
 
@@ -106,22 +119,44 @@ public class JFramePDFKhachHang extends javax.swing.JFrame {
 
         tableKhachHang.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         tableKhachHang.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        tableKhachHang.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+        if(ngonNgu==2)
+        {
+            tableKhachHang.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
 
-            },
-            new String [] {
-                "Mã khách hàng", "Tên khách hàng", "Số điện thoại", "Giới tính", "Ngày đăng ký", "Số lượng HĐ", "Tổng tiền", "Tổng SP"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
+                },
+                new String [] {
+                    "Customer ID", "Customer Name", "Phone Number", "Gender", "Registration Date", "Number of Orders", "Total Amount", "Total Products"
+                }
+            ) {
+                Class[] types = new Class [] {
+                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
+                public Class getColumnClass(int columnIndex) {
+                    return types [columnIndex];
+                }
+            });
+        }
+        else
+        {
+            tableKhachHang.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
+
+                },
+                new String [] {
+                    "Mã khách hàng", "Tên khách hàng", "Số điện thoại", "Giới tính", "Ngày đăng ký", "Số lượng HĐ", "Tổng tiền", "Tổng SP"
+                }
+            ) {
+                Class[] types = new Class [] {
+                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                };
+
+                public Class getColumnClass(int columnIndex) {
+                    return types [columnIndex];
+                }
+            });
+        }
         tableKhachHang.setShowGrid(true);
         JTableHeader header = tableKhachHang.getTableHeader();
         header.setBackground(Color.BLUE); // Đặt màu nền cho header

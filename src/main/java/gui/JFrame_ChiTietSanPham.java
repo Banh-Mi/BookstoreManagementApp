@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package gui;
-
+import static gui.GiaoDienDangNhap.ngonNgu;
 /**
  *
  * @author VONG VINH LOI
@@ -17,6 +17,27 @@ public class JFrame_ChiTietSanPham extends javax.swing.JFrame {
         setResizable(false);
         setLocationRelativeTo(null);
         initComponents();
+        if(ngonNgu==2)
+        {
+            chuyenNN();
+        }
+    }
+    public void chuyenNN()
+    {
+        lbl_ProductId.setText("Product ID:");
+        lbl_ProductName.setText("Product Name:");
+        lbl_Supplier.setText("Supplier:");
+        lbl_Author.setText("Author:");
+        lbl_Publisher.setText("Publisher:");
+        lbl_Unit.setText("Unit:");
+        lbl_PageCount.setText("PageCount:");
+        lbl_Category.setText("Category:");
+        lbl_Quantity.setText("Quantity:");
+        lbl_Price1.setText("Pricel");
+        lbl_Price2.setText("Total amount:");
+        lbl_PublishingYear.setText("Publishing Year:");
+        thoat.setText("Exit");
+        jLabel1.setText("DETAILED PRODUCT INFORMATION");
     }
 
     /**
@@ -104,7 +125,7 @@ public class JFrame_ChiTietSanPham extends javax.swing.JFrame {
         });
 
         lbl_Price2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lbl_Price2.setText("Tổng tiền");
+        lbl_Price2.setText("Tổng tiền:");
 
         txtTongTien.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txtTongTien.addActionListener(new java.awt.event.ActionListener() {

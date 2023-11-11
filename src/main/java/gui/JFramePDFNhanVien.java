@@ -3,6 +3,7 @@ package gui;
 
 import dao.SanPhamDAO;
 import entity.SanPham;
+import static gui.GiaoDienDangNhap.ngonNgu;
 import java.awt.Color;
 import java.awt.Font;
 import java.text.SimpleDateFormat;
@@ -39,8 +40,17 @@ public class JFramePDFNhanVien extends javax.swing.JFrame {
         txtTieuChi.setText(toString);
         txtSluongSPBanDuoc.setText(text);
         txtTongTien.setText(text1);
+         if(ngonNgu==2)
+        {
+            chuyenNN();
+        }
     }
-    
+    public void chuyenNN()
+    {
+        lblSoLuongHoaDonSP.setText("Number of orders:");
+        lblDoanhThuSanPham.setText("Total amount:");
+        jLabel1.setText("STATISTICS OF EMPLOYEE LIST");
+    }
 
     private JFramePDFNhanVien() {
         throw new UnsupportedOperationException("Not supported yet."); // 
@@ -99,25 +109,50 @@ public class JFramePDFNhanVien extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(0, 255, 204));
         jLabel2.setText("-------------------------------------------------------------------------------------------------------------");
 
-        tableNhanVien.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
-            },
-            new String [] {
-                "Mã nhân viên", "Tên nhân viên", "Số lượng hoá đơn", "Tổng tiền", "Giảm giá", "Thành tiền"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
+        if(ngonNgu==2)
+        {
+            tableNhanVien.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
+                    {null, null, null, null, null, null},
+                    {null, null, null, null, null, null},
+                    {null, null, null, null, null, null},
+                    {null, null, null, null, null, null}
+                },
+                new String [] {
+                    "Employee ID", "Employee Name", "Number of Orders", "Total Amount", "Discount", "Total Payment"
+                }
+            ) {
+                Class[] types = new Class [] {
+                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
+                public Class getColumnClass(int columnIndex) {
+                    return types [columnIndex];
+                }
+            });
+        }
+        else
+        {
+            tableNhanVien.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
+                    {null, null, null, null, null, null},
+                    {null, null, null, null, null, null},
+                    {null, null, null, null, null, null},
+                    {null, null, null, null, null, null}
+                },
+                new String [] {
+                    "Mã nhân viên", "Tên nhân viên", "Số lượng hoá đơn", "Tổng tiền", "Giảm giá", "Thành tiền"
+                }
+            ) {
+                Class[] types = new Class [] {
+                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                };
+
+                public Class getColumnClass(int columnIndex) {
+                    return types [columnIndex];
+                }
+            });
+        }
         tableNhanVien.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tableNhanVienMouseClicked(evt);
@@ -198,16 +233,16 @@ public class JFramePDFNhanVien extends javax.swing.JFrame {
                                 .addComponent(jLabel7)
                                 .addGap(37, 37, 37)
                                 .addComponent(txtngaythang, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(lblSoLuongHoaDonSP)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtSluongSPBanDuoc, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(56, 56, 56)
-                                    .addComponent(lblDoanhThuSanPham)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtTongTien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(38, 38, 38)
+                                .addComponent(lblSoLuongHoaDonSP)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtSluongSPBanDuoc, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(56, 56, 56)
+                                .addComponent(lblDoanhThuSanPham)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(150, 150, 150)
                         .addComponent(jLabel4)

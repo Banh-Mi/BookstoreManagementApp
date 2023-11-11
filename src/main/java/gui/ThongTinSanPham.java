@@ -2,6 +2,7 @@ package gui;
 
 import dao.SanPhamDAO;
 import entity.SanPham;
+import static gui.GiaoDienDangNhap.ngonNgu;
 import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -15,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import org.imgscalr.Scalr;
 import util.JPanelRounded;
+import static gui.GiaoDienDangNhap.ngonNgu;
 
 /**
  * @author Nguyễn Thanh Nhứt
@@ -32,6 +34,19 @@ public class ThongTinSanPham extends javax.swing.JFrame {
         this.setDefaultCloseOperation(HIDE_ON_CLOSE);
         this.maSanPham = maSanPham;
         loadData();
+         if(ngonNgu==2)
+        {
+            chuyenNN();
+        }
+    }
+    public void chuyenNN()
+    {
+        lbl_quantity.setText("Quantity:");
+        lbl_price.setText("Price:");
+        lbl_description.setText("Description:");
+        lbl_inputQuantity.setText("input Quantity:");
+        lblAdd.setText("Add");
+        lblCancel.setText("Cancel");
     }
 
     public void loadData() {
