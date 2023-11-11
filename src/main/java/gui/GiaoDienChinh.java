@@ -141,7 +141,7 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
             }
         });
 
-        MenuItem menuQLNhaCC = new MenuItem(null, chuyenNN("Quản lý NCC", "Quản lý NCC"), new ActionListener() {
+        MenuItem menuQLNhaCC = new MenuItem(null, chuyenNN("Quản lý NCC", "Supplier management"), new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 pnView.removeAll();

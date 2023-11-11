@@ -26,16 +26,17 @@ import static util.Validator.checkEmpty;
 public class JPanel_TimKiemSanPham extends javax.swing.JPanel {
 
     private DefaultTableModel modelTimKiem;
-     private final String[] timSach = {"Mã sách", "Tên sách", "Danh mục", "Nhà cung cấp", "Đơn vị tính", "Tác giả", "Nhà xuất bản", "Năm xuất bản", "Số trang", "Số lượng", "Giá", "Mô tả"};
+    private final String[] timSach = {"Mã sách", "Tên sách", "Danh mục", "Nhà cung cấp", "Đơn vị tính", "Tác giả", "Nhà xuất bản", "Năm xuất bản", "Số trang", "Số lượng", "Giá", "Mô tả"};
+    private final String[] timSach1 = {"Book ID", "Book title", "Category", "Supplier", "Unit", "Author", "Publisher", "Publication year", "Number of pages", "Quantity", "Price", "Description"};
     private NhaCungCapDAO nhaCungCapDAO = new NhaCungCapDAO();
     private final String[] timSanPham = {"Mã sản phẩm", "Tên sản phẩm", "Danh mục", "Nhà cung cấp", "Đơn vị tính", "Số lượng", "Giá", "Mô tả"};
+    private final String[] timSanPham1 = {"Product code", "Product name", "Category", "Supplier", "Unit", "Quantity", "Price", "Description"};
     private SanPhamDAO sanPhamDAO;
     private NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
 
     public JPanel_TimKiemSanPham() {
         initComponents();
-        if(ngonNgu==2)
-        {
+        if (ngonNgu == 2) {
             ChuyenDoiNN();
         }
         svgDelete.setSvgImage("search.svg", 40, 40);
@@ -43,8 +44,8 @@ public class JPanel_TimKiemSanPham extends javax.swing.JPanel {
         loadCombobox();
         loadData();
     }
-     public void ChuyenDoiNN()
-    { 
+
+    public void ChuyenDoiNN() {
         lblTim.setText("Find:");
         lblEmail2.setText("Price:");
         lblTacGia.setText("Author:");
@@ -53,10 +54,10 @@ public class JPanel_TimKiemSanPham extends javax.swing.JPanel {
         lblTen.setText("Book Name:");
         lblSoTrang.setText("PageCount:");
         lblTrangThai.setText("Status");
-        lblNamXuatBan.setText("Publishing Year:");      
+        lblNamXuatBan.setText("Publishing Year:");
         jbDelete.setText("Find");
         jbRefresh.setText("Refresh");
-       
+
     }
 
     private void lamMoi() {
@@ -107,7 +108,11 @@ public class JPanel_TimKiemSanPham extends javax.swing.JPanel {
         txtTacGia.setEnabled(componentSach);
 //        lblDanhMuc.setVisible(!componentSach);
 
-        setTieuDeBang(componentSach, item);
+        if (ngonNgu == 2) {
+            setTieuDeBang1(componentSach, item);
+        } else {
+            setTieuDeBang(componentSach, item);
+        }
     }
 
     private void setTieuDeBang(boolean timSach, String item) {
@@ -125,6 +130,43 @@ public class JPanel_TimKiemSanPham extends javax.swing.JPanel {
             tableSanPham.setModel(modelTimKiem);
         }
 
+    }
+
+    private void setTieuDeBang1(boolean timSach1, String item) {
+        lblTieuDe.setText("SEARCH BOOK" );
+        if (timSach1) {
+            modelTimKiem = new DefaultTableModel(new Object[][]{}, this.timSach1);
+            tableSanPham.setModel(modelTimKiem);
+
+            lblMa.setText("Book ID:");
+            lblTen.setText("Book title:");
+        } else {
+            lblMa.setText("product ID:");
+            lblTen.setText("Product name:");
+            modelTimKiem = new DefaultTableModel(new Object[][]{}, timSanPham1);
+            tableSanPham.setModel(modelTimKiem);
+        }
+
+    }
+
+    public String doiTieuDe(String item) {
+        if (item.equals("Tất cả sản phẩm")) {
+            return "ALL PRODUCTS";
+        } else if (item.equals("Quà lưu niệm")) {
+            return "SOUVENIR";
+        } else if (item.equals("Sách")) {
+            return "BOOK";
+        } else if (item.equals("Đồ chơi")) {
+            return "TOYS";
+        } else if (item.equals("Văn phòng phẩm")) {
+            return "STATIONERY";
+        } else if (item.equals("Dụng cụ học tập")) {
+            return "SCHOOL SUPPLIES";
+        }
+        else 
+        {
+            return "";
+        }
     }
 
     private void loadData() {
@@ -214,21 +256,21 @@ public class JPanel_TimKiemSanPham extends javax.swing.JPanel {
 
         lblTen.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblTen.setText("Tên sách:");
-        jpChucNang.add(lblTen, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 20, -1, 40));
+        jpChucNang.add(lblTen, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 20, 140, 40));
 
         lblMa.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblMa.setText("Mã sách:");
-        jpChucNang.add(lblMa, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 20, -1, 40));
+        jpChucNang.add(lblMa, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 160, 140, 40));
 
         txtTen.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jpChucNang.add(txtTen, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 20, 210, 40));
+        jpChucNang.add(txtTen, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 20, 210, 40));
 
         txtMa.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jpChucNang.add(txtMa, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 20, 150, 40));
+        jpChucNang.add(txtMa, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 160, 150, 40));
 
         lblTrangThai.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblTrangThai.setText("Trạng thái:");
-        jpChucNang.add(lblTrangThai, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 20, -1, 40));
+        jpChucNang.add(lblTrangThai, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 20, -1, 40));
 
         jpTim.setBackground(new java.awt.Color(255, 255, 255));
         jpTim.setRoundedBottomLeft(10);
@@ -279,7 +321,7 @@ public class JPanel_TimKiemSanPham extends javax.swing.JPanel {
                 jcbTrangThaiActionPerformed(evt);
             }
         });
-        jpChucNang.add(jcbTrangThai, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 20, 160, 40));
+        jpChucNang.add(jcbTrangThai, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 20, 160, 40));
 
         txtNhaXuatBan.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jpChucNang.add(txtNhaXuatBan, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 90, 190, 40));
@@ -370,9 +412,9 @@ public class JPanel_TimKiemSanPham extends javax.swing.JPanel {
     }//GEN-LAST:event_jpLamMoiMouseClicked
 
     private void jcbTuyChonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbTuyChonActionPerformed
-       jcbTrangThai.setSelectedIndex(0);
+        jcbTrangThai.setSelectedIndex(0);
         loadData();
-    
+
     }//GEN-LAST:event_jcbTuyChonActionPerformed
 
     private void jcbTrangThaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbTrangThaiActionPerformed

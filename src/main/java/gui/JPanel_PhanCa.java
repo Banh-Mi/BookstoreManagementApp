@@ -30,8 +30,7 @@ public class JPanel_PhanCa extends javax.swing.JPanel {
 
     public JPanel_PhanCa() {
         initComponents();
-        if(ngonNgu==2)
-        {
+        if (ngonNgu == 2) {
             ChuyenDoiNN();
         }
         svgPhanCa.setSvgImage("add.svg", 40, 40);
@@ -45,8 +44,8 @@ public class JPanel_PhanCa extends javax.swing.JPanel {
         }
         setName();
     }
-     public void ChuyenDoiNN()
-    {
+
+    public void ChuyenDoiNN() {
         lblMaNhanVien.setText("Employee ID:");
         lblTenNV.setText("Employee Name:");
         lblNgayLam.setText("Day of work:");
@@ -55,7 +54,7 @@ public class JPanel_PhanCa extends javax.swing.JPanel {
         lblPhanCa.setText("WORK SHIFTS");
         jbAdd.setText("Shift");
         jbDelete.setText("Delete");
-        jbRefresh.setText("Refresh");        
+        jbRefresh.setText("Refresh");
     }
 
     private void setValue(String indexMa, String ngayLam, String indexCa) {
@@ -177,6 +176,9 @@ public class JPanel_PhanCa extends javax.swing.JPanel {
         jbXoa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jbXoaMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jbXoaMouseEntered(evt);
             }
         });
         jbXoa.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -315,41 +317,80 @@ public class JPanel_PhanCa extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbPhanCaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbPhanCaMouseClicked
-        phanCaLamViecDAO = new PhanCaLamViecDAO();
-        String maNV = (String) cbMaNhanVien.getSelectedItem();
-        String maCa = cbCa.getSelectedIndex() == 0 ? "CA001" : "CA002";
+        if (ngonNgu == 2) {
+            phanCaLamViecDAO = new PhanCaLamViecDAO();
+            String maNV = (String) cbMaNhanVien.getSelectedItem();
+            String maCa = cbCa.getSelectedIndex() == 0 ? "CA001" : "CA002";
 
-        if (!checkNull(jdNgayLam.getDate())) {
-            java.sql.Date ngayHienTai = new java.sql.Date(System.currentTimeMillis());
-            java.sql.Date ngayLam = new java.sql.Date(jdNgayLam.getDate().getTime());
-            if (ngayLam.after(ngayHienTai)) {
-                PhanCaLamViec phanCa = new PhanCaLamViec(maNV, maCa, ngayLam);
-                int kiemTra = phanCaLamViecDAO.phanCaLamViec(phanCa);
+            if (!checkNull(jdNgayLam.getDate())) {
+                java.sql.Date ngayHienTai = new java.sql.Date(System.currentTimeMillis());
+                java.sql.Date ngayLam = new java.sql.Date(jdNgayLam.getDate().getTime());
+                if (ngayLam.after(ngayHienTai)) {
+                    PhanCaLamViec phanCa = new PhanCaLamViec(maNV, maCa, ngayLam);
+                    int kiemTra = phanCaLamViecDAO.phanCaLamViec(phanCa);
 
-                switch (kiemTra) {
-                    case 0:
-                        JOptionPane.showMessageDialog(null, "Phân ca thất bại");
-                        break;
-                    case 1:
-                        lamMoi();
-                        JOptionPane.showMessageDialog(null, "Phân ca thành công");
-                        break;
+                    switch (kiemTra) {
+                        case 0:
+                            JOptionPane.showMessageDialog(null, "Shift assignment failed");
+                            break;
+                        case 1:
+                            lamMoi();
+                            JOptionPane.showMessageDialog(null, "Shift assigned successfully");
+                            break;
 
-                    case 2:
-                        JOptionPane.showMessageDialog(null, "Ca làm việc này đã được phân cho nhân viên khác");
-                        break;
-                    case 3:
-                        JOptionPane.showMessageDialog(null, "Nhân viên đã có ca làm việc ngày hôm đó");
-                        break;
-                    default:
-                        throw new AssertionError();
+                        case 2:
+                            JOptionPane.showMessageDialog(null, "This shift has already been assigned to another employee");
+                            break;
+                        case 3:
+                            JOptionPane.showMessageDialog(null, "The employee already has a work shift on that day");
+                            break;
+                        default:
+                            throw new AssertionError();
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Work date must be later than the current date");
                 }
-
             } else {
-                JOptionPane.showMessageDialog(null, "Ngày làm phải lớn hơn ngày hiện tại");
+                JOptionPane.showMessageDialog(null, "Please select a work date");
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Vui lòng chọn ngày làm");
+            phanCaLamViecDAO = new PhanCaLamViecDAO();
+            String maNV = (String) cbMaNhanVien.getSelectedItem();
+            String maCa = cbCa.getSelectedIndex() == 0 ? "CA001" : "CA002";
+
+            if (!checkNull(jdNgayLam.getDate())) {
+                java.sql.Date ngayHienTai = new java.sql.Date(System.currentTimeMillis());
+                java.sql.Date ngayLam = new java.sql.Date(jdNgayLam.getDate().getTime());
+                if (ngayLam.after(ngayHienTai)) {
+                    PhanCaLamViec phanCa = new PhanCaLamViec(maNV, maCa, ngayLam);
+                    int kiemTra = phanCaLamViecDAO.phanCaLamViec(phanCa);
+
+                    switch (kiemTra) {
+                        case 0:
+                            JOptionPane.showMessageDialog(null, "Phân ca thất bại");
+                            break;
+                        case 1:
+                            lamMoi();
+                            JOptionPane.showMessageDialog(null, "Phân ca thành công");
+                            break;
+
+                        case 2:
+                            JOptionPane.showMessageDialog(null, "Ca làm việc này đã được phân cho nhân viên khác");
+                            break;
+                        case 3:
+                            JOptionPane.showMessageDialog(null, "Nhân viên đã có ca làm việc ngày hôm đó");
+                            break;
+                        default:
+                            throw new AssertionError();
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Ngày làm phải lớn hơn ngày hiện tại");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Vui lòng chọn ngày làm");
+            }
         }
     }//GEN-LAST:event_jbPhanCaMouseClicked
 
@@ -373,46 +414,88 @@ public class JPanel_PhanCa extends javax.swing.JPanel {
     }//GEN-LAST:event_tablePhanCaMouseClicked
 
     private void jbXoaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbXoaMouseClicked
-        int[] selectedrows = tablePhanCa.getSelectedRows();
-        if (selectedrows.length > 0) {
-            phanCaLamViecDAO = new PhanCaLamViecDAO();
-            DefaultTableModel model = (DefaultTableModel) tablePhanCa.getModel();
-            int count = 0;
-            for (int i = selectedrows.length - 1; i >= 0; i--) {
-                int selectedrow = selectedrows[i];
-                String maNV = modelPhanCa.getValueAt(selectedrow, 0).toString();
-                String caLam = modelPhanCa.getValueAt(selectedrow, 3).toString().equals("Ca 1") ? "CA001" : "CA002";
-                String ngayLam = modelPhanCa.getValueAt(selectedrow, 6).toString();
-                setValue(maNV, ngayLam, caLam);
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                java.sql.Date defaultDate;
+        if (ngonNgu == 2) {
+            int[] selectedrows = tablePhanCa.getSelectedRows();
+            if (selectedrows.length > 0) {
+                phanCaLamViecDAO = new PhanCaLamViecDAO();
+                DefaultTableModel model = (DefaultTableModel) tablePhanCa.getModel();
+                int count = 0;
+                for (int i = selectedrows.length - 1; i >= 0; i--) {
+                    int selectedrow = selectedrows[i];
+                    String maNV = modelPhanCa.getValueAt(selectedrow, 0).toString();
+                    String caLam = modelPhanCa.getValueAt(selectedrow, 3).toString().equals("Ca 1") ? "CA001" : "CA002";
+                    String ngayLam = modelPhanCa.getValueAt(selectedrow, 6).toString();
+                    setValue(maNV, ngayLam, caLam);
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    java.sql.Date defaultDate;
 
-                try {
-                    defaultDate = new java.sql.Date(dateFormat.parse(ngayLam).getTime());
-                    PhanCaLamViec phanCa = new PhanCaLamViec(maNV, caLam, defaultDate);
-                    if (phanCaLamViecDAO.deleteCaLamViec(phanCa)) {
-                        count++;
+                    try {
+                        defaultDate = new java.sql.Date(dateFormat.parse(ngayLam).getTime());
+                        PhanCaLamViec phanCa = new PhanCaLamViec(maNV, caLam, defaultDate);
+                        if (phanCaLamViecDAO.deleteCaLamViec(phanCa)) {
+                            count++;
+                        }
+                    } catch (ParseException ex) {
+                        System.out.println(ex);
                     }
-                } catch (ParseException ex) {
-                    System.out.println(ex);
                 }
-            }
 
-            if (count == 0) {
-                JOptionPane.showMessageDialog(null, "Xóa thất bại");
+                if (count == 0) {
+                    JOptionPane.showMessageDialog(null, "Deletion failed");
+                } else {
+                    lamMoi();
+                    JOptionPane.showMessageDialog(null, "Deletion successful!");
+                }
+
             } else {
-                lamMoi();
-                JOptionPane.showMessageDialog(null, "Xóa thành công !");
+                JOptionPane.showMessageDialog(null, "Please select the row you want to delete");
             }
-
         } else {
-            JOptionPane.showMessageDialog(null, "Vui lòng chọn dòng muốn xoá");
+            int[] selectedrows = tablePhanCa.getSelectedRows();
+            if (selectedrows.length > 0) {
+                phanCaLamViecDAO = new PhanCaLamViecDAO();
+                DefaultTableModel model = (DefaultTableModel) tablePhanCa.getModel();
+                int count = 0;
+                for (int i = selectedrows.length - 1; i >= 0; i--) {
+                    int selectedrow = selectedrows[i];
+                    String maNV = modelPhanCa.getValueAt(selectedrow, 0).toString();
+                    String caLam = modelPhanCa.getValueAt(selectedrow, 3).toString().equals("Ca 1") ? "CA001" : "CA002";
+                    String ngayLam = modelPhanCa.getValueAt(selectedrow, 6).toString();
+                    setValue(maNV, ngayLam, caLam);
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    java.sql.Date defaultDate;
+
+                    try {
+                        defaultDate = new java.sql.Date(dateFormat.parse(ngayLam).getTime());
+                        PhanCaLamViec phanCa = new PhanCaLamViec(maNV, caLam, defaultDate);
+                        if (phanCaLamViecDAO.deleteCaLamViec(phanCa)) {
+                            count++;
+                        }
+                    } catch (ParseException ex) {
+                        System.out.println(ex);
+                    }
+                }
+
+                if (count == 0) {
+                    JOptionPane.showMessageDialog(null, "Xóa thất bại");
+                } else {
+                    lamMoi();
+                    JOptionPane.showMessageDialog(null, "Xóa thành công !");
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Vui lòng chọn dòng muốn xoá");
+            }
         }
     }//GEN-LAST:event_jbXoaMouseClicked
 
     private void cbCaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbCaActionPerformed
+
+    private void jbXoaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbXoaMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbXoaMouseEntered
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

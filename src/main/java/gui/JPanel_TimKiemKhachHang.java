@@ -16,8 +16,7 @@ public class JPanel_TimKiemKhachHang extends javax.swing.JPanel {
     public JPanel_TimKiemKhachHang() {
 
         initComponents();
-        if(ngonNgu==2)
-        {
+        if (ngonNgu == 2) {
             ChuyenDoiNN();
         }
         svgTimKiem1.setSvgImage("search.svg", 40, 40);
@@ -26,15 +25,15 @@ public class JPanel_TimKiemKhachHang extends javax.swing.JPanel {
         modelKhachHang = (DefaultTableModel) tableCustomer.getModel();
         loadData();
     }
-    public void ChuyenDoiNN()
-    {
+
+    public void ChuyenDoiNN() {
         lblCustomerID.setText("Customer ID:");
         lblFullName.setText("Full Name:");
         lblGender.setText("Card:");
         lblPhone.setText("Phone:");
         lblGender2.setText("Gender:");
         lblTTKM.setText("Discount Information:");
-        
+
         jbCustomerManagerment.setText("FINDING CUSTOMERS");
         lblTimKiem1.setText("Find");
         jbRefresh.setText("Refresh");
@@ -300,22 +299,17 @@ public class JPanel_TimKiemKhachHang extends javax.swing.JPanel {
 
     private void jbGuiMailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbGuiMailMouseClicked
         if (txtEmail1.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Vui lòng chọn khách hàng muốn gửi email");     
-        }
-        else 
-        {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn khách hàng muốn gửi email");
+        } else {
             EmailL Email = new EmailL();
-            if(txtThongTinKhuyenMai.getText().equals(""))
-            {
+            if (txtThongTinKhuyenMai.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Vui lòng nhập mã khuyến mãi");
-               
-            }
-            else 
-            {
-                Email.sendEmail1(txtEmail1.getText(), "Khuyễn mãi khách hàng", txtThongTinKhuyenMai.getText()); 
+
+            } else {
+                Email.sendEmail1(txtEmail1.getText(), "Chăm sóc khách hàng", txtThongTinKhuyenMai.getText());
+                JOptionPane.showMessageDialog(null, "Gửi gmail thành công!");
             }
         }
-
 
 
     }//GEN-LAST:event_jbGuiMailMouseClicked
@@ -355,18 +349,24 @@ public class JPanel_TimKiemKhachHang extends javax.swing.JPanel {
     }//GEN-LAST:event_jcbTheThanhVienActionPerformed
 
     private void jbTimKiemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbTimKiemMouseClicked
-        khachHangDao = new KhachHangDAO();
-        String maKH = txtmaKH.getText();
-        String SDT = txtSDT.getText();
-        String email = txtEmail1.getText();
-        String hoten = txtHoTen.getText();
-        String thevip = jcbTheThanhVien.getSelectedItem().toString().equals("Mặc định") ? null : jcbTheThanhVien.getSelectedItem().toString();
+        if (txtmaKH.getText().equals("")||txtSDT.getText().equals("")||txtEmail1.getText().equals("")||txtHoTen.getText().equals("")||jcbGioiTinh.getSelectedItem().toString().equals("Mặc định")||jcbTheThanhVien.getSelectedItem().toString().equals("Mặc định")) {
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập thông tin trước khi tìm kiếm!");
+        }
+        else 
+        {
+            khachHangDao = new KhachHangDAO();
+            String maKH = txtmaKH.getText();
+            String SDT = txtSDT.getText();
+            String email = txtEmail1.getText();
+            String hoten = txtHoTen.getText();
+            String thevip = jcbTheThanhVien.getSelectedItem().toString().equals("Mặc định") ? null : jcbTheThanhVien.getSelectedItem().toString();
 
-        String gioiTinh = jcbGioiTinh.getSelectedItem().toString().equals("Mặc định") ? null : jcbGioiTinh.getSelectedItem().toString();
-        modelKhachHang.setRowCount(0);
-        for (KhachHang kh : khachHangDao.timKhachHang(maKH, hoten, email, SDT, gioiTinh, thevip)) {
-            Object[] row = {kh.getMaKH(), kh.getTenKH(), kh.getEmail(), kh.getSoDienThoai(), kh.getGioiTinh(), kh.getTheVip()};
-            modelKhachHang.addRow(row);
+            String gioiTinh = jcbGioiTinh.getSelectedItem().toString().equals("Mặc định") ? null : jcbGioiTinh.getSelectedItem().toString();
+            modelKhachHang.setRowCount(0);
+            for (KhachHang kh : khachHangDao.timKhachHang(maKH, hoten, email, SDT, gioiTinh, thevip)) {
+                Object[] row = {kh.getMaKH(), kh.getTenKH(), kh.getEmail(), kh.getSoDienThoai(), kh.getGioiTinh(), kh.getTheVip()};
+                modelKhachHang.addRow(row);
+            }
         }
     }//GEN-LAST:event_jbTimKiemMouseClicked
 
@@ -375,7 +375,7 @@ public class JPanel_TimKiemKhachHang extends javax.swing.JPanel {
     }//GEN-LAST:event_jbTimKiemMouseEntered
 
     private void jpRefreshMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpRefreshMouseClicked
-        
+
         loadData();
     }//GEN-LAST:event_jpRefreshMouseClicked
     //xu ly tim kiem o day
