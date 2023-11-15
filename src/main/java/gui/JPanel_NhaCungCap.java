@@ -23,13 +23,12 @@ public class JPanel_NhaCungCap extends javax.swing.JPanel {
 
     public JPanel_NhaCungCap() {
         initComponents();
-        if(ngonNgu==2)
-        {
+        if (ngonNgu == 2) {
             ChuyenDoiNN();
         }
         svgAdd.setSvgImage("add.svg", 40, 40);
         svgEdit.setSvgImage("edit.svg", 35, 35);
-        svgDelete.setSvgImage("delete.svg", 40,40);
+        svgDelete.setSvgImage("delete.svg", 40, 40);
         svgRefresh.setSvgImage("refresh.svg", 35, 35);
         modelNhaCungCap = (DefaultTableModel) tableSupplier.getModel();
         nhaCungCapDAO = new NhaCungCapDAO();
@@ -51,8 +50,8 @@ public class JPanel_NhaCungCap extends javax.swing.JPanel {
         txtContactPerson.setText(nguoiLienHe);
 
     }
-    public void ChuyenDoiNN()
-    {
+
+    public void ChuyenDoiNN() {
         lbSupplierID.setText("Supplier ID:");
         lbSupplierName.setText("Supplier Name:");
         lblContactPerson.setText("Contact Person:");
@@ -63,7 +62,7 @@ public class JPanel_NhaCungCap extends javax.swing.JPanel {
         jbAdd.setText("Add");
         jbDelete.setText("Delete");
         jbRefresh.setText("Refresh");
-        jbEdit.setText("Edit");           
+        jbEdit.setText("Edit");
     }
 
     @SuppressWarnings("unchecked")
@@ -191,6 +190,11 @@ public class JPanel_NhaCungCap extends javax.swing.JPanel {
 
         jbAdd.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jbAdd.setText("Thêm");
+        jbAdd.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbAddMouseClicked(evt);
+            }
+        });
         jpAdd.add(jbAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 100, 50));
 
         svgAdd.setText(" ");
@@ -341,30 +345,58 @@ public class JPanel_NhaCungCap extends javax.swing.JPanel {
 
 
     private void jpAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpAddMouseClicked
-        nhaCungCapDAO = new NhaCungCapDAO();
+        if (ngonNgu == 2) {
+            nhaCungCapDAO = new NhaCungCapDAO();
 
-        String maNCC = txtSupplierID.getText();
-        if (maNCC.equals(nhaCungCapDAO.taoMaNCC())) {
-            String tenNCC = txtSupplierName.getText();
-            boolean trangThai = (cbStatus.getSelectedIndex() == 0);
-            String diaChi = txtAddress.getText();
-            String email = txtEmail.getText();
-            String soDienThoai = txtSoDienThoai.getText();
-            String nguoiLienHe = txtContactPerson.getText();
-            if (!checkEmpty(tenNCC) && !checkEmpty(diaChi) && !checkEmpty(nguoiLienHe) && !checkEmpty(soDienThoai) && !checkEmpty(email)) {
-                NhaCungCap nhaCungCap = new NhaCungCap(maNCC, tenNCC, trangThai, diaChi, email, soDienThoai, nguoiLienHe);
-                if (checkText(tenNCC, "Tên nhà cung cấp không hợp lệ") && checkPhone(soDienThoai, "Số điện thoại không hợp lệ") && checkName(nguoiLienHe, "Tên người liên hệ không hợp lệ") && checkName(diaChi, "Địa chỉ không hợp lệ") && checkMail(email, "Email không hợp lệ")) {
-                    if (nhaCungCapDAO.insert(nhaCungCap)) {
-                        loadData();
-                        JOptionPane.showMessageDialog(this, "Thêm thành công");
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Thêm không thành công");
+            String maNCC = txtSupplierID.getText();
+            if (maNCC.equals(nhaCungCapDAO.taoMaNCC())) {
+                String tenNCC = txtSupplierName.getText();
+                boolean trangThai = (cbStatus.getSelectedIndex() == 0);
+                String diaChi = txtAddress.getText();
+                String email = txtEmail.getText();
+                String soDienThoai = txtSoDienThoai.getText();
+                String nguoiLienHe = txtContactPerson.getText();
+                if (!checkEmpty(tenNCC) && !checkEmpty(diaChi) && !checkEmpty(nguoiLienHe) && !checkEmpty(soDienThoai) && !checkEmpty(email)) {
+                    NhaCungCap nhaCungCap = new NhaCungCap(maNCC, tenNCC, trangThai, diaChi, email, soDienThoai, nguoiLienHe);
+                    if (checkText(tenNCC, "Invalid supplier name") && checkPhone(soDienThoai, "Invalid phone number") && checkName(nguoiLienHe, "Invalid contact person name") && checkName(diaChi, "Invalid address") && checkMail(email, "Invalid email")) {
+                        if (nhaCungCapDAO.insert(nhaCungCap)) {
+                            loadData();
+                            JOptionPane.showMessageDialog(this, "Added successfully");
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Failed to add");
+                        }
                     }
-                }
 
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Cannot add an existing supplier");
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Không được thêm nhà cung cấp đã tồn tại");
+            nhaCungCapDAO = new NhaCungCapDAO();
+
+            String maNCC = txtSupplierID.getText();
+            if (maNCC.equals(nhaCungCapDAO.taoMaNCC())) {
+                String tenNCC = txtSupplierName.getText();
+                boolean trangThai = (cbStatus.getSelectedIndex() == 0);
+                String diaChi = txtAddress.getText();
+                String email = txtEmail.getText();
+                String soDienThoai = txtSoDienThoai.getText();
+                String nguoiLienHe = txtContactPerson.getText();
+                if (!checkEmpty(tenNCC) && !checkEmpty(diaChi) && !checkEmpty(nguoiLienHe) && !checkEmpty(soDienThoai) && !checkEmpty(email)) {
+                    NhaCungCap nhaCungCap = new NhaCungCap(maNCC, tenNCC, trangThai, diaChi, email, soDienThoai, nguoiLienHe);
+                    if (checkText(tenNCC, "Tên nhà cung cấp không hợp lệ") && checkPhone(soDienThoai, "Số điện thoại không hợp lệ") && checkName(nguoiLienHe, "Tên người liên hệ không hợp lệ") && checkName(diaChi, "Địa chỉ không hợp lệ") && checkMail(email, "Email không hợp lệ")) {
+                        if (nhaCungCapDAO.insert(nhaCungCap)) {
+                            loadData();
+                            JOptionPane.showMessageDialog(this, "Thêm thành công");
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Thêm không thành công");
+                        }
+                    }
+
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Không được thêm nhà cung cấp đã tồn tại");
+            }
         }
     }//GEN-LAST:event_jpAddMouseClicked
 
@@ -383,31 +415,61 @@ public class JPanel_NhaCungCap extends javax.swing.JPanel {
     }//GEN-LAST:event_tableSupplierMouseClicked
 
     private void jpEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpEditMouseClicked
-        int rowIndex = tableSupplier.getSelectedRow();
-        if (rowIndex < 0) {
-            JOptionPane.showMessageDialog(null, "Vui lòng chọn dòng muốn sửa");
-            setValue(nhaCungCapDAO.taoMaNCC(), "", "Đang làm", "", "", "", "");
-        } else {
-            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn sửa dòng này không?", "Xác nhận", JOptionPane.YES_OPTION) == JOptionPane.YES_OPTION) {
-                String maNCC = txtSupplierID.getText();
-                String tenNCC = txtSupplierName.getText();
-                boolean trangThai = (cbStatus.getSelectedIndex() == 0);
-                String diaChi = txtAddress.getText();
-                String email = txtEmail.getText();
-                String soDienThoai = txtSoDienThoai.getText();
-                String nguoiLienHe = txtContactPerson.getText();
-                if (!checkEmpty(tenNCC) && !checkEmpty(diaChi) && !checkEmpty(nguoiLienHe) && !checkEmpty(soDienThoai) && !checkEmpty(email)) {
-                    if (checkText(tenNCC, "Tên nhà cung cấp không hợp lệ") && checkPhone(soDienThoai, "Số điện thoại không hợp lệ") && checkName(nguoiLienHe, "Tên người liên hệ không hợp lệ") && checkName(diaChi, "Địa chỉ không hợp lệ") && checkMail(email, "Email không hợp lệ")) {
-                        NhaCungCap supplier = new NhaCungCap(maNCC, tenNCC, trangThai, diaChi, email, soDienThoai, nguoiLienHe);
-                        if (nhaCungCapDAO.update(supplier)) {
-                            loadData();
-                            JOptionPane.showMessageDialog(null, "Sửa thành công");
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Sửa thất bại");
+        if (ngonNgu == 2) {
+            int rowIndex = tableSupplier.getSelectedRow();
+            if (rowIndex < 0) {
+                JOptionPane.showMessageDialog(null, "Please select a row to edit");
+                setValue(nhaCungCapDAO.taoMaNCC(), "", "Working on it", "", "", "", "");
+            } else {
+                if (JOptionPane.showConfirmDialog(null, "Are you sure you want to edit this row?", "Confirm", JOptionPane.YES_OPTION) == JOptionPane.YES_OPTION) {
+                    String maNCC = txtSupplierID.getText();
+                    String tenNCC = txtSupplierName.getText();
+                    boolean trangThai = (cbStatus.getSelectedIndex() == 0);
+                    String diaChi = txtAddress.getText();
+                    String email = txtEmail.getText();
+                    String soDienThoai = txtSoDienThoai.getText();
+                    String nguoiLienHe = txtContactPerson.getText();
+                    if (!checkEmpty(tenNCC) && !checkEmpty(diaChi) && !checkEmpty(nguoiLienHe) && !checkEmpty(soDienThoai) && !checkEmpty(email)) {
+                        if (checkText(tenNCC, "Invalid supplier name") && checkPhone(soDienThoai, "Invalid phone number") && checkName(nguoiLienHe, "Invalid contact person name") && checkName(diaChi, "Invalid address") && checkMail(email, "Invalid email")) {
+                            NhaCungCap supplier = new NhaCungCap(maNCC, tenNCC, trangThai, diaChi, email, soDienThoai, nguoiLienHe);
+                            if (nhaCungCapDAO.update(supplier)) {
+                                loadData();
+                                JOptionPane.showMessageDialog(null, "Edit successful");
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Edit failed");
+                            }
                         }
                     }
-                }
 
+                }
+            }
+        } else {
+            int rowIndex = tableSupplier.getSelectedRow();
+            if (rowIndex < 0) {
+                JOptionPane.showMessageDialog(null, "Vui lòng chọn dòng muốn sửa");
+                setValue(nhaCungCapDAO.taoMaNCC(), "", "Đang làm", "", "", "", "");
+            } else {
+                if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn sửa dòng này không?", "Xác nhận", JOptionPane.YES_OPTION) == JOptionPane.YES_OPTION) {
+                    String maNCC = txtSupplierID.getText();
+                    String tenNCC = txtSupplierName.getText();
+                    boolean trangThai = (cbStatus.getSelectedIndex() == 0);
+                    String diaChi = txtAddress.getText();
+                    String email = txtEmail.getText();
+                    String soDienThoai = txtSoDienThoai.getText();
+                    String nguoiLienHe = txtContactPerson.getText();
+                    if (!checkEmpty(tenNCC) && !checkEmpty(diaChi) && !checkEmpty(nguoiLienHe) && !checkEmpty(soDienThoai) && !checkEmpty(email)) {
+                        if (checkText(tenNCC, "Tên nhà cung cấp không hợp lệ") && checkPhone(soDienThoai, "Số điện thoại không hợp lệ") && checkName(nguoiLienHe, "Tên người liên hệ không hợp lệ") && checkName(diaChi, "Địa chỉ không hợp lệ") && checkMail(email, "Email không hợp lệ")) {
+                            NhaCungCap supplier = new NhaCungCap(maNCC, tenNCC, trangThai, diaChi, email, soDienThoai, nguoiLienHe);
+                            if (nhaCungCapDAO.update(supplier)) {
+                                loadData();
+                                JOptionPane.showMessageDialog(null, "Sửa thành công");
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Sửa thất bại");
+                            }
+                        }
+                    }
+
+                }
             }
         }
     }//GEN-LAST:event_jpEditMouseClicked
@@ -419,22 +481,26 @@ public class JPanel_NhaCungCap extends javax.swing.JPanel {
     }//GEN-LAST:event_jpRefreshMouseClicked
 
     private void jpDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpDeleteMouseClicked
-        //        int rowIndex = tableSupplier.getSelectedRow();
-        //        if (rowIndex < 0) {
-            //            JOptionPane.showMessageDialog(null, "Vui lòng chọn dòng muốn xóa");
-            //            setValue(nhaCungCapDAO.createSupplierID(), "", "", "", "", "", 0);
-            //        } else {
-            //            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa không?", "Xác nhận", JOptionPane.YES_OPTION) == JOptionPane.YES_OPTION) {
-                //                if (nhaCungCapDAO.delete(txtSupplierID.getText())) {
-                    //                    modelNhaCungCap.removeRow(rowIndex);
-                    //                    setValue(nhaCungCapDAO.createSupplierID(), "", "", "", "", "", 0);
-                    //                    JOptionPane.showMessageDialog(this, "Xoá thành công");
-                    //                } else {
-                    //                    JOptionPane.showMessageDialog(this, "Xoá thất bại");
-                    //                }
-                //            }
-            //        }
+//                int rowIndex = tableSupplier.getSelectedRow();
+//                if (rowIndex < 0) {
+//                    JOptionPane.showMessageDialog(null, "Vui lòng chọn dòng muốn xóa");
+//                    setValue(nhaCungCapDAO.createSupplierID(), "", "", "", "", "", 0);
+//                } else {
+//                    if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa không?", "Xác nhận", JOptionPane.YES_OPTION) == JOptionPane.YES_OPTION) {
+//                        if (nhaCungCapDAO.delete(txtSupplierID.getText())) {
+//                            modelNhaCungCap.removeRow(rowIndex);
+//                            setValue(nhaCungCapDAO.createSupplierID(), "", "", "", "", "", 0);
+//                            JOptionPane.showMessageDialog(this, "Xoá thành công");
+//                        } else {
+//                            JOptionPane.showMessageDialog(this, "Xoá thất bại");
+//                        }
+//                    }
+//                }
     }//GEN-LAST:event_jpDeleteMouseClicked
+
+    private void jbAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbAddMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbAddMouseClicked
 
     private void loadData() {
         nhaCungCapDAO = new NhaCungCapDAO();

@@ -3,6 +3,7 @@ package gui;
 
 import dao.SanPhamDAO;
 import entity.SanPham;
+import static gui.GiaoDienDangNhap.ngonNgu;
 import java.awt.Color;
 import java.awt.Font;
 import java.text.SimpleDateFormat;
@@ -39,6 +40,16 @@ public class JFramePDFSanPham extends javax.swing.JFrame {
         txtTieuChi.setText(toString);
         txtSluongSPBanDuoc.setText(text);
         txtTongTien.setText(text1);
+        if(ngonNgu==2)
+        {
+            chuyenNN();
+        }
+    }
+    public void chuyenNN()
+    {
+        jLabel1.setText("PRODUCT LIST STATISTICS");
+        lblSoLuongHoaDonSP.setText("Quantity of products:");
+        lblDoanhThuSanPham.setText("Total amount:");
     }
     
 
@@ -101,22 +112,44 @@ public class JFramePDFSanPham extends javax.swing.JFrame {
 
         tableSanPham.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         tableSanPham.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        tableSanPham.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+        if(ngonNgu==2)
+        {
+            tableSanPham.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
 
-            },
-            new String [] {
-                "Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Thành tiền"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
+                },
+                new String [] {
+                    "Product ID", "Product Name", "Quantity", "Total"
+                }
+            ) {
+                Class[] types = new Class [] {
+                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
+                public Class getColumnClass(int columnIndex) {
+                    return types [columnIndex];
+                }
+            });
+        }
+        else
+        {
+            tableSanPham.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
+
+                },
+                new String [] {
+                    "Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Thành tiền"
+                }
+            ) {
+                Class[] types = new Class [] {
+                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                };
+
+                public Class getColumnClass(int columnIndex) {
+                    return types [columnIndex];
+                }
+            });
+        }
         tableSanPham.setGridColor(new java.awt.Color(0, 0, 0));
         tableSanPham.setSelectionForeground(new java.awt.Color(51, 255, 204));
         tableSanPham.setShowGrid(true);
@@ -265,7 +298,7 @@ public class JFramePDFSanPham extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 55, Short.MAX_VALUE))
+                .addGap(0, 80, Short.MAX_VALUE))
         );
 
         pack();

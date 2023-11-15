@@ -32,8 +32,7 @@ public class JPanel_KhuyenMai extends javax.swing.JPanel {
     public JPanel_KhuyenMai() {
 
         initComponents();
-        if(ngonNgu==2)
-        {
+        if (ngonNgu == 2) {
             ChuyenDoiNN();
         }
         svgAdd.setSvgImage("add.svg", 40, 40);
@@ -67,8 +66,8 @@ public class JPanel_KhuyenMai extends javax.swing.JPanel {
             }
         });
     }
-    public void ChuyenDoiNN()
-    {
+
+    public void ChuyenDoiNN() {
         lblDiscountID.setText("Discount ID:");
         lblNameProgram.setText("Name Program:");
         lblPercent.setText("Percent:");
@@ -79,7 +78,7 @@ public class JPanel_KhuyenMai extends javax.swing.JPanel {
         jbDelete.setText("Delete");
         jbRefresh.setText("Refresh");
         jbEdit.setText("Edit");
-        jbDiscountManagerment.setText("DISCOUNT MANAGERMENT");             
+        jbDiscountManagerment.setText("DISCOUNT MANAGERMENT");
     }
 
     private void loadData() {
@@ -454,19 +453,19 @@ public class JPanel_KhuyenMai extends javax.swing.JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             int[] selectedrows = tableDiscount.getSelectedRows(); // lay ra ds cac chi muc đc ch
-        if (selectedrows.length > 0) {
-            khuyenMaiDAO = new KhuyenMaiDAO();
-            for (int i =  0; i<selectedrows.length-1; i++) {
-                int selectedrow = selectedrows[i];
-                String ma = tableDiscount.getValueAt(selectedrow, 0).toString();
-                khuyenMaiDAO.deletekhuyenmai(ma);
-                loadData();
+            if (selectedrows.length > 0) {
+                khuyenMaiDAO = new KhuyenMaiDAO();
+                for (int i = 0; i < selectedrows.length - 1; i++) {
+                    int selectedrow = selectedrows[i];
+                    String ma = tableDiscount.getValueAt(selectedrow, 0).toString();
+                    khuyenMaiDAO.deletekhuyenmai(ma);
+                    loadData();
+                }
+
+                showmess("Xóa thành công!");
+            } else {
+                showmess("Vui lòng chọn dòng muốn xóa");
             }
-            
-            showmess("Xóa thành công!");
-        } else {
-            showmess("Vui lòng chọn dòng muốn xóa");
-        }
         }
 
     };
@@ -491,30 +490,57 @@ public class JPanel_KhuyenMai extends javax.swing.JPanel {
             khuyenMaiDAO.insertKhuyenMai(km);
             loadData();
             settext();
-            showmess("Thêm dữ liệu thành công!");
+            if (ngonNgu == 2) {
+                showmess("Data added successfully!");
+            } else {
+                showmess("Thêm dữ liệu thành công!");
+            }
+
         }
 
     }//GEN-LAST:event_jpAddMouseClicked
 
     private void jbEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbEditMouseClicked
-        int index = tableDiscount.getSelectedRow();
-        if (index >= 0) {
-            if (kiemTra()) {
-                String makm = txtmakm.getText();
-                String tenchuongtrinh = txttenchuongtrinh.getText();
-                Float phantram = Float.parseFloat(txtphamtramgiam.getText());
-                String mota = txtmota.getText();
-                Date ngaybatdau = txtngaybatdau.getDate();
-                Date ngayketthuc = txtngayketthuc.getDate();
-                KhuyenMai km = new KhuyenMai(makm, tenchuongtrinh, phantram, ngaybatdau, ngayketthuc, mota);
-                khuyenMaiDAO = new KhuyenMaiDAO();
-                khuyenMaiDAO.updatekhuyenmai(km);
-                loadData();
-                settext();
-                showmess("Sửa dữ liệu thành công!");
+        if (ngonNgu == 2) {
+            int index = tableDiscount.getSelectedRow();
+            if (index >= 0) {
+                if (kiemTra()) {
+                    String makm = txtmakm.getText();
+                    String tenchuongtrinh = txttenchuongtrinh.getText();
+                    Float phantram = Float.parseFloat(txtphamtramgiam.getText());
+                    String mota = txtmota.getText();
+                    Date ngaybatdau = txtngaybatdau.getDate();
+                    Date ngayketthuc = txtngayketthuc.getDate();
+                    KhuyenMai km = new KhuyenMai(makm, tenchuongtrinh, phantram, ngaybatdau, ngayketthuc, mota);
+                    khuyenMaiDAO = new KhuyenMaiDAO();
+                    khuyenMaiDAO.updatekhuyenmai(km);
+                    loadData();
+                    settext();
+                    showmess("Data updated successfully!");
+                }
+            } else {
+                showmess("Please select a row to update");
             }
         } else {
-            showmess("Vui lòng chọn dòng muốn sửa");
+            int index = tableDiscount.getSelectedRow();
+            if (index >= 0) {
+                if (kiemTra()) {
+                    String makm = txtmakm.getText();
+                    String tenchuongtrinh = txttenchuongtrinh.getText();
+                    Float phantram = Float.parseFloat(txtphamtramgiam.getText());
+                    String mota = txtmota.getText();
+                    Date ngaybatdau = txtngaybatdau.getDate();
+                    Date ngayketthuc = txtngayketthuc.getDate();
+                    KhuyenMai km = new KhuyenMai(makm, tenchuongtrinh, phantram, ngaybatdau, ngayketthuc, mota);
+                    khuyenMaiDAO = new KhuyenMaiDAO();
+                    khuyenMaiDAO.updatekhuyenmai(km);
+                    loadData();
+                    settext();
+                    showmess("Sửa dữ liệu thành công!");
+                }
+            } else {
+                showmess("Vui lòng chọn dòng muốn sửa");
+            }
         }
     }//GEN-LAST:event_jbEditMouseClicked
 
@@ -527,19 +553,36 @@ public class JPanel_KhuyenMai extends javax.swing.JPanel {
     }//GEN-LAST:event_scrollDiscountMouseClicked
 
     private void jbDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbDeleteMouseClicked
-        int[] selectedrows = tableDiscount.getSelectedRows();
-        if (selectedrows.length > 0) {
-            khuyenMaiDAO = new KhuyenMaiDAO();
-            for (int i = selectedrows.length - 1; i >= 0; i--) {
-                int selectedrow = selectedrows[i];
-                String ma = tableDiscount.getValueAt(selectedrow, 0).toString();
-                khuyenMaiDAO.deletekhuyenmai(ma);
+        if (ngonNgu == 2) {
+            int[] selectedrows = tableDiscount.getSelectedRows();
+            if (selectedrows.length > 0) {
+                khuyenMaiDAO = new KhuyenMaiDAO();
+                for (int i = selectedrows.length - 1; i >= 0; i--) {
+                    int selectedrow = selectedrows[i];
+                    String ma = tableDiscount.getValueAt(selectedrow, 0).toString();
+                    khuyenMaiDAO.deletekhuyenmai(ma);
+                }
+                loadData();
+                showmess("Deletion successful!");
+                tableDiscount.clearSelection();
+            } else {
+                showmess("Please select rows to delete");
             }
-            loadData();
-            showmess("Xóa thành công!");
-            tableDiscount.clearSelection();
         } else {
-            showmess("Vui lòng chọn dòng muốn xóa");
+            int[] selectedrows = tableDiscount.getSelectedRows();
+            if (selectedrows.length > 0) {
+                khuyenMaiDAO = new KhuyenMaiDAO();
+                for (int i = selectedrows.length - 1; i >= 0; i--) {
+                    int selectedrow = selectedrows[i];
+                    String ma = tableDiscount.getValueAt(selectedrow, 0).toString();
+                    khuyenMaiDAO.deletekhuyenmai(ma);
+                }
+                loadData();
+                showmess("Xóa thành công!");
+                tableDiscount.clearSelection();
+            } else {
+                showmess("Vui lòng chọn dòng muốn xóa");
+            }
         }
     }//GEN-LAST:event_jbDeleteMouseClicked
 
@@ -566,30 +609,57 @@ public class JPanel_KhuyenMai extends javax.swing.JPanel {
     }//GEN-LAST:event_jpDeleteMouseClicked
     // kiểm tra
     private boolean kiemTra() {
-        boolean kiemtra = true;
-        try {
-            String makm = txtmakm.getText();
-            String tenchuongtrinh = txttenchuongtrinh.getText();
-            String phantram = txtphamtramgiam.getText();
-            String mota = txtmota.getText();
-            if (txttenchuongtrinh.getText().equals("") || txtphamtramgiam.getText().equals("") || txtmota.getText().equals("")) {
-                JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin.");
+        if (ngonNgu == 2) {
+            boolean kiemtra = true;
+            try {
+                String makm = txtmakm.getText();
+                String tenchuongtrinh = txttenchuongtrinh.getText();
+                String phantram = txtphamtramgiam.getText();
+                String mota = txtmota.getText();
+                if (txttenchuongtrinh.getText().equals("") || txtphamtramgiam.getText().equals("") || txtmota.getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Please enter all required information.");
+                    kiemtra = false;
+                } else if (Float.parseFloat(phantram) < 1 || Float.parseFloat(phantram) > 50) {
+                    JOptionPane.showMessageDialog(null, "Discount percentage must be between 1% and 50%.");
+                    kiemtra = false;
+                } else if (!isDateRangeValid(txtngaybatdau, txtngayketthuc)) {
+                    JOptionPane.showMessageDialog(null, "Start date must be before the end date.");
+                    kiemtra = false;
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Please check the discount percentage.");
                 kiemtra = false;
-            } else if (Float.parseFloat(phantram) < 1 || Float.parseFloat(phantram) > 50) {
-                JOptionPane.showMessageDialog(null, "Phần trăm giảm phải từ 1% đến 50%");
-                kiemtra = false;
-            } else if (!isDateRangeValid(txtngaybatdau, txtngayketthuc)) {
-                JOptionPane.showMessageDialog(null, "Ngày bắt đầu phải trước ngày kết thúc.");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Start date or end date is not in the correct format or is empty.");
                 kiemtra = false;
             }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Vui lòng kiểm tra lại phần trăm giảm.");
-            kiemtra = false;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Ngày bắt đầu hoặc ngày kết thúc không đúng định dạng hoặc rỗng.");
-            kiemtra = false;
+            return kiemtra;
+        } else {
+            boolean kiemtra = true;
+            try {
+                String makm = txtmakm.getText();
+                String tenchuongtrinh = txttenchuongtrinh.getText();
+                String phantram = txtphamtramgiam.getText();
+                String mota = txtmota.getText();
+                if (txttenchuongtrinh.getText().equals("") || txtphamtramgiam.getText().equals("") || txtmota.getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin.");
+                    kiemtra = false;
+                } else if (Float.parseFloat(phantram) < 1 || Float.parseFloat(phantram) > 50) {
+                    JOptionPane.showMessageDialog(null, "Phần trăm giảm phải từ 1% đến 50%");
+                    kiemtra = false;
+                } else if (!isDateRangeValid(txtngaybatdau, txtngayketthuc)) {
+                    JOptionPane.showMessageDialog(null, "Ngày bắt đầu phải trước ngày kết thúc.");
+                    kiemtra = false;
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Vui lòng kiểm tra lại phần trăm giảm.");
+                kiemtra = false;
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Ngày bắt đầu hoặc ngày kết thúc không đúng định dạng hoặc rỗng.");
+                kiemtra = false;
+            }
+            return kiemtra;
         }
-        return kiemtra;
 
     }
 

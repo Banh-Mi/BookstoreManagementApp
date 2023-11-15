@@ -213,7 +213,12 @@ public final class GiaoDienChinh extends javax.swing.JFrame {
         MenuItem menuDangXuat = new MenuItem(iconLogout, chuyenNN("Đăng Xuất", "Log out"), new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                int result = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn đăng xuất?", "Xác nhận đăng xuất", JOptionPane.YES_NO_OPTION);
+                int result=0;
+                if (ngonNgu == 2) {
+                    result = JOptionPane.showConfirmDialog(null, "Are you sure you want to log out?", "Confirm Logout", JOptionPane.YES_NO_OPTION);
+                } else {
+                    result = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn đăng xuất?", "Xác nhận đăng xuất", JOptionPane.YES_NO_OPTION);
+                }
                 if (result == JOptionPane.YES_OPTION) {
                     try {
                         dangXuat();

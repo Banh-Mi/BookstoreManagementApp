@@ -146,6 +146,11 @@ public class JPanel_TimKiemKhachHang extends javax.swing.JPanel {
         jbGuiMail.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         svgGuiMail.setText(" ");
+        svgGuiMail.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                svgGuiMailMouseClicked(evt);
+            }
+        });
         jbGuiMail.add(svgGuiMail, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 40, 40));
 
         lblTimKiem.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -298,20 +303,33 @@ public class JPanel_TimKiemKhachHang extends javax.swing.JPanel {
     }//GEN-LAST:event_txtmaKHActionPerformed
 
     private void jbGuiMailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbGuiMailMouseClicked
-        if (txtEmail1.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Vui lòng chọn khách hàng muốn gửi email");
-        } else {
-            EmailL Email = new EmailL();
-            if (txtThongTinKhuyenMai.getText().equals("")) {
-                JOptionPane.showMessageDialog(null, "Vui lòng nhập mã khuyến mãi");
-
+        if (ngonNgu == 2) {
+            if (txtEmail1.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Please select the customer to send an email");
             } else {
-                Email.sendEmail1(txtEmail1.getText(), "Chăm sóc khách hàng", txtThongTinKhuyenMai.getText());
-                JOptionPane.showMessageDialog(null, "Gửi gmail thành công!");
+                EmailL Email = new EmailL();
+                if (txtThongTinKhuyenMai.getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Please enter the promotion code");
+
+                } else {
+                    Email.sendEmail1(txtEmail1.getText(), "Customer Care", txtThongTinKhuyenMai.getText());
+                    JOptionPane.showMessageDialog(null, "Email sent successfully!");
+                }
+            }
+        } else {
+            if (txtEmail1.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Vui lòng chọn khách hàng muốn gửi email");
+            } else {
+                EmailL Email = new EmailL();
+                if (txtThongTinKhuyenMai.getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Vui lòng nhập mã khuyến mãi");
+
+                } else {
+                    Email.sendEmail1(txtEmail1.getText(), "Chăm sóc khách hàng", txtThongTinKhuyenMai.getText());
+                    JOptionPane.showMessageDialog(null, "Gửi gmail thành công!");
+                }
             }
         }
-
-
     }//GEN-LAST:event_jbGuiMailMouseClicked
 
     private void jcbGioiTinhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbGioiTinhActionPerformed
@@ -349,11 +367,14 @@ public class JPanel_TimKiemKhachHang extends javax.swing.JPanel {
     }//GEN-LAST:event_jcbTheThanhVienActionPerformed
 
     private void jbTimKiemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbTimKiemMouseClicked
-        if (txtmaKH.getText().equals("")||txtSDT.getText().equals("")||txtEmail1.getText().equals("")||txtHoTen.getText().equals("")||jcbGioiTinh.getSelectedItem().toString().equals("Mặc định")||jcbTheThanhVien.getSelectedItem().toString().equals("Mặc định")) {
-            JOptionPane.showMessageDialog(null, "Vui lòng nhập thông tin trước khi tìm kiếm!");
-        }
-        else 
-        {
+        if (txtmaKH.getText().equals("") || txtSDT.getText().equals("") || txtEmail1.getText().equals("") || txtHoTen.getText().equals("") || jcbGioiTinh.getSelectedItem().toString().equals("Mặc định") || jcbTheThanhVien.getSelectedItem().toString().equals("Mặc định")) {
+            if (ngonNgu == 2) {
+                JOptionPane.showMessageDialog(null, "Please enter information before searching!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Vui lòng nhập thông tin trước khi tìm kiếm!");
+            }
+
+        } else {
             khachHangDao = new KhachHangDAO();
             String maKH = txtmaKH.getText();
             String SDT = txtSDT.getText();
@@ -378,6 +399,10 @@ public class JPanel_TimKiemKhachHang extends javax.swing.JPanel {
 
         loadData();
     }//GEN-LAST:event_jpRefreshMouseClicked
+
+    private void svgGuiMailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_svgGuiMailMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_svgGuiMailMouseClicked
     //xu ly tim kiem o day
     private void timMaKH(String makh) {
         modelKhachHang.setRowCount(0);

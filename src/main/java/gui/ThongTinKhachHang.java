@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import static gui.GiaoDienDangNhap.ngonNgu;
 
 /**
  * @author Nguyễn Thanh Nhứt
@@ -21,6 +22,11 @@ public class ThongTinKhachHang extends javax.swing.JFrame {
         this.setDefaultCloseOperation(HIDE_ON_CLOSE);
         modelKhachHang = (DefaultTableModel) tbl_customerList.getModel();
         loadData();
+        if(ngonNgu==2)
+        {
+            lbl_SearchCustomer.setText("Search Customer:");
+            btn_select.setText("Choose");
+        }
     }
 
     public void loadData() {
@@ -60,22 +66,45 @@ public class ThongTinKhachHang extends javax.swing.JFrame {
 
         scr_customerList.setPreferredSize(new java.awt.Dimension(452, 460));
 
-        tbl_customerList.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+        if(ngonNgu==2)
+        {
+            tbl_customerList.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
 
-            },
-            new String [] {
-                "Mã khách hàng", "Tên khách hàng", "SĐT", "Email", "Ngày sinh", "Địa chỉ", "Giới tính", "Thẻ thành viên", "Ngày Đăng ký"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
+                },
+                new String [] {
+                    "Customer ID", "Customer Name", "Phone Number", "Email", "Date of Birth", "Address", "Gender", "Membership Card", "Registration Date"
+                }
+            ) {
+                Class[] types = new Class [] {
+                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
+                public Class getColumnClass(int columnIndex) {
+                    return types [columnIndex];
+                }
+            });
+        }
+        else
+        {
+            tbl_customerList.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
+
+                },
+                new String [] {
+                    "Mã khách hàng", "Tên khách hàng", "SĐT", "Email", "Ngày sinh", "Địa chỉ", "Giới tính", "Thẻ thành viên", "Ngày Đăng ký"
+                }
+            ) {
+                Class[] types = new Class [] {
+                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                };
+
+                public Class getColumnClass(int columnIndex) {
+                    return types [columnIndex];
+                }
+            });
+
+        }
         scr_customerList.setViewportView(tbl_customerList);
 
         pnl_customerList.add(scr_customerList, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 880, 280));
@@ -102,6 +131,11 @@ public class ThongTinKhachHang extends javax.swing.JFrame {
 
         btn_select.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btn_select.setText("Chọn");
+        btn_select.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_selectMouseClicked(evt);
+            }
+        });
         pnl_customerList.add(btn_select, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 400, 80, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -153,6 +187,10 @@ public class ThongTinKhachHang extends javax.swing.JFrame {
             loadData();
         }
     }//GEN-LAST:event_txt_SearchCustomerKeyReleased
+
+    private void btn_selectMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_selectMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_selectMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_select;
