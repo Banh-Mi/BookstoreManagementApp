@@ -2350,6 +2350,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
     }//GEN-LAST:event_jpLXuatPDFKhachHangMouseClicked
 
     private void jbLXuatExcelDoanhThuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbLXuatExcelDoanhThuMouseClicked
+        
         if (modelDoanhThu.getRowCount() > 0) {
             if (JOptionPane.showConfirmDialog(null, "Bạn có muốn xuất excel không", "Xác nhận", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                 if (exportToExcel(tableDoanhThu, txtDoanhThu.getText())) {

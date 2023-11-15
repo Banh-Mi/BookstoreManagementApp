@@ -10,13 +10,18 @@ import entity.NhanVien;
 import entity.PhanCaLamViec;
 import entity.ThongTinPhanCaLamViec;
 import static gui.GiaoDienDangNhap.ngonNgu;
+import java.awt.Button;
+import java.awt.Color;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import static util.Validator.checkNull;
 
 /**
  *
@@ -27,6 +32,13 @@ public class JPanel_PhanCa extends javax.swing.JPanel {
     private final DefaultTableModel modelPhanCa;
     private PhanCaLamViecDAO phanCaLamViecDAO;
     private NhanVienDAO nhanVienDAO;
+    protected Date ngay1, ngay2, ngay3, ngay4, ngay5, ngay6, ngay7;
+    protected boolean ngayThuNhat = false, ngayThuHai = false, ngayThuBa = false, ngayThuTu = false, ngayThuNam = false, ngayThuSau = false, ngayThuBay = false;
+    Date currentDate = new Date();
+    Calendar calendar = Calendar.getInstance();
+
+    SimpleDateFormat dayFormat = new SimpleDateFormat("dd");
+    ArrayList<java.sql.Date> danhSachNgay = new ArrayList<>();
 
     public JPanel_PhanCa() {
         initComponents();
@@ -43,35 +55,19 @@ public class JPanel_PhanCa extends javax.swing.JPanel {
             cbMaNhanVien.addItem(nv.getMaNV());
         }
         setName();
+        loadDateOfWeeks();
+        setButton();
     }
 
     public void ChuyenDoiNN() {
         lblMaNhanVien.setText("Employee ID:");
         lblTenNV.setText("Employee Name:");
-        lblNgayLam.setText("Day of work:");
         lblMaNhanVien1.setText("shift:");
         jLabel3.setText("(*) Shift 1: From 9am - 4pm / Shift 2: From 4pm - 10pm");
         lblPhanCa.setText("WORK SHIFTS");
         jbAdd.setText("Shift");
         jbDelete.setText("Delete");
         jbRefresh.setText("Refresh");
-    }
-
-    private void setValue(String indexMa, String ngayLam, String indexCa) {
-        cbMaNhanVien.setSelectedItem(indexMa);
-        cbCa.setSelectedItem(indexCa);
-        if (ngayLam.trim().equals("")) {
-            jdNgayLam.setDate(null);
-        } else {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            java.sql.Date defaultDate;
-            try {
-                defaultDate = new java.sql.Date(dateFormat.parse(ngayLam).getTime());
-                jdNgayLam.setDate(defaultDate);
-            } catch (ParseException ex) {
-                Logger.getLogger(JPanel_NhanVien.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
     }
 
     private void setName() {
@@ -88,13 +84,92 @@ public class JPanel_PhanCa extends javax.swing.JPanel {
             Object row[] = {ttCa.getMaNV(), ttCa.getTenNV(), ttCa.getSoDienThoai(), ttCa.getTenCa(), ttCa.getThoiGianVao(), ttCa.getThoiGianRa(), ttCa.getNgay()};
             modelPhanCa.addRow(row);
         }
+    }
 
+    public java.sql.Date transformDate(java.util.Date ngay) {
+        return new java.sql.Date(ngay.getTime());
+    }
+
+    private void loadDateOfWeeks() {
+        calendar.setTime(currentDate);
+
+        calendar.add(Calendar.DAY_OF_WEEK, 1);
+        ngay1 = calendar.getTime();
+        btnN1.setText(dayFormat.format(ngay1));
+        calendar.add(Calendar.DAY_OF_WEEK, 1);
+        ngay2 = calendar.getTime();
+        btnN2.setText(dayFormat.format(ngay2));
+        calendar.add(Calendar.DAY_OF_WEEK, 1);
+        ngay3 = calendar.getTime();
+        btnN3.setText(dayFormat.format(ngay3));
+        calendar.add(Calendar.DAY_OF_WEEK, 1);
+        ngay4 = calendar.getTime();
+        btnN4.setText(dayFormat.format(ngay4));
+        calendar.add(Calendar.DAY_OF_WEEK, 1);
+        ngay5 = calendar.getTime();
+        btnN5.setText(dayFormat.format(ngay5));
+        calendar.add(Calendar.DAY_OF_WEEK, 1);
+        ngay6 = calendar.getTime();
+        btnN6.setText(dayFormat.format(ngay6));
+        calendar.add(Calendar.DAY_OF_WEEK, 1);
+        ngay7 = calendar.getTime();
+        btnN7.setText(dayFormat.format(ngay7));
+
+    }
+
+    private void buttonEnable(Date ngay, JButton btn) {
+        if (phanCaLamViecDAO.checkPhanCa(new PhanCaLamViec(cbMaNhanVien.getSelectedItem().toString(), cbCa.getSelectedItem().toString().equalsIgnoreCase("Ca 1") == true ? "CA001" : "CA002", transformDate(ngay))) != 1) {
+            btn.setEnabled(false);
+        } else {
+            btn.setEnabled(true);
+        }
+    }
+
+    private void setButtonSelected(JButton btn) {
+        btn.setSelected(false);
+    }
+
+    private void setButton() {
+        setButtonSelected(btnN1);
+        setButtonSelected(btnN2);
+        setButtonSelected(btnN3);
+        setButtonSelected(btnN4);
+        setButtonSelected(btnN5);
+        setButtonSelected(btnN6);
+        setButtonSelected(btnN7);
+        buttonEnable(this.ngay1, btnN1);
+        buttonEnable(this.ngay2, btnN2);
+        buttonEnable(this.ngay3, btnN3);
+        buttonEnable(this.ngay4, btnN4);
+        buttonEnable(this.ngay5, btnN5);
+        buttonEnable(this.ngay6, btnN6);
+        buttonEnable(this.ngay7, btnN7);
+
+    }
+
+    private boolean setChooser(boolean item, JButton btn, Date ngay) {
+        item = !item;
+        if (item) {
+            danhSachNgay.add(transformDate(ngay));
+            btn.setBackground(Color.blue);
+            btn.setForeground(Color.white);
+            jdNgayLam.setDate(ngay);
+        } else {
+            danhSachNgay.remove(new java.sql.Date(ngay.getTime()));
+            btn.setBackground(Color.white);
+            btn.setForeground(Color.black);
+            jdNgayLam.setDate(null);
+        }
+        return item;
     }
 
     private void lamMoi() {
         loadData();
-        setValue(cbMaNhanVien.getItemAt(0), "", cbCa.getItemAt(0));
         setName();
+        setButton();
+        cbCa.setSelectedIndex(0);
+        cbMaNhanVien.setSelectedIndex(0);
+        jdNgayLam.setDate(null);
     }
 
     @SuppressWarnings("unchecked")
@@ -119,9 +194,17 @@ public class JPanel_PhanCa extends javax.swing.JPanel {
         lblHienTen = new javax.swing.JLabel();
         lblMaNhanVien1 = new javax.swing.JLabel();
         cbCa = new javax.swing.JComboBox<>();
-        jdNgayLam = new com.toedter.calendar.JDateChooser();
-        lblNgayLam = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        btnN1 = new javax.swing.JButton();
+        btnN2 = new javax.swing.JButton();
+        btnN3 = new javax.swing.JButton();
+        btnN4 = new javax.swing.JButton();
+        btnN5 = new javax.swing.JButton();
+        btnN6 = new javax.swing.JButton();
+        btnN7 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jdNgayLam = new com.toedter.calendar.JDateChooser();
         panelDanhSachPhanCa = new javax.swing.JPanel();
         scrollPhanCa = new javax.swing.JScrollPane();
         tablePhanCa = new javax.swing.JTable();
@@ -177,9 +260,6 @@ public class JPanel_PhanCa extends javax.swing.JPanel {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jbXoaMouseClicked(evt);
             }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jbXoaMouseEntered(evt);
-            }
         });
         jbXoa.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -218,23 +298,28 @@ public class JPanel_PhanCa extends javax.swing.JPanel {
         panelChucNang.add(lblMaNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 140, 40));
 
         cbMaNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cbMaNhanVien.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbMaNhanVienMouseClicked(evt);
+            }
+        });
         cbMaNhanVien.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbMaNhanVienActionPerformed(evt);
             }
         });
-        panelChucNang.add(cbMaNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 20, 150, 40));
+        panelChucNang.add(cbMaNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 20, 170, 40));
 
         lblTenNV.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblTenNV.setText("Tên nhân viên:");
         panelChucNang.add(lblTenNV, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, 40));
 
         lblHienTen.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        panelChucNang.add(lblHienTen, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 80, 290, 40));
+        panelChucNang.add(lblHienTen, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 80, 250, 40));
 
         lblMaNhanVien1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblMaNhanVien1.setText("Ca:");
-        panelChucNang.add(lblMaNhanVien1, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 20, 110, 40));
+        panelChucNang.add(lblMaNhanVien1, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 20, 50, 40));
 
         cbCa.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         cbCa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ca 1", "Ca 2" }));
@@ -243,16 +328,79 @@ public class JPanel_PhanCa extends javax.swing.JPanel {
                 cbCaActionPerformed(evt);
             }
         });
-        panelChucNang.add(cbCa, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 20, 130, 40));
-        panelChucNang.add(jdNgayLam, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 20, 190, 40));
-
-        lblNgayLam.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblNgayLam.setText("Ngày làm:");
-        panelChucNang.add(lblNgayLam, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 20, -1, 40));
+        panelChucNang.add(cbCa, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 20, 130, 40));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
         jLabel3.setText("(*) Ca 1: Từ 9h - 16h / Ca 2: Từ 16h - 22h ");
-        panelChucNang.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 80, 390, 40));
+        panelChucNang.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 20, 280, 40));
+
+        btnN1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnN1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnN1MouseClicked(evt);
+            }
+        });
+        panelChucNang.add(btnN1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 80, 60, 40));
+
+        btnN2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnN2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnN2MouseClicked(evt);
+            }
+        });
+        panelChucNang.add(btnN2, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 80, 60, 40));
+
+        btnN3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnN3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnN3MouseClicked(evt);
+            }
+        });
+        panelChucNang.add(btnN3, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 80, 60, 40));
+
+        btnN4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnN4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnN4MouseClicked(evt);
+            }
+        });
+        panelChucNang.add(btnN4, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 80, 60, 40));
+
+        btnN5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnN5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnN5MouseClicked(evt);
+            }
+        });
+        panelChucNang.add(btnN5, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 80, 60, 40));
+
+        btnN6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnN6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnN6MouseClicked(evt);
+            }
+        });
+        panelChucNang.add(btnN6, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 80, 60, 40));
+
+        btnN7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnN7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnN7MouseClicked(evt);
+            }
+        });
+        panelChucNang.add(btnN7, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 80, 60, 40));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel2.setText("7 ngày tiếp theo:");
+        panelChucNang.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 80, 160, 40));
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel4.setText("Ngày:");
+        panelChucNang.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 20, 60, 40));
+
+        jdNgayLam.setEnabled(false);
+        jdNgayLam.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        panelChucNang.add(jdNgayLam, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 20, 260, 40));
 
         add(panelChucNang, java.awt.BorderLayout.CENTER);
 
@@ -317,81 +465,29 @@ public class JPanel_PhanCa extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbPhanCaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbPhanCaMouseClicked
-        if (ngonNgu == 2) {
-            phanCaLamViecDAO = new PhanCaLamViecDAO();
-            String maNV = (String) cbMaNhanVien.getSelectedItem();
-            String maCa = cbCa.getSelectedIndex() == 0 ? "CA001" : "CA002";
-
-            if (!checkNull(jdNgayLam.getDate())) {
-                java.sql.Date ngayHienTai = new java.sql.Date(System.currentTimeMillis());
-                java.sql.Date ngayLam = new java.sql.Date(jdNgayLam.getDate().getTime());
-                if (ngayLam.after(ngayHienTai)) {
-                    PhanCaLamViec phanCa = new PhanCaLamViec(maNV, maCa, ngayLam);
-                    int kiemTra = phanCaLamViecDAO.phanCaLamViec(phanCa);
-
-                    switch (kiemTra) {
-                        case 0:
-                            JOptionPane.showMessageDialog(null, "Shift assignment failed");
-                            break;
-                        case 1:
-                            lamMoi();
-                            JOptionPane.showMessageDialog(null, "Shift assigned successfully");
-                            break;
-
-                        case 2:
-                            JOptionPane.showMessageDialog(null, "This shift has already been assigned to another employee");
-                            break;
-                        case 3:
-                            JOptionPane.showMessageDialog(null, "The employee already has a work shift on that day");
-                            break;
-                        default:
-                            throw new AssertionError();
-                    }
-
-                } else {
-                    JOptionPane.showMessageDialog(null, "Work date must be later than the current date");
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "Please select a work date");
-            }
+        int loi = 0;
+        if (danhSachNgay.size() == 0) {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn ngày cần phân ca");
+            loi++;
         } else {
-            phanCaLamViecDAO = new PhanCaLamViecDAO();
-            String maNV = (String) cbMaNhanVien.getSelectedItem();
-            String maCa = cbCa.getSelectedIndex() == 0 ? "CA001" : "CA002";
+            for (java.sql.Date ngay : danhSachNgay) {
+                try {
+                    phanCaLamViecDAO.phanCaLamViec(new PhanCaLamViec(cbMaNhanVien.getSelectedItem().toString(), cbCa.getSelectedItem().toString().equalsIgnoreCase("Ca 1") == true ? "CA001" : "CA002", transformDate(ngay)));
 
-            if (!checkNull(jdNgayLam.getDate())) {
-                java.sql.Date ngayHienTai = new java.sql.Date(System.currentTimeMillis());
-                java.sql.Date ngayLam = new java.sql.Date(jdNgayLam.getDate().getTime());
-                if (ngayLam.after(ngayHienTai)) {
-                    PhanCaLamViec phanCa = new PhanCaLamViec(maNV, maCa, ngayLam);
-                    int kiemTra = phanCaLamViecDAO.phanCaLamViec(phanCa);
-
-                    switch (kiemTra) {
-                        case 0:
-                            JOptionPane.showMessageDialog(null, "Phân ca thất bại");
-                            break;
-                        case 1:
-                            lamMoi();
-                            JOptionPane.showMessageDialog(null, "Phân ca thành công");
-                            break;
-
-                        case 2:
-                            JOptionPane.showMessageDialog(null, "Ca làm việc này đã được phân cho nhân viên khác");
-                            break;
-                        case 3:
-                            JOptionPane.showMessageDialog(null, "Nhân viên đã có ca làm việc ngày hôm đó");
-                            break;
-                        default:
-                            throw new AssertionError();
-                    }
-
-                } else {
-                    JOptionPane.showMessageDialog(null, "Ngày làm phải lớn hơn ngày hiện tại");
+                } catch (Exception e) {
+                    loi++;
+                    System.out.println(e);
                 }
-            } else {
-                JOptionPane.showMessageDialog(null, "Vui lòng chọn ngày làm");
             }
         }
+        if (loi == 0) {
+            JOptionPane.showMessageDialog(null, "Thêm thành công");
+            lamMoi();
+        } else {
+            JOptionPane.showMessageDialog(null, "Thêm thất bại");
+            lamMoi();
+        }
+
     }//GEN-LAST:event_jbPhanCaMouseClicked
 
     private void jbLamMoiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbLamMoiMouseClicked
@@ -399,9 +495,27 @@ public class JPanel_PhanCa extends javax.swing.JPanel {
     }//GEN-LAST:event_jbLamMoiMouseClicked
 
     private void cbMaNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMaNhanVienActionPerformed
-        setName();        // TODO add your handling code here:
+        setName();
+        if (cbMaNhanVien.getItemCount() > 0 && ngay1 != null && ngay2 != null && ngay3 != null && ngay4 != null && ngay5 != null && ngay6 != null && ngay7 != null) {
+            setButton();
+        }
     }//GEN-LAST:event_cbMaNhanVienActionPerformed
-
+    private void setValue(String indexMa, String ngayLam, String indexCa) {
+        cbMaNhanVien.setSelectedItem(indexMa);
+        cbCa.setSelectedItem(indexCa);
+        if (ngayLam.trim().equals("")) {
+            jdNgayLam.setDate(null);
+        } else {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            java.sql.Date defaultDate;
+            try {
+                defaultDate = new java.sql.Date(dateFormat.parse(ngayLam).getTime());
+                jdNgayLam.setDate(defaultDate);
+            } catch (ParseException ex) {
+                Logger.getLogger(JPanel_NhanVien.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
     private void tablePhanCaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablePhanCaMouseClicked
         int rowIndex = tablePhanCa.getSelectedRow();
         if (rowIndex >= 0) {
@@ -490,18 +604,60 @@ public class JPanel_PhanCa extends javax.swing.JPanel {
     }//GEN-LAST:event_jbXoaMouseClicked
 
     private void cbCaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCaActionPerformed
-        // TODO add your handling code here:
+        setButton();
     }//GEN-LAST:event_cbCaActionPerformed
 
     private void jbXoaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbXoaMouseEntered
         // TODO add your handling code here:
     }//GEN-LAST:event_jbXoaMouseEntered
 
+    private void btnN1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnN1MouseClicked
+        ngayThuNhat = setChooser(ngayThuNhat, btnN1, ngay1);
+    }//GEN-LAST:event_btnN1MouseClicked
+
+    private void btnN2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnN2MouseClicked
+        ngayThuHai = setChooser(ngayThuHai, btnN2, ngay2);
+    }//GEN-LAST:event_btnN2MouseClicked
+
+    private void btnN3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnN3MouseClicked
+        ngayThuBa = setChooser(ngayThuBa, btnN3, ngay3);
+    }//GEN-LAST:event_btnN3MouseClicked
+
+    private void btnN4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnN4MouseClicked
+        ngayThuTu = setChooser(ngayThuTu, btnN4, ngay4);
+    }//GEN-LAST:event_btnN4MouseClicked
+
+    private void btnN5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnN5MouseClicked
+        ngayThuNam = setChooser(ngayThuNam, btnN5, ngay5);
+    }//GEN-LAST:event_btnN5MouseClicked
+
+    private void btnN7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnN7MouseClicked
+        ngayThuBay = setChooser(ngayThuBay, btnN7, ngay7);
+    }//GEN-LAST:event_btnN7MouseClicked
+
+    private void btnN6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnN6MouseClicked
+
+        ngayThuSau = setChooser(ngayThuSau, btnN6, ngay6);
+    }//GEN-LAST:event_btnN6MouseClicked
+
+    private void cbMaNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbMaNhanVienMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbMaNhanVienMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnN1;
+    private javax.swing.JButton btnN2;
+    private javax.swing.JButton btnN3;
+    private javax.swing.JButton btnN4;
+    private javax.swing.JButton btnN5;
+    private javax.swing.JButton btnN6;
+    private javax.swing.JButton btnN7;
     private javax.swing.JComboBox<String> cbCa;
     private javax.swing.JComboBox<String> cbMaNhanVien;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jbAdd;
     private javax.swing.JLabel jbDelete;
     private util.JPanelRounded jbLamMoi;
@@ -512,7 +668,6 @@ public class JPanel_PhanCa extends javax.swing.JPanel {
     private javax.swing.JLabel lblHienTen;
     private javax.swing.JLabel lblMaNhanVien;
     private javax.swing.JLabel lblMaNhanVien1;
-    private javax.swing.JLabel lblNgayLam;
     private javax.swing.JLabel lblPhanCa;
     private javax.swing.JLabel lblTenNV;
     private javax.swing.JPanel panelChucNang;

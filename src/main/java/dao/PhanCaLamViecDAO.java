@@ -67,6 +67,25 @@ public class PhanCaLamViecDAO {
 
         return 0;
     }
+    public int checkPhanCa(PhanCaLamViec phanCaLamViec) {
+        ConnectDB.getInstance();
+        Connection con = ConnectDB.getConnection();
+        CallableStatement cstmt = null;
+        try {
+            String sql = "{call CheckPhanCa(?,?,?,?)}";
+            cstmt = con.prepareCall(sql);
+            cstmt.setString(1, phanCaLamViec.getMaNV());
+            cstmt.setString(2, phanCaLamViec.getMaCaLamViec());
+            cstmt.setDate(3, phanCaLamViec.getNgay());
+            cstmt.registerOutParameter(4, java.sql.Types.INTEGER);
+            cstmt.execute();
+            return cstmt.getInt(4);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return 0;
+    }
 
     public boolean deleteCaLamViec(PhanCaLamViec phanCaLamViec) {
         Connection con = ConnectDB.getInstance().getConnection();

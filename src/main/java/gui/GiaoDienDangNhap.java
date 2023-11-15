@@ -165,9 +165,14 @@ public class GiaoDienDangNhap extends javax.swing.JFrame {
         txtUserName.setBackground(new java.awt.Color(0, 133, 255));
         txtUserName.setFont(txtUserName.getFont().deriveFont(txtUserName.getFont().getSize()+2f));
         txtUserName.setForeground(new java.awt.Color(255, 255, 255));
-        txtUserName.setText(" NV001");
+        txtUserName.setText("NV001");
         txtUserName.setBorder(null);
         txtUserName.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtUserName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUserNameActionPerformed(evt);
+            }
+        });
         jpRight.add(txtUserName, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, 290, 30));
 
         jSeparator1.setBackground(new java.awt.Color(255, 255, 255));
@@ -182,7 +187,7 @@ public class GiaoDienDangNhap extends javax.swing.JFrame {
         txtPassword.setBackground(new java.awt.Color(0, 133, 255));
         txtPassword.setFont(txtPassword.getFont().deriveFont(txtPassword.getFont().getSize()+2f));
         txtPassword.setForeground(new java.awt.Color(255, 255, 255));
-        txtPassword.setText("1111");
+        txtPassword.setText("2222");
         txtPassword.setBorder(null);
         txtPassword.setCaretColor(new java.awt.Color(255, 255, 255));
         txtPassword.addActionListener(new java.awt.event.ActionListener() {
@@ -281,6 +286,10 @@ public class GiaoDienDangNhap extends javax.swing.JFrame {
     private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPasswordActionPerformed
+
+    private void txtUserNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUserNameActionPerformed
     public static int getngonngu()
     {
         return ngonNgu;
