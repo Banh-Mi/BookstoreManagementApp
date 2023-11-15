@@ -92,7 +92,6 @@ public class JPanel_PhanCa extends javax.swing.JPanel {
 
     private void loadDateOfWeeks() {
         calendar.setTime(currentDate);
-
         calendar.add(Calendar.DAY_OF_WEEK, 1);
         ngay1 = calendar.getTime();
         btnN1.setText(dayFormat.format(ngay1));
@@ -118,10 +117,10 @@ public class JPanel_PhanCa extends javax.swing.JPanel {
     }
 
     private void buttonEnable(Date ngay, JButton btn) {
-        if (phanCaLamViecDAO.checkPhanCa(new PhanCaLamViec(cbMaNhanVien.getSelectedItem().toString(), cbCa.getSelectedItem().toString().equalsIgnoreCase("Ca 1") == true ? "CA001" : "CA002", transformDate(ngay))) != 1) {
-            btn.setEnabled(false);
-        } else {
+        if (phanCaLamViecDAO.checkPhanCa(new PhanCaLamViec(cbMaNhanVien.getSelectedItem().toString(), cbCa.getSelectedItem().toString().equalsIgnoreCase("Ca 1") == true ? "CA001" : "CA002", transformDate(ngay))) == 1) {
             btn.setEnabled(true);
+        } else {
+            btn.setEnabled(false);
         }
     }
 
@@ -144,21 +143,32 @@ public class JPanel_PhanCa extends javax.swing.JPanel {
         buttonEnable(this.ngay5, btnN5);
         buttonEnable(this.ngay6, btnN6);
         buttonEnable(this.ngay7, btnN7);
+        ngayThuNhat = setChooser(true, btnN1, ngay1);
+        ngayThuHai = setChooser(true, btnN2, ngay2);
+        ngayThuBa = setChooser(true, btnN3, ngay3);
+        ngayThuTu = setChooser(true, btnN4, ngay4);
+        ngayThuNam = setChooser(true, btnN5, ngay5);
+        ngayThuSau = setChooser(true, btnN6, ngay6);
+        ngayThuBay = setChooser(true, btnN7, ngay7);
 
     }
 
     private boolean setChooser(boolean item, JButton btn, Date ngay) {
-        item = !item;
-        if (item) {
-            danhSachNgay.add(transformDate(ngay));
-            btn.setBackground(Color.blue);
-            btn.setForeground(Color.white);
-            jdNgayLam.setDate(ngay);
-        } else {
-            danhSachNgay.remove(new java.sql.Date(ngay.getTime()));
-            btn.setBackground(Color.white);
-            btn.setForeground(Color.black);
-            jdNgayLam.setDate(null);
+        if (btn.isEnabled()) {
+            item = !item;
+            if (item) {
+                danhSachNgay.add(transformDate(ngay));
+                btn.setBackground(Color.blue);
+                btn.setForeground(Color.white);
+                jdNgayLam.setDate(ngay);
+                buttonEnable(ngay, btn);
+            } else {
+                danhSachNgay.remove(new java.sql.Date(ngay.getTime()));
+                btn.setBackground(Color.white);
+                btn.setForeground(Color.black);
+                jdNgayLam.setDate(null);
+                buttonEnable(ngay, btn);
+            }
         }
         return item;
     }
@@ -170,6 +180,7 @@ public class JPanel_PhanCa extends javax.swing.JPanel {
         cbCa.setSelectedIndex(0);
         cbMaNhanVien.setSelectedIndex(0);
         jdNgayLam.setDate(null);
+        danhSachNgay.clear();
     }
 
     @SuppressWarnings("unchecked")
@@ -465,11 +476,11 @@ public class JPanel_PhanCa extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbPhanCaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbPhanCaMouseClicked
-        int loi = 0;
+
         if (danhSachNgay.size() == 0) {
             JOptionPane.showMessageDialog(null, "Vui lòng chọn ngày cần phân ca");
-            loi++;
         } else {
+            int loi = 0;
             for (java.sql.Date ngay : danhSachNgay) {
                 try {
                     phanCaLamViecDAO.phanCaLamViec(new PhanCaLamViec(cbMaNhanVien.getSelectedItem().toString(), cbCa.getSelectedItem().toString().equalsIgnoreCase("Ca 1") == true ? "CA001" : "CA002", transformDate(ngay)));
@@ -479,14 +490,17 @@ public class JPanel_PhanCa extends javax.swing.JPanel {
                     System.out.println(e);
                 }
             }
+            danhSachNgay.clear();
+            if (loi == 0) {
+                JOptionPane.showMessageDialog(null, "Thêm thành công");
+                lamMoi();
+            } else {
+                JOptionPane.showMessageDialog(null, "Thêm thất bại");
+                lamMoi();
+            }
+
         }
-        if (loi == 0) {
-            JOptionPane.showMessageDialog(null, "Thêm thành công");
-            lamMoi();
-        } else {
-            JOptionPane.showMessageDialog(null, "Thêm thất bại");
-            lamMoi();
-        }
+
 
     }//GEN-LAST:event_jbPhanCaMouseClicked
 
@@ -636,7 +650,6 @@ public class JPanel_PhanCa extends javax.swing.JPanel {
     }//GEN-LAST:event_btnN7MouseClicked
 
     private void btnN6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnN6MouseClicked
-
         ngayThuSau = setChooser(ngayThuSau, btnN6, ngay6);
     }//GEN-LAST:event_btnN6MouseClicked
 
