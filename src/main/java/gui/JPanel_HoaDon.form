@@ -55,7 +55,7 @@
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="750" y="90" width="430" height="87"/>
+              <AbsoluteConstraints x="610" y="90" width="430" height="87"/>
             </Constraint>
           </Constraints>
 
@@ -133,7 +133,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="260" y="90" width="200" height="87"/>
+              <AbsoluteConstraints x="120" y="90" width="200" height="87"/>
             </Constraint>
           </Constraints>
 
@@ -171,7 +171,7 @@
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="480" y="90" width="250" height="87"/>
+              <AbsoluteConstraints x="340" y="90" width="250" height="87"/>
             </Constraint>
           </Constraints>
 
@@ -233,15 +233,14 @@
           <SubComponents>
             <Component class="javax.swing.JTable" name="tbl_Order">
               <Properties>
-                <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor" postCode="if(ngonNgu==2)&#xa;{&#xa;tbl_Order.setModel(new javax.swing.table.DefaultTableModel(&#xa;    new Object [][] {&#xa;&#xa;    },&#xa;    new String [] {&#xa;        &quot;Order ID&quot;, &quot;Order Date&quot;, &quot;Employee Id&quot;, &quot;Employee Name&quot;, &quot;Customer ID&quot;, &quot;Customer Name&quot;, &quot;Order Category&quot;, &quot;Payment Method&quot;, &quot;Total Amount&quot;, &quot;Discount&quot;, &quot;Pay&quot;, &quot;Status&quot;, &quot;Note&quot;&#xa;    }&#xa;) {&#xa;    Class[] types = new Class [] {&#xa;        java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class&#xa;    };&#xa;    boolean[] canEdit = new boolean [] {&#xa;        false, false, false, false, false, false, false, false, false, false, false, false, false&#xa;    };&#xa;&#xa;    public Class getColumnClass(int columnIndex) {&#xa;        return types [columnIndex];&#xa;    }&#xa;&#xa;    public boolean isCellEditable(int rowIndex, int columnIndex) {&#xa;        return canEdit [columnIndex];&#xa;    }&#xa;});&#xa;}">
-                  <Table columnCount="13" rowCount="0">
+                <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor" postCode="if(ngonNgu==2)&#xa;{&#xa;tbl_Order.setModel(new javax.swing.table.DefaultTableModel(&#xa;    new Object [][] {&#xa;&#xa;    },&#xa;    new String [] {&#xa;        &quot;Order ID&quot;, &quot;Order Date&quot;, &quot;Employee Id&quot;, &quot;Employee Name&quot;, &quot;Customer ID&quot;, &quot;Customer Name&quot;, &quot;Payment Method&quot;, &quot;Total Amount&quot;, &quot;Discount&quot;, &quot;Pay&quot;, &quot;Status&quot;, &quot;Note&quot;&#xa;    }&#xa;) {&#xa;    Class[] types = new Class [] {&#xa;        java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class&#xa;    };&#xa;    boolean[] canEdit = new boolean [] {&#xa;        false, false, false, false, false, false, false, false, false, false, false, false&#xa;    };&#xa;&#xa;    public Class getColumnClass(int columnIndex) {&#xa;        return types [columnIndex];&#xa;    }&#xa;&#xa;    public boolean isCellEditable(int rowIndex, int columnIndex) {&#xa;        return canEdit [columnIndex];&#xa;    }&#xa;});&#xa;}">
+                  <Table columnCount="12" rowCount="0">
                     <Column editable="false" title="M&#xe3; HD" type="java.lang.String"/>
                     <Column editable="false" title="Ng&#xe0;y l&#x1ead;p" type="java.lang.String"/>
                     <Column editable="false" title="M&#xe3; nh&#xe2;n vi&#xea;n" type="java.lang.String"/>
                     <Column editable="false" title="T&#xea;n nh&#xe2;n vi&#xea;n" type="java.lang.String"/>
                     <Column editable="false" title="M&#xe3; kh&#xe1;ch h&#xe0;ng" type="java.lang.String"/>
                     <Column editable="false" title="T&#xea;n kh&#xe1;ch h&#xe0;ng" type="java.lang.String"/>
-                    <Column editable="false" title="Lo&#x1ea1;i h&#xf3;a &#x111;&#x1a1;n" type="java.lang.String"/>
                     <Column editable="false" title="Ph&#x1b0;&#x1a1;ng th&#x1ee9;c thanh to&#xe1;n" type="java.lang.String"/>
                     <Column editable="false" title="T&#x1ed5;ng ti&#x1ec1;n" type="java.lang.String"/>
                     <Column editable="false" title="Gi&#x1ea3;m gi&#xe1;" type="java.lang.String"/>
@@ -312,11 +311,6 @@
                       <Editor/>
                       <Renderer/>
                     </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                      <Title/>
-                      <Editor/>
-                      <Renderer/>
-                    </Column>
                   </TableColumnModel>
                 </Property>
                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
@@ -326,52 +320,6 @@
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tbl_OrderMouseClicked"/>
               </Events>
-            </Component>
-          </SubComponents>
-        </Container>
-        <Container class="javax.swing.JPanel" name="pnl_SearchOrderCategory">
-          <Properties>
-            <Property name="border" postCode="if(ngonNgu==2)&#xa;{&#xa;pnl_SearchOrderCategory.setBorder(javax.swing.BorderFactory.createTitledBorder(null, &quot;Category order&quot;, javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font(&quot;Segoe UI&quot;, 1, 12)));&#xa;}&#xa;else &#xa;{&#xa;pnl_SearchOrderCategory.setBorder(javax.swing.BorderFactory.createTitledBorder(null, &quot;Lo&#x1ea1;i h&#xf3;a &#x111;&#x1a1;n&quot;, javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font(&quot;Segoe UI&quot;, 1, 12)));&#xa;}"/>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="14" style="0"/>
-            </Property>
-          </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="40" y="90" width="200" height="87"/>
-            </Constraint>
-          </Constraints>
-
-          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
-            <Property name="useNullLayout" type="boolean" value="false"/>
-          </Layout>
-          <SubComponents>
-            <Component class="javax.swing.JComboBox" name="cb_SearchOrderCategory">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="14" style="1"/>
-                </Property>
-                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="2">
-                    <StringItem index="0" value="B&#xe1;n h&#xe0;ng"/>
-                    <StringItem index="1" value="&#x110;&#x1eb7;t h&#xe0;ng"/>
-                  </StringArray>
-                </Property>
-                <Property name="selectedIndex" type="int" value="-1"/>
-              </Properties>
-              <Events>
-                <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="cb_SearchOrderCategoryItemStateChanged"/>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cb_SearchOrderCategoryMouseClicked"/>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cb_SearchOrderCategoryActionPerformed"/>
-              </Events>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-              </AuxValues>
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="20" y="30" width="160" height="33"/>
-                </Constraint>
-              </Constraints>
             </Component>
           </SubComponents>
         </Container>

@@ -10,12 +10,16 @@ import com.google.zxing.PlanarYUVLuminanceSource;
 import com.google.zxing.Reader;
 import com.google.zxing.Result;
 import com.google.zxing.common.HybridBinarizer;
+import dao.ChiTietDonDatHangDAO;
 import dao.ChiTietHoaDonDAO;
+import dao.DonDatHangDAO;
 import dao.HoaDonDAO;
 import dao.KhachHangDAO;
 import dao.KhuyenMaiDAO;
 import dao.SanPhamDAO;
+import entity.ChiTietDonDatHang;
 import entity.ChiTietHoaDon;
+import entity.DonDatHang;
 import entity.HoaDon;
 import entity.KhachHang;
 import entity.SanPham;
@@ -57,10 +61,13 @@ public class JPanel_BanHang extends javax.swing.JPanel {
     private WebcamPanel webcamPanel = new WebcamPanel(webcam);
     private String maNhanVien;
     private DefaultTableModel modelCart;
+    private DefaultTableModel modelOrderList;
     private SanPhamDAO sanPhamDAO = new SanPhamDAO();
-    private HoaDonDAO hoaDonDAO = new HoaDonDAO();
     private KhachHangDAO khachHangDAO = new KhachHangDAO();
+    private HoaDonDAO hoaDonDAO = new HoaDonDAO();
     private ChiTietHoaDonDAO chiTietHoaDonDAO = new ChiTietHoaDonDAO();
+    private DonDatHangDAO donDatHangDAO = new DonDatHangDAO();
+    private ChiTietDonDatHangDAO chiTietDonDatHangDAO = new ChiTietDonDatHangDAO();
     private KhuyenMaiDAO khuyenMaiDAO = new KhuyenMaiDAO();
     private NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
     private DecimalFormat decimalFormat = new DecimalFormat("#,###");
@@ -86,21 +93,23 @@ public class JPanel_BanHang extends javax.swing.JPanel {
 
         modelCart = (DefaultTableModel) tbl_Cart.getModel();
         modelCart.setRowCount(0);
+        modelOrderList = (DefaultTableModel) tbl_orderList.getModel();
+        modelOrderList.setRowCount(0);
 
         DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
         rightRenderer.setHorizontalAlignment(SwingConstants.RIGHT);
         tbl_Cart.getColumnModel().getColumn(3).setCellRenderer(rightRenderer);
         tbl_Cart.getColumnModel().getColumn(4).setCellRenderer(rightRenderer);
         tbl_Cart.getColumnModel().getColumn(5).setCellRenderer(rightRenderer);
-        tbl_Cart.setEnabled(false);
-        svgDelivery.setSvgImage("delivery.svg", 30, 30);
-        svgPay1.setSvgImage("pay.svg", 30, 30);
+        svgOrder.setSvgImage("delivery.svg", 30, 30);
+        svgPay.setSvgImage("pay.svg", 30, 30);
         svgSearch.setSvgImage("search.svg", 20, 20);
         svgCreateInvoice.setSvgImage("add.svg", 30, 30);
         svgDelete.setSvgImage("delete.svg", 30, 30);
         svgDeleteAll.setSvgImage("delete.svg", 30, 30);
         svgReload.setSvgImage("refresh.svg", 20, 20);
         svgSelectCustomer.setSvgImage("select.svg", 15, 15);
+        svgCreateOrder.setSvgImage("add.svg", 20, 20);
         svgCancelSale.setSvgImage("delete.svg", 30, 30);
         svgCancelOrder.setSvgImage("delete.svg", 30, 30);
 
@@ -133,19 +142,19 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         lblReturnMoneyToCustomer.setText("give back money:");
         lblNote.setText("Note:");
         chk_waitPay.setText("WaitPay");
-        lblPay1.setText("Pay");
+        lblPay.setText("Pay");
 
         lblOrderId2.setText("Order Id:");
         lblOrderDate2.setText("Order Date:");
         lblEmployeeId2.setText("Employee ID:");
         lblCustomerName3.setText("Customer Name:");
         lblCustomerName4.setText("Phone:");
-        lblNote3.setText("Address:");
         lblTotalAmount1.setText("TotalAmount:");
         lblDiscount1.setText("Discount:");
         lblMustPay1.setText("MustPay:");
         lblNote2.setText("Note");
-        lblPay2.setText("Delivery");
+        lbl_order.setText("Delivery");
+        lblCreateOrder.setText("Create");
 
     }
 
@@ -153,9 +162,11 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         this.totalAmount = 0;
         pnlSelectCustomer.setEnabled(false);
         jpPaySale.setEnabled(false);
-        jpCancelSale.setEnabled(false);
+        jpCancelSale.setEnabled(true);
         txt_customerMoneyGive.setEnabled(false);
         txa_noteSale.setEnabled(false);
+        tbl_Cart.setEnabled(false);
+        tbl_orderList.setEnabled(true);
         lbl_orderIdSale.setText("");
         lblOrderDate.setText("");
         lbl_employeeIdSale.setText("");
@@ -168,30 +179,36 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         lbl_returnMoneyToCustomer.setText("0");
         txa_noteSale.setText("");
         pnlCreateInvoice.setEnabled(true);
+        chkOrder.setEnabled(true);
         webcamPanel.pause(); // Tạm dừng hoạt động của panel webcam
         webcam.close();
+        loadOrderList();
     }
 
     private void refreshOrder() {
         this.totalAmount = 0;
-        jpDelivery.setEnabled(false);
+        pnlCreateOrder.setEnabled(true);
+        jpOrder.setEnabled(false);
         jpCancelOrder.setEnabled(false);
         txt_customerPhone.setEnabled(false);
-        txa_customerDeliveryAddress.setEnabled(false);
         txa_noteOrder.setEnabled(false);
+        tbl_Cart.setEnabled(false);
+        tbl_orderList.setEnabled(true);
         lbl_orderIdOrder.setText("");
         lbl_orderDateOrder.setText("");
         lbl_employeeIdOrder.setText("");
+        lbl_customerIdOrder.setText("");
         lbl_customerNameOrder.setText("");
         txt_customerPhone.setText("");
-        txa_customerDeliveryAddress.setText("");
         lbl_totalAmountOrder.setText("0");
         lbl_discountOrder.setText("0");
         lbl_mustPayOrder.setText("0");
         txa_noteOrder.setText("");
+        chkOrder.setEnabled(true);
         pnlCreateInvoice.setEnabled(true);
         webcamPanel.pause(); // Tạm dừng hoạt động của panel webcam
         webcam.close();
+        loadOrderList();
     }
 
     public void scanCode() {
@@ -209,7 +226,7 @@ public class JPanel_BanHang extends javax.swing.JPanel {
                 Thread.sleep(200);
             } catch (InterruptedException ex) {
             }
-            if (!pnlCreateInvoice.isEnabled()) {
+            if (!pnlCreateInvoice.isEnabled() || !pnlCreateOrder.isEnabled()) {
                 BufferedImage image = webcam.getImage();
                 Result result = decodeBarcode(image);
                 if (result != null) {
@@ -221,24 +238,24 @@ public class JPanel_BanHang extends javax.swing.JPanel {
                         thongTinSanPham.getJpAdd().addMouseListener(new MouseListener() {
                             @Override
                             public void mouseClicked(MouseEvent e) {
-                                if (!pnlCreateInvoice.isEnabled()) {
+                                if (!pnlCreateInvoice.isEnabled() || !pnlCreateOrder.isEnabled()) {
                                     if (!thongTinSanPham.getTxt_quantity().getText().matches("^\\d+$")) {
-                                        JOptionPane.showMessageDialog(thongTinSanPham, "Số lượng phải là số dương!");
+                                        JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu==2)?"Quantity must be positive!":"Số lượng phải là số dương!");
                                     } else {
                                         int quantity = Integer.parseInt(thongTinSanPham.getTxt_quantity().getText());
                                         if (quantity > 0) {
                                             if (quantity > sanPham.getSoLuong()) {
-                                                JOptionPane.showMessageDialog(thongTinSanPham, "Số lượng sản phẩm trong kho không đủ để đáp ứng yêu cầu của bạn. Vui lòng nhập số lượng nhỏ hơn!");
+                                                JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu==2)?"The quantity of products in stock is not enough to meet your request. Please enter a smaller quantity!":"Số lượng sản phẩm trong kho không đủ để đáp ứng yêu cầu của bạn. Vui lòng nhập số lượng nhỏ hơn!");
                                                 return;
                                             }
                                             addProductToCart(sanPham, quantity);
                                             thongTinSanPham.setVisible(false);
                                         } else {
-                                            JOptionPane.showMessageDialog(thongTinSanPham, "Số lượng phải là số dương!");
+                                            JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu==2)?"Quantity must be positive!":"Số lượng phải là số dương!");
                                         }
                                     }
                                 } else {
-                                    JOptionPane.showMessageDialog(thongTinSanPham, "Vui lòng tạo hóa đơn để thêm sản phẩm vào giỏ hàng!");
+                                    JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu==2)?"Please create an invoice to add products to the cart!":"Vui lòng tạo hóa đơn để thêm sản phẩm vào giỏ hàng!");
                                 }
                             }
 
@@ -318,6 +335,19 @@ public class JPanel_BanHang extends javax.swing.JPanel {
             }
         }
         return danhSachSanPham;
+    }
+
+    public void loadOrderList() {
+        int i = 1;
+        modelOrderList.setRowCount(0);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        for (DonDatHang donDatHang : donDatHangDAO.selectAll()) {
+            KhachHang khachHang = khachHangDAO.search(donDatHang.getMaKH());
+            if (donDatHang.getTrangThai().equals("Chờ xử lý")) {
+                String[] data = {i++ + "", donDatHang.getMaDonHang(), formatter.format(donDatHang.getNgayDatHang().toLocalDate()), khachHang.getTenKH(), donDatHang.getSoDienThoai()};
+                modelOrderList.addRow(data);
+            }
+        }
     }
 
     public void loadData() {
@@ -436,6 +466,28 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         loadData();
     }
 
+    private void loadProductToCart(SanPham sanPham, int quantity) {
+        totalAmount = (int) (totalAmount + sanPham.getGia() * quantity);
+
+        lbl_totalAmountSale.setText(decimalFormat.format(totalAmount));
+        lbl_discountSale.setText(decimalFormat.format(totalAmount * discount / 100));
+        lbl_mustPay.setText(decimalFormat.format(totalAmount * (1 - discount / 100)));
+        if (!txt_customerMoneyGive.getText().equals("0")) {
+            txt_customerMoneyGive.setText(txt_customerMoneyGive.getText().replace(",", ""));
+            try {
+                lbl_returnMoneyToCustomer.setText(decimalFormat.format(Integer.valueOf(txt_customerMoneyGive.getText()) - (totalAmount - discount)));
+                txt_customerMoneyGive.setText(decimalFormat.format((Integer.valueOf(txt_customerMoneyGive.getText()))));
+
+            } catch (Exception e) {
+                lbl_returnMoneyToCustomer.setText("Lỗi!");
+            }
+        }
+
+        String[] data = {modelCart.getRowCount() + 1 + "", sanPham.getMaSanPham(), sanPham.getTenSanPham(), quantity + "", nf.format(sanPham.getGia()), nf.format(sanPham.getGia() * quantity)};
+        modelCart.addRow(data);
+        loadData();
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -489,8 +541,8 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         lblCancelSale = new javax.swing.JLabel();
         svgCancelSale = new util.SVGImage();
         jpPaySale = new util.JPanelRounded();
-        lblPay1 = new javax.swing.JLabel();
-        svgPay1 = new util.SVGImage();
+        lblPay = new javax.swing.JLabel();
+        svgPay = new util.SVGImage();
         pnl_orderPage = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
         lblOrderId2 = new javax.swing.JLabel();
@@ -498,14 +550,16 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         lblOrderDate2 = new javax.swing.JLabel();
         lblEmployeeId2 = new javax.swing.JLabel();
         lblCustomerName3 = new javax.swing.JLabel();
-        lblNote3 = new javax.swing.JLabel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        txa_customerDeliveryAddress = new javax.swing.JTextArea();
         lbl_orderDateOrder = new javax.swing.JLabel();
         lblCustomerName4 = new javax.swing.JLabel();
         txt_customerPhone = new javax.swing.JTextField();
         lbl_employeeIdOrder = new javax.swing.JLabel();
         lbl_customerNameOrder = new javax.swing.JLabel();
+        pnlCreateOrder = new util.JPanelRounded();
+        lblCreateOrder = new javax.swing.JLabel();
+        svgCreateOrder = new util.SVGImage();
+        lblEmployeeId3 = new javax.swing.JLabel();
+        lbl_customerIdOrder = new javax.swing.JLabel();
         s = new javax.swing.JPanel();
         lblTotalAmount1 = new javax.swing.JLabel();
         lblDiscount1 = new javax.swing.JLabel();
@@ -519,9 +573,9 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         lblNote2 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         txa_noteOrder = new javax.swing.JTextArea();
-        jpDelivery = new util.JPanelRounded();
-        lblPay2 = new javax.swing.JLabel();
-        svgDelivery = new util.SVGImage();
+        jpOrder = new util.JPanelRounded();
+        lbl_order = new javax.swing.JLabel();
+        svgOrder = new util.SVGImage();
         jpCancelOrder = new util.JPanelRounded();
         lblCancelOrder = new javax.swing.JLabel();
         svgCancelOrder = new util.SVGImage();
@@ -571,14 +625,19 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         svgCreateInvoice = new util.SVGImage();
         jp_reload = new util.JPanelRounded();
         svgReload = new util.SVGImage();
+        pnl_orderLits = new javax.swing.JPanel();
+        scr_orderList = new javax.swing.JScrollPane();
+        tbl_orderList = new javax.swing.JTable();
 
         setPreferredSize(new java.awt.Dimension(1040, 711));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        pnl_scanCode.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Quét mã sản phẩm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
         pnl_scanCode.setLayout(new java.awt.BorderLayout());
-        add(pnl_scanCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 250, 140));
+        add(pnl_scanCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 10, 290, 180));
         pnl_scanCode.getAccessibleContext().setAccessibleName("");
 
+        jPanelCart.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Giỏ hàng", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
         jPanelCart.setLayout(new java.awt.BorderLayout());
 
         tbl_Cart.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -645,7 +704,7 @@ public class JPanel_BanHang extends javax.swing.JPanel {
 
         jPanelCart.add(scr_cart, java.awt.BorderLayout.CENTER);
 
-        add(jPanelCart, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 850, 230));
+        add(jPanelCart, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 840, 220));
 
         txt_SearchProduct.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txt_SearchProduct.setText("8900767778797");
@@ -659,16 +718,16 @@ public class JPanel_BanHang extends javax.swing.JPanel {
                 txt_SearchProductKeyReleased(evt);
             }
         });
-        add(txt_SearchProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 420, 130, 30));
+        add(txt_SearchProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 480, 130, 30));
 
         lblCategory.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblCategory.setText("Danh mục:");
-        add(lblCategory, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 420, -1, 30));
+        add(lblCategory, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 480, -1, 30));
 
         lbl_infoPage.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl_infoPage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_infoPage.setText("1/4");
-        add(lbl_infoPage, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 820, 40, 30));
+        add(lbl_infoPage, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 830, 40, 30));
 
         cb_category.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cb_category.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sách", "Dụng cụ học tập", "Văn phòng phẩm", "Đồ chơi", "Quà lưu niệm" }));
@@ -684,7 +743,7 @@ public class JPanel_BanHang extends javax.swing.JPanel {
                 cb_categoryActionPerformed(evt);
             }
         });
-        add(cb_category, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 420, 150, 30));
+        add(cb_category, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 480, 150, 30));
 
         btn_next.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btn_next.setText(">>");
@@ -694,7 +753,7 @@ public class JPanel_BanHang extends javax.swing.JPanel {
                 btn_nextActionPerformed(evt);
             }
         });
-        add(btn_next, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 820, 60, 30));
+        add(btn_next, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 830, 60, 30));
 
         jTabbedPane2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
@@ -815,7 +874,7 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblOrderId.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblOrderId.setText("Mã đơn hàng:");
+        lblOrderId.setText("Mã hóa đơn:");
         jPanel4.add(lblOrderId, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 120, 30));
 
         lbl_orderIdSale.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -900,7 +959,7 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         svgCancelSale.setText(" ");
         jpCancelSale.add(svgCancelSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
 
-        pnl_salePay.add(jpCancelSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 730, 70, 40));
+        pnl_salePay.add(jpCancelSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 730, -1, -1));
 
         jpPaySale.setBackground(new java.awt.Color(255, 255, 255));
         jpPaySale.setRoundedBottomLeft(10);
@@ -914,26 +973,16 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         });
         jpPaySale.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblPay1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblPay1.setText("Thanh toán");
-        lblPay1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblPay1MouseClicked(evt);
-            }
-        });
-        jpPaySale.add(lblPay1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 80, 40));
+        lblPay.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblPay.setText("Thanh toán");
+        jpPaySale.add(lblPay, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 80, 40));
 
-        svgPay1.setText(" ");
-        svgPay1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                svgPay1MouseClicked(evt);
-            }
-        });
-        jpPaySale.add(svgPay1, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
+        svgPay.setText(" ");
+        jpPaySale.add(svgPay, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
 
-        pnl_salePay.add(jpPaySale, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 730, -1, -1));
+        pnl_salePay.add(jpPaySale, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 730, 120, -1));
 
-        jTabbedPane2.addTab("Đơn hàng", pnl_salePay);
+        jTabbedPane2.addTab("Lập hóa đơn", pnl_salePay);
 
         pnl_orderPage.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -952,10 +1001,10 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         jPanel12.add(lblOrderId2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 120, 30));
 
         lbl_orderIdOrder.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jPanel12.add(lbl_orderIdOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 170, 30));
+        jPanel12.add(lbl_orderIdOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 70, 30));
 
         lblOrderDate2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblOrderDate2.setText("Ngày tạo:");
+        lblOrderDate2.setText("Ngày đặt:");
         jPanel12.add(lblOrderDate2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 120, 30));
 
         lblEmployeeId2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -964,25 +1013,14 @@ public class JPanel_BanHang extends javax.swing.JPanel {
 
         lblCustomerName3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblCustomerName3.setText("Tên khách hàng:");
-        jPanel12.add(lblCustomerName3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 120, 30));
-
-        lblNote3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblNote3.setText("Địa chỉ:");
-        jPanel12.add(lblNote3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 120, 30));
-
-        txa_customerDeliveryAddress.setColumns(20);
-        txa_customerDeliveryAddress.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txa_customerDeliveryAddress.setRows(5);
-        jScrollPane4.setViewportView(txa_customerDeliveryAddress);
-
-        jPanel12.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 280, 170, 90));
+        jPanel12.add(lblCustomerName3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 120, 30));
 
         lbl_orderDateOrder.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jPanel12.add(lbl_orderDateOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, 170, 30));
 
         lblCustomerName4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblCustomerName4.setText("Số điện thoại:");
-        jPanel12.add(lblCustomerName4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 120, 30));
+        jPanel12.add(lblCustomerName4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, 120, 30));
 
         txt_customerPhone.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txt_customerPhone.addActionListener(new java.awt.event.ActionListener() {
@@ -995,15 +1033,44 @@ public class JPanel_BanHang extends javax.swing.JPanel {
                 txt_customerPhoneKeyReleased(evt);
             }
         });
-        jPanel12.add(txt_customerPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 230, 170, 30));
+        jPanel12.add(txt_customerPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 290, 170, 30));
 
         lbl_employeeIdOrder.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jPanel12.add(lbl_employeeIdOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 130, 170, 30));
 
         lbl_customerNameOrder.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jPanel12.add(lbl_customerNameOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, 170, 30));
+        jPanel12.add(lbl_customerNameOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 230, 170, 30));
 
-        pnl_orderPage.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 340, 380));
+        pnlCreateOrder.setBackground(new java.awt.Color(255, 255, 255));
+        pnlCreateOrder.setRoundedBottomLeft(10);
+        pnlCreateOrder.setRoundedBottomRight(10);
+        pnlCreateOrder.setRoundedTopLeft(10);
+        pnlCreateOrder.setRoundedTopRight(10);
+        pnlCreateOrder.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pnlCreateOrderMouseClicked(evt);
+            }
+        });
+        pnlCreateOrder.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblCreateOrder.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblCreateOrder.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCreateOrder.setText("Tạo");
+        pnlCreateOrder.add(lblCreateOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 50, 30));
+
+        svgCreateOrder.setText(" ");
+        pnlCreateOrder.add(svgCreateOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 20, 20));
+
+        jPanel12.add(pnlCreateOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 30, 80, 30));
+
+        lblEmployeeId3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblEmployeeId3.setText("Mã khách hàng:");
+        jPanel12.add(lblEmployeeId3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 120, 30));
+
+        lbl_customerIdOrder.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jPanel12.add(lbl_customerIdOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, 170, 30));
+
+        pnl_orderPage.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 340, 360));
 
         if(ngonNgu==2)
         {
@@ -1071,26 +1138,26 @@ public class JPanel_BanHang extends javax.swing.JPanel {
 
         pnl_orderPage.add(s, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, 340, 300));
 
-        jpDelivery.setBackground(new java.awt.Color(255, 255, 255));
-        jpDelivery.setRoundedBottomLeft(10);
-        jpDelivery.setRoundedBottomRight(10);
-        jpDelivery.setRoundedTopLeft(10);
-        jpDelivery.setRoundedTopRight(10);
-        jpDelivery.addMouseListener(new java.awt.event.MouseAdapter() {
+        jpOrder.setBackground(new java.awt.Color(255, 255, 255));
+        jpOrder.setRoundedBottomLeft(10);
+        jpOrder.setRoundedBottomRight(10);
+        jpOrder.setRoundedTopLeft(10);
+        jpOrder.setRoundedTopRight(10);
+        jpOrder.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jpDeliveryMouseClicked(evt);
+                jpOrderMouseClicked(evt);
             }
         });
-        jpDelivery.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jpOrder.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblPay2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblPay2.setText("Giao hàng");
-        jpDelivery.add(lblPay2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 90, 40));
+        lbl_order.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbl_order.setText("Đặt hàng");
+        jpOrder.add(lbl_order, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 70, 40));
 
-        svgDelivery.setText(" ");
-        jpDelivery.add(svgDelivery, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
+        svgOrder.setText(" ");
+        jpOrder.add(svgOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 30, 30));
 
-        pnl_orderPage.add(jpDelivery, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 720, 130, 40));
+        pnl_orderPage.add(jpOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 720, -1, 40));
 
         jpCancelOrder.setBackground(new java.awt.Color(255, 255, 255));
         jpCancelOrder.setRoundedBottomLeft(10);
@@ -1136,7 +1203,7 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         svgDeleteAll.setText(" ");
         pnl_deleteAll.add(svgDeleteAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 30, 30));
 
-        add(pnl_deleteAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 100, 120, 40));
+        add(pnl_deleteAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 200, 120, 40));
 
         if(ngonNgu==2)
         {
@@ -1154,20 +1221,20 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         lbl_productItemPrice1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl_productItemPrice1.setForeground(new java.awt.Color(255, 51, 51));
         lbl_productItemPrice1.setText("2.000.000");
-        pnl_productItem1.add(lbl_productItemPrice1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, 90, 30));
+        pnl_productItem1.add(lbl_productItemPrice1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 240, 90, 30));
 
         lblProductPrice1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblProductPrice1.setText("Giá:");
-        pnl_productItem1.add(lblProductPrice1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, -1, 30));
+        pnl_productItem1.add(lblProductPrice1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, -1, 30));
 
         lblProductQuantity1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblProductQuantity1.setText("Số lượng:");
-        pnl_productItem1.add(lblProductQuantity1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, -1, 30));
+        pnl_productItem1.add(lblProductQuantity1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, 30));
 
         lbl_productItemQuantity1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl_productItemQuantity1.setForeground(new java.awt.Color(255, 51, 51));
         lbl_productItemQuantity1.setText("1.000");
-        pnl_productItem1.add(lbl_productItemQuantity1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, 50, 30));
+        pnl_productItem1.add(lbl_productItemQuantity1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, 50, 30));
 
         lbl_productItemName1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         lbl_productItemName1.setText("Đệ nhất kiếm tiền");
@@ -1181,7 +1248,7 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         });
         pnl_productItem1.add(lbl_productImage1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 170, 170));
 
-        jPanel5.add(pnl_productItem1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 190, 290));
+        jPanel5.add(pnl_productItem1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 190, 270));
 
         pnl_productItem2.setPreferredSize(new java.awt.Dimension(171, 250));
         pnl_productItem2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1189,20 +1256,20 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         lbl_productItemPrice2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl_productItemPrice2.setForeground(new java.awt.Color(255, 51, 51));
         lbl_productItemPrice2.setText("2.000.000");
-        pnl_productItem2.add(lbl_productItemPrice2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, 90, 30));
+        pnl_productItem2.add(lbl_productItemPrice2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 240, 90, 30));
 
         lblProductPrice2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblProductPrice2.setText("Giá:");
-        pnl_productItem2.add(lblProductPrice2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, -1, 30));
+        pnl_productItem2.add(lblProductPrice2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, -1, 30));
 
         lblProductQuantity2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblProductQuantity2.setText("Số lượng:");
-        pnl_productItem2.add(lblProductQuantity2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, -1, 30));
+        pnl_productItem2.add(lblProductQuantity2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, 30));
 
         lbl_productItemQuantity2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl_productItemQuantity2.setForeground(new java.awt.Color(255, 51, 51));
         lbl_productItemQuantity2.setText("1.000");
-        pnl_productItem2.add(lbl_productItemQuantity2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, 50, 30));
+        pnl_productItem2.add(lbl_productItemQuantity2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, 50, 30));
 
         lbl_productItemName2.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         lbl_productItemName2.setText("Đệ nhất kiếm tiền");
@@ -1216,7 +1283,7 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         });
         pnl_productItem2.add(lbl_productImage2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 170, 170));
 
-        jPanel5.add(pnl_productItem2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 30, 190, 290));
+        jPanel5.add(pnl_productItem2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 20, 190, 270));
 
         pnl_productItem3.setPreferredSize(new java.awt.Dimension(171, 250));
         pnl_productItem3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1224,20 +1291,20 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         lbl_productItemPrice3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl_productItemPrice3.setForeground(new java.awt.Color(255, 51, 51));
         lbl_productItemPrice3.setText("2.000.000");
-        pnl_productItem3.add(lbl_productItemPrice3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, 90, 30));
+        pnl_productItem3.add(lbl_productItemPrice3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 240, 90, 30));
 
         lblProductPrice4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblProductPrice4.setText("Giá:");
-        pnl_productItem3.add(lblProductPrice4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, -1, 30));
+        pnl_productItem3.add(lblProductPrice4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, -1, 30));
 
         lblProductQuantity4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblProductQuantity4.setText("Số lượng:");
-        pnl_productItem3.add(lblProductQuantity4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, -1, 30));
+        pnl_productItem3.add(lblProductQuantity4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, 30));
 
         lbl_productItemQuantity3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl_productItemQuantity3.setForeground(new java.awt.Color(255, 51, 51));
         lbl_productItemQuantity3.setText("1.000");
-        pnl_productItem3.add(lbl_productItemQuantity3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, 50, 30));
+        pnl_productItem3.add(lbl_productItemQuantity3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, 50, 30));
 
         lbl_productItemName3.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         lbl_productItemName3.setText("Đệ nhất kiếm tiền");
@@ -1251,7 +1318,7 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         });
         pnl_productItem3.add(lbl_productImage3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 170, 170));
 
-        jPanel5.add(pnl_productItem3, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 30, 190, 290));
+        jPanel5.add(pnl_productItem3, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 20, 190, 270));
 
         pnl_productItem4.setPreferredSize(new java.awt.Dimension(171, 250));
         pnl_productItem4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1259,20 +1326,20 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         lbl_productItemPrice4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl_productItemPrice4.setForeground(new java.awt.Color(255, 51, 51));
         lbl_productItemPrice4.setText("2.000.000");
-        pnl_productItem4.add(lbl_productItemPrice4, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, 90, 30));
+        pnl_productItem4.add(lbl_productItemPrice4, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 240, 90, 30));
 
         lblProductPrice3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblProductPrice3.setText("Giá:");
-        pnl_productItem4.add(lblProductPrice3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, -1, 30));
+        pnl_productItem4.add(lblProductPrice3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, -1, 30));
 
         lblProductQuantity3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblProductQuantity3.setText("Số lượng:");
-        pnl_productItem4.add(lblProductQuantity3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, -1, 30));
+        pnl_productItem4.add(lblProductQuantity3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, 30));
 
         lbl_productItemQuantity4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl_productItemQuantity4.setForeground(new java.awt.Color(255, 51, 51));
         lbl_productItemQuantity4.setText("1.000");
-        pnl_productItem4.add(lbl_productItemQuantity4, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, 50, 30));
+        pnl_productItem4.add(lbl_productItemQuantity4, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, 50, 30));
 
         lbl_productItemName4.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         lbl_productItemName4.setText("Đệ nhất kiếm tiền");
@@ -1286,9 +1353,9 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         });
         pnl_productItem4.add(lbl_productImage4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 170, 170));
 
-        jPanel5.add(pnl_productItem4, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 30, 190, 290));
+        jPanel5.add(pnl_productItem4, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 20, 190, 270));
 
-        add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 470, 830, 340));
+        add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 520, 830, 300));
 
         btn_previous.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btn_previous.setText("<<");
@@ -1298,11 +1365,11 @@ public class JPanel_BanHang extends javax.swing.JPanel {
                 btn_previousActionPerformed(evt);
             }
         });
-        add(btn_previous, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 820, 60, 30));
+        add(btn_previous, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 830, 60, 30));
 
         lblSearchProduct1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblSearchProduct1.setText("Tìm kiếm sản phẩm:");
-        add(lblSearchProduct1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 420, -1, 30));
+        add(lblSearchProduct1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 480, -1, 30));
 
         chkOrder.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         chkOrder.setText("Đặt hàng");
@@ -1312,7 +1379,7 @@ public class JPanel_BanHang extends javax.swing.JPanel {
                 chkOrderActionPerformed(evt);
             }
         });
-        add(chkOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 40, 100, 40));
+        add(chkOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 200, 100, 40));
 
         jpSearch.setBackground(new java.awt.Color(255, 255, 255));
         jpSearch.setRoundedBottomLeft(10);
@@ -1333,7 +1400,7 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         svgSearch.setText(" ");
         jpSearch.add(svgSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 20, 20));
 
-        add(jpSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 420, -1, 30));
+        add(jpSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 480, -1, 30));
 
         pnlDelete.setBackground(new java.awt.Color(255, 255, 255));
         pnlDelete.setRoundedBottomLeft(10);
@@ -1354,12 +1421,12 @@ public class JPanel_BanHang extends javax.swing.JPanel {
                 lblDeleteMouseClicked(evt);
             }
         });
-        pnlDelete.add(lblDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 50, 40));
+        pnlDelete.add(lblDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 40, 40));
 
         svgDelete.setText(" ");
         pnlDelete.add(svgDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 30, 30));
 
-        add(pnlDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 100, 80, 40));
+        add(pnlDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 200, 80, 40));
 
         pnlCreateInvoice.setBackground(new java.awt.Color(255, 255, 255));
         pnlCreateInvoice.setRoundedBottomLeft(10);
@@ -1380,7 +1447,7 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         svgCreateInvoice.setText(" ");
         pnlCreateInvoice.add(svgCreateInvoice, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 30, 30));
 
-        add(pnlCreateInvoice, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 40, 130, 40));
+        add(pnlCreateInvoice, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 200, 130, 40));
 
         jp_reload.setBackground(new java.awt.Color(255, 255, 255));
         jp_reload.setRoundedBottomLeft(10);
@@ -1397,7 +1464,52 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         svgReload.setText(" ");
         jp_reload.add(svgReload, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 6, 20, 20));
 
-        add(jp_reload, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 820, 50, 30));
+        add(jp_reload, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 830, 50, 30));
+
+        pnl_orderLits.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách đơn đặt hàng", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
+        pnl_orderLits.setLayout(new java.awt.BorderLayout());
+
+        scr_orderList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                scr_orderListMouseClicked(evt);
+            }
+        });
+
+        tbl_orderList.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        tbl_orderList.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "STT", "Mã đơn hàng", "Ngày đặt hàng", "Tên khách hàng", "Số điện thoại"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tbl_orderList.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tbl_orderList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_orderListMouseClicked(evt);
+            }
+        });
+        scr_orderList.setViewportView(tbl_orderList);
+
+        pnl_orderLits.add(scr_orderList, java.awt.BorderLayout.CENTER);
+
+        add(pnl_orderLits, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 550, 190));
     }// </editor-fold>//GEN-END:initComponents
 
     private void txt_customerMoneyGiveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_customerMoneyGiveActionPerformed
@@ -1423,168 +1535,29 @@ public class JPanel_BanHang extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_nextActionPerformed
 
     private void pnl_deleteAllMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnl_deleteAllMouseClicked
-        if (ngonNgu == 2) {
-            if (tbl_Cart.getRowCount() > 0) {
-                this.totalAmount = 0;
-                if (JOptionPane.showConfirmDialog(this, "Are you sure you want to delete the entire cart?", "Warning", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                    for (int i = 0; i < modelCart.getRowCount(); i++) {
-                        SanPham sanPham = sanPhamDAO.selectbyId(new SanPham(modelCart.getValueAt(i, 1) + ""));
-                        sanPham.setSoLuong(sanPham.getSoLuong() + Integer.valueOf((modelCart.getValueAt(i, 3) + "")));
-                        sanPhamDAO.update(sanPham);
-                        if (!lbl_orderIdSale.getText().equals("")) {
-                            lbl_totalAmountSale.setText(totalAmount + "");
-                            lbl_discountSale.setText("0");
-                            lbl_mustPay.setText((totalAmount - discount) + "");
-                        } else {
-                            lbl_totalAmountOrder.setText(decimalFormat.format(totalAmount));
-                            lbl_discountOrder.setText("0");
-                            lbl_mustPayOrder.setText(decimalFormat.format(totalAmount - discount));
-                        }
+        if (tbl_Cart.getRowCount() > 0) {
+            this.totalAmount = 0;
+            if (JOptionPane.showConfirmDialog(this, (ngonNgu == 2) ? "Are you sure you want to delete the entire cart?" : "Bạn chắc chắn muốn xóa toàn bộ giỏ hàng?", (ngonNgu == 2) ? "Warning" : "Cảnh báo", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                for (int i = 0; i < modelCart.getRowCount(); i++) {
+                    SanPham sanPham = sanPhamDAO.selectbyId(new SanPham(modelCart.getValueAt(i, 1) + ""));
+                    sanPham.setSoLuong(sanPham.getSoLuong() + Integer.valueOf((modelCart.getValueAt(i, 3) + "")));
+                    sanPhamDAO.update(sanPham);
+                    if (!lbl_orderIdSale.getText().equals("")) {
+                        lbl_totalAmountSale.setText(totalAmount + "");
+                        lbl_discountSale.setText("0");
+                        lbl_mustPay.setText("0");
+                    } else {
+                        lbl_totalAmountOrder.setText(decimalFormat.format(totalAmount));
+                        lbl_discountOrder.setText("0");
+                        lbl_mustPayOrder.setText("0");
                     }
-                    JOptionPane.showMessageDialog(this, "Deleted successfully!");
-                    modelCart.setRowCount(0);
-                    loadData();
                 }
-            }
-        } else {
-            if (tbl_Cart.getRowCount() > 0) {
-                this.totalAmount = 0;
-                if (JOptionPane.showConfirmDialog(this, "Bạn chắc chắn muốn xóa toàn bộ giỏ hàng?", "Cảnh báo", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                    for (int i = 0; i < modelCart.getRowCount(); i++) {
-                        SanPham sanPham = sanPhamDAO.selectbyId(new SanPham(modelCart.getValueAt(i, 1) + ""));
-                        sanPham.setSoLuong(sanPham.getSoLuong() + Integer.valueOf((modelCart.getValueAt(i, 3) + "")));
-                        sanPhamDAO.update(sanPham);
-                        if (!lbl_orderIdSale.getText().equals("")) {
-                            lbl_totalAmountSale.setText(totalAmount + "");
-                            lbl_discountSale.setText("0");
-                            lbl_mustPay.setText((totalAmount - discount) + "");
-                        } else {
-                            lbl_totalAmountOrder.setText(decimalFormat.format(totalAmount));
-                            lbl_discountOrder.setText("0");
-                            lbl_mustPayOrder.setText(decimalFormat.format(totalAmount - discount));
-                        }
-                    }
-                    JOptionPane.showMessageDialog(this, "Đã xóa thành công!");
-                    modelCart.setRowCount(0);
-                    loadData();
-                }
+                JOptionPane.showMessageDialog(this, (ngonNgu == 2) ? "Deleted successfully!" : "Đã xóa thành công!");
+                modelCart.setRowCount(0);
+                loadData();
             }
         }
     }//GEN-LAST:event_pnl_deleteAllMouseClicked
-
-    private void jpPaySaleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpPaySaleMouseClicked
-        if (ngonNgu == 2) {
-            if (jpPaySale.isEnabled()) {
-                if (lbl_totalAmountSale.getText().equals("0")) {
-                    JOptionPane.showMessageDialog(this, "Please select products for payment!");
-                } else if (lbl_returnMoneyToCustomer.getText().charAt(0) == '-' || txt_customerMoneyGive.getText().equals("0")) {
-                    JOptionPane.showMessageDialog(this, "Unable to process payment. Insufficient customer funds!");
-                } else {
-                    String maHoaDon = lbl_orderIdSale.getText();
-                    String maKH = lbl_customerIdSale.getText();
-                    String maNV = lbl_employeeIdSale.getText();
-                    String maKhuyenMai = (discount == 0) ? null : khuyenMaiDAO.getPromotionEnable().getMaKhuyenMai();
-                    String phuongThucThanhToan = "Tiền mặt";
-                    Date ngayLapHoaDon = Date.valueOf(LocalDateTime.parse(lblOrderDate.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm a")).toLocalDate());
-                    String loaiHoaDon = "Bán hàng";
-                    String soDienThoai = (maKH.equals("KH000") ? null : khachHangDAO.search(maKH).getSoDienThoai());
-                    String diaChiGiaoHang = null;
-                    String trangThai = "Đã thanh toán";
-                    String ghiChu = txa_noteSale.getText();
-                    if (chk_waitPay.isSelected()) {
-                        trangThai = "Chờ thanh toán";
-                    }
-
-                    HoaDon hoaDon = new HoaDon(maHoaDon, maKH, maNV, maKhuyenMai, phuongThucThanhToan, ngayLapHoaDon, loaiHoaDon, soDienThoai, diaChiGiaoHang, trangThai, ghiChu);
-
-                    if (hoaDonDAO.insert(hoaDon) > 0) {
-                        for (int i = 0; i < modelCart.getRowCount(); i++) {
-                            String maSanPham = modelCart.getValueAt(i, 1) + "";
-                            int soLuong = Integer.valueOf(modelCart.getValueAt(i, 3) + "");
-                            double gia = sanPhamDAO.selectbyId(new SanPham(maSanPham)).getGia();
-                            ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(maHoaDon, maSanPham, soLuong, gia);
-                            chiTietHoaDonDAO.insert(chiTietHoaDon);
-                        }
-                        if (JOptionPane.showConfirmDialog(this, "Do you want to print the invoice?", "Receive invoice", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                            ThongTinHoaDon thongTinHoaDon = new ThongTinHoaDon(hoaDon);
-                            thongTinHoaDon.setVisible(true);
-                            String filePath = "D:\\" + hoaDon.getMaHoaDon() + ".pdf";
-                            ExportPDF.exportPDF(thongTinHoaDon, filePath);
-                            thongTinHoaDon.setVisible(false);
-                            if (JOptionPane.showConfirmDialog(this, "Do you want to view the invoice?", "Notification", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                                openPDF(filePath);
-                            }
-                        }
-                        if (!hoaDon.getMaKH().equals("KH000")) {
-                            Email.sendEmail(khachHangDAO.search(maKH).getEmail(), "Thank you for shopping at our store!", getEmailContentSale(hoaDon));
-                        }
-                        JOptionPane.showMessageDialog(this, "Payment successful");
-                        refreshOrderSale();
-
-                        modelCart.setRowCount(0);
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Payment failed. Please try again later!");
-                        refreshOrderSale();
-                    }
-                }
-            }
-        } else {
-            if (jpPaySale.isEnabled()) {
-                if (lbl_totalAmountSale.getText().equals("0")) {
-                    JOptionPane.showMessageDialog(this, "Vui lòng chọn sản phẩm để thanh toán!");
-                } else if (lbl_returnMoneyToCustomer.getText().charAt(0) == '-' || txt_customerMoneyGive.getText().equals("0")) {
-                    JOptionPane.showMessageDialog(this, "Không thể thanh toán. Tiền khách đưa chưa đủ!");
-                } else {
-                    String maHoaDon = lbl_orderIdSale.getText();
-                    String maKH = lbl_customerIdSale.getText();
-                    String maNV = lbl_employeeIdSale.getText();
-                    String maKhuyenMai = (discount == 0) ? null : khuyenMaiDAO.getPromotionEnable().getMaKhuyenMai();
-                    String phuongThucThanhToan = "Tiền mặt";
-                    Date ngayLapHoaDon = Date.valueOf(LocalDateTime.parse(lblOrderDate.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm a")).toLocalDate());
-                    String loaiHoaDon = "Bán hàng";
-                    String soDienThoai = (maKH.equals("KH000") ? null : khachHangDAO.search(maKH).getSoDienThoai());
-                    String diaChiGiaoHang = null;
-                    String trangThai = "Đã thanh toán";
-                    String ghiChu = txa_noteSale.getText();
-                    if (chk_waitPay.isSelected()) {
-                        trangThai = "Chờ thanh toán";
-                    }
-
-                    HoaDon hoaDon = new HoaDon(maHoaDon, maKH, maNV, maKhuyenMai, phuongThucThanhToan, ngayLapHoaDon, loaiHoaDon, soDienThoai, diaChiGiaoHang, trangThai, ghiChu);
-
-                    if (hoaDonDAO.insert(hoaDon) > 0) {
-                        for (int i = 0; i < modelCart.getRowCount(); i++) {
-                            String maSanPham = modelCart.getValueAt(i, 1) + "";
-                            int soLuong = Integer.valueOf(modelCart.getValueAt(i, 3) + "");
-                            double gia = sanPhamDAO.selectbyId(new SanPham(maSanPham)).getGia();
-                            ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(maHoaDon, maSanPham, soLuong, gia);
-                            chiTietHoaDonDAO.insert(chiTietHoaDon);
-                        }
-                        if (JOptionPane.showConfirmDialog(this, "Bạn có muốn in hóa đơn không?", "Nhận hóa đơn", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                            ThongTinHoaDon thongTinHoaDon = new ThongTinHoaDon(hoaDon);
-                            thongTinHoaDon.setVisible(true);
-                            String filePath = "D:\\" + hoaDon.getMaHoaDon() + ".pdf";
-                            ExportPDF.exportPDF(thongTinHoaDon, filePath);
-                            thongTinHoaDon.setVisible(false);
-                            if (JOptionPane.showConfirmDialog(this, "Bạn có muốn xem hóa đơn?", "Thông báo", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                                openPDF(filePath);
-                            }
-                        }
-                        if (!hoaDon.getMaKH().equals("KH000")) {
-                            Email.sendEmail(khachHangDAO.search(maKH).getEmail(), "Cảm ơn bạn đã mua hàng tại cửa hàng!", getEmailContentSale(hoaDon));
-                        }
-                        JOptionPane.showMessageDialog(this, "Thanh toán thành công");
-                        refreshOrderSale();
-
-                        modelCart.setRowCount(0);
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Thanh toán thất bại vui lòng thử lại sau!");
-                        refreshOrderSale();
-                    }
-                }
-            }
-        }
-    }//GEN-LAST:event_jpPaySaleMouseClicked
 
     private void btn_previousActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_previousActionPerformed
         if (cb_category.getSelectedIndex() < 0) {
@@ -1596,158 +1569,86 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btn_previousActionPerformed
 
-    private void jpDeliveryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpDeliveryMouseClicked
-        if (ngonNgu == 2) {
-            if (txt_customerPhone.getText().equals("")) {
-                JOptionPane.showMessageDialog(this, "Please enter the customer's phone number");
-            } else if (txa_customerDeliveryAddress.getText().equals("")) {
-                JOptionPane.showMessageDialog(this, "Please enter the customer's delivery address");
+    private void jpOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpOrderMouseClicked
+        if (jpOrder.isEnabled()) {
+            if (tbl_Cart.getRowCount() <= 0) {
+                JOptionPane.showMessageDialog(this, (ngonNgu == 2) ? "Please add product to cart!" : "Vui lòng thêm sản phẩm vào giỏ hàng!");
+            } else if (txt_customerPhone.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, (ngonNgu == 2) ? "Please enter the customer's phone number!" : "Vui lòng nhập số điện thoại của khách hàng!");
+            } else if (!txt_customerPhone.getText().matches("^(\\d{10})|(\\d{3}[-\\.\\s]\\d{3}[-\\.\\s]\\d{4})$")) {
+                JOptionPane.showMessageDialog(this, (ngonNgu == 2) ? "Invalid phone numer!" : "Số điện thoại không hợp lệ!");
             } else {
-                String maHoaDon = lbl_orderIdOrder.getText();
-                String maKH = (lbl_customerNameOrder.getText().equals("Khách hàng bán lẻ")) ? "KH000" : khachHangDAO.searchByPhone(txt_customerPhone.getText()).getMaKH();
+                String maDonHang = lbl_orderIdOrder.getText();
+                String maKH = lbl_customerIdOrder.getText();
                 String maNV = lbl_employeeIdOrder.getText();
-                String maKhuyenMai = (discount == 0) ? null : khuyenMaiDAO.getPromotionEnable().getMaKhuyenMai();
-                String phuongThucThanhToan = "Tiền mặt";
-                Date ngayLapHoaDon = Date.valueOf(LocalDateTime.parse(lbl_orderDateOrder.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm a")).toLocalDate());
-                String loaiHoaDon = "Đặt hàng";
+                String maKhuyenMai = (khuyenMaiDAO.getPromotionEnable() == null) ? null : khuyenMaiDAO.getPromotionEnable().getMaKhuyenMai();
+                Date ngayDatHang = Date.valueOf(LocalDateTime.parse(lbl_orderDateOrder.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm a")).toLocalDate());
                 String soDienThoai = txt_customerPhone.getText();
-                String diaChiGiaoHang = txa_customerDeliveryAddress.getText();
-                String trangThai = "Đang giao";
+                String trangThai = "Chờ xử lý";
                 String ghiChu = txa_noteSale.getText();
-                if (JOptionPane.showConfirmDialog(this, "Have you called and confirmed with the customer?", "Confirm", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 
-                    HoaDon hoaDon = new HoaDon(maHoaDon, maKH, maNV, maKhuyenMai, phuongThucThanhToan, ngayLapHoaDon, loaiHoaDon, soDienThoai, diaChiGiaoHang, trangThai, ghiChu);
+                DonDatHang donDatHang = new DonDatHang(maDonHang, maKH, maNV, maKhuyenMai, ngayDatHang, soDienThoai, trangThai, ghiChu);
 
-                    if (hoaDonDAO.insert(hoaDon) > 0) {
-                        for (int i = 0; i < modelCart.getRowCount(); i++) {
-                            String maSanPham = modelCart.getValueAt(i, 1) + "";
-                            int soLuong = Integer.valueOf(modelCart.getValueAt(i, 3) + "");
-                            double gia = sanPhamDAO.selectbyId(new SanPham(maSanPham)).getGia();
-                            ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(maHoaDon, maSanPham, soLuong, gia);
-                            chiTietHoaDonDAO.insert(chiTietHoaDon);
-                        }
-                        if (JOptionPane.showConfirmDialog(this, "Do you want to print the invoice?", "Receive invoice", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                            ThongTinHoaDon thongTinHoaDon = new ThongTinHoaDon(hoaDon);
-                            String filePath = "D:\\" + hoaDon.getMaHoaDon() + ".pdf";
-                            thongTinHoaDon.setVisible(true);
-                            ExportPDF.exportPDF(thongTinHoaDon, filePath);
-                            thongTinHoaDon.setVisible(false);
-                            if (JOptionPane.showConfirmDialog(this, "Do you want to view the invoice?", "Notification", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                                openPDF(filePath);
-                            }
-                        }
-                        if (!hoaDon.getMaKH().equals("KH000")) {
-                            Email.sendEmail(khachHangDAO.search(maKH).getEmail(), "Thông báo về đơn hàng", getEmailContentOrder(hoaDon));
-                        }
-                        JOptionPane.showMessageDialog(this, "Order invoice has been created successfully and is ready for delivery!");
-                        refreshOrder();
-
-                        modelCart.setRowCount(0);
-
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Failed to create invoice, please try again later!");
-                        refreshOrderSale();
+                if (donDatHangDAO.insert(donDatHang) > 0) {
+                    for (int i = 0; i < modelCart.getRowCount(); i++) {
+                        String maSanPham = modelCart.getValueAt(i, 1) + "";
+                        int soLuong = Integer.valueOf(modelCart.getValueAt(i, 3) + "");
+                        double gia = sanPhamDAO.selectbyId(new SanPham(maSanPham)).getGia();
+                        ChiTietDonDatHang chiTietDonDatHang = new ChiTietDonDatHang(maDonHang, maSanPham, soLuong, gia);
+                        chiTietDonDatHangDAO.insert(chiTietDonDatHang);
                     }
-                }
-            }
-        } else {
-            if (txt_customerPhone.getText().equals("")) {
-                JOptionPane.showMessageDialog(this, "Vui lòng số điện thoại khách hàng");
-            } else if (txa_customerDeliveryAddress.getText().equals("")) {
-                JOptionPane.showMessageDialog(this, "Vui lòng nhập địa chỉ của khách hàng");
-            } else {
-                String maHoaDon = lbl_orderIdOrder.getText();
-                String maKH = (lbl_customerNameOrder.getText().equals("Khách hàng bán lẻ")) ? "KH000" : khachHangDAO.searchByPhone(txt_customerPhone.getText()).getMaKH();
-                String maNV = lbl_employeeIdOrder.getText();
-                String maKhuyenMai = (discount == 0) ? null : khuyenMaiDAO.getPromotionEnable().getMaKhuyenMai();
-                String phuongThucThanhToan = "Tiền mặt";
-                Date ngayLapHoaDon = Date.valueOf(LocalDateTime.parse(lbl_orderDateOrder.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm a")).toLocalDate());
-                String loaiHoaDon = "Đặt hàng";
-                String soDienThoai = txt_customerPhone.getText();
-                String diaChiGiaoHang = txa_customerDeliveryAddress.getText();
-                String trangThai = "Đang giao";
-                String ghiChu = txa_noteSale.getText();
-                if (JOptionPane.showConfirmDialog(this, "Bạn đã gọi điện và xác nhận với khách hàng?", "Xác nhận", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-
-                    HoaDon hoaDon = new HoaDon(maHoaDon, maKH, maNV, maKhuyenMai, phuongThucThanhToan, ngayLapHoaDon, loaiHoaDon, soDienThoai, diaChiGiaoHang, trangThai, ghiChu);
-
-                    if (hoaDonDAO.insert(hoaDon) > 0) {
-                        for (int i = 0; i < modelCart.getRowCount(); i++) {
-                            String maSanPham = modelCart.getValueAt(i, 1) + "";
-                            int soLuong = Integer.valueOf(modelCart.getValueAt(i, 3) + "");
-                            double gia = sanPhamDAO.selectbyId(new SanPham(maSanPham)).getGia();
-                            ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(maHoaDon, maSanPham, soLuong, gia);
-                            chiTietHoaDonDAO.insert(chiTietHoaDon);
-                        }
-                        if (JOptionPane.showConfirmDialog(this, "Bạn có muốn in hóa đơn không?", "Nhận hóa đơn", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                            ThongTinHoaDon thongTinHoaDon = new ThongTinHoaDon(hoaDon);
-                            String filePath = "D:\\" + hoaDon.getMaHoaDon() + ".pdf";
-                            thongTinHoaDon.setVisible(true);
-                            ExportPDF.exportPDF(thongTinHoaDon, filePath);
-                            thongTinHoaDon.setVisible(false);
-                            if (JOptionPane.showConfirmDialog(this, "Bạn có muốn xem hóa đơn?", "Thông báo", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                                openPDF(filePath);
-                            }
-                        }
-                        if (!hoaDon.getMaKH().equals("KH000")) {
-                            Email.sendEmail(khachHangDAO.search(maKH).getEmail(), "Thông báo về đơn hàng", getEmailContentOrder(hoaDon));
-                        }
-                        JOptionPane.showMessageDialog(this, "Hóa đơn đặt hàng đã được tạo thành công và sẵn sàng để giao hàng!");
-                        refreshOrder();
-
-                        modelCart.setRowCount(0);
-
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Tạo hóa đơn thất bại vui lòng thử lại sau!");
-                        refreshOrderSale();
+                    if (!donDatHang.getMaKH().equals("KH000")) {
+                        Email.sendEmail(khachHangDAO.search(maKH).getEmail(), "Xác Nhận Đặt Hàng và Hẹn Ngày Giao Dịch", getEmailContentOrder(donDatHang));
                     }
+                    JOptionPane.showMessageDialog(this, (ngonNgu == 2) ? "Order successfully!" : "Đặt hàng thành công!");
+                    refreshOrder();
+
+                    modelCart.setRowCount(0);
+
+                } else {
+                    JOptionPane.showMessageDialog(this, (ngonNgu == 2) ? "Failed to create invoice, please try again later!" : "Tạo hóa đơn thất bại vui lòng thử lại sau!");
+                    refreshOrder();
                 }
             }
         }
-    }//GEN-LAST:event_jpDeliveryMouseClicked
-
-    private void chkOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkOrderActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chkOrderActionPerformed
+    }//GEN-LAST:event_jpOrderMouseClicked
 
     private void jpSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpSearchMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jpSearchMouseClicked
 
     private void pnlDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlDeleteMouseClicked
-        if (tbl_Cart.getRowCount() > 0) {
-            int row = tbl_Cart.getSelectedRow();
-            if (row < 0) {
-                if (ngonNgu == 2) {
-                    JOptionPane.showMessageDialog(this, "Please select the product you want to remove from the cart!");
+        if (pnlDelete.isEnabled()) {
+            if (tbl_Cart.getRowCount() > 0) {
+                int row = tbl_Cart.getSelectedRow();
+                if (row < 0) {
+                    JOptionPane.showMessageDialog(this, (ngonNgu == 2) ? "Please select the product you want to remove from the cart!" : "Vui lòng chọn sản phẩm cần xóa khỏi giỏ hàng!");
                 } else {
-                    JOptionPane.showMessageDialog(this, "Vui lòng chọn sản phẩm cần xóa khỏi giỏ hàng!");
-                }
-            } else {
-                SanPham sanPham = sanPhamDAO.selectbyId(new SanPham(modelCart.getValueAt(row, 1) + ""));
-                sanPham.setSoLuong(sanPham.getSoLuong() + Integer.valueOf((modelCart.getValueAt(row, 3) + "")));
+                    SanPham sanPham = sanPhamDAO.selectbyId(new SanPham(modelCart.getValueAt(row, 1) + ""));
+                    sanPham.setSoLuong(sanPham.getSoLuong() + Integer.valueOf((modelCart.getValueAt(row, 3) + "")));
 
-                totalAmount = (int) (totalAmount - (int) Integer.valueOf((modelCart.getValueAt(row, 3) + "")) * sanPham.getGia());
-                if (!lbl_orderIdSale.getText().equals("")) {
-                    lbl_totalAmountSale.setText(decimalFormat.format(totalAmount));
-                    lbl_discountSale.setText(decimalFormat.format(totalAmount * discount / 100));
-                    lbl_mustPay.setText(decimalFormat.format(totalAmount * (1 - discount / 100)));
-                } else {
-                    lbl_totalAmountOrder.setText(decimalFormat.format(totalAmount));
-                    lbl_discountOrder.setText(decimalFormat.format(totalAmount * discount / 100));
-                    lbl_mustPayOrder.setText(decimalFormat.format(totalAmount * (1 - discount / 100)));
-                }
-
-                sanPhamDAO.update(sanPham);
-                if (row + 1 == modelCart.getRowCount()) {
-                    modelCart.removeRow(row);
-                } else {
-                    modelCart.removeRow(row);
-                    for (int i = 0; i < modelCart.getRowCount(); i++) {
-                        modelCart.setValueAt(i + 1, i, 0);
+                    totalAmount = (int) (totalAmount - (int) Integer.valueOf((modelCart.getValueAt(row, 3) + "")) * sanPham.getGia());
+                    if (!lbl_orderIdSale.getText().equals("")) {
+                        lbl_totalAmountSale.setText(decimalFormat.format(totalAmount));
+                        lbl_discountSale.setText(decimalFormat.format(totalAmount * discount / 100));
+                        lbl_mustPay.setText(decimalFormat.format(totalAmount * (1 - discount / 100)));
+                    } else if (!pnlCreateOrder.isEnabled()) {
+                        lbl_totalAmountOrder.setText(decimalFormat.format(totalAmount));
+                        lbl_discountOrder.setText(decimalFormat.format(totalAmount * discount / 100));
+                        lbl_mustPayOrder.setText(decimalFormat.format(totalAmount * (1 - discount / 100)));
                     }
+
+                    sanPhamDAO.update(sanPham);
+                    if (row + 1 == modelCart.getRowCount()) {
+                        modelCart.removeRow(row);
+                    } else {
+                        modelCart.removeRow(row);
+                        for (int i = 0; i < modelCart.getRowCount(); i++) {
+                            modelCart.setValueAt(i + 1, i, 0);
+                        }
+                    }
+                    loadData();
                 }
-                loadData();
             }
         }
     }//GEN-LAST:event_pnlDeleteMouseClicked
@@ -1760,29 +1661,31 @@ public class JPanel_BanHang extends javax.swing.JPanel {
             loadData();
             pnlCreateInvoice.setEnabled(false);
             tbl_Cart.setEnabled(true);
+            tbl_orderList.setEnabled(false);
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm a");
-            if (!chkOrder.isSelected()) {
-                // Set enable fields
-                pnlSelectCustomer.setEnabled(true);
-                jpPaySale.setEnabled(true);
-                jpCancelSale.setEnabled(true);
-                txt_customerMoneyGive.setEnabled(true);
-                txa_noteSale.setEnabled(true);
-                lbl_orderIdSale.setText(hoaDonDAO.createOrderId());
-                lblOrderDate.setText(formatter.format(LocalDateTime.now()));
-                lbl_employeeIdSale.setText(maNhanVien);
-                lbl_customerIdSale.setText("KH000");
-                lbl_customerNameSale.setText("Khách hàng bán lẻ");
-            } else {
-                jpDelivery.setEnabled(true);
-                jpCancelOrder.setEnabled(true);
-                txt_customerPhone.setEnabled(true);
-                txa_customerDeliveryAddress.setEnabled(true);
-                txa_noteOrder.setEnabled(true);
-                lbl_orderIdOrder.setText(hoaDonDAO.createOrderId());
-                lbl_orderDateOrder.setText(formatter.format(LocalDateTime.now()));
-                lbl_employeeIdOrder.setText(maNhanVien);
-                lbl_customerNameOrder.setText("Khách hàng bán lẻ");
+
+            // Set enable fields
+            pnlSelectCustomer.setEnabled(true);
+            jpPaySale.setEnabled(true);
+            jpCancelSale.setEnabled(true);
+            txt_customerMoneyGive.setEnabled(true);
+            txa_noteSale.setEnabled(true);
+            lbl_orderIdSale.setText(hoaDonDAO.createOrderId());
+            lblOrderDate.setText(formatter.format(LocalDateTime.now()));
+            lbl_employeeIdSale.setText(maNhanVien);
+            lbl_customerIdSale.setText("KH000");
+            lbl_customerNameSale.setText("Khách hàng bán lẻ");
+
+            if (chkOrder.isSelected()) {
+                pnlSelectCustomer.setEnabled(false);
+                chkOrder.setEnabled(false);
+                tbl_orderList.setEnabled(true);
+                if (ngonNgu == 2) {
+                    lbl_customerIdSale.setText("Please choose order!");
+                } else {
+                    lbl_customerIdSale.setText("Vui lòng chọn đơn hàng!");
+                }
+                lbl_customerNameSale.setText("");
             }
         }
     }//GEN-LAST:event_pnlCreateInvoiceMouseClicked
@@ -1852,24 +1755,24 @@ public class JPanel_BanHang extends javax.swing.JPanel {
             thongTinSanPham.getJpAdd().addMouseListener(new MouseListener() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    if (!pnlCreateInvoice.isEnabled()) {
+                    if (!pnlCreateInvoice.isEnabled() || !pnlCreateOrder.isEnabled()) {
                         if (!thongTinSanPham.getTxt_quantity().getText().matches("^\\d+$")) {
-                            JOptionPane.showMessageDialog(thongTinSanPham, "Số lượng phải là số dương!");
+                            JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu==2)?"Quantity must be positive!":"Số lượng phải là số dương!");
                         } else {
                             int quantity = Integer.parseInt(thongTinSanPham.getTxt_quantity().getText());
                             if (quantity > 0) {
                                 if (quantity > sanPham.getSoLuong()) {
-                                    JOptionPane.showMessageDialog(thongTinSanPham, "Số lượng sản phẩm trong kho không đủ để đáp ứng yêu cầu của bạn. Vui lòng nhập số lượng nhỏ hơn!");
+                                    JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu==2)?"The quantity of products in stock is not enough to meet your request. Please enter a smaller quantity!":"Số lượng sản phẩm trong kho không đủ để đáp ứng yêu cầu của bạn. Vui lòng nhập số lượng nhỏ hơn!");
                                     return;
                                 }
                                 addProductToCart(sanPham, quantity);
                                 thongTinSanPham.setVisible(false);
                             } else {
-                                JOptionPane.showMessageDialog(thongTinSanPham, "Số lượng phải là số dương!");
+                                JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu==2)?"Quantity must be positive!":"Số lượng phải là số dương!");
                             }
                         }
                     } else {
-                        JOptionPane.showMessageDialog(thongTinSanPham, "Vui lòng tạo hóa đơn để thêm sản phẩm vào giỏ hàng!");
+                        JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu==2)?"Please create an invoice to add products to the cart!":"Vui lòng tạo hóa đơn để thêm sản phẩm vào giỏ hàng!");
                     }
                 }
 
@@ -1900,24 +1803,24 @@ public class JPanel_BanHang extends javax.swing.JPanel {
             thongTinSanPham.getJpAdd().addMouseListener(new MouseListener() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    if (!pnlCreateInvoice.isEnabled()) {
+                    if (!pnlCreateInvoice.isEnabled() || !pnlCreateOrder.isEnabled()) {
                         if (!thongTinSanPham.getTxt_quantity().getText().matches("^\\d+$")) {
-                            JOptionPane.showMessageDialog(thongTinSanPham, "Số lượng phải là số dương!");
+                            JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu==2)?"Quantity must be positive!":"Số lượng phải là số dương!");
                         } else {
                             int quantity = Integer.parseInt(thongTinSanPham.getTxt_quantity().getText());
                             if (quantity > 0) {
                                 if (quantity > sanPham.getSoLuong()) {
-                                    JOptionPane.showMessageDialog(thongTinSanPham, "Số lượng sản phẩm trong kho không đủ để đáp ứng yêu cầu của bạn. Vui lòng nhập số lượng nhỏ hơn!");
+                                    JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu==2)?"The quantity of products in stock is not enough to meet your request. Please enter a smaller quantity!":"Số lượng sản phẩm trong kho không đủ để đáp ứng yêu cầu của bạn. Vui lòng nhập số lượng nhỏ hơn!");
                                     return;
                                 }
                                 addProductToCart(sanPham, quantity);
                                 thongTinSanPham.setVisible(false);
                             } else {
-                                JOptionPane.showMessageDialog(thongTinSanPham, "Số lượng phải là số dương!");
+                                JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu==2)?"Quantity must be positive!":"Số lượng phải là số dương!");
                             }
                         }
                     } else {
-                        JOptionPane.showMessageDialog(thongTinSanPham, "Vui lòng tạo hóa đơn để thêm sản phẩm vào giỏ hàng!");
+                        JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu==2)?"Please create an invoice to add products to the cart!":"Vui lòng tạo hóa đơn để thêm sản phẩm vào giỏ hàng!");
                     }
                 }
 
@@ -1948,24 +1851,24 @@ public class JPanel_BanHang extends javax.swing.JPanel {
             thongTinSanPham.getJpAdd().addMouseListener(new MouseListener() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    if (!pnlCreateInvoice.isEnabled()) {
+                    if (!pnlCreateInvoice.isEnabled() || !pnlCreateOrder.isEnabled()) {
                         if (!thongTinSanPham.getTxt_quantity().getText().matches("^\\d+$")) {
-                            JOptionPane.showMessageDialog(thongTinSanPham, "Số lượng phải là số dương!");
+                            JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu==2)?"Quantity must be positive!":"Số lượng phải là số dương!");
                         } else {
                             int quantity = Integer.parseInt(thongTinSanPham.getTxt_quantity().getText());
                             if (quantity > 0) {
                                 if (quantity > sanPham.getSoLuong()) {
-                                    JOptionPane.showMessageDialog(thongTinSanPham, "Số lượng sản phẩm trong kho không đủ để đáp ứng yêu cầu của bạn. Vui lòng nhập số lượng nhỏ hơn!");
+                                    JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu==2)?"The quantity of products in stock is not enough to meet your request. Please enter a smaller quantity!":"Số lượng sản phẩm trong kho không đủ để đáp ứng yêu cầu của bạn. Vui lòng nhập số lượng nhỏ hơn!");
                                     return;
                                 }
                                 addProductToCart(sanPham, quantity);
                                 thongTinSanPham.setVisible(false);
                             } else {
-                                JOptionPane.showMessageDialog(thongTinSanPham, "Số lượng phải là số dương!");
+                                JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu==2)?"Quantity must be positive!":"Số lượng phải là số dương!");
                             }
                         }
                     } else {
-                        JOptionPane.showMessageDialog(thongTinSanPham, "Vui lòng tạo hóa đơn để thêm sản phẩm vào giỏ hàng!");
+                        JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu==2)?"Please create an invoice to add products to the cart!":"Vui lòng tạo hóa đơn để thêm sản phẩm vào giỏ hàng!");
                     }
                 }
 
@@ -1996,24 +1899,24 @@ public class JPanel_BanHang extends javax.swing.JPanel {
             thongTinSanPham.getJpAdd().addMouseListener(new MouseListener() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    if (!pnlCreateInvoice.isEnabled()) {
+                    if (!pnlCreateInvoice.isEnabled() || !pnlCreateOrder.isEnabled()) {
                         if (!thongTinSanPham.getTxt_quantity().getText().matches("^\\d+$")) {
-                            JOptionPane.showMessageDialog(thongTinSanPham, "Số lượng phải là số dương!");
+                            JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu==2)?"Quantity must be positive!":"Số lượng phải là số dương!");
                         } else {
                             int quantity = Integer.parseInt(thongTinSanPham.getTxt_quantity().getText());
                             if (quantity > 0) {
                                 if (quantity > sanPham.getSoLuong()) {
-                                    JOptionPane.showMessageDialog(thongTinSanPham, "Số lượng sản phẩm trong kho không đủ để đáp ứng yêu cầu của bạn. Vui lòng nhập số lượng nhỏ hơn!");
+                                    JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu==2)?"The quantity of products in stock is not enough to meet your request. Please enter a smaller quantity!":"Số lượng sản phẩm trong kho không đủ để đáp ứng yêu cầu của bạn. Vui lòng nhập số lượng nhỏ hơn!");
                                     return;
                                 }
                                 addProductToCart(sanPham, quantity);
                                 thongTinSanPham.setVisible(false);
                             } else {
-                                JOptionPane.showMessageDialog(thongTinSanPham, "Số lượng phải là số dương!");
+                                JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu==2)?"Quantity must be positive!":"Số lượng phải là số dương!");
                             }
                         }
                     } else {
-                        JOptionPane.showMessageDialog(thongTinSanPham, "Vui lòng tạo hóa đơn để thêm sản phẩm vào giỏ hàng!");
+                        JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu==2)?"Please create an invoice to add products to the cart!":"Vui lòng tạo hóa đơn để thêm sản phẩm vào giỏ hàng!");
                     }
                 }
 
@@ -2084,83 +1987,86 @@ public class JPanel_BanHang extends javax.swing.JPanel {
     }//GEN-LAST:event_chk_waitPayActionPerformed
 
     private void txt_customerPhoneKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_customerPhoneKeyReleased
-        if (txt_customerPhone.getText().matches("^\\d+$")) {
+        if (txt_customerPhone.getText().matches("^\\d+$") || txt_customerPhone.getText().matches("^(\\d{3}[-\\.\\s]\\d{3}[-\\.\\s]\\d{4})$")) {
             if (txt_customerPhone.getText().matches("^(\\d{10})|(\\d{3}[-\\.\\s]\\d{3}[-\\.\\s]\\d{4})$")) {
                 for (KhachHang khachHang : khachHangDAO.getAllKhachHang()) {
                     if (khachHang.getSoDienThoai().equals(txt_customerPhone.getText())) {
+                        lbl_customerIdOrder.setText(khachHang.getMaKH());
                         lbl_customerNameOrder.setText(khachHang.getTenKH());
-                        txa_customerDeliveryAddress.setText(khachHang.getDiaChi());
                         return;
                     }
                 }
-                lbl_customerNameOrder.setText("Khách hàng bán lẻ");
-                txa_customerDeliveryAddress.setText("");
+                lbl_customerIdOrder.setText("KH000");
+                lbl_customerNameOrder.setText((ngonNgu == 2) ? "Retail customers" : "Khách hàng bán lẻ");
             }
         } else {
-            lbl_customerNameOrder.setText("Lỗi");
+            lbl_customerNameOrder.setText((ngonNgu == 2) ? "Error!" : "Lỗi");
+            lbl_customerIdOrder.setText("");
         }
     }//GEN-LAST:event_txt_customerPhoneKeyReleased
 
     private void tbl_CartMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_CartMouseClicked
         if (evt.getClickCount() == 2) {
-            int row = tbl_Cart.getSelectedRow();
-            String quanity = JOptionPane.showInputDialog(this, "Nhập số lượng bạn muốn thay đổi");
-            if (quanity != null) {
-                if (!quanity.matches("^\\d+$")) {
-                    JOptionPane.showMessageDialog(this, "Số lượng phải là số dương!");
-                } else {
-                    int oldValue = Integer.valueOf(modelCart.getValueAt(row, 3) + "");
-                    int newValue = Integer.valueOf(quanity);
-                    if (newValue > 0) {
-                        SanPham sanPham = sanPhamDAO.selectbyId(new SanPham(modelCart.getValueAt(row, 1) + ""));
-                        if (newValue - oldValue > sanPham.getSoLuong()) {
-                            JOptionPane.showMessageDialog(this, "Số lượng sản phẩm trong kho không đủ để đáp ứng yêu cầu của bạn. Vui lòng nhập số lượng nhỏ hơn!");
-                        } else {
-                            if (newValue < oldValue) {
-                                int changeValue = oldValue - newValue;
-                                sanPham.setSoLuong(sanPham.getSoLuong() + changeValue);
-                                sanPhamDAO.update(sanPham);
-                                modelCart.setValueAt(newValue, row, 3);
-                                modelCart.setValueAt(nf.format(newValue * sanPham.getGia()), row, 5);
-
-                                totalAmount = (int) totalAmount - changeValue * (int) sanPham.getGia();
-
-                                if (!lbl_orderIdSale.getText().equals("")) {
-                                    lbl_totalAmountSale.setText(decimalFormat.format(totalAmount));
-                                    lbl_discountSale.setText(decimalFormat.format(totalAmount * discount / 100));
-                                    lbl_mustPay.setText(decimalFormat.format(totalAmount * (1 - discount / 100)));
-                                } else {
-                                    lbl_totalAmountOrder.setText(decimalFormat.format(totalAmount));
-                                    lbl_discountOrder.setText(decimalFormat.format(totalAmount * discount / 100));
-                                    lbl_mustPayOrder.setText(decimalFormat.format(totalAmount * (1 - discount / 100)));
-                                }
-                                JOptionPane.showMessageDialog(this, "Cập nhật số lượng thành công");
-                                loadData();
-                            } else if (newValue > oldValue) {
-                                int changeValue = newValue - oldValue;
-                                sanPham.setSoLuong(sanPham.getSoLuong() - changeValue);
-                                sanPhamDAO.update(sanPham);
-                                modelCart.setValueAt(newValue, row, 3);
-                                modelCart.setValueAt(nf.format(newValue * sanPham.getGia()), row, 5);
-
-                                totalAmount = (int) totalAmount + changeValue * (int) sanPham.getGia();
-
-                                if (!lbl_orderIdSale.getText().equals("")) {
-                                    lbl_totalAmountSale.setText(decimalFormat.format(totalAmount));
-                                    lbl_discountSale.setText(decimalFormat.format(totalAmount * discount / 100));
-                                    lbl_mustPay.setText(decimalFormat.format(totalAmount * (1 - discount / 100)));
-                                } else {
-                                    lbl_totalAmountOrder.setText(decimalFormat.format(totalAmount));
-                                    lbl_discountOrder.setText(decimalFormat.format(totalAmount * discount / 100));
-                                    lbl_mustPayOrder.setText(decimalFormat.format(totalAmount * (1 - discount / 100)));
-                                }
-
-                                JOptionPane.showMessageDialog(this, "Cập nhật số lượng thành công");
-                                loadData();
-                            }
-                        }
+            if (tbl_Cart.isEnabled()) {
+                int row = tbl_Cart.getSelectedRow();
+                String quanity = JOptionPane.showInputDialog(this, (ngonNgu == 2) ? "Enter the quantity you want to change" : "Nhập số lượng bạn muốn thay đổi");
+                if (quanity != null) {
+                    if (!quanity.matches("^\\d+$")) {
+                        JOptionPane.showMessageDialog(this, (ngonNgu == 2) ? "Quanity must be positive!" : "Số lượng phải là số dương!");
                     } else {
-                        JOptionPane.showMessageDialog(this, "Số lượng sản phẩm trong kho không đủ để đáp ứng yêu cầu của bạn. Vui lòng nhập số lượng nhỏ hơn!");
+                        int oldValue = Integer.valueOf(modelCart.getValueAt(row, 3) + "");
+                        int newValue = Integer.valueOf(quanity);
+                        if (newValue > 0) {
+                            SanPham sanPham = sanPhamDAO.selectbyId(new SanPham(modelCart.getValueAt(row, 1) + ""));
+                            if (newValue - oldValue > sanPham.getSoLuong()) {
+                                JOptionPane.showMessageDialog(this, (ngonNgu == 2) ? "The quantity of products in stock is not enough to meet your request. Please enter a smaller quantity!" : "Số lượng sản phẩm trong kho không đủ để đáp ứng yêu cầu của bạn. Vui lòng nhập số lượng nhỏ hơn!");
+                            } else {
+                                if (newValue < oldValue) {
+                                    int changeValue = oldValue - newValue;
+                                    sanPham.setSoLuong(sanPham.getSoLuong() + changeValue);
+                                    sanPhamDAO.update(sanPham);
+                                    modelCart.setValueAt(newValue, row, 3);
+                                    modelCart.setValueAt(nf.format(newValue * sanPham.getGia()), row, 5);
+
+                                    totalAmount = (int) totalAmount - changeValue * (int) sanPham.getGia();
+
+                                    if (!lbl_orderIdSale.getText().equals("")) {
+                                        lbl_totalAmountSale.setText(decimalFormat.format(totalAmount));
+                                        lbl_discountSale.setText(decimalFormat.format(totalAmount * discount / 100));
+                                        lbl_mustPay.setText(decimalFormat.format(totalAmount * (1 - discount / 100)));
+                                    } else {
+                                        lbl_totalAmountOrder.setText(decimalFormat.format(totalAmount));
+                                        lbl_discountOrder.setText(decimalFormat.format(totalAmount * discount / 100));
+                                        lbl_mustPayOrder.setText(decimalFormat.format(totalAmount * (1 - discount / 100)));
+                                    }
+                                    JOptionPane.showMessageDialog(this, (ngonNgu == 2) ? "Update quantity successfully!" : "Cập nhật số lượng thành công");
+                                    loadData();
+                                } else if (newValue > oldValue) {
+                                    int changeValue = newValue - oldValue;
+                                    sanPham.setSoLuong(sanPham.getSoLuong() - changeValue);
+                                    sanPhamDAO.update(sanPham);
+                                    modelCart.setValueAt(newValue, row, 3);
+                                    modelCart.setValueAt(nf.format(newValue * sanPham.getGia()), row, 5);
+
+                                    totalAmount = (int) totalAmount + changeValue * (int) sanPham.getGia();
+
+                                    if (!lbl_orderIdSale.getText().equals("")) {
+                                        lbl_totalAmountSale.setText(decimalFormat.format(totalAmount));
+                                        lbl_discountSale.setText(decimalFormat.format(totalAmount * discount / 100));
+                                        lbl_mustPay.setText(decimalFormat.format(totalAmount * (1 - discount / 100)));
+                                    } else {
+                                        lbl_totalAmountOrder.setText(decimalFormat.format(totalAmount));
+                                        lbl_discountOrder.setText(decimalFormat.format(totalAmount * discount / 100));
+                                        lbl_mustPayOrder.setText(decimalFormat.format(totalAmount * (1 - discount / 100)));
+                                    }
+
+                                    JOptionPane.showMessageDialog(this, (ngonNgu == 2) ? "Update quantity successfully!" : "Cập nhật số lượng thành công");
+                                    loadData();
+                                }
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(this, (ngonNgu == 2) ? "The quantity of products in stock is not enough to meet your request. Please enter a smaller quantity!" : "Số lượng sản phẩm trong kho không đủ để đáp ứng yêu cầu của bạn. Vui lòng nhập số lượng nhỏ hơn!");
+                        }
                     }
                 }
             }
@@ -2168,71 +2074,29 @@ public class JPanel_BanHang extends javax.swing.JPanel {
     }//GEN-LAST:event_tbl_CartMouseClicked
 
     private void jpCancelSaleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpCancelSaleMouseClicked
-        if (ngonNgu == 2) {
-            if (jpCancelSale.isEnabled()) {
-                if (JOptionPane.showConfirmDialog(this, "Are you sure you want to cancel the invoice?", "Warning", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                    String maHoaDon = lbl_orderIdSale.getText();
-                    String maKH = lbl_customerIdSale.getText();
-                    String maNV = lbl_employeeIdSale.getText();
-                    String maKhuyenMai = null;
-                    String phuongThucThanhToan = "Tiền mặt";
-                    Date ngayLapHoaDon = Date.valueOf(LocalDateTime.parse(lblOrderDate.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm a")).toLocalDate());
-                    String loaiHoaDon = "Bán hàng";
-                    String soDienThoai = (maKH.equals("KH000") ? null : khachHangDAO.search(maKH).getSoDienThoai());
-                    String diaChiGiaoHang = null;
-                    String trangThai = "Đã hủy";
-                    String ghiChu = txa_noteSale.getText();
-
-                    HoaDon hoaDon = new HoaDon(maHoaDon, maKH, maNV, maKhuyenMai, phuongThucThanhToan, ngayLapHoaDon, loaiHoaDon, soDienThoai, diaChiGiaoHang, trangThai, ghiChu);
-
-                    if (modelCart.getRowCount() > 0) {
-                        if (hoaDonDAO.insert(hoaDon) > 0) {
-                            for (int i = 0; i < modelCart.getRowCount(); i++) {
-                                String maSanPham = modelCart.getValueAt(i, 1) + "";
-                                int soLuong = Integer.valueOf(modelCart.getValueAt(i, 3) + "");
-                                double gia = sanPhamDAO.selectbyId(new SanPham(maSanPham)).getGia();
-                                ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(maHoaDon, maSanPham, soLuong, gia);
-                                chiTietHoaDonDAO.insert(chiTietHoaDon);
-
-                                SanPham sanPham = sanPhamDAO.selectbyId(new SanPham(maSanPham));
-                                sanPham.setSoLuong(sanPham.getSoLuong() + soLuong);
-                                sanPhamDAO.update(sanPham);
-                            }
-                            refreshOrderSale();
-                            loadData();
-                            JOptionPane.showMessageDialog(this, "Invoice cancelled successfully");
-
-                            modelCart.setRowCount(0);
-                        } else {
-                            JOptionPane.showMessageDialog(this, "An error occurred while cancelling!");
-                        }
-                    } else {
-                        if (hoaDonDAO.insert(hoaDon) > 0) {
-                            refreshOrderSale();
-                            loadData();
-                            JOptionPane.showMessageDialog(this, "Invoice cancelled successfully");
-                        } else {
-                            JOptionPane.showMessageDialog(this, "An error occurred while cancelling!");
-                        }
-                    }
+        if (jpCancelSale.isEnabled()) {
+            if (lbl_orderIdSale.getText().equals("")) {
+                if (JOptionPane.showConfirmDialog(this, (ngonNgu == 2) ? "Are you sure you want to cancel the order?" : "Bạn có chắc chắn muốn hủy đơn đặt hàng không?", (ngonNgu == 2) ? "Warning" : "Cảnh báo", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                    DonDatHang donDatHang = new DonDatHang(modelOrderList.getValueAt(tbl_orderList.getSelectedRow(), 1) + "");
+                    donDatHangDAO.delete(donDatHang);
+                    refreshOrderSale();
+                    loadData();
+                    JOptionPane.showMessageDialog(this, (ngonNgu == 2) ? "Order canceled successfully" : "Hủy đơn đặt hàng thành công");
+                    modelCart.setRowCount(0);
                 }
-            }
-        } else {
-            if (jpCancelSale.isEnabled()) {
-                if (JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn hủy hóa đơn không?", "Cảnh báo", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            } else {
+                if (JOptionPane.showConfirmDialog(this, (ngonNgu == 2) ? "Are you sure you want to cancel the order?" : "Bạn có chắc chắn muốn hủy hóa đơn không?", "Cảnh báo", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                     String maHoaDon = lbl_orderIdSale.getText();
                     String maKH = lbl_customerIdSale.getText();
                     String maNV = lbl_employeeIdSale.getText();
                     String maKhuyenMai = null;
                     String phuongThucThanhToan = "Tiền mặt";
                     Date ngayLapHoaDon = Date.valueOf(LocalDateTime.parse(lblOrderDate.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm a")).toLocalDate());
-                    String loaiHoaDon = "Bán hàng";
                     String soDienThoai = (maKH.equals("KH000") ? null : khachHangDAO.search(maKH).getSoDienThoai());
-                    String diaChiGiaoHang = null;
                     String trangThai = "Đã hủy";
                     String ghiChu = txa_noteSale.getText();
 
-                    HoaDon hoaDon = new HoaDon(maHoaDon, maKH, maNV, maKhuyenMai, phuongThucThanhToan, ngayLapHoaDon, loaiHoaDon, soDienThoai, diaChiGiaoHang, trangThai, ghiChu);
+                    HoaDon hoaDon = new HoaDon(maHoaDon, maKH, maNV, maKhuyenMai, phuongThucThanhToan, ngayLapHoaDon, soDienThoai, trangThai, ghiChu);
 
                     if (modelCart.getRowCount() > 0) {
                         if (hoaDonDAO.insert(hoaDon) > 0) {
@@ -2247,21 +2111,24 @@ public class JPanel_BanHang extends javax.swing.JPanel {
                                 sanPham.setSoLuong(sanPham.getSoLuong() + soLuong);
                                 sanPhamDAO.update(sanPham);
                             }
+                            if (chkOrder.isSelected()) {
+                                donDatHangDAO.delete(new DonDatHang(modelOrderList.getValueAt(tbl_orderList.getSelectedRow(), 1) + ""));
+                            }
                             refreshOrderSale();
                             loadData();
-                            JOptionPane.showMessageDialog(this, "Hủy hóa đơn thành công");
+                            JOptionPane.showMessageDialog(this, (ngonNgu == 2) ? "Order canceled successfully" : "Hủy hóa đơn thành công");
 
                             modelCart.setRowCount(0);
                         } else {
-                            JOptionPane.showMessageDialog(this, "Đã xảy ra lỗi trong quá trình hủy!");
+                            JOptionPane.showMessageDialog(this, (ngonNgu == 2) ? "An error occurred while cancelling!" : "Đã xảy ra lỗi trong quá trình hủy!");
                         }
                     } else {
                         if (hoaDonDAO.insert(hoaDon) > 0) {
                             refreshOrderSale();
                             loadData();
-                            JOptionPane.showMessageDialog(this, "Hủy hóa đơn thành công");
+                            JOptionPane.showMessageDialog(this, (ngonNgu == 2) ? "Order canceled successfully" : "Hủy hóa đơn thành công");
                         } else {
-                            JOptionPane.showMessageDialog(this, "Đã xảy ra lỗi trong quá trình hủy!");
+                            JOptionPane.showMessageDialog(this, (ngonNgu == 2) ? "An error occurred while cancelling!" : "Đã xảy ra lỗi trong quá trình hủy!");
                         }
                     }
                 }
@@ -2270,104 +2137,10 @@ public class JPanel_BanHang extends javax.swing.JPanel {
     }//GEN-LAST:event_jpCancelSaleMouseClicked
 
     private void jpCancelOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpCancelOrderMouseClicked
-        if (ngonNgu == 2) {
-            if (jpCancelOrder.isEnabled()) {
-                if (JOptionPane.showConfirmDialog(this, "Are you sure you want to cancel the order?", "Warning", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                    String maHoaDon = lbl_orderIdOrder.getText();
-                    String maKH = (lbl_customerNameOrder.getText().equals("Khách hàng bán lẻ")) ? "KH000" : khachHangDAO.searchByPhone(txt_customerPhone.getText()).getMaKH();
-                    String maNV = lbl_employeeIdOrder.getText();
-                    String maKhuyenMai = null;
-                    String phuongThucThanhToan = "Tiền mặt";
-                    Date ngayLapHoaDon = Date.valueOf(LocalDateTime.parse(lbl_orderDateOrder.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm a")).toLocalDate());
-                    String loaiHoaDon = "Đặt hàng";
-                    String soDienThoai = txt_customerPhone.getText();
-                    String diaChiGiaoHang = txa_customerDeliveryAddress.getText();
-                    String trangThai = "Đã hủy";
-                    String ghiChu = txa_noteSale.getText();
-
-                    HoaDon hoaDon = new HoaDon(maHoaDon, maKH, maNV, maKhuyenMai, phuongThucThanhToan, ngayLapHoaDon, loaiHoaDon, soDienThoai, diaChiGiaoHang, trangThai, ghiChu);
-
-                    if (modelCart.getRowCount() > 0) {
-                        if (hoaDonDAO.insert(hoaDon) > 0) {
-                            for (int i = 0; i < modelCart.getRowCount(); i++) {
-                                String maSanPham = modelCart.getValueAt(i, 1) + "";
-                                int soLuong = Integer.valueOf(modelCart.getValueAt(i, 3) + "");
-                                double gia = sanPhamDAO.selectbyId(new SanPham(maSanPham)).getGia();
-                                ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(maHoaDon, maSanPham, soLuong, gia);
-                                chiTietHoaDonDAO.insert(chiTietHoaDon);
-
-                                SanPham sanPham = sanPhamDAO.selectbyId(new SanPham(maSanPham));
-                                sanPham.setSoLuong(sanPham.getSoLuong() + soLuong);
-                                sanPhamDAO.update(sanPham);
-                            }
-                            refreshOrder();
-                            loadData();
-                            JOptionPane.showMessageDialog(this, "Order canceled successfully");
-
-                            modelCart.setRowCount(0);
-                        } else {
-                            JOptionPane.showMessageDialog(this, "An error occurred during the cancellation process!");
-                        }
-                    } else {
-                        if (hoaDonDAO.insert(hoaDon) > 0) {
-                            refreshOrder();
-                            loadData();
-                            JOptionPane.showMessageDialog(this, "Order canceled successfully");
-                        } else {
-                            JOptionPane.showMessageDialog(this, "An error occurred during the cancellation process!");
-                        }
-                    }
-                }
-            }
-        } else {
-            if (jpCancelOrder.isEnabled()) {
-                if (JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn hủy hóa đơn không?", "Cảnh báo", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                    String maHoaDon = lbl_orderIdOrder.getText();
-                    String maKH = (lbl_customerNameOrder.getText().equals("Khách hàng bán lẻ")) ? "KH000" : khachHangDAO.searchByPhone(txt_customerPhone.getText()).getMaKH();
-                    String maNV = lbl_employeeIdOrder.getText();
-                    String maKhuyenMai = null;
-                    String phuongThucThanhToan = "Tiền mặt";
-                    Date ngayLapHoaDon = Date.valueOf(LocalDateTime.parse(lbl_orderDateOrder.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm a")).toLocalDate());
-                    String loaiHoaDon = "Đặt hàng";
-                    String soDienThoai = txt_customerPhone.getText();
-                    String diaChiGiaoHang = txa_customerDeliveryAddress.getText();
-                    String trangThai = "Đã hủy";
-                    String ghiChu = txa_noteSale.getText();
-
-                    HoaDon hoaDon = new HoaDon(maHoaDon, maKH, maNV, maKhuyenMai, phuongThucThanhToan, ngayLapHoaDon, loaiHoaDon, soDienThoai, diaChiGiaoHang, trangThai, ghiChu);
-
-                    if (modelCart.getRowCount() > 0) {
-                        if (hoaDonDAO.insert(hoaDon) > 0) {
-                            for (int i = 0; i < modelCart.getRowCount(); i++) {
-                                String maSanPham = modelCart.getValueAt(i, 1) + "";
-                                int soLuong = Integer.valueOf(modelCart.getValueAt(i, 3) + "");
-                                double gia = sanPhamDAO.selectbyId(new SanPham(maSanPham)).getGia();
-                                ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(maHoaDon, maSanPham, soLuong, gia);
-                                chiTietHoaDonDAO.insert(chiTietHoaDon);
-
-                                SanPham sanPham = sanPhamDAO.selectbyId(new SanPham(maSanPham));
-                                sanPham.setSoLuong(sanPham.getSoLuong() + soLuong);
-                                sanPhamDAO.update(sanPham);
-                            }
-                            refreshOrder();
-                            loadData();
-                            JOptionPane.showMessageDialog(this, "Hủy hóa đơn thành công");
-
-                            modelCart.setRowCount(0);
-                        } else {
-                            JOptionPane.showMessageDialog(this, "Đã xảy ra lỗi trong quá trình hủy!");
-                        }
-                    } else {
-                        if (hoaDonDAO.insert(hoaDon) > 0) {
-                            refreshOrder();
-                            loadData();
-                            JOptionPane.showMessageDialog(this, "Hủy hóa đơn thành công");
-                        } else {
-                            JOptionPane.showMessageDialog(this, "Đã xảy ra lỗi trong quá trình hủy!");
-                        }
-                    }
-                }
-            }
+        if (jpCancelOrder.isEnabled()) {
+            refreshOrder();
+            loadData();
+            modelCart.setRowCount(0);
         }
     }//GEN-LAST:event_jpCancelOrderMouseClicked
 
@@ -2375,13 +2148,134 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_lblDeleteMouseClicked
 
-    private void lblPay1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPay1MouseClicked
+    private void chkOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkOrderActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_lblPay1MouseClicked
+    }//GEN-LAST:event_chkOrderActionPerformed
 
-    private void svgPay1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_svgPay1MouseClicked
+    private void tbl_orderListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_orderListMouseClicked
+        if (!pnlCreateInvoice.isEnabled() && chkOrder.isSelected()) {
+            int row = tbl_orderList.getSelectedRow();
+            if (row >= 0) {
+                DonDatHang donDatHang = donDatHangDAO.selectbyId(new DonDatHang(modelOrderList.getValueAt(row, 1) + ""));
+                this.discount = (donDatHang.getMaKhuyenMai() == null) ? 0 : khuyenMaiDAO.getKhuyenMaiById(donDatHang.getMaKhuyenMai()).getPhanTramKhuyenMai();
+                this.totalAmount = 0;
+                lbl_customerIdSale.setText(donDatHang.getMaKH());
+                lbl_customerNameSale.setText(khachHangDAO.search(donDatHang.getMaKH()).getTenKH());
+                modelCart.setRowCount(0);
+                for (ChiTietDonDatHang chiTietDonDatHang : chiTietDonDatHangDAO.selectbyId(donDatHang.getMaDonHang())) {
+                    SanPham sanPham = sanPhamDAO.selectbyId(new SanPham(chiTietDonDatHang.getMaSanPham()));
+                    loadProductToCart(sanPham, chiTietDonDatHang.getSoLuong());
+                }
+            }
+        }
+    }//GEN-LAST:event_tbl_orderListMouseClicked
+
+    private void pnlCreateOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlCreateOrderMouseClicked
+        if (pnlCreateOrder.isEnabled()) {
+            webcam.open(); // Mở webcam trước khi hiển thị
+            webcamPanel.start();
+            webcamPanel.resume();
+            modelCart.setRowCount(0);
+            pnlCreateOrder.setEnabled(false);
+            tbl_Cart.setEnabled(true);
+            tbl_orderList.setEnabled(false);
+            pnlDelete.setEnabled(true);
+            pnl_deleteAll.setEnabled(true);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm a");
+            jpOrder.setEnabled(true);
+            jpCancelOrder.setEnabled(true);
+            txt_customerPhone.setEnabled(true);
+            txa_noteOrder.setEnabled(true);
+            lbl_orderIdOrder.setText(donDatHangDAO.createOrderId());
+            lbl_orderDateOrder.setText(formatter.format(LocalDateTime.now()));
+            lbl_employeeIdOrder.setText(maNhanVien);
+            lbl_customerNameOrder.setText((ngonNgu == 2) ? "Please enter the phone number!" : "Vui lòng nhập số điện thoại!");
+        }
+    }//GEN-LAST:event_pnlCreateOrderMouseClicked
+
+    private void scr_orderListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_scr_orderListMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_svgPay1MouseClicked
+    }//GEN-LAST:event_scr_orderListMouseClicked
+
+    private void jpPaySaleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpPaySaleMouseClicked
+        if (jpPaySale.isEnabled()) {
+            DonDatHang donDatHang = null;
+            if (chkOrder.isSelected()) {
+                if (tbl_orderList.getSelectedRow() >= 0) {
+                    donDatHang = donDatHangDAO.selectbyId(new DonDatHang(modelOrderList.getValueAt(tbl_orderList.getSelectedRow(), 1) + ""));
+                }
+            }
+            if (lbl_totalAmountSale.getText().equals("0")) {
+                if (chkOrder.isSelected()) {
+                    JOptionPane.showMessageDialog(this, (ngonNgu == 2) ? "Please select order to pay!" : "Vui lòng chọn đơn đặt hàng để thanh toán!");
+                } else {
+                    JOptionPane.showMessageDialog(this, (ngonNgu == 2) ? "Please select products for payment!" : "Vui lòng chọn sản phẩm để thanh toán!");
+                }
+            } else if (lbl_returnMoneyToCustomer.getText().charAt(0) == '-' || txt_customerMoneyGive.getText().equals("0")) {
+                JOptionPane.showMessageDialog(this, (ngonNgu == 2) ? "Unable to process payment. Insufficient customer funds!" : "Không thể thanh toán. Tiền khách đưa chưa đủ!");
+            } else {
+                String maHoaDon = lbl_orderIdSale.getText();
+                String maKH = lbl_customerIdSale.getText();
+                String maNV = lbl_employeeIdSale.getText();
+                String maKhuyenMai;
+                if (chkOrder.isSelected()) {
+                    maKhuyenMai = donDatHang.getMaKhuyenMai();
+                } else {
+                    maKhuyenMai = (discount == 0) ? null : khuyenMaiDAO.getPromotionEnable().getMaKhuyenMai();
+                }
+
+                String phuongThucThanhToan = "Tiền mặt";
+                Date ngayLapHoaDon = Date.valueOf(LocalDateTime.parse(lblOrderDate.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm a")).toLocalDate());
+                String soDienThoai;
+                if (chkOrder.isSelected()) {
+                    soDienThoai = maKH.equals("KH000") ? null : donDatHang.getSoDienThoai();
+                } else {
+                    soDienThoai = maKH.equals("KH000") ? null : khachHangDAO.search(maKH).getSoDienThoai();
+                }
+                String trangThai = "Đã thanh toán";
+                String ghiChu = txa_noteSale.getText();
+                if (chk_waitPay.isSelected()) {
+                    trangThai = "Chờ thanh toán";
+                }
+
+                HoaDon hoaDon = new HoaDon(maHoaDon, maKH, maNV, maKhuyenMai, phuongThucThanhToan, ngayLapHoaDon, soDienThoai, trangThai, ghiChu);
+
+                if (hoaDonDAO.insert(hoaDon) > 0) {
+                    for (int i = 0; i < modelCart.getRowCount(); i++) {
+                        String maSanPham = modelCart.getValueAt(i, 1) + "";
+                        int soLuong = Integer.valueOf(modelCart.getValueAt(i, 3) + "");
+                        double gia = sanPhamDAO.selectbyId(new SanPham(maSanPham)).getGia();
+                        ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(maHoaDon, maSanPham, soLuong, gia);
+                        chiTietHoaDonDAO.insert(chiTietHoaDon);
+                    }
+
+                    ThongTinHoaDon thongTinHoaDon = new ThongTinHoaDon(hoaDon);
+                    thongTinHoaDon.setVisible(true);
+                    String filePath = "D:\\" + hoaDon.getMaHoaDon() + ".pdf";
+                    ExportPDF.exportPDF(thongTinHoaDon, filePath);
+                    thongTinHoaDon.setVisible(false);
+                    openPDF(filePath);
+
+                    if (!hoaDon.getMaKH().equals("KH000")) {
+                        Email.sendEmail(khachHangDAO.search(maKH).getEmail(), (ngonNgu == 2) ? "Thank you for shopping at our store!" : "Cảm ơn bạn đã mua hàng tại cửa hàng!", getEmailContentSale(hoaDon));
+                    }
+                    JOptionPane.showMessageDialog(this, (ngonNgu == 2) ? "Payment successfull" : "Thanh toán thành công");
+
+                    if (chkOrder.isSelected()) {
+                        donDatHang.setTrangThai("Đã thanh toán");
+                        donDatHangDAO.update(donDatHang);
+                        loadOrderList();
+                    }
+                    refreshOrderSale();
+
+                    modelCart.setRowCount(0);
+                } else {
+                    JOptionPane.showMessageDialog(this, (ngonNgu == 2) ? "Payment failed. Please try again later!" : "Thanh toán thất bại vui lòng thử lại sau!");
+                    refreshOrderSale();
+                }
+            }
+        }
+    }//GEN-LAST:event_jpPaySaleMouseClicked
 
     private void addDataToListProduct(SanPham sanPham) {
         lbl_productImage1.setIcon(createImageIcon(sanPham.getHinhAnh()));
@@ -2456,14 +2350,15 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         return emailContent;
     }
 
-    public String getEmailContentOrder(HoaDon hoaDon) {
-        KhachHang khachHang = khachHangDAO.search(hoaDon.getMaKH());
-        String emailContent = "<html> <head> <style> table { border-collapse: collapse; width: 100%; } th, td { border: 1px solid black; padding: 8px; text-align: left; } </style> </head> <body><p>Cảm ơn bạn đã đặt hàng! Đơn hàng của bạn đã được xác nhận và đang được giao đến bạn.</p><p>Xin vui lòng kiểm tra email hoặc hệ thống thông báo để cập nhật trạng thái vận chuyển của đơn hàng.</p> Dưới đây là chi tiết đơn hàng của bạn:</p><table><tr><th>Sản phẩm</th><th>Số lượng</th><th>Giá</th></tr>";
-        for (ChiTietHoaDon chiTietHoaDon : chiTietHoaDonDAO.selectbyId(hoaDon.getMaHoaDon())) {
-            SanPham sanPham = sanPhamDAO.selectbyId(new SanPham(chiTietHoaDon.getMaSanPham()));
-            emailContent += "<tr><td>" + sanPham.getTenSanPham() + "</td><td>" + chiTietHoaDon.getSoLuong() + "</td><td>" + nf.format(sanPham.getGia()) + "</td></tr>";
+    public String getEmailContentOrder(DonDatHang donDatHang) {
+        KhachHang khachHang = khachHangDAO.search(donDatHang.getMaKH());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String emailContent = "<html> <head> <style> table { border-collapse: collapse; width: 100%; } th, td { border: 1px solid black; padding: 8px; text-align: left; } </style> </head> <body><p>Chào <strong>" + khachHang.getTenKH() + "</strong>,</p><p>Chúng tôi xin chân thành cảm ơn bạn đã chọn cửa hàng chúng tôi cho nhu cầu mua sắm của bạn. Đơn hàng của bạn đã được xác nhận và sẽ sẵn sàng để lấy.</p> Dưới đây là chi tiết đơn hàng của bạn:<ul> <li>Mã đơn hàng: " + donDatHang.getMaDonHang() + "</li> <li>Ngày đặt hàng: " + formatter.format(donDatHang.getNgayDatHang().toLocalDate()) + "</li> </ul></p><table><tr><th>Sản phẩm</th><th>Số lượng</th><th>Giá</th></tr>";
+        for (ChiTietDonDatHang chiTietHoaDonDatHang : chiTietDonDatHangDAO.selectbyId(donDatHang.getMaDonHang())) {
+            SanPham sanPham = sanPhamDAO.selectbyId(new SanPham(chiTietHoaDonDatHang.getMaSanPham()));
+            emailContent += "<tr><td>" + sanPham.getTenSanPham() + "</td><td>" + chiTietHoaDonDatHang.getSoLuong() + "</td><td>" + nf.format(sanPham.getGia()) + "</td></tr>";
         }
-        emailContent += "</table><p>Tổng tiền: " + nf.format(hoaDon.getTongTien()) + "</p><p>Nếu bạn có bất kỳ câu hỏi hoặc thắc mắc nào, xin vui lòng liên hệ với chúng tôi.</p><p>Cảm ơn bạn đã tin tưởng và sử dụng dịch vụ của chúng tôi!</p><p>Trân trọng,</p><p><b>Nhà Sách Thuận Lợi</b></p></body></html>";
+        emailContent += "</table><p>Tổng tiền: " + nf.format(donDatHang.getTongTien()) + "</p><p>Vui lòng mang theo mã đơn hàng khi đến cửa hàng để thuận lợi trong việc xác nhận.</p><p>Cảm ơn bạn đã tin tưởng và sử dụng dịch vụ của chúng tôi!</p><p>Trân trọng,</p><p><b>Nhà Sách Thuận Lợi</b></p></body></html>";
         return emailContent;
     }
 
@@ -2512,15 +2407,15 @@ public class JPanel_BanHang extends javax.swing.JPanel {
                 jpCancelSale.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             }
         });
-        jpDelivery.addMouseListener(new MouseAdapter() {
+        jpOrder.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent e) {
-                if (jpDelivery.isEnabled()) {
-                    jpDelivery.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                if (jpOrder.isEnabled()) {
+                    jpOrder.setCursor(new Cursor(Cursor.HAND_CURSOR));
                 }
             }
 
             public void mouseExited(MouseEvent e) {
-                jpDelivery.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                jpOrder.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             }
         });
         jpCancelOrder.addMouseListener(new MouseAdapter() {
@@ -2565,6 +2460,17 @@ public class JPanel_BanHang extends javax.swing.JPanel {
                 jp_reload.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             }
         });
+        pnlCreateOrder.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent e) {
+                if (pnlCreateOrder.isEnabled()) {
+                    pnlCreateOrder.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                }
+            }
+
+            public void mouseExited(MouseEvent e) {
+                pnlCreateOrder.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            }
+        });
     }
 
     public void openPDF(String filePath) {
@@ -2598,11 +2504,10 @@ public class JPanel_BanHang extends javax.swing.JPanel {
     private javax.swing.JPanel jPanelCart;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane2;
     private util.JPanelRounded jpCancelOrder;
     private util.JPanelRounded jpCancelSale;
-    private util.JPanelRounded jpDelivery;
+    private util.JPanelRounded jpOrder;
     private util.JPanelRounded jpPaySale;
     private util.JPanelRounded jpSearch;
     private util.JPanelRounded jp_reload;
@@ -2610,6 +2515,7 @@ public class JPanel_BanHang extends javax.swing.JPanel {
     private javax.swing.JLabel lblCancelSale;
     private javax.swing.JLabel lblCategory;
     private javax.swing.JLabel lblCreateInvoice;
+    private javax.swing.JLabel lblCreateOrder;
     private javax.swing.JLabel lblCustomerId;
     private javax.swing.JLabel lblCustomerMoneyGive;
     private javax.swing.JLabel lblCustomerName;
@@ -2621,18 +2527,17 @@ public class JPanel_BanHang extends javax.swing.JPanel {
     private javax.swing.JLabel lblDiscount1;
     private javax.swing.JLabel lblEmployeeId;
     private javax.swing.JLabel lblEmployeeId2;
+    private javax.swing.JLabel lblEmployeeId3;
     private javax.swing.JLabel lblMustPay;
     private javax.swing.JLabel lblMustPay1;
     private javax.swing.JLabel lblNote;
     private javax.swing.JLabel lblNote2;
-    private javax.swing.JLabel lblNote3;
     private javax.swing.JLabel lblOrderDate;
     private javax.swing.JLabel lblOrderDate1;
     private javax.swing.JLabel lblOrderDate2;
     private javax.swing.JLabel lblOrderId;
     private javax.swing.JLabel lblOrderId2;
-    private javax.swing.JLabel lblPay1;
-    private javax.swing.JLabel lblPay2;
+    private javax.swing.JLabel lblPay;
     private javax.swing.JLabel lblProductPrice1;
     private javax.swing.JLabel lblProductPrice2;
     private javax.swing.JLabel lblProductPrice3;
@@ -2655,6 +2560,7 @@ public class JPanel_BanHang extends javax.swing.JPanel {
     private javax.swing.JLabel lblUnit3;
     private javax.swing.JLabel lblUnit4;
     private javax.swing.JLabel lblUnit5;
+    private javax.swing.JLabel lbl_customerIdOrder;
     private javax.swing.JLabel lbl_customerIdSale;
     private javax.swing.JLabel lbl_customerNameOrder;
     private javax.swing.JLabel lbl_customerNameSale;
@@ -2665,6 +2571,7 @@ public class JPanel_BanHang extends javax.swing.JPanel {
     private javax.swing.JLabel lbl_infoPage;
     private javax.swing.JLabel lbl_mustPay;
     private javax.swing.JLabel lbl_mustPayOrder;
+    private javax.swing.JLabel lbl_order;
     private javax.swing.JLabel lbl_orderDateOrder;
     private javax.swing.JLabel lbl_orderIdOrder;
     private javax.swing.JLabel lbl_orderIdSale;
@@ -2688,9 +2595,11 @@ public class JPanel_BanHang extends javax.swing.JPanel {
     private javax.swing.JLabel lbl_totalAmountOrder;
     private javax.swing.JLabel lbl_totalAmountSale;
     private util.JPanelRounded pnlCreateInvoice;
+    private util.JPanelRounded pnlCreateOrder;
     private util.JPanelRounded pnlDelete;
     private util.JPanelRounded pnlSelectCustomer;
     private util.JPanelRounded pnl_deleteAll;
+    private javax.swing.JPanel pnl_orderLits;
     private javax.swing.JPanel pnl_orderPage;
     private javax.swing.JPanel pnl_productItem1;
     private javax.swing.JPanel pnl_productItem2;
@@ -2700,18 +2609,20 @@ public class JPanel_BanHang extends javax.swing.JPanel {
     private javax.swing.JPanel pnl_scanCode;
     private javax.swing.JPanel s;
     private javax.swing.JScrollPane scr_cart;
+    private javax.swing.JScrollPane scr_orderList;
     private util.SVGImage svgCancelOrder;
     private util.SVGImage svgCancelSale;
     private util.SVGImage svgCreateInvoice;
+    private util.SVGImage svgCreateOrder;
     private util.SVGImage svgDelete;
     private util.SVGImage svgDeleteAll;
-    private util.SVGImage svgDelivery;
-    private util.SVGImage svgPay1;
+    private util.SVGImage svgOrder;
+    private util.SVGImage svgPay;
     private util.SVGImage svgReload;
     private util.SVGImage svgSearch;
     private util.SVGImage svgSelectCustomer;
     private javax.swing.JTable tbl_Cart;
-    private javax.swing.JTextArea txa_customerDeliveryAddress;
+    private javax.swing.JTable tbl_orderList;
     private javax.swing.JTextArea txa_noteOrder;
     private javax.swing.JTextArea txa_noteSale;
     private javax.swing.JTextField txt_SearchProduct;
