@@ -99,11 +99,8 @@ gui\BieuDoKhachHang$3.class
 gui\JPanel_TimKiemNhaCungCap$3.class
 gui\JPanel_KhuyenMai$12.class
 gui\JPanel_SanPham$20.class
-<<<<<<< HEAD
-gui\JPanel_PhanCa$10.class
-=======
 dao\HoaDonDAO.class
->>>>>>> 900366f (edit sale function)
+gui\JPanel_PhanCa$10.class
 gui\JPanel_HoaDon$9.class
 gui\JPanel_TimKiemKhachHang$7.class
 util\EmailL.class
@@ -211,11 +208,8 @@ gui\ThongTinKhachHang$4.class
 gui\JPanel_NhaCungCap$4.class
 entity\ThongKeDoanhThu.class
 gui\JFrame_ChiTietKhachHang.class
-<<<<<<< HEAD
-gui\JPanel_PhanCa$11.class
-=======
 dao\TaiKhoanDAO.class
->>>>>>> 900366f (edit sale function)
+gui\JPanel_PhanCa$11.class
 gui\JPanel_ThongKe$27.class
 gui\BieuDoKhachHang$2.class
 entity\NhanVien.class
@@ -351,11 +345,8 @@ gui\JFrame_ChiTietKhachHang$11.class
 gui\JFramePDFNhanVien$3.class
 gui\GiaoDienChinh$7.class
 gui\GiaoDienDangNhap$4.class
-<<<<<<< HEAD
 gui\JPanel_PhanCa$9.class
-=======
 dao\ThongKeSanPhamDAO.class
->>>>>>> 900366f (edit sale function)
 gui\BangNhapExcel$1.class
 gui\JPanel_HoaDon$16.class
 gui\JFramePDFSanPham$1.class

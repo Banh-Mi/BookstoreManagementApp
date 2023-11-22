@@ -240,22 +240,22 @@ public class JPanel_BanHang extends javax.swing.JPanel {
                             public void mouseClicked(MouseEvent e) {
                                 if (!pnlCreateInvoice.isEnabled() || !pnlCreateOrder.isEnabled()) {
                                     if (!thongTinSanPham.getTxt_quantity().getText().matches("^\\d+$")) {
-                                        JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu==2)?"Quantity must be positive!":"Số lượng phải là số dương!");
+                                        JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu == 2) ? "Quantity must be positive!" : "Số lượng phải là số dương!");
                                     } else {
                                         int quantity = Integer.parseInt(thongTinSanPham.getTxt_quantity().getText());
                                         if (quantity > 0) {
                                             if (quantity > sanPham.getSoLuong()) {
-                                                JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu==2)?"The quantity of products in stock is not enough to meet your request. Please enter a smaller quantity!":"Số lượng sản phẩm trong kho không đủ để đáp ứng yêu cầu của bạn. Vui lòng nhập số lượng nhỏ hơn!");
+                                                JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu == 2) ? "The quantity of products in stock is not enough to meet your request. Please enter a smaller quantity!" : "Số lượng sản phẩm trong kho không đủ để đáp ứng yêu cầu của bạn. Vui lòng nhập số lượng nhỏ hơn!");
                                                 return;
                                             }
                                             addProductToCart(sanPham, quantity);
                                             thongTinSanPham.setVisible(false);
                                         } else {
-                                            JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu==2)?"Quantity must be positive!":"Số lượng phải là số dương!");
+                                            JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu == 2) ? "Quantity must be positive!" : "Số lượng phải là số dương!");
                                         }
                                     }
                                 } else {
-                                    JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu==2)?"Please create an invoice to add products to the cart!":"Vui lòng tạo hóa đơn để thêm sản phẩm vào giỏ hàng!");
+                                    JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu == 2) ? "Please create an invoice to add products to the cart!" : "Vui lòng tạo hóa đơn để thêm sản phẩm vào giỏ hàng!");
                                 }
                             }
 
@@ -466,25 +466,27 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         loadData();
     }
 
-    private void loadProductToCart(SanPham sanPham, int quantity) {
-        totalAmount = (int) (totalAmount + sanPham.getGia() * quantity);
+    private void loadOrderInfo(DonDatHang donDatHang) {
+        totalAmount = (int) donDatHang.getTongTien();
 
-        lbl_totalAmountSale.setText(decimalFormat.format(totalAmount));
-        lbl_discountSale.setText(decimalFormat.format(totalAmount * discount / 100));
-        lbl_mustPay.setText(decimalFormat.format(totalAmount * (1 - discount / 100)));
-        if (!txt_customerMoneyGive.getText().equals("0")) {
-            txt_customerMoneyGive.setText(txt_customerMoneyGive.getText().replace(",", ""));
-            try {
-                lbl_returnMoneyToCustomer.setText(decimalFormat.format(Integer.valueOf(txt_customerMoneyGive.getText()) - (totalAmount - discount)));
-                txt_customerMoneyGive.setText(decimalFormat.format((Integer.valueOf(txt_customerMoneyGive.getText()))));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-            } catch (Exception e) {
-                lbl_returnMoneyToCustomer.setText("Lỗi!");
-            }
+        lbl_totalAmountOrder.setText(decimalFormat.format(totalAmount));
+        lbl_discountOrder.setText(decimalFormat.format(totalAmount * discount / 100));
+        lbl_mustPayOrder.setText(decimalFormat.format(totalAmount * (1 - discount / 100)));
+
+        for (ChiTietDonDatHang chiTietDonDatHang : chiTietDonDatHangDAO.selectbyId(donDatHang.getMaDonHang())) {
+            SanPham sanPham = sanPhamDAO.selectbyId(new SanPham(chiTietDonDatHang.getMaSanPham()));
+            String[] data = {modelCart.getRowCount() + 1 + "", sanPham.getMaSanPham(), sanPham.getTenSanPham(), chiTietDonDatHang.getSoLuong() + "", nf.format(sanPham.getGia()), nf.format(sanPham.getGia() * chiTietDonDatHang.getSoLuong())};
+            modelCart.addRow(data);
         }
 
-        String[] data = {modelCart.getRowCount() + 1 + "", sanPham.getMaSanPham(), sanPham.getTenSanPham(), quantity + "", nf.format(sanPham.getGia()), nf.format(sanPham.getGia() * quantity)};
-        modelCart.addRow(data);
+        lbl_orderIdOrder.setText(donDatHang.getMaDonHang());
+        lbl_orderDateOrder.setText(formatter.format(donDatHang.getNgayDatHang().toLocalDate()));
+        lbl_employeeIdOrder.setText(donDatHang.getMaNV());
+        lbl_customerIdOrder.setText(donDatHang.getMaKH());
+        lbl_customerNameOrder.setText(khachHangDAO.search(donDatHang.getMaKH()).getTenKH());
+        txt_customerPhone.setText(donDatHang.getSoDienThoai());
         loadData();
     }
 
@@ -1757,22 +1759,22 @@ public class JPanel_BanHang extends javax.swing.JPanel {
                 public void mouseClicked(MouseEvent e) {
                     if (!pnlCreateInvoice.isEnabled() || !pnlCreateOrder.isEnabled()) {
                         if (!thongTinSanPham.getTxt_quantity().getText().matches("^\\d+$")) {
-                            JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu==2)?"Quantity must be positive!":"Số lượng phải là số dương!");
+                            JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu == 2) ? "Quantity must be positive!" : "Số lượng phải là số dương!");
                         } else {
                             int quantity = Integer.parseInt(thongTinSanPham.getTxt_quantity().getText());
                             if (quantity > 0) {
                                 if (quantity > sanPham.getSoLuong()) {
-                                    JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu==2)?"The quantity of products in stock is not enough to meet your request. Please enter a smaller quantity!":"Số lượng sản phẩm trong kho không đủ để đáp ứng yêu cầu của bạn. Vui lòng nhập số lượng nhỏ hơn!");
+                                    JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu == 2) ? "The quantity of products in stock is not enough to meet your request. Please enter a smaller quantity!" : "Số lượng sản phẩm trong kho không đủ để đáp ứng yêu cầu của bạn. Vui lòng nhập số lượng nhỏ hơn!");
                                     return;
                                 }
                                 addProductToCart(sanPham, quantity);
                                 thongTinSanPham.setVisible(false);
                             } else {
-                                JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu==2)?"Quantity must be positive!":"Số lượng phải là số dương!");
+                                JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu == 2) ? "Quantity must be positive!" : "Số lượng phải là số dương!");
                             }
                         }
                     } else {
-                        JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu==2)?"Please create an invoice to add products to the cart!":"Vui lòng tạo hóa đơn để thêm sản phẩm vào giỏ hàng!");
+                        JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu == 2) ? "Please create an invoice to add products to the cart!" : "Vui lòng tạo hóa đơn để thêm sản phẩm vào giỏ hàng!");
                     }
                 }
 
@@ -1805,22 +1807,22 @@ public class JPanel_BanHang extends javax.swing.JPanel {
                 public void mouseClicked(MouseEvent e) {
                     if (!pnlCreateInvoice.isEnabled() || !pnlCreateOrder.isEnabled()) {
                         if (!thongTinSanPham.getTxt_quantity().getText().matches("^\\d+$")) {
-                            JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu==2)?"Quantity must be positive!":"Số lượng phải là số dương!");
+                            JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu == 2) ? "Quantity must be positive!" : "Số lượng phải là số dương!");
                         } else {
                             int quantity = Integer.parseInt(thongTinSanPham.getTxt_quantity().getText());
                             if (quantity > 0) {
                                 if (quantity > sanPham.getSoLuong()) {
-                                    JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu==2)?"The quantity of products in stock is not enough to meet your request. Please enter a smaller quantity!":"Số lượng sản phẩm trong kho không đủ để đáp ứng yêu cầu của bạn. Vui lòng nhập số lượng nhỏ hơn!");
+                                    JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu == 2) ? "The quantity of products in stock is not enough to meet your request. Please enter a smaller quantity!" : "Số lượng sản phẩm trong kho không đủ để đáp ứng yêu cầu của bạn. Vui lòng nhập số lượng nhỏ hơn!");
                                     return;
                                 }
                                 addProductToCart(sanPham, quantity);
                                 thongTinSanPham.setVisible(false);
                             } else {
-                                JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu==2)?"Quantity must be positive!":"Số lượng phải là số dương!");
+                                JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu == 2) ? "Quantity must be positive!" : "Số lượng phải là số dương!");
                             }
                         }
                     } else {
-                        JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu==2)?"Please create an invoice to add products to the cart!":"Vui lòng tạo hóa đơn để thêm sản phẩm vào giỏ hàng!");
+                        JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu == 2) ? "Please create an invoice to add products to the cart!" : "Vui lòng tạo hóa đơn để thêm sản phẩm vào giỏ hàng!");
                     }
                 }
 
@@ -1853,22 +1855,22 @@ public class JPanel_BanHang extends javax.swing.JPanel {
                 public void mouseClicked(MouseEvent e) {
                     if (!pnlCreateInvoice.isEnabled() || !pnlCreateOrder.isEnabled()) {
                         if (!thongTinSanPham.getTxt_quantity().getText().matches("^\\d+$")) {
-                            JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu==2)?"Quantity must be positive!":"Số lượng phải là số dương!");
+                            JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu == 2) ? "Quantity must be positive!" : "Số lượng phải là số dương!");
                         } else {
                             int quantity = Integer.parseInt(thongTinSanPham.getTxt_quantity().getText());
                             if (quantity > 0) {
                                 if (quantity > sanPham.getSoLuong()) {
-                                    JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu==2)?"The quantity of products in stock is not enough to meet your request. Please enter a smaller quantity!":"Số lượng sản phẩm trong kho không đủ để đáp ứng yêu cầu của bạn. Vui lòng nhập số lượng nhỏ hơn!");
+                                    JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu == 2) ? "The quantity of products in stock is not enough to meet your request. Please enter a smaller quantity!" : "Số lượng sản phẩm trong kho không đủ để đáp ứng yêu cầu của bạn. Vui lòng nhập số lượng nhỏ hơn!");
                                     return;
                                 }
                                 addProductToCart(sanPham, quantity);
                                 thongTinSanPham.setVisible(false);
                             } else {
-                                JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu==2)?"Quantity must be positive!":"Số lượng phải là số dương!");
+                                JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu == 2) ? "Quantity must be positive!" : "Số lượng phải là số dương!");
                             }
                         }
                     } else {
-                        JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu==2)?"Please create an invoice to add products to the cart!":"Vui lòng tạo hóa đơn để thêm sản phẩm vào giỏ hàng!");
+                        JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu == 2) ? "Please create an invoice to add products to the cart!" : "Vui lòng tạo hóa đơn để thêm sản phẩm vào giỏ hàng!");
                     }
                 }
 
@@ -1901,22 +1903,22 @@ public class JPanel_BanHang extends javax.swing.JPanel {
                 public void mouseClicked(MouseEvent e) {
                     if (!pnlCreateInvoice.isEnabled() || !pnlCreateOrder.isEnabled()) {
                         if (!thongTinSanPham.getTxt_quantity().getText().matches("^\\d+$")) {
-                            JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu==2)?"Quantity must be positive!":"Số lượng phải là số dương!");
+                            JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu == 2) ? "Quantity must be positive!" : "Số lượng phải là số dương!");
                         } else {
                             int quantity = Integer.parseInt(thongTinSanPham.getTxt_quantity().getText());
                             if (quantity > 0) {
                                 if (quantity > sanPham.getSoLuong()) {
-                                    JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu==2)?"The quantity of products in stock is not enough to meet your request. Please enter a smaller quantity!":"Số lượng sản phẩm trong kho không đủ để đáp ứng yêu cầu của bạn. Vui lòng nhập số lượng nhỏ hơn!");
+                                    JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu == 2) ? "The quantity of products in stock is not enough to meet your request. Please enter a smaller quantity!" : "Số lượng sản phẩm trong kho không đủ để đáp ứng yêu cầu của bạn. Vui lòng nhập số lượng nhỏ hơn!");
                                     return;
                                 }
                                 addProductToCart(sanPham, quantity);
                                 thongTinSanPham.setVisible(false);
                             } else {
-                                JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu==2)?"Quantity must be positive!":"Số lượng phải là số dương!");
+                                JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu == 2) ? "Quantity must be positive!" : "Số lượng phải là số dương!");
                             }
                         }
                     } else {
-                        JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu==2)?"Please create an invoice to add products to the cart!":"Vui lòng tạo hóa đơn để thêm sản phẩm vào giỏ hàng!");
+                        JOptionPane.showMessageDialog(thongTinSanPham, (ngonNgu == 2) ? "Please create an invoice to add products to the cart!" : "Vui lòng tạo hóa đơn để thêm sản phẩm vào giỏ hàng!");
                     }
                 }
 
@@ -2153,25 +2155,29 @@ public class JPanel_BanHang extends javax.swing.JPanel {
     }//GEN-LAST:event_chkOrderActionPerformed
 
     private void tbl_orderListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_orderListMouseClicked
-        if (!pnlCreateInvoice.isEnabled() && chkOrder.isSelected()) {
+        if (tbl_orderList.isEnabled()) {
             int row = tbl_orderList.getSelectedRow();
             if (row >= 0) {
                 DonDatHang donDatHang = donDatHangDAO.selectbyId(new DonDatHang(modelOrderList.getValueAt(row, 1) + ""));
                 this.discount = (donDatHang.getMaKhuyenMai() == null) ? 0 : khuyenMaiDAO.getKhuyenMaiById(donDatHang.getMaKhuyenMai()).getPhanTramKhuyenMai();
                 this.totalAmount = 0;
-                lbl_customerIdSale.setText(donDatHang.getMaKH());
-                lbl_customerNameSale.setText(khachHangDAO.search(donDatHang.getMaKH()).getTenKH());
                 modelCart.setRowCount(0);
-                for (ChiTietDonDatHang chiTietDonDatHang : chiTietDonDatHangDAO.selectbyId(donDatHang.getMaDonHang())) {
-                    SanPham sanPham = sanPhamDAO.selectbyId(new SanPham(chiTietDonDatHang.getMaSanPham()));
-                    loadProductToCart(sanPham, chiTietDonDatHang.getSoLuong());
+                if (!pnlCreateInvoice.isEnabled() && chkOrder.isSelected()) {
+                    for (ChiTietDonDatHang chiTietDonDatHang : chiTietDonDatHangDAO.selectbyId(donDatHang.getMaDonHang())) {
+                        SanPham sanPham = sanPhamDAO.selectbyId(new SanPham(chiTietDonDatHang.getMaSanPham()));
+                        addProductToCart(sanPham, chiTietDonDatHang.getSoLuong());
+                    }
+                } else {
+                    loadOrderInfo(donDatHang);
                 }
             }
+
         }
     }//GEN-LAST:event_tbl_orderListMouseClicked
 
     private void pnlCreateOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlCreateOrderMouseClicked
         if (pnlCreateOrder.isEnabled()) {
+            refreshOrder();
             webcam.open(); // Mở webcam trước khi hiển thị
             webcamPanel.start();
             webcamPanel.resume();
