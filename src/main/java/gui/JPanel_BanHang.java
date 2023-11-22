@@ -23,7 +23,6 @@ import entity.DonDatHang;
 import entity.HoaDon;
 import entity.KhachHang;
 import entity.SanPham;
-import entity.XacNhan;
 import static gui.GiaoDienDangNhap.ngonNgu;
 import java.awt.BorderLayout;
 import java.awt.Cursor;
@@ -73,7 +72,6 @@ public class JPanel_BanHang extends javax.swing.JPanel {
     private KhuyenMaiDAO khuyenMaiDAO = new KhuyenMaiDAO();
     private NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
     private DecimalFormat decimalFormat = new DecimalFormat("#,###");
-    private XacNhan xn = new XacNhan();
     private int infoPage = 1;
     private int infoPageCategory;
     private int totalAmount = 0;
@@ -143,7 +141,7 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         lblMustPay.setText("MustPay:");
         lblCustomerMoneyGive.setText("MoneyGive:");
         lblReturnMoneyToCustomer.setText("give back money:");
-        lblNote.setText("Note:");
+        lbl_paymentMethod.setText("Note:");
         chk_waitPay.setText("WaitPay");
         lblPay.setText("Pay");
 
@@ -163,9 +161,11 @@ public class JPanel_BanHang extends javax.swing.JPanel {
 
     private void refreshOrderSale() {
         this.totalAmount = 0;
+        cb_paymentMethod.setEnabled(false);
+        chkOrder.setEnabled(true);
         pnlSelectCustomer.setEnabled(false);
         jpPaySale.setEnabled(false);
-        jpCancelSale.setEnabled(true);
+        jpCancelOrder.setEnabled(true);
         txt_customerMoneyGive.setEnabled(false);
         txa_noteSale.setEnabled(false);
         tbl_Cart.setEnabled(false);
@@ -192,7 +192,7 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         this.totalAmount = 0;
         pnlCreateOrder.setEnabled(true);
         jpOrder.setEnabled(false);
-        jpCancelOrder.setEnabled(false);
+        jpCancelOrder.setEnabled(true);
         txt_customerPhone.setEnabled(false);
         txa_noteOrder.setEnabled(false);
         tbl_Cart.setEnabled(false);
@@ -341,6 +341,7 @@ public class JPanel_BanHang extends javax.swing.JPanel {
     }
 
     public void loadOrderList() {
+        tbl_orderList.clearSelection();
         int i = 1;
         modelOrderList.setRowCount(0);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -524,11 +525,11 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         lbl_totalAmountSale = new javax.swing.JLabel();
         lbl_discountSale = new javax.swing.JLabel();
         lbl_mustPay = new javax.swing.JLabel();
-        lblNote = new javax.swing.JLabel();
+        lbl_paymentMethod = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txa_noteSale = new javax.swing.JTextArea();
         lblNote1 = new javax.swing.JLabel();
-        PTTT = new javax.swing.JComboBox<>();
+        cb_paymentMethod = new javax.swing.JComboBox<>();
         jPanel4 = new javax.swing.JPanel();
         lblOrderId = new javax.swing.JLabel();
         lbl_orderIdSale = new javax.swing.JLabel();
@@ -779,23 +780,23 @@ public class JPanel_BanHang extends javax.swing.JPanel {
 
         lblTotalAmount.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblTotalAmount.setText("Tổng tiền:");
-        jPanel2.add(lblTotalAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 110, 30));
+        jPanel2.add(lblTotalAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 110, 30));
 
         lblDiscount.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblDiscount.setText("Giảm giá:");
-        jPanel2.add(lblDiscount, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 110, 30));
+        jPanel2.add(lblDiscount, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 110, 30));
 
         lblMustPay.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblMustPay.setText("Phải trả:");
-        jPanel2.add(lblMustPay, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 110, 30));
+        jPanel2.add(lblMustPay, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 110, 30));
 
         lblCustomerMoneyGive.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblCustomerMoneyGive.setText("Tiền khách đưa:");
-        jPanel2.add(lblCustomerMoneyGive, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, -1, 30));
+        jPanel2.add(lblCustomerMoneyGive, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, 30));
 
         lblReturnMoneyToCustomer.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblReturnMoneyToCustomer.setText("Trả lại khách:");
-        jPanel2.add(lblReturnMoneyToCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 110, 30));
+        jPanel2.add(lblReturnMoneyToCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 110, 30));
 
         txt_customerMoneyGive.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         txt_customerMoneyGive.setText("0");
@@ -812,67 +813,69 @@ public class JPanel_BanHang extends javax.swing.JPanel {
                 txt_customerMoneyGiveKeyTyped(evt);
             }
         });
-        jPanel2.add(txt_customerMoneyGive, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 190, 140, 30));
+        jPanel2.add(txt_customerMoneyGive, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 170, 140, 30));
 
         lbl_returnMoneyToCustomer.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lbl_returnMoneyToCustomer.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lbl_returnMoneyToCustomer.setText("0");
-        jPanel2.add(lbl_returnMoneyToCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, 140, 30));
+        jPanel2.add(lbl_returnMoneyToCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 220, 140, 30));
 
         lblUnit5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblUnit5.setText("VNĐ");
-        jPanel2.add(lblUnit5, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 240, 30, 30));
+        jPanel2.add(lblUnit5, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 220, 30, 30));
 
         lblUnit4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblUnit4.setText("VNĐ");
-        jPanel2.add(lblUnit4, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 190, 30, 30));
+        jPanel2.add(lblUnit4, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 170, 30, 30));
 
         lblUnit3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblUnit3.setForeground(new java.awt.Color(255, 51, 51));
         lblUnit3.setText("VNĐ");
-        jPanel2.add(lblUnit3, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 140, 40, 30));
+        jPanel2.add(lblUnit3, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 120, 40, 30));
 
         lblUnit2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblUnit2.setText("VNĐ");
-        jPanel2.add(lblUnit2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 90, 30, 30));
+        jPanel2.add(lblUnit2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, 30, 30));
 
         lblUnit1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblUnit1.setText("VNĐ");
-        jPanel2.add(lblUnit1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 40, 30, 30));
+        jPanel2.add(lblUnit1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 20, 30, 30));
 
         lbl_totalAmountSale.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl_totalAmountSale.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lbl_totalAmountSale.setText("0");
-        jPanel2.add(lbl_totalAmountSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 40, 140, 30));
+        jPanel2.add(lbl_totalAmountSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, 140, 30));
 
         lbl_discountSale.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lbl_discountSale.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lbl_discountSale.setText("0");
-        jPanel2.add(lbl_discountSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 90, 140, 30));
+        jPanel2.add(lbl_discountSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 140, 30));
 
         lbl_mustPay.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         lbl_mustPay.setForeground(new java.awt.Color(255, 51, 51));
         lbl_mustPay.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lbl_mustPay.setText("0");
-        jPanel2.add(lbl_mustPay, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 140, 140, 30));
+        jPanel2.add(lbl_mustPay, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, 140, 30));
 
-        lblNote.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblNote.setText("Phương thức TT:");
-        jPanel2.add(lblNote, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 110, 30));
+        lbl_paymentMethod.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbl_paymentMethod.setText("Phương thức:");
+        jPanel2.add(lbl_paymentMethod, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 110, 30));
+
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         txa_noteSale.setColumns(20);
         txa_noteSale.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txa_noteSale.setRows(5);
         jScrollPane1.setViewportView(txa_noteSale);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 290, 180, 100));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 320, 180, 80));
 
         lblNote1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblNote1.setText("Ghi chú:");
-        jPanel2.add(lblNote1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, 110, 30));
+        jPanel2.add(lblNote1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 110, 30));
 
-        PTTT.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tiền mặt", "MoMo", "VN pay" }));
-        jPanel2.add(PTTT, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, -1, -1));
+        cb_paymentMethod.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tiền mặt", "MoMo", "VN pay" }));
+        jPanel2.add(cb_paymentMethod, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 270, 180, 30));
 
         pnl_salePay.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 340, 410));
 
@@ -1669,6 +1672,9 @@ public class JPanel_BanHang extends javax.swing.JPanel {
 
     private void pnlCreateInvoiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlCreateInvoiceMouseClicked
         if (pnlCreateInvoice.isEnabled()) {
+            cb_paymentMethod.setEnabled(true);
+            modelCart.setRowCount(0);
+            chkOrder.setEnabled(false);
             webcam.open(); // Mở webcam trước khi hiển thị
             webcamPanel.start();
             webcamPanel.resume();
@@ -2089,61 +2095,50 @@ public class JPanel_BanHang extends javax.swing.JPanel {
 
     private void jpCancelSaleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpCancelSaleMouseClicked
         if (jpCancelSale.isEnabled()) {
-            if (lbl_orderIdSale.getText().equals("")) {
-                if (JOptionPane.showConfirmDialog(this, (ngonNgu == 2) ? "Are you sure you want to cancel the order?" : "Bạn có chắc chắn muốn hủy đơn đặt hàng không?", (ngonNgu == 2) ? "Warning" : "Cảnh báo", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                    DonDatHang donDatHang = new DonDatHang(modelOrderList.getValueAt(tbl_orderList.getSelectedRow(), 1) + "");
-                    donDatHangDAO.delete(donDatHang);
-                    refreshOrderSale();
-                    loadData();
-                    JOptionPane.showMessageDialog(this, (ngonNgu == 2) ? "Order canceled successfully" : "Hủy đơn đặt hàng thành công");
-                    modelCart.setRowCount(0);
-                }
-            } else {
-                if (JOptionPane.showConfirmDialog(this, (ngonNgu == 2) ? "Are you sure you want to cancel the order?" : "Bạn có chắc chắn muốn hủy hóa đơn không?", "Cảnh báo", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                    String maHoaDon = lbl_orderIdSale.getText();
-                    String maKH = lbl_customerIdSale.getText();
-                    String maNV = lbl_employeeIdSale.getText();
-                    String maKhuyenMai = null;
-                    String phuongThucThanhToan = "Tiền mặt";
-                    Date ngayLapHoaDon = Date.valueOf(LocalDateTime.parse(lblOrderDate.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm a")).toLocalDate());
-                    String soDienThoai = (maKH.equals("KH000") ? null : khachHangDAO.search(maKH).getSoDienThoai());
-                    String trangThai = "Đã hủy";
-                    String ghiChu = txa_noteSale.getText();
+            if (JOptionPane.showConfirmDialog(this, (ngonNgu == 2) ? "Are you sure you want to cancel the order?" : "Bạn có chắc chắn muốn hủy hóa đơn không?", "Cảnh báo", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                String maHoaDon = lbl_orderIdSale.getText();
+                String maKH = lbl_customerIdSale.getText();
+                String maNV = lbl_employeeIdSale.getText();
+                String maKhuyenMai = null;
+                String phuongThucThanhToan = cb_paymentMethod.getSelectedItem() + "";
+                Date ngayLapHoaDon = Date.valueOf(LocalDateTime.parse(lblOrderDate.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm a")).toLocalDate());
+                String soDienThoai = (maKH.equals("KH000") ? null : khachHangDAO.search(maKH).getSoDienThoai());
+                String trangThai = "Đã hủy";
+                String ghiChu = txa_noteSale.getText();
 
-                    HoaDon hoaDon = new HoaDon(maHoaDon, maKH, maNV, maKhuyenMai, phuongThucThanhToan, ngayLapHoaDon, soDienThoai, trangThai, ghiChu);
+                HoaDon hoaDon = new HoaDon(maHoaDon, maKH, maNV, maKhuyenMai, phuongThucThanhToan, ngayLapHoaDon, soDienThoai, trangThai, ghiChu);
 
-                    if (modelCart.getRowCount() > 0) {
-                        if (hoaDonDAO.insert(hoaDon) > 0) {
-                            for (int i = 0; i < modelCart.getRowCount(); i++) {
-                                String maSanPham = modelCart.getValueAt(i, 1) + "";
-                                int soLuong = Integer.valueOf(modelCart.getValueAt(i, 3) + "");
-                                double gia = sanPhamDAO.selectbyId(new SanPham(maSanPham)).getGia();
-                                ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(maHoaDon, maSanPham, soLuong, gia);
-                                chiTietHoaDonDAO.insert(chiTietHoaDon);
+                if (modelCart.getRowCount() > 0) {
+                    if (hoaDonDAO.insert(hoaDon) > 0) {
+                        for (int i = 0; i < modelCart.getRowCount(); i++) {
+                            String maSanPham = modelCart.getValueAt(i, 1) + "";
+                            int soLuong = Integer.valueOf(modelCart.getValueAt(i, 3) + "");
+                            double gia = sanPhamDAO.selectbyId(new SanPham(maSanPham)).getGia();
+                            ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(maHoaDon, maSanPham, soLuong, gia);
+                            chiTietHoaDonDAO.insert(chiTietHoaDon);
 
-                                SanPham sanPham = sanPhamDAO.selectbyId(new SanPham(maSanPham));
-                                sanPham.setSoLuong(sanPham.getSoLuong() + soLuong);
-                                sanPhamDAO.update(sanPham);
-                            }
-                            if (chkOrder.isSelected()) {
-                                donDatHangDAO.delete(new DonDatHang(modelOrderList.getValueAt(tbl_orderList.getSelectedRow(), 1) + ""));
-                            }
-                            refreshOrderSale();
-                            loadData();
-                            JOptionPane.showMessageDialog(this, (ngonNgu == 2) ? "Order canceled successfully" : "Hủy hóa đơn thành công");
-
-                            modelCart.setRowCount(0);
-                        } else {
-                            JOptionPane.showMessageDialog(this, (ngonNgu == 2) ? "An error occurred while cancelling!" : "Đã xảy ra lỗi trong quá trình hủy!");
+                            SanPham sanPham = sanPhamDAO.selectbyId(new SanPham(maSanPham));
+                            sanPham.setSoLuong(sanPham.getSoLuong() + soLuong);
+                            sanPhamDAO.update(sanPham);
                         }
+                        if (chkOrder.isSelected()) {
+                            donDatHangDAO.delete(new DonDatHang(modelOrderList.getValueAt(tbl_orderList.getSelectedRow(), 1) + ""));
+                        }
+                        refreshOrderSale();
+                        loadData();
+                        JOptionPane.showMessageDialog(this, (ngonNgu == 2) ? "Order canceled successfully" : "Hủy hóa đơn thành công");
+
+                        modelCart.setRowCount(0);
                     } else {
-                        if (hoaDonDAO.insert(hoaDon) > 0) {
-                            refreshOrderSale();
-                            loadData();
-                            JOptionPane.showMessageDialog(this, (ngonNgu == 2) ? "Order canceled successfully" : "Hủy hóa đơn thành công");
-                        } else {
-                            JOptionPane.showMessageDialog(this, (ngonNgu == 2) ? "An error occurred while cancelling!" : "Đã xảy ra lỗi trong quá trình hủy!");
-                        }
+                        JOptionPane.showMessageDialog(this, (ngonNgu == 2) ? "An error occurred while cancelling!" : "Đã xảy ra lỗi trong quá trình hủy!");
+                    }
+                } else {
+                    if (hoaDonDAO.insert(hoaDon) > 0) {
+                        refreshOrderSale();
+                        loadData();
+                        JOptionPane.showMessageDialog(this, (ngonNgu == 2) ? "Order canceled successfully" : "Hủy hóa đơn thành công");
+                    } else {
+                        JOptionPane.showMessageDialog(this, (ngonNgu == 2) ? "An error occurred while cancelling!" : "Đã xảy ra lỗi trong quá trình hủy!");
                     }
                 }
             }
@@ -2152,6 +2147,15 @@ public class JPanel_BanHang extends javax.swing.JPanel {
 
     private void jpCancelOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpCancelOrderMouseClicked
         if (jpCancelOrder.isEnabled()) {
+            int row = tbl_orderList.getSelectedRow();
+            if (row >= 0) {
+                if (JOptionPane.showConfirmDialog(this, (ngonNgu == 2) ? "Are you sure you want to cancel the order?" : "Bạn có chắc chắn muốn hủy đơn đặt hàng không?", (ngonNgu == 2) ? "Warning" : "Cảnh báo", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                    DonDatHang donDatHang = new DonDatHang(modelOrderList.getValueAt(tbl_orderList.getSelectedRow(), 1) + "");
+                    donDatHangDAO.delete(donDatHang);
+                    JOptionPane.showMessageDialog(this, (ngonNgu == 2) ? "Order canceled successfully" : "Hủy đơn đặt hàng thành công");
+                    modelCart.setRowCount(0);
+                }
+            }
             refreshOrder();
             loadData();
             modelCart.setRowCount(0);
@@ -2175,6 +2179,8 @@ public class JPanel_BanHang extends javax.swing.JPanel {
                 this.totalAmount = 0;
                 modelCart.setRowCount(0);
                 if (!pnlCreateInvoice.isEnabled() && chkOrder.isSelected()) {
+                    lbl_customerIdSale.setText(donDatHang.getMaKH());
+                    lbl_customerNameSale.setText(khachHangDAO.search(donDatHang.getMaKH()).getTenKH());
                     for (ChiTietDonDatHang chiTietDonDatHang : chiTietDonDatHangDAO.selectbyId(donDatHang.getMaDonHang())) {
                         SanPham sanPham = sanPhamDAO.selectbyId(new SanPham(chiTietDonDatHang.getMaSanPham()));
                         addProductToCart(sanPham, chiTietDonDatHang.getSoLuong());
@@ -2216,173 +2222,110 @@ public class JPanel_BanHang extends javax.swing.JPanel {
     }//GEN-LAST:event_scr_orderListMouseClicked
 
     private void jpPaySaleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpPaySaleMouseClicked
-        if (PTTT.getSelectedItem().toString().equals("Tiền mặt")) {
-            if (jpPaySale.isEnabled()) {
-                DonDatHang donDatHang = null;
-                if (chkOrder.isSelected()) {
-                    if (tbl_orderList.getSelectedRow() >= 0) {
-                        donDatHang = donDatHangDAO.selectbyId(new DonDatHang(modelOrderList.getValueAt(tbl_orderList.getSelectedRow(), 1) + ""));
-                    }
-                }
-                if (lbl_totalAmountSale.getText().equals("0")) {
-                    if (chkOrder.isSelected()) {
-                        JOptionPane.showMessageDialog(this, (ngonNgu == 2) ? "Please select order to pay!" : "Vui lòng chọn đơn đặt hàng để thanh toán!");
-                    } else {
-                        JOptionPane.showMessageDialog(this, (ngonNgu == 2) ? "Please select products for payment!" : "Vui lòng chọn sản phẩm để thanh toán!");
-                    }
-                } else if (lbl_returnMoneyToCustomer.getText().charAt(0) == '-' || txt_customerMoneyGive.getText().equals("0")) {
-                    JOptionPane.showMessageDialog(this, (ngonNgu == 2) ? "Unable to process payment. Insufficient customer funds!" : "Không thể thanh toán. Tiền khách đưa chưa đủ!");
-                } else {
-                    String maHoaDon = lbl_orderIdSale.getText();
-                    String maKH = lbl_customerIdSale.getText();
-                    String maNV = lbl_employeeIdSale.getText();
-                    String maKhuyenMai;
-                    if (chkOrder.isSelected()) {
-                        maKhuyenMai = donDatHang.getMaKhuyenMai();
-                    } else {
-                        maKhuyenMai = (discount == 0) ? null : khuyenMaiDAO.getPromotionEnable().getMaKhuyenMai();
-                    }
-
-                    String phuongThucThanhToan = "Tiền mặt";
-                    Date ngayLapHoaDon = Date.valueOf(LocalDateTime.parse(lblOrderDate.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm a")).toLocalDate());
-                    String soDienThoai;
-                    if (chkOrder.isSelected()) {
-                        soDienThoai = maKH.equals("KH000") ? null : donDatHang.getSoDienThoai();
-                    } else {
-                        soDienThoai = maKH.equals("KH000") ? null : khachHangDAO.search(maKH).getSoDienThoai();
-                    }
-                    String trangThai = "Đã thanh toán";
-                    String ghiChu = txa_noteSale.getText();
-                    if (chk_waitPay.isSelected()) {
-                        trangThai = "Chờ thanh toán";
-                    }
-
-                    HoaDon hoaDon = new HoaDon(maHoaDon, maKH, maNV, maKhuyenMai, phuongThucThanhToan, ngayLapHoaDon, soDienThoai, trangThai, ghiChu);
-
-                    if (hoaDonDAO.insert(hoaDon) > 0) {
-                        for (int i = 0; i < modelCart.getRowCount(); i++) {
-                            String maSanPham = modelCart.getValueAt(i, 1) + "";
-                            int soLuong = Integer.valueOf(modelCart.getValueAt(i, 3) + "");
-                            double gia = sanPhamDAO.selectbyId(new SanPham(maSanPham)).getGia();
-                            ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(maHoaDon, maSanPham, soLuong, gia);
-                            chiTietHoaDonDAO.insert(chiTietHoaDon);
-                        }
-
-                        ThongTinHoaDon thongTinHoaDon = new ThongTinHoaDon(hoaDon);
-                        thongTinHoaDon.setVisible(true);
-                        String filePath = "D:\\" + hoaDon.getMaHoaDon() + ".pdf";
-                        ExportPDF.exportPDF(thongTinHoaDon, filePath);
-                        thongTinHoaDon.setVisible(false);
-                        openPDF(filePath);
-
-                        if (!hoaDon.getMaKH().equals("KH000")) {
-                            Email.sendEmail(khachHangDAO.search(maKH).getEmail(), (ngonNgu == 2) ? "Thank you for shopping at our store!" : "Cảm ơn bạn đã mua hàng tại cửa hàng!", getEmailContentSale(hoaDon));
-                        }
-                        JOptionPane.showMessageDialog(this, (ngonNgu == 2) ? "Payment successfull" : "Thanh toán thành công");
-
-                        if (chkOrder.isSelected()) {
-                            donDatHang.setTrangThai("Đã thanh toán");
-                            donDatHangDAO.update(donDatHang);
-                            loadOrderList();
-                        }
-                        refreshOrderSale();
-
-                        modelCart.setRowCount(0);
-                    } else {
-                        JOptionPane.showMessageDialog(this, (ngonNgu == 2) ? "Payment failed. Please try again later!" : "Thanh toán thất bại vui lòng thử lại sau!");
-                        refreshOrderSale();
-                    }
+        if (jpPaySale.isEnabled()) {
+            DonDatHang donDatHang = null;
+            if (chkOrder.isSelected()) {
+                if (tbl_orderList.getSelectedRow() >= 0) {
+                    donDatHang = donDatHangDAO.selectbyId(new DonDatHang(modelOrderList.getValueAt(tbl_orderList.getSelectedRow(), 1) + ""));
                 }
             }
-        } else if (PTTT.getSelectedItem().toString().equals("MoMo")) {
-            if (jpPaySale.isEnabled()) {
-                DonDatHang donDatHang = null;
+            if (lbl_totalAmountSale.getText().equals("0")) {
                 if (chkOrder.isSelected()) {
-                    if (tbl_orderList.getSelectedRow() >= 0) {
-                        donDatHang = donDatHangDAO.selectbyId(new DonDatHang(modelOrderList.getValueAt(tbl_orderList.getSelectedRow(), 1) + ""));
-                    }
-                }
-                if (lbl_totalAmountSale.getText().equals("0")) {
-                    if (chkOrder.isSelected()) {
-                        JOptionPane.showMessageDialog(this, (ngonNgu == 2) ? "Please select order to pay!" : "Vui lòng chọn đơn đặt hàng để thanh toán!");
-                    } else {
-                        JOptionPane.showMessageDialog(this, (ngonNgu == 2) ? "Please select products for payment!" : "Vui lòng chọn sản phẩm để thanh toán!");
-                    }
+                    JOptionPane.showMessageDialog(this, (ngonNgu == 2) ? "Please select order to pay!" : "Vui lòng chọn đơn đặt hàng để thanh toán!");
                 } else {
-                    String maHoaDon = lbl_orderIdSale.getText();
-                    String maKH = lbl_customerIdSale.getText();
-                    String maNV = lbl_employeeIdSale.getText();
-                    String maKhuyenMai;
-                    if (chkOrder.isSelected()) {
-                        maKhuyenMai = donDatHang.getMaKhuyenMai();
-                    } else {
-                        maKhuyenMai = (discount == 0) ? null : khuyenMaiDAO.getPromotionEnable().getMaKhuyenMai();
-                    }
-
-                    String phuongThucThanhToan = "MoMo";
-                    Date ngayLapHoaDon = Date.valueOf(LocalDateTime.parse(lblOrderDate.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm a")).toLocalDate());
-                    String soDienThoai;
-                    if (chkOrder.isSelected()) {
-                        soDienThoai = maKH.equals("KH000") ? null : donDatHang.getSoDienThoai();
-                    } else {
-                        soDienThoai = maKH.equals("KH000") ? null : khachHangDAO.search(maKH).getSoDienThoai();
-                    }
-                    String trangThai = "Đã thanh toán";
-                    String ghiChu = txa_noteSale.getText();
-                    if (chk_waitPay.isSelected()) {
-                        trangThai = "Chờ thanh toán";
-                    }
-                    ThanhToanMoMo MM = new ThanhToanMoMo();
-                    MM.setLocationRelativeTo(null);
-                    MM.setVisible(true);
-                    int delay = 5000; // Thời gian chờ (milliseconds) - 20 giây
-                    Timer timer = new Timer(delay, e -> {   
-                        System.out.println(MM.getso());
-                        if(MM.getso()==1)
-                        {
-                            
-                        }
-                        // Kiểm tra giá trị xn.getXacNhan() và thực hiện các hành động tương ứng ở đây
-                    });
-                    timer.setRepeats(false); // Không lặp lại timer sau khi hoàn thành
-                    timer.start();
-                    System.out.println(MM.getso());
-                    
-                        HoaDon hoaDon = new HoaDon(maHoaDon, maKH, maNV, maKhuyenMai, phuongThucThanhToan, ngayLapHoaDon, soDienThoai, trangThai, ghiChu);
-                        if (hoaDonDAO.insert(hoaDon) > 0) {
-                            for (int i = 0; i < modelCart.getRowCount(); i++) {
-                                String maSanPham = modelCart.getValueAt(i, 1) + "";
-                                int soLuong = Integer.valueOf(modelCart.getValueAt(i, 3) + "");
-                                double gia = sanPhamDAO.selectbyId(new SanPham(maSanPham)).getGia();
-                                ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(maHoaDon, maSanPham, soLuong, gia);
-                                chiTietHoaDonDAO.insert(chiTietHoaDon);
-                            }
-                            ThongTinHoaDon thongTinHoaDon = new ThongTinHoaDon(hoaDon);
-                            thongTinHoaDon.setVisible(true);
-                            String filePath = "D:\\" + hoaDon.getMaHoaDon() + ".pdf";
-                            ExportPDF.exportPDF(thongTinHoaDon, filePath);
-                            thongTinHoaDon.setVisible(false);
-                            openPDF(filePath);
-
-                            if (!hoaDon.getMaKH().equals("KH000")) {
-                                Email.sendEmail(khachHangDAO.search(maKH).getEmail(), (ngonNgu == 2) ? "Thank you for shopping at our store!" : "Cảm ơn bạn đã mua hàng tại cửa hàng!", getEmailContentSale(hoaDon));
-                            }
-                            JOptionPane.showMessageDialog(this, (ngonNgu == 2) ? "Payment successfull" : "Thanh toán thành công");
-
-                            if (chkOrder.isSelected()) {
-                                donDatHang.setTrangThai("Đã thanh toán");
-                                donDatHangDAO.update(donDatHang);
-                                loadOrderList();
-                            }
-                            refreshOrderSale();
-
-                            modelCart.setRowCount(0);
-                        }
-                    
+                    JOptionPane.showMessageDialog(this, (ngonNgu == 2) ? "Please select products for payment!" : "Vui lòng chọn sản phẩm để thanh toán!");
                 }
+                return;
+            }
+            if (cb_paymentMethod.getSelectedItem().equals("Tiền mặt")) {
+                if (lbl_returnMoneyToCustomer.getText().charAt(0) == '-' || txt_customerMoneyGive.getText().equals("0")) {
+                    JOptionPane.showMessageDialog(this, (ngonNgu == 2) ? "Unable to process payment. Insufficient customer funds!" : "Không thể thanh toán. Tiền khách đưa chưa đủ!");
+                    return;
+                }
+            }
+
+            if (cb_paymentMethod.getSelectedItem().equals("MoMo")) {
+                ThanhToanMoMo thanhToanMoMo = new ThanhToanMoMo();
+                thanhToanMoMo.setLocationRelativeTo(null);
+                thanhToanMoMo.getLbl_payMoney().setText(lbl_mustPay.getText());
+                thanhToanMoMo.setVisible(true);
+                thanhToanMoMo.getBtn_confirm().addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        DonDatHang donDatHang = null;
+                        if (tbl_orderList.getSelectedRow() >= 0) {
+                            donDatHang = donDatHangDAO.selectbyId(new DonDatHang(modelOrderList.getValueAt(tbl_orderList.getSelectedRow(), 1) + ""));
+                        }
+                        pay(donDatHang);
+                    }
+                });
+            } else {
+                pay(donDatHang);
             }
         }
     }//GEN-LAST:event_jpPaySaleMouseClicked
+
+    private void pay(DonDatHang donDatHang) {
+        String maHoaDon = lbl_orderIdSale.getText();
+        String maKH = lbl_customerIdSale.getText();
+        String maNV = lbl_employeeIdSale.getText();
+        String maKhuyenMai;
+        if (chkOrder.isSelected()) {
+            maKhuyenMai = donDatHang.getMaKhuyenMai();
+        } else {
+            maKhuyenMai = (discount == 0) ? null : khuyenMaiDAO.getPromotionEnable().getMaKhuyenMai();
+        }
+
+        String phuongThucThanhToan = cb_paymentMethod.getSelectedItem() + "";
+        Date ngayLapHoaDon = Date.valueOf(LocalDateTime.parse(lblOrderDate.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm a")).toLocalDate());
+        String soDienThoai;
+        if (chkOrder.isSelected()) {
+            soDienThoai = maKH.equals("KH000") ? null : donDatHang.getSoDienThoai();
+        } else {
+            soDienThoai = maKH.equals("KH000") ? null : khachHangDAO.search(maKH).getSoDienThoai();
+        }
+        String trangThai = "Đã thanh toán";
+        String ghiChu = txa_noteSale.getText();
+        if (chk_waitPay.isSelected()) {
+            trangThai = "Chờ thanh toán";
+        }
+
+        HoaDon hoaDon = new HoaDon(maHoaDon, maKH, maNV, maKhuyenMai, phuongThucThanhToan, ngayLapHoaDon, soDienThoai, trangThai, ghiChu);
+
+        if (hoaDonDAO.insert(hoaDon) > 0) {
+            for (int i = 0; i < modelCart.getRowCount(); i++) {
+                String maSanPham = modelCart.getValueAt(i, 1) + "";
+                int soLuong = Integer.valueOf(modelCart.getValueAt(i, 3) + "");
+                double gia = sanPhamDAO.selectbyId(new SanPham(maSanPham)).getGia();
+                ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(maHoaDon, maSanPham, soLuong, gia);
+                chiTietHoaDonDAO.insert(chiTietHoaDon);
+            }
+
+            ThongTinHoaDon thongTinHoaDon = new ThongTinHoaDon(hoaDon);
+            thongTinHoaDon.setVisible(true);
+            String filePath = "D:\\" + hoaDon.getMaHoaDon() + ".pdf";
+            ExportPDF.exportPDF(thongTinHoaDon, filePath);
+            thongTinHoaDon.setVisible(false);
+            openPDF(filePath);
+
+            if (!hoaDon.getMaKH().equals("KH000")) {
+                Email.sendEmail(khachHangDAO.search(maKH).getEmail(), (ngonNgu == 2) ? "Thank you for shopping at our store!" : "Cảm ơn bạn đã mua hàng tại cửa hàng!", getEmailContentSale(hoaDon));
+            }
+            JOptionPane.showMessageDialog(this, (ngonNgu == 2) ? "Payment successfull" : "Thanh toán thành công");
+
+            if (chkOrder.isSelected()) {
+                donDatHang.setTrangThai("Đã thanh toán");
+                donDatHangDAO.update(donDatHang);
+                loadOrderList();
+            }
+            refreshOrderSale();
+
+            modelCart.setRowCount(0);
+        } else {
+            JOptionPane.showMessageDialog(this, (ngonNgu == 2) ? "Payment failed. Please try again later!" : "Thanh toán thất bại vui lòng thử lại sau!");
+            refreshOrderSale();
+        }
+    }
 
     private void addDataToListProduct(SanPham sanPham) {
         lbl_productImage1.setIcon(createImageIcon(sanPham.getHinhAnh()));
@@ -2599,10 +2542,10 @@ public class JPanel_BanHang extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> PTTT;
     private javax.swing.JButton btn_next;
     private javax.swing.JButton btn_previous;
     private javax.swing.JComboBox<String> cb_category;
+    private javax.swing.JComboBox<String> cb_paymentMethod;
     private javax.swing.JCheckBox chkOrder;
     private javax.swing.JCheckBox chk_waitPay;
     private javax.swing.JPanel jPanel12;
@@ -2638,7 +2581,6 @@ public class JPanel_BanHang extends javax.swing.JPanel {
     private javax.swing.JLabel lblEmployeeId3;
     private javax.swing.JLabel lblMustPay;
     private javax.swing.JLabel lblMustPay1;
-    private javax.swing.JLabel lblNote;
     private javax.swing.JLabel lblNote1;
     private javax.swing.JLabel lblNote2;
     private javax.swing.JLabel lblOrderDate;
@@ -2684,6 +2626,7 @@ public class JPanel_BanHang extends javax.swing.JPanel {
     private javax.swing.JLabel lbl_orderDateOrder;
     private javax.swing.JLabel lbl_orderIdOrder;
     private javax.swing.JLabel lbl_orderIdSale;
+    private javax.swing.JLabel lbl_paymentMethod;
     private javax.swing.JLabel lbl_productImage1;
     private javax.swing.JLabel lbl_productImage2;
     private javax.swing.JLabel lbl_productImage3;
