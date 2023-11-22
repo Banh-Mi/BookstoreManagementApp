@@ -4,6 +4,8 @@
  */
 package gui;
 
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,10 +17,13 @@ public class ThanhToanMoMo1 extends javax.swing.JFrame {
     /**
      * Creates new form thanhToanMoMo
      */
-
     public ThanhToanMoMo1() {
         initComponents();
-        
+
+    }
+
+    public JLabel getLbl_payMoney() {
+        return lbl_payMoney;
     }
 
     /**
@@ -43,7 +48,7 @@ public class ThanhToanMoMo1 extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        lbl_payMoney = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
@@ -51,11 +56,10 @@ public class ThanhToanMoMo1 extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
+        lbl_noidung = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btn_cancel = new javax.swing.JButton();
+        btn_confirm = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -109,9 +113,9 @@ public class ThanhToanMoMo1 extends javax.swing.JFrame {
         jLabel11.setText("Số tiền chuyển:");
         jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 270, -1, 26));
 
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel12.setText("10.0000");
-        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 290, 150, 36));
+        lbl_payMoney.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lbl_payMoney.setText("10.000");
+        jPanel2.add(lbl_payMoney, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 290, 150, 36));
 
         jLabel13.setForeground(new java.awt.Color(204, 255, 204));
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/light/user@2x1.png"))); // NOI18N
@@ -145,42 +149,38 @@ public class ThanhToanMoMo1 extends javax.swing.JFrame {
 
         jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 420, 330, -1));
 
-        jLabel19.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel19.setText("ABCXYZ");
-        jPanel2.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 370, 150, 36));
-
-        jLabel20.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel20.setText("ABCXYZ");
-        jPanel2.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 370, 150, 36));
+        lbl_noidung.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lbl_noidung.setText("ABCXYZ");
+        jPanel2.add(lbl_noidung, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 370, 150, 36));
 
         jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/light/momo3.jpg"))); // NOI18N
         jPanel2.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 540, 220, 210));
 
-        jButton2.setText("Hủy");
-        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+        btn_cancel.setText("Hủy");
+        btn_cancel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton2MouseClicked(evt);
+                btn_cancelMouseClicked(evt);
             }
         });
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btn_cancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btn_cancelActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 720, 80, 30));
+        jPanel2.add(btn_cancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 720, 80, 30));
 
-        jButton3.setText("Xác nhận");
-        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+        btn_confirm.setText("Xác nhận");
+        btn_confirm.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton3MouseClicked(evt);
+                btn_confirmMouseClicked(evt);
             }
         });
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btn_confirm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btn_confirmActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 720, 80, 30));
+        jPanel2.add(btn_confirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 720, 80, 30));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -210,28 +210,34 @@ public class ThanhToanMoMo1 extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+    private void btn_cancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_cancelMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2MouseClicked
+    }//GEN-LAST:event_btn_cancelMouseClicked
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-      setVisible(false);
-        JOptionPane.showMessageDialog(null, "Thanh toán thành công");
-        
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void btn_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelActionPerformed
+        setVisible(false);
+    }//GEN-LAST:event_btn_cancelActionPerformed
 
-    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
-            // TODOs add your handling code here:
-    }//GEN-LAST:event_jButton3MouseClicked
+    private void btn_confirmMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_confirmMouseClicked
+        // TODOs add your handling code here:
+    }//GEN-LAST:event_btn_confirmMouseClicked
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-      setVisible(false);
-        
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void btn_confirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_confirmActionPerformed
+        setVisible(false);
 
-    /**
-     * @param args the command line arguments
-     */
+    }//GEN-LAST:event_btn_confirmActionPerformed
+
+    public JButton getBtn_confirm() {
+        return btn_confirm;
+    }
+
+    public JLabel getLbl_payMoney1() {
+        return lbl_payMoney;
+    }
+    public JLabel getLbl_noidung() {
+        return lbl_noidung;
+    }
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -272,21 +278,18 @@ public class ThanhToanMoMo1 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btn_cancel;
+    private javax.swing.JButton btn_confirm;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -298,5 +301,7 @@ public class ThanhToanMoMo1 extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JLabel lbl_noidung;
+    private javax.swing.JLabel lbl_payMoney;
     // End of variables declaration//GEN-END:variables
 }

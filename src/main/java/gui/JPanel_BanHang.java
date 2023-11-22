@@ -42,6 +42,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -2245,9 +2246,10 @@ public class JPanel_BanHang extends javax.swing.JPanel {
             }
 
             if (cb_paymentMethod.getSelectedItem().equals("MoMo")) {
-                ThanhToanMoMo thanhToanMoMo = new ThanhToanMoMo();
+                ThanhToanMoMo1 thanhToanMoMo = new ThanhToanMoMo1();
                 thanhToanMoMo.setLocationRelativeTo(null);
-                thanhToanMoMo.getLbl_payMoney().setText(lbl_mustPay.getText());
+                thanhToanMoMo.getLbl_payMoney1().setText(lbl_mustPay.getText());
+                thanhToanMoMo.getLbl_noidung().setText(generateRandomNumbers());
                 thanhToanMoMo.setVisible(true);
                 thanhToanMoMo.getBtn_confirm().addActionListener(new ActionListener() {
                     @Override
@@ -2264,7 +2266,17 @@ public class JPanel_BanHang extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_jpPaySaleMouseClicked
-
+    public String generateRandomNumbers()
+    {
+        String s="";
+        Random random = new Random();
+        for (int i = 0; i < 6; i++) {
+            s+= random.nextInt(10);
+        }
+        return s;
+    }
+       
+    
     private void pay(DonDatHang donDatHang) {
         String maHoaDon = lbl_orderIdSale.getText();
         String maKH = lbl_customerIdSale.getText();
