@@ -4,7 +4,7 @@ import com.toedter.calendar.JDateChooser;
 import dao.KhachHangDAO;
 import dao.KhuyenMaiDAO;
 import entity.KhuyenMai;
-import static gui.GiaoDienDangNhap.ngonNgu;
+import static gui.JFrame_GiaoDienDangNhap.ngonNgu;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;

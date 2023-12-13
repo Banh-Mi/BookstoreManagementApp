@@ -6,8 +6,6 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
@@ -31,13 +29,11 @@ public class HoaDonDAO implements InterfaceDAO<HoaDon> {
                 String maKhuyenMai = rs.getString("maKhuyenMai");
                 String phuongThucThanhToan = rs.getString("phuongThucThanhToan");
                 Date ngayLapHoaDon = rs.getDate("ngayLapHoaDon");
-                String loaiHoaDon = rs.getString("loaiHoaDon");
                 String soDienThoai = rs.getString("soDienThoai");
-                String diaChiGiaoHang = rs.getString("diaChiGiaoHang");
                 String trangThai = rs.getString("trangThai");
                 String ghiChu = rs.getString("ghiChu");
 
-                HoaDon hoaDon = new HoaDon(maHoaDon, maKH, maNV, maKhuyenMai, phuongThucThanhToan, ngayLapHoaDon, loaiHoaDon, soDienThoai, diaChiGiaoHang, trangThai, ghiChu);
+                HoaDon hoaDon = new HoaDon(maHoaDon, maKH, maNV, maKhuyenMai, phuongThucThanhToan, ngayLapHoaDon, soDienThoai, trangThai, ghiChu);
                 danhSachHoaDon.add(hoaDon);
             }
         } catch (Exception e) {
@@ -65,13 +61,11 @@ public class HoaDonDAO implements InterfaceDAO<HoaDon> {
                 String maKhuyenMai = rs.getString("maKhuyenMai");
                 String phuongThucThanhToan = rs.getString("phuongThucThanhToan");
                 Date ngayLapHoaDon = rs.getDate("ngayLapHoaDon");
-                String loaiHoaDon = rs.getString("loaiHoaDon");
                 String soDienThoai = rs.getString("soDienThoai");
-                String diaChiGiaoHang = rs.getString("diaChiGiaoHang");
                 String trangThai = rs.getString("trangThai");
                 String ghiChu = rs.getString("ghiChu");
 
-                hoaDon = new HoaDon(maHoaDon, maKH, maNV, maKhuyenMai, phuongThucThanhToan, ngayLapHoaDon, loaiHoaDon, soDienThoai, diaChiGiaoHang, trangThai, ghiChu);
+                hoaDon = new HoaDon(maHoaDon, maKH, maNV, maKhuyenMai, phuongThucThanhToan, ngayLapHoaDon, soDienThoai, trangThai, ghiChu);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -85,7 +79,7 @@ public class HoaDonDAO implements InterfaceDAO<HoaDon> {
         int result = 0;
         try {
             Connection c = ConnectDB.getConnection();
-            String sql = "INSERT INTO HoaDon VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO HoaDon VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             PreparedStatement pst = c.prepareStatement(sql);
             pst.setString(1, t.getMaHoaDon());
@@ -94,11 +88,9 @@ public class HoaDonDAO implements InterfaceDAO<HoaDon> {
             pst.setString(4, t.getMaKhuyenMai());
             pst.setString(5, t.getPhuongThucThanhToan());
             pst.setDate(6, t.getNgayLapHoaDon());
-            pst.setString(7, t.getLoaiHoaDon());
-            pst.setString(8, t.getSoDienThoai());
-            pst.setString(9, t.getDiaChiGiaoHang());
-            pst.setString(10, t.getTrangThai());
-            pst.setString(11, t.getGhiChu());
+            pst.setString(7, t.getSoDienThoai());
+            pst.setString(8, t.getTrangThai());
+            pst.setString(9, t.getGhiChu());
 
             result = pst.executeUpdate();
         } catch (Exception e) {

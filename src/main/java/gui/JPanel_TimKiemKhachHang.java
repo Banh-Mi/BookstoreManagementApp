@@ -2,7 +2,7 @@ package gui;
 
 import dao.KhachHangDAO;
 import entity.KhachHang;
-import static gui.GiaoDienDangNhap.ngonNgu;
+import static gui.JFrame_GiaoDienDangNhap.ngonNgu;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;

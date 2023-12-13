@@ -7,7 +7,7 @@ package gui;
 import dao.NhaCungCapDAO;
 import dao.SanPhamDAO;
 import entity.SanPham;
-import static gui.GiaoDienDangNhap.ngonNgu;
+import static gui.JFrame_GiaoDienDangNhap.ngonNgu;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;

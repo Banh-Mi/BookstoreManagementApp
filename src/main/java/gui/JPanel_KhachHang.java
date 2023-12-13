@@ -3,7 +3,7 @@ package gui;
 import com.toedter.calendar.JDateChooser;
 import dao.KhachHangDAO;
 import entity.KhachHang;
-import static gui.GiaoDienDangNhap.ngonNgu;
+import static gui.JFrame_GiaoDienDangNhap.ngonNgu;
 import java.util.Date;
 import javax.swing.DefaultListSelectionModel;
 import javax.swing.JOptionPane;
@@ -327,7 +327,7 @@ public class JPanel_KhachHang extends javax.swing.JPanel {
         jpFunction.add(lblGender1, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 160, -1, 40));
 
         cboboxthe.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        cboboxthe.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đồng", "Bạc", "Vàng", "Kim cương", "Ruby", " " }));
+        cboboxthe.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đồng", "Bạc", "Vàng", "Kim cương", "Ruby" }));
         cboboxthe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboboxtheActionPerformed(evt);

@@ -34,7 +34,9 @@ public class NhanVienDAO {
                         rs.getString(7),
                         rs.getString(8),
                         rs.getString(9),
-                        rs.getString(10)
+                        rs.getString(10),
+                        rs.getDate(11),
+                        rs.getInt(12)
                 ));
             }
         } catch (SQLException e) {
@@ -60,6 +62,8 @@ public class NhanVienDAO {
             stmt.setString(8, nhanVien.getGioiTinh());
             stmt.setString(9, nhanVien.getChucVu());
             stmt.setString(10, nhanVien.getTrangThai());
+            stmt.setDate(11, nhanVien.getNgayVaoLam());
+            stmt.setInt(12, nhanVien.getLuong());
 
             return stmt.executeUpdate() > 0;
         } catch (SQLException ex) {
@@ -74,7 +78,7 @@ public class NhanVienDAO {
         PreparedStatement stmt = null;
         try {
             stmt = con.prepareStatement("UPDATE NhanVien SET "
-                    + "tenNV=?, soDienThoai=?, email=?, ngaySinh=?, diaChi=?, gioiTinh=?, chucVu=?, trangThai=? "
+                    + "tenNV=?, soDienThoai=?, email=?, ngaySinh=?, diaChi=?, gioiTinh=?, chucVu=?, trangThai=?, ngayVaoLam=?, Luong=? "
                     + "WHERE maNV=?");
 
             stmt.setString(1, nhanVien.getTenNV());
@@ -86,7 +90,9 @@ public class NhanVienDAO {
             stmt.setString(6, nhanVien.getGioiTinh());
             stmt.setString(7, nhanVien.getChucVu());
             stmt.setString(8, nhanVien.getTrangThai());
-            stmt.setString(9, nhanVien.getMaNV());
+            stmt.setDate(9, new java.sql.Date(nhanVien.getNgayVaoLam().getTime()));
+            stmt.setInt(10, nhanVien.getLuong());
+            stmt.setString(11, nhanVien.getMaNV());
 
             return stmt.executeUpdate() > 0;
         } catch (SQLException ex) {
@@ -116,7 +122,9 @@ public class NhanVienDAO {
                         rs.getString(7),
                         rs.getString(8),
                         rs.getString(9),
-                        rs.getString(10)
+                        rs.getString(10),
+                        rs.getDate(11),
+                        rs.getInt(12)
                 );
             }
         } catch (SQLException e) {

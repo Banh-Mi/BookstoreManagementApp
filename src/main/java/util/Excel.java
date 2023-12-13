@@ -1,6 +1,6 @@
 package util;
 
-import gui.BangNhapExcel;
+import gui.JFrame_BangNhapExcel;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 //ọadaskdk
@@ -123,7 +123,7 @@ public class Excel {
 
                 }
                 JFrame jf = null;
-                jf = new BangNhapExcel(rows, columnHeaders);
+                jf = new JFrame_BangNhapExcel(rows, columnHeaders);
                 jf.setLocationRelativeTo(null);
                 jf.setVisible(true);
             } catch (Exception e) {

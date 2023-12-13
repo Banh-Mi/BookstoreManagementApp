@@ -8,7 +8,7 @@ import dao.NhanVienDAO;
 import dao.TaiKhoanDAO;
 import entity.NhanVien;
 import entity.TaiKhoan;
-import static gui.GiaoDienDangNhap.ngonNgu;
+import static gui.JFrame_GiaoDienDangNhap.ngonNgu;
 import java.awt.Window;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -194,7 +194,7 @@ public class Frame_TaiKhoan extends javax.swing.JFrame {
                             window.dispose();
                         }
                         try {
-                            new GiaoDienDangNhap().setVisible(true);
+                            new JFrame_GiaoDienDangNhap().setVisible(true);
                         } catch (SQLException ex) {
                             Logger.getLogger(Frame_TaiKhoan.class.getName()).log(Level.SEVERE, null, ex);
                         }

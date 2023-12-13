@@ -22,6 +22,8 @@ public class NhanVien {
     private String gioiTinh;
     private String chucVu;
     private String trangThai;
+    private Date ngayVaoLam;
+    private int luong;
 
     public NhanVien() {
     }
@@ -29,7 +31,7 @@ public class NhanVien {
     // Constructor
     public NhanVien(String maNV, String tenNV, String soDienThoai, String email, Date ngaySinh,
             String maTK, String diaChi, String gioiTinh,
-            String chucVu, String trangThai) {
+            String chucVu, String trangThai,Date ngayVaoLam,int luong) {
         this.maNV = maNV;
         this.tenNV = tenNV;
         this.soDienThoai = soDienThoai;
@@ -40,6 +42,8 @@ public class NhanVien {
         this.gioiTinh = gioiTinh;
         this.chucVu = chucVu;
         this.trangThai = trangThai;
+        this.ngayVaoLam=ngayVaoLam;
+        this.luong=luong;
     }
 
     public NhanVien(String maNV, String tenNV, String soDienThoai, String email, String diaChi, String gioiTinh, String chucVu, String trangThai, Date ngaySinh) {
@@ -149,4 +153,21 @@ public class NhanVien {
     public void setTrangThai(String trangThai) {
         this.trangThai = trangThai;
     }
+
+    public Date getNgayVaoLam() {
+        return ngayVaoLam;
+    }
+
+    public void setNgayVaoLam(Date ngayVaoLam) {
+        this.ngayVaoLam = ngayVaoLam;
+    }
+
+    public int getLuong() {
+        return luong;
+    }
+
+    public void setLuong(int luong) {
+        this.luong = luong;
+    }
+    
 }

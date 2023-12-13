@@ -10,7 +10,7 @@ import entity.ChiTietHoaDon;
 import entity.HoaDon;
 import entity.KhuyenMai;
 import entity.SanPham;
-import static gui.GiaoDienDangNhap.ngonNgu;
+import static gui.JFrame_GiaoDienDangNhap.ngonNgu;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -45,15 +45,18 @@ public class JPanel_HoaDon extends javax.swing.JPanel {
 
         DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
         rightRenderer.setHorizontalAlignment(SwingConstants.RIGHT);
+        tbl_Order.getColumnModel().getColumn(7).setCellRenderer(rightRenderer);
         tbl_Order.getColumnModel().getColumn(8).setCellRenderer(rightRenderer);
         tbl_Order.getColumnModel().getColumn(9).setCellRenderer(rightRenderer);
-        tbl_Order.getColumnModel().getColumn(10).setCellRenderer(rightRenderer);
         tbl_OrderDetail.getColumnModel().getColumn(2).setCellRenderer(rightRenderer);
         tbl_OrderDetail.getColumnModel().getColumn(3).setCellRenderer(rightRenderer);
         tbl_OrderDetail.getColumnModel().getColumn(4).setCellRenderer(rightRenderer);
 
-        cb_SearchStatus.setEnabled(false);
-
+        cb_SearchStatus.removeAllItems();
+        cb_SearchStatus.addItem((ngonNgu == 2) ? "Wait pay" : "Chờ thanh toán");
+        cb_SearchStatus.addItem((ngonNgu == 2) ? "Paid" : "Đã thanh toán");
+        cb_SearchStatus.addItem((ngonNgu == 2) ? "Cancelled" : "Đã hủy");
+        cb_SearchStatus.setSelectedIndex(-1);
         loadData();
     }
 
@@ -70,7 +73,7 @@ public class JPanel_HoaDon extends javax.swing.JPanel {
         for (HoaDon hoaDon : hoaDonDAO.selectAll()) {
             KhuyenMai khuyenMai = khuyenMaiDAO.getKhuyenMaiById(hoaDon.getMaKhuyenMai());
             float giamGia = (khuyenMai == null) ? 0 : khuyenMai.getPhanTramKhuyenMai();
-            String[] data = {hoaDon.getMaHoaDon(), hoaDon.getNgayLapHoaDon() + "", hoaDon.getMaNV(), nhanVienDAO.searchEmployee(hoaDon.getMaNV()).getTenNV(), hoaDon.getMaKH(), khachHangDAO.search(hoaDon.getMaKH()).getTenKH(), hoaDon.getLoaiHoaDon(), hoaDon.getPhuongThucThanhToan(), nf.format(hoaDon.getTongTien()), nf.format(hoaDon.getTongTien() * giamGia / 100), nf.format(hoaDon.getTongTien() - hoaDon.getTongTien() * giamGia / 100), hoaDon.getTrangThai(), hoaDon.getGhiChu()};
+            String[] data = {hoaDon.getMaHoaDon(), hoaDon.getNgayLapHoaDon() + "", hoaDon.getMaNV(), nhanVienDAO.searchEmployee(hoaDon.getMaNV()).getTenNV(), hoaDon.getMaKH(), khachHangDAO.search(hoaDon.getMaKH()).getTenKH(), hoaDon.getPhuongThucThanhToan(), nf.format(hoaDon.getTongTien()), nf.format(hoaDon.getTongTien() * giamGia / 100), nf.format(hoaDon.getTongTien() - hoaDon.getTongTien() * giamGia / 100), hoaDon.getTrangThai(), hoaDon.getGhiChu()};
             modelOrder.addRow(data);
         }
     }
@@ -81,7 +84,7 @@ public class JPanel_HoaDon extends javax.swing.JPanel {
         for (HoaDon hoaDon : danhSachHoaDon) {
             KhuyenMai khuyenMai = khuyenMaiDAO.getKhuyenMaiById(hoaDon.getMaKhuyenMai());
             float giamGia = (khuyenMai == null) ? 0 : khuyenMai.getPhanTramKhuyenMai();
-            String[] data = {hoaDon.getMaHoaDon(), hoaDon.getNgayLapHoaDon() + "", hoaDon.getMaNV(), nhanVienDAO.searchEmployee(hoaDon.getMaNV()).getTenNV(), hoaDon.getMaKH(), khachHangDAO.search(hoaDon.getMaKH()).getTenKH(), hoaDon.getLoaiHoaDon(), hoaDon.getPhuongThucThanhToan(), nf.format(hoaDon.getTongTien()), nf.format(hoaDon.getTongTien() * giamGia / 100), nf.format(hoaDon.getTongTien() - hoaDon.getTongTien() * giamGia / 100), hoaDon.getTrangThai(), hoaDon.getGhiChu()};
+            String[] data = {hoaDon.getMaHoaDon(), hoaDon.getNgayLapHoaDon() + "", hoaDon.getMaNV(), nhanVienDAO.searchEmployee(hoaDon.getMaNV()).getTenNV(), hoaDon.getMaKH(), khachHangDAO.search(hoaDon.getMaKH()).getTenKH(), hoaDon.getPhuongThucThanhToan(), nf.format(hoaDon.getTongTien()), nf.format(hoaDon.getTongTien() * giamGia / 100), nf.format(hoaDon.getTongTien() - hoaDon.getTongTien() * giamGia / 100), hoaDon.getTrangThai(), hoaDon.getGhiChu()};
             modelOrder.addRow(data);
         }
     }
@@ -104,8 +107,6 @@ public class JPanel_HoaDon extends javax.swing.JPanel {
         lbl_SearchOrder1 = new javax.swing.JLabel();
         scr_Order = new javax.swing.JScrollPane();
         tbl_Order = new javax.swing.JTable();
-        pnl_SearchOrderCategory = new javax.swing.JPanel();
-        cb_SearchOrderCategory = new javax.swing.JComboBox<>();
         jPanel_OrderDetail = new javax.swing.JPanel();
         scr_OrderDetail = new javax.swing.JScrollPane();
         tbl_OrderDetail = new javax.swing.JTable();
@@ -189,7 +190,7 @@ public class JPanel_HoaDon extends javax.swing.JPanel {
         lbl_SearchByTimeTo.setText("Đến");
         pnl_SearchByTime.add(lbl_SearchByTimeTo, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 30, 30, 30));
 
-        jPanel_Order.add(pnl_SearchByTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 90, 430, 87));
+        jPanel_Order.add(pnl_SearchByTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 90, 430, 87));
 
         if(ngonNgu==2)
         {
@@ -215,7 +216,7 @@ public class JPanel_HoaDon extends javax.swing.JPanel {
         });
         pnl_SearchStatus.add(cb_SearchStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 160, 33));
 
-        jPanel_Order.add(pnl_SearchStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 90, 200, 87));
+        jPanel_Order.add(pnl_SearchStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 90, 200, 87));
 
         if(ngonNgu==2)
         {
@@ -242,7 +243,7 @@ public class JPanel_HoaDon extends javax.swing.JPanel {
         });
         pnl_SearchTotalAmount.add(cb_SearchTotalAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 210, 33));
 
-        jPanel_Order.add(pnl_SearchTotalAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 90, 250, 87));
+        jPanel_Order.add(pnl_SearchTotalAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 90, 250, 87));
 
         lbl_SearchOrder1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl_SearchOrder1.setText("Tìm kiếm hóa đơn:");
@@ -253,14 +254,14 @@ public class JPanel_HoaDon extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Mã HD", "Ngày lập", "Mã nhân viên", "Tên nhân viên", "Mã khách hàng", "Tên khách hàng", "Loại hóa đơn", "Phương thức thanh toán", "Tổng tiền", "Giảm giá", "Thanh toán", "Trạng thái", "Ghi chú"
+                "Mã HD", "Ngày lập", "Mã nhân viên", "Tên nhân viên", "Mã khách hàng", "Tên khách hàng", "Phương thức thanh toán", "Tổng tiền", "Giảm giá", "Thanh toán", "Trạng thái", "Ghi chú"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -278,14 +279,14 @@ public class JPanel_HoaDon extends javax.swing.JPanel {
 
                 },
                 new String [] {
-                    "Order ID", "Order Date", "Employee Id", "Employee Name", "Customer ID", "Customer Name", "Order Category", "Payment Method", "Total Amount", "Discount", "Pay", "Status", "Note"
+                    "Order ID", "Order Date", "Employee Id", "Employee Name", "Customer ID", "Customer Name", "Payment Method", "Total Amount", "Discount", "Pay", "Status", "Note"
                 }
             ) {
                 Class[] types = new Class [] {
-                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
                 };
                 boolean[] canEdit = new boolean [] {
-                    false, false, false, false, false, false, false, false, false, false, false, false, false
+                    false, false, false, false, false, false, false, false, false, false, false, false
                 };
 
                 public Class getColumnClass(int columnIndex) {
@@ -305,39 +306,6 @@ public class JPanel_HoaDon extends javax.swing.JPanel {
         scr_Order.setViewportView(tbl_Order);
 
         jPanel_Order.add(scr_Order, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 1160, 290));
-
-        if(ngonNgu==2)
-        {
-            pnl_SearchOrderCategory.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Category order", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12)));
-        }
-        else
-        {
-            pnl_SearchOrderCategory.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Loại hóa đơn", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12)));
-        }
-        pnl_SearchOrderCategory.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        pnl_SearchOrderCategory.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        cb_SearchOrderCategory.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        cb_SearchOrderCategory.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bán hàng", "Đặt hàng" }));
-        cb_SearchOrderCategory.setSelectedIndex(-1);
-        cb_SearchOrderCategory.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cb_SearchOrderCategoryItemStateChanged(evt);
-            }
-        });
-        cb_SearchOrderCategory.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cb_SearchOrderCategoryMouseClicked(evt);
-            }
-        });
-        cb_SearchOrderCategory.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cb_SearchOrderCategoryActionPerformed(evt);
-            }
-        });
-        pnl_SearchOrderCategory.add(cb_SearchOrderCategory, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 160, 33));
-
-        jPanel_Order.add(pnl_SearchOrderCategory, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 200, 87));
 
         add(jPanel_Order, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 1200, 510));
 
@@ -439,10 +407,6 @@ public class JPanel_HoaDon extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_cb_SearchTotalAmountActionPerformed
 
-    private void cb_SearchOrderCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_SearchOrderCategoryActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cb_SearchOrderCategoryActionPerformed
-
     private void tbl_OrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_OrderMouseClicked
         int row = tbl_Order.getSelectedRow();
         modelOrderDetail.setRowCount(0);
@@ -457,12 +421,12 @@ public class JPanel_HoaDon extends javax.swing.JPanel {
     }//GEN-LAST:event_txt_SearchOrderKeyPressed
 
     private void txt_SearchOrderKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_SearchOrderKeyReleased
-        cb_SearchOrderCategory.setSelectedIndex(-1);
         cb_SearchStatus.setSelectedIndex(-1);
         cb_SearchTotalAmount.setSelectedIndex(-1);
         jDateChooser_SearchByTimeTo.setDate(null);
         jDateChooser_SearchByTimeFrom.setDate(null);
         ArrayList<HoaDon> danhSachHoaDon = new ArrayList<>();
+        modelOrder.setRowCount(0);
         for (HoaDon hoaDon : hoaDonDAO.selectAll()) {
             if (txt_SearchOrder.getText().equals(hoaDon.getMaHoaDon())) {
                 danhSachHoaDon.add(hoaDon);
@@ -470,53 +434,19 @@ public class JPanel_HoaDon extends javax.swing.JPanel {
         }
         if (danhSachHoaDon.size() > 0) {
             addDataToTable(danhSachHoaDon);
-        } else {
+        }
+        if (txt_SearchOrder.getText().trim().equals("")) {
             loadData();
         }
     }//GEN-LAST:event_txt_SearchOrderKeyReleased
 
-    private void cb_SearchOrderCategoryItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_SearchOrderCategoryItemStateChanged
-        if (cb_SearchOrderCategory.getSelectedIndex() == -1) {
-            cb_SearchStatus.setEnabled(false);
-        } else {
-            cb_SearchStatus.setEnabled(true);
-
-            if (cb_SearchOrderCategory.getSelectedItem().equals("Bán hàng")) {
-                cb_SearchStatus.removeAllItems();
-                cb_SearchStatus.addItem("Chờ thanh toán");
-                cb_SearchStatus.addItem("Đã thanh toán");
-                cb_SearchStatus.addItem("Đã hủy");
-                cb_SearchStatus.setSelectedIndex(-1);
-            } else {
-                cb_SearchStatus.removeAllItems();
-                cb_SearchStatus.addItem("Đang giao");
-                cb_SearchStatus.addItem("Đã thanh toán");
-                cb_SearchStatus.addItem("Đã hủy");
-                cb_SearchStatus.setSelectedIndex(-1);
-            }
-            cb_SearchTotalAmount.setSelectedIndex(-1);
-            jDateChooser_SearchByTimeTo.setDate(null);
-            jDateChooser_SearchByTimeFrom.setDate(null);
-            txt_SearchOrder.setText("");
-            ArrayList<HoaDon> danhSachHoaDon = getListOrderByCategory(cb_SearchOrderCategory.getSelectedItem() + "");
-            if (danhSachHoaDon.size() > 0) {
-                addDataToTable(danhSachHoaDon);
-            }
-        }
-    }//GEN-LAST:event_cb_SearchOrderCategoryItemStateChanged
-
-    private void cb_SearchOrderCategoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cb_SearchOrderCategoryMouseClicked
-        // TODO add  your handling code here:
-    }//GEN-LAST:event_cb_SearchOrderCategoryMouseClicked
-
     private void cb_SearchStatusItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_SearchStatusItemStateChanged
         if (cb_SearchStatus.getSelectedIndex() >= 0) {
-            ArrayList<HoaDon> danhSachHoaDon = getListOrderByCategory(cb_SearchOrderCategory.getSelectedItem() + "");
             cb_SearchTotalAmount.setSelectedIndex(-1);
             jDateChooser_SearchByTimeTo.setDate(null);
             jDateChooser_SearchByTimeFrom.setDate(null);
             txt_SearchOrder.setText("");
-            addDataToTable(getListOrderByStatus(danhSachHoaDon, cb_SearchStatus.getSelectedItem() + ""));
+            addDataToTable(getListOrderByStatus(cb_SearchStatus.getSelectedItem() + ""));
         }
     }//GEN-LAST:event_cb_SearchStatusItemStateChanged
 
@@ -525,12 +455,11 @@ public class JPanel_HoaDon extends javax.swing.JPanel {
             jDateChooser_SearchByTimeTo.setDate(null);
             jDateChooser_SearchByTimeFrom.setDate(null);
             txt_SearchOrder.setText("");
-
-            if (cb_SearchOrderCategory.getSelectedIndex() < 0) {
-                addDataToTable(getListOrderByTotalAmount(hoaDonDAO.selectAll(), cb_SearchTotalAmount.getSelectedIndex()));
+            ArrayList<HoaDon> danhSachHoaDon = hoaDonDAO.selectAll();
+            if (cb_SearchStatus.getSelectedIndex() >= 0) {
+                danhSachHoaDon = getListOrderByStatus(cb_SearchStatus.getSelectedItem() + "");
+                addDataToTable(getListOrderByTotalAmount(danhSachHoaDon, cb_SearchTotalAmount.getSelectedIndex()));
             } else {
-                ArrayList<HoaDon> danhSachHoaDon = getListOrderByCategory(cb_SearchOrderCategory.getSelectedItem() + "");
-                danhSachHoaDon = getListOrderByStatus(danhSachHoaDon, cb_SearchStatus.getSelectedItem() + "");
                 addDataToTable(getListOrderByTotalAmount(danhSachHoaDon, cb_SearchTotalAmount.getSelectedIndex()));
             }
         }
@@ -547,62 +476,42 @@ public class JPanel_HoaDon extends javax.swing.JPanel {
 
     private void jDateChooser_SearchByTimeFromPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDateChooser_SearchByTimeFromPropertyChange
         if (jDateChooser_SearchByTimeFrom.getDate() != null) {
-            if (cb_SearchOrderCategory.getSelectedIndex() < 0) {
-                cb_SearchTotalAmount.setSelectedIndex(-1);
-                txt_SearchOrder.setText("");
-                if (jDateChooser_SearchByTimeTo.getDate() != null) {
-                    addDataToTable(getListOrderByTime(hoaDonDAO.selectAll()));
-                }
-            } else {
-                if (jDateChooser_SearchByTimeTo.getDate() != null) {
-                    ArrayList<HoaDon> danhSachHoaDon = getListOrderByCategory(cb_SearchOrderCategory.getSelectedItem() + "");
-                    danhSachHoaDon = getListOrderByStatus(danhSachHoaDon, cb_SearchStatus.getSelectedItem() + "");
+            if (jDateChooser_SearchByTimeTo.getDate() != null) {
+                ArrayList<HoaDon> danhSachHoaDon = hoaDonDAO.selectAll();
+                if (cb_SearchStatus.getSelectedIndex() >= 0 && cb_SearchTotalAmount.getSelectedIndex() >= 0) {
+                    danhSachHoaDon = getListOrderByStatus(cb_SearchStatus.getSelectedItem() + "");
                     danhSachHoaDon = getListOrderByTotalAmount(danhSachHoaDon, cb_SearchTotalAmount.getSelectedIndex());
+                    addDataToTable(getListOrderByTime(danhSachHoaDon));
+                } else {
                     addDataToTable(getListOrderByTime(danhSachHoaDon));
                 }
             }
-
         }
     }//GEN-LAST:event_jDateChooser_SearchByTimeFromPropertyChange
 
     private void jDateChooser_SearchByTimeToPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDateChooser_SearchByTimeToPropertyChange
         if (jDateChooser_SearchByTimeTo.getDate() != null) {
-            if (cb_SearchOrderCategory.getSelectedIndex() < 0) {
-                cb_SearchTotalAmount.setSelectedIndex(-1);
-                txt_SearchOrder.setText("");
-                if (jDateChooser_SearchByTimeFrom.getDate() != null) {
-                    addDataToTable(getListOrderByTime(hoaDonDAO.selectAll()));
-                }
-            } else {
-                if (jDateChooser_SearchByTimeFrom.getDate() != null) {
-                    ArrayList<HoaDon> danhSachHoaDon = getListOrderByCategory(cb_SearchOrderCategory.getSelectedItem() + "");
-                    danhSachHoaDon = getListOrderByStatus(danhSachHoaDon, cb_SearchStatus.getSelectedItem() + "");
+            if (jDateChooser_SearchByTimeFrom.getDate() != null) {
+                ArrayList<HoaDon> danhSachHoaDon = hoaDonDAO.selectAll();
+                if (cb_SearchStatus.getSelectedIndex() >= 0 && cb_SearchTotalAmount.getSelectedIndex() >= 0) {
+                    danhSachHoaDon = getListOrderByStatus(cb_SearchStatus.getSelectedItem() + "");
                     danhSachHoaDon = getListOrderByTotalAmount(danhSachHoaDon, cb_SearchTotalAmount.getSelectedIndex());
+                    addDataToTable(getListOrderByTime(danhSachHoaDon));
+                } else {
                     addDataToTable(getListOrderByTime(danhSachHoaDon));
                 }
             }
-
         }
     }//GEN-LAST:event_jDateChooser_SearchByTimeToPropertyChange
 
-    public ArrayList<HoaDon> getListOrderByCategory(String loaiHoaDon) {
+    public ArrayList<HoaDon> getListOrderByStatus(String status) {
         ArrayList<HoaDon> danhSachHoaDon = new ArrayList<>();
         for (HoaDon hoaDon : hoaDonDAO.selectAll()) {
-            if (loaiHoaDon.equals(hoaDon.getLoaiHoaDon())) {
+            if (hoaDon.getTrangThai().equals(status)) {
                 danhSachHoaDon.add(hoaDon);
             }
         }
         return danhSachHoaDon;
-    }
-
-    public ArrayList<HoaDon> getListOrderByStatus(ArrayList<HoaDon> danhSachHoaDon, String status) {
-        ArrayList<HoaDon> danhSachHoaDonNew = new ArrayList<>();
-        for (HoaDon hoaDon : danhSachHoaDon) {
-            if (hoaDon.getTrangThai().equals(status)) {
-                danhSachHoaDonNew.add(hoaDon);
-            }
-        }
-        return danhSachHoaDonNew;
     }
 
     public ArrayList<HoaDon> getListOrderByTotalAmount(ArrayList<HoaDon> danhSachHoaDon, int index) {
@@ -650,7 +559,6 @@ public class JPanel_HoaDon extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> cb_SearchOrderCategory;
     private javax.swing.JComboBox<String> cb_SearchStatus;
     private javax.swing.JComboBox<String> cb_SearchTotalAmount;
     private com.toedter.calendar.JDateChooser jDateChooser_SearchByTimeFrom;
@@ -661,7 +569,6 @@ public class JPanel_HoaDon extends javax.swing.JPanel {
     private javax.swing.JLabel lbl_SearchOrder1;
     private javax.swing.JLabel lbl_SearchSearchByTimeFrom;
     private javax.swing.JPanel pnl_SearchByTime;
-    private javax.swing.JPanel pnl_SearchOrderCategory;
     private javax.swing.JPanel pnl_SearchStatus;
     private javax.swing.JPanel pnl_SearchTotalAmount;
     private javax.swing.JScrollPane scr_Order;

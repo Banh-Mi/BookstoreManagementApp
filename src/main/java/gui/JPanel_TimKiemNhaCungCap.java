@@ -6,7 +6,7 @@ package gui;
 
 import dao.NhaCungCapDAO;
 import entity.NhaCungCap;
-import static gui.GiaoDienDangNhap.ngonNgu;
+import static gui.JFrame_GiaoDienDangNhap.ngonNgu;
 import javax.swing.table.DefaultTableModel;
 
 /**

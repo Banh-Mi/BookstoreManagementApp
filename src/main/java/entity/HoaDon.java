@@ -14,9 +14,7 @@ public class HoaDon {
     private String maKhuyenMai;
     private String phuongThucThanhToan;
     private Date ngayLapHoaDon;
-    private String loaiHoaDon;
     private String soDienThoai;
-    private String diaChiGiaoHang;
     private String trangThai;
     private String ghiChu;
 
@@ -27,16 +25,14 @@ public class HoaDon {
         this.maHoaDon = maHoaDon;
     }
 
-    public HoaDon(String maHoaDon, String maKH, String maNV, String maKhuyenMai, String phuongThucThanhToan, Date ngayLapHoaDon, String loaiHoaDon, String soDienThoai, String diaChiGiaoHang, String trangThai, String ghiChu) {
+    public HoaDon(String maHoaDon, String maKH, String maNV, String maKhuyenMai, String phuongThucThanhToan, Date ngayLapHoaDon, String soDienThoai, String trangThai, String ghiChu) {
         this.maHoaDon = maHoaDon;
         this.maKH = maKH;
         this.maNV = maNV;
         this.maKhuyenMai = maKhuyenMai;
         this.phuongThucThanhToan = phuongThucThanhToan;
         this.ngayLapHoaDon = ngayLapHoaDon;
-        this.loaiHoaDon = loaiHoaDon;
         this.soDienThoai = soDienThoai;
-        this.diaChiGiaoHang = diaChiGiaoHang;
         this.trangThai = trangThai;
         this.ghiChu = ghiChu;
     }
@@ -89,28 +85,12 @@ public class HoaDon {
         this.ngayLapHoaDon = ngayLapHoaDon;
     }
 
-    public String getLoaiHoaDon() {
-        return loaiHoaDon;
-    }
-
-    public void setLoaiHoaDon(String loaiHoaDon) {
-        this.loaiHoaDon = loaiHoaDon;
-    }
-
     public String getSoDienThoai() {
         return soDienThoai;
     }
 
     public void setSoDienThoai(String soDienThoai) {
         this.soDienThoai = soDienThoai;
-    }
-
-    public String getDiaChiGiaoHang() {
-        return diaChiGiaoHang;
-    }
-
-    public void setDiaChiGiaoHang(String diaChiGiaoHang) {
-        this.diaChiGiaoHang = diaChiGiaoHang;
     }
 
     public String getTrangThai() {
@@ -140,7 +120,7 @@ public class HoaDon {
 
     @Override
     public String toString() {
-        return "HoaDon{" + "maHoaDon=" + maHoaDon + ", maKH=" + maKH + ", maNV=" + maNV + ", maKhuyenMai=" + maKhuyenMai + ", phuongThucThanhToan=" + phuongThucThanhToan + ", ngayLapHoaDon=" + ngayLapHoaDon + ", loaiHoaDon=" + loaiHoaDon + ", soDienThoai=" + soDienThoai + ", diaChiGiaoHang=" + diaChiGiaoHang + ", trangThai=" + trangThai + ", ghiChu=" + ghiChu + '}';
+        return "HoaDon{" + "maHoaDon=" + maHoaDon + ", maKH=" + maKH + ", maNV=" + maNV + ", maKhuyenMai=" + maKhuyenMai + ", phuongThucThanhToan=" + phuongThucThanhToan + ", ngayLapHoaDon=" + ngayLapHoaDon + ", soDienThoai=" + soDienThoai + ", trangThai=" + trangThai + ", ghiChu=" + ghiChu + '}';
     }
 
 }

@@ -12,7 +12,7 @@ import entity.ThongKeDoanhThu;
 import entity.ThongKeDoanhThuNhanVien;
 import entity.ThongKeKhachHang;
 import entity.ThongKeSanPham;
-import static gui.GiaoDienDangNhap.ngonNgu;
+import static gui.JFrame_GiaoDienDangNhap.ngonNgu;
 import java.awt.Graphics2D;
 import java.sql.SQLException;
 import java.text.NumberFormat;
@@ -1474,7 +1474,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
     }//GEN-LAST:event_jcbLuaChonDoanhThuActionPerformed
 
     private void btnBieuDoSPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBieuDoSPMouseClicked
-        BieuDoSanPham jf = new BieuDoSanPham();
+        JFrame_BieuDoSanPham jf = new JFrame_BieuDoSanPham();
         jf.setLocationRelativeTo(null);
         jf.setVisible(true);
     }//GEN-LAST:event_btnBieuDoSPMouseClicked
@@ -1502,7 +1502,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
     }//GEN-LAST:event_jcbLuaChonDoanhThu1ActionPerformed
 
     private void jpLXuatPDFSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpLXuatPDFSanPhamMouseClicked
-        JFramePDFSanPham sanPham = new JFramePDFSanPham(tableSanPham, jcbchonsanpham.getSelectedItem().toString(), txtSoLuongHoaDon1.getText(), txtDoanhThuSP.getText(), txtTongTienKH.getText(), txtsoLuongNDK.getText());
+        JFrame_PDFSanPham sanPham = new JFrame_PDFSanPham(tableSanPham, jcbchonsanpham.getSelectedItem().toString(), txtSoLuongHoaDon1.getText(), txtDoanhThuSP.getText(), txtTongTienKH.getText(), txtsoLuongNDK.getText());
         sanPham.setLocationRelativeTo(null);
         sanPham.setVisible(true); // Do not display the JFrame
         try {
@@ -1804,9 +1804,9 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
     }//GEN-LAST:event_jbLamMoiSPMouseClicked
 //ket thuc san pham o day
     private void btnBieuDoKHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBieuDoKHMouseClicked
-        BieuDoKhachHang jf = null;
+        JFrame_BieuDoKhachHang jf = null;
         try {
-            jf = new BieuDoKhachHang();
+            jf = new JFrame_BieuDoKhachHang();
         } catch (SQLException ex) {
             Logger.getLogger(JPanel_ThongKe.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -2223,7 +2223,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
         JFrame jf = null;
         try {
-            jf = new BieuDoDoanhThu();
+            jf = new JFrame_BieuDoDoanhThu();
         } catch (SQLException ex) {
             Logger.getLogger(JPanel_ThongKe.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -2311,7 +2311,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
     }//GEN-LAST:event_jbLXuatExcelKhachHangMouseClicked
 
     private void jpLXuatPDFKhachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpLXuatPDFKhachHangMouseClicked
-        JFramePDFKhachHang sanPham = new JFramePDFKhachHang(tableKhachHang, jCBTieuChi.getSelectedItem().toString(), txtSoLuongSPKH.getText(), txtSoLuongDHKH.getText(), txtTongTienKH.getText(), txtsoLuongNDK.getText());
+        JFrame_PDFKhachHang sanPham = new JFrame_PDFKhachHang(tableKhachHang, jCBTieuChi.getSelectedItem().toString(), txtSoLuongSPKH.getText(), txtSoLuongDHKH.getText(), txtTongTienKH.getText(), txtsoLuongNDK.getText());
         sanPham.setLocationRelativeTo(null);
         sanPham.setVisible(true); // Do not display the JFrame
         try {
@@ -2365,7 +2365,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
     }//GEN-LAST:event_jbLXuatExcelDoanhThuMouseClicked
 
     private void jpLXuatPDFDoanhThuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpLXuatPDFDoanhThuMouseClicked
-        JFramePDFDoanhThu sanPham = new JFramePDFDoanhThu(tableKhachHang, txtSoLuongHoaDon.getText(), txtTongTien.getText(), txtGiamGia.getText(), txtDoanhThu.getText());
+        JFrame_PDFDoanhThu sanPham = new JFrame_PDFDoanhThu(tableKhachHang, txtSoLuongHoaDon.getText(), txtTongTien.getText(), txtGiamGia.getText(), txtDoanhThu.getText());
         sanPham.setLocationRelativeTo(null);
         sanPham.setVisible(true); // Do not display the JFrame
         try {
@@ -2412,7 +2412,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
     }//GEN-LAST:event_tableNhanVienMouseClicked
 
     private void jpLXuatPDFNVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpLXuatPDFNVMouseClicked
-        JFramePDFNhanVien sanPham = new JFramePDFNhanVien(tableNhanVien, jcbchonsanpham.getSelectedItem().toString(), txtSoLuongDHNV.getText(), txtThanhTienNV.getText());
+        JFrame_PDFNhanVien sanPham = new JFrame_PDFNhanVien(tableNhanVien, jcbchonsanpham.getSelectedItem().toString(), txtSoLuongDHNV.getText(), txtThanhTienNV.getText());
         sanPham.setLocationRelativeTo(null);
         sanPham.setVisible(true); // Do not display the JFrame
         try {

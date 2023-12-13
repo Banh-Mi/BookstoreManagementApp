@@ -9,7 +9,7 @@ import dao.PhanCaLamViecDAO;
 import entity.NhanVien;
 import entity.PhanCaLamViec;
 import entity.ThongTinPhanCaLamViec;
-import static gui.GiaoDienDangNhap.ngonNgu;
+import static gui.JFrame_GiaoDienDangNhap.ngonNgu;
 import java.awt.Button;
 import java.awt.Color;
 import java.text.ParseException;

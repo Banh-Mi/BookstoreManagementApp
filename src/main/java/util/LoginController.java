@@ -4,7 +4,7 @@ import dao.NhanVienDAO;
 import dao.TaiKhoanDAO;
 import entity.TaiKhoan;
 import entity.NhanVien;
-import gui.GiaoDienChinh;
+import gui.JFrame_GiaoDienChinh;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -73,7 +73,7 @@ public class LoginController {
                         frame.dispose();
                         NhanVienDAO nhanVienDao = new NhanVienDAO();
                         NhanVien nhanVien = nhanVienDao.searchEmployee(userName);
-                        GiaoDienChinh aplFrame = new GiaoDienChinh(nhanVien);
+                        JFrame_GiaoDienChinh aplFrame = new JFrame_GiaoDienChinh(nhanVien);
                         aplFrame.setVisible(true);
 
                     }else {
