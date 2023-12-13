@@ -2310,7 +2310,7 @@ public class JPanel_BanHang extends javax.swing.JPanel {
                 JFrame_ThanhToanMoMo thanhToanMoMo = new JFrame_ThanhToanMoMo();
                 thanhToanMoMo.setLocationRelativeTo(null);
                 thanhToanMoMo.getLbl_payMoney1().setText(lbl_mustPay.getText());
-                thanhToanMoMo.getLbl_noidung().setText(generateRandomNumbers());
+                thanhToanMoMo.getLbl_noidung().setText(lbl_orderIdSale.getText());
                 thanhToanMoMo.setVisible(true);
                 thanhToanMoMo.getBtn_confirm().addActionListener(new ActionListener() {
                     @Override

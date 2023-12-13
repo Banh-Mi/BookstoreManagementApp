@@ -69,8 +69,8 @@ public class JFrame_ThanhToanMoMo extends javax.swing.JFrame {
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel1.setText("Ngân hàng nhận:");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, -1, 26));
+        jLabel1.setText("Nguồn");
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 50, 26));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setText("MOMO");
@@ -179,7 +179,7 @@ public class JFrame_ThanhToanMoMo extends javax.swing.JFrame {
                 btn_confirmActionPerformed(evt);
             }
         });
-        jPanel2.add(btn_confirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 720, 80, 30));
+        jPanel2.add(btn_confirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 720, 90, 30));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
