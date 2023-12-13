@@ -141,14 +141,17 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         lblDiscount.setText("Discount:");
         lblMustPay.setText("MustPay:");
         lblCustomerMoneyGive.setText("MoneyGive:");
-        lblReturnMoneyToCustomer.setText("give back money:");
-        lbl_paymentMethod.setText("Note:");
+        lblReturnMoneyToCustomer.setText("Give back money:");
+        lbl_paymentMethod.setText("Payment Method:");
+        lblNote1.setText("Note: ");
         chk_waitPay.setText("WaitPay");
         lblPay.setText("Pay");
-
+        lblCancelSale.setText("Cancel");
+        
         lblOrderId2.setText("Order Id:");
         lblOrderDate2.setText("Order Date:");
         lblEmployeeId2.setText("Employee ID:");
+        lblEmployeeId3.setText("Customer ID:");
         lblCustomerName3.setText("Customer Name:");
         lblCustomerName4.setText("Phone:");
         lblTotalAmount1.setText("TotalAmount:");
@@ -157,6 +160,16 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         lblNote2.setText("Note");
         lbl_order.setText("Delivery");
         lblCreateOrder.setText("Create");
+        lblCancelOrder.setText("Cancel");
+        lblProductQuantity1.setText("Quantity:");
+        lblProductQuantity2.setText("Quantity:");
+        lblProductQuantity3.setText("Quantity:");
+        lblProductQuantity4.setText("Quantity:");
+        lblProductPrice1.setText("Price:");
+        lblProductPrice2.setText("Price:");
+        lblProductPrice3.setText("Price:");
+        lblProductPrice4.setText("Price:");
+        
 
     }
 
@@ -641,12 +654,20 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(1040, 711));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        pnl_scanCode.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Quét mã sản phẩm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
+        if(ngonNgu == 2){
+            pnl_scanCode.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Scan product id", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
+        }else{
+            pnl_scanCode.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Quét mã sản phẩm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
+        }
         pnl_scanCode.setLayout(new java.awt.BorderLayout());
         add(pnl_scanCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 10, 290, 180));
         pnl_scanCode.getAccessibleContext().setAccessibleName("");
 
-        jPanelCart.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Giỏ hàng", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
+        if(ngonNgu == 2){
+            jPanelCart.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cart", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
+        }else{
+            jPanelCart.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Giỏ hàng", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
+        }
         jPanelCart.setLayout(new java.awt.BorderLayout());
 
         tbl_Cart.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -1000,7 +1021,12 @@ public class JPanel_BanHang extends javax.swing.JPanel {
 
         pnl_salePay.add(jpPaySale, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 730, 120, -1));
 
-        jTabbedPane2.addTab("Lập hóa đơn", pnl_salePay);
+        if(ngonNgu == 2){
+            jTabbedPane2.addTab("Make Invoice", pnl_salePay);
+        }else{
+
+            jTabbedPane2.addTab("Lập hóa đơn", pnl_salePay);
+        }
 
         pnl_orderPage.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -1198,7 +1224,12 @@ public class JPanel_BanHang extends javax.swing.JPanel {
 
         pnl_orderPage.add(jpCancelOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 720, 70, 40));
 
-        jTabbedPane2.addTab("Đặt hàng", pnl_orderPage);
+        if(ngonNgu == 2){
+            jTabbedPane2.addTab("Order", pnl_orderPage);
+        }else{
+
+            jTabbedPane2.addTab("Đặt hàng", pnl_orderPage);
+        }
 
         add(jTabbedPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 10, 360, 820));
 
@@ -1484,7 +1515,11 @@ public class JPanel_BanHang extends javax.swing.JPanel {
 
         add(jp_reload, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 830, 50, 30));
 
-        pnl_orderLits.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách đơn đặt hàng", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
+        if(ngonNgu == 2){
+            pnl_orderLits.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Order List", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
+        }else{
+            pnl_orderLits.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách đơn đặt hàng", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
+        }
         pnl_orderLits.setLayout(new java.awt.BorderLayout());
 
         scr_orderList.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1494,29 +1529,55 @@ public class JPanel_BanHang extends javax.swing.JPanel {
         });
 
         tbl_orderList.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        tbl_orderList.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+        if(ngonNgu == 2){
+            tbl_orderList.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
 
-            },
-            new String [] {
-                "STT", "Mã đơn hàng", "Ngày đặt hàng", "Tên khách hàng", "Số điện thoại"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
+                },
+                new String [] {
+                    "No", "Order Id", "Order Date", "Customer Name", "Phone Number"
+                }
+            ) {
+                Class[] types = new Class [] {
+                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                };
+                boolean[] canEdit = new boolean [] {
+                    false, false, false, false, false
+                };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
+                public Class getColumnClass(int columnIndex) {
+                    return types [columnIndex];
+                }
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+                public boolean isCellEditable(int rowIndex, int columnIndex) {
+                    return canEdit [columnIndex];
+                }
+            });
+        }else{
+            tbl_orderList.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
+
+                },
+                new String [] {
+                    "STT", "Mã đơn hàng", "Ngày đặt hàng", "Tên khách hàng", "Số điện thoại"
+                }
+            ) {
+                Class[] types = new Class [] {
+                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                };
+                boolean[] canEdit = new boolean [] {
+                    false, false, false, false, false
+                };
+
+                public Class getColumnClass(int columnIndex) {
+                    return types [columnIndex];
+                }
+
+                public boolean isCellEditable(int rowIndex, int columnIndex) {
+                    return canEdit [columnIndex];
+                }
+            });
+        }
         tbl_orderList.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tbl_orderList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

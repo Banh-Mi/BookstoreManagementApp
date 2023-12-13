@@ -195,7 +195,7 @@ public class JFrame_PDFKhachHang extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 255));
-        jLabel3.setText("Nhà sách tư nhân Thuận Nhứt Lợi ");
+        jLabel3.setText("Nhà sách tư nhân Thuận Lợi ");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 255));
