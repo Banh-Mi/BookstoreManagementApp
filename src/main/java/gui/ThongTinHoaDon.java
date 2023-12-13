@@ -46,13 +46,12 @@ public class ThongTinHoaDon extends javax.swing.JFrame {
         generateValue(hoaDon);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
-        if(ngonNgu==2)
-        {
+        if (ngonNgu == 2) {
             chuyenNN();
         }
     }
-    public void chuyenNN()
-    {
+
+    public void chuyenNN() {
         jLabel10.setText("Phone: 0283.8940 390");
         lbl_title.setText("SALES INVOICE");
         jLabel6.setText("Invoice number:");
@@ -67,26 +66,19 @@ public class ThongTinHoaDon extends javax.swing.JFrame {
     }
 
     private void generateValue(HoaDon hoaDon) {
-        if (hoaDon.getLoaiHoaDon().equals("Đặt hàng")) {
-            lbl_title.setText("HÓA ĐƠN ĐẶT HÀNG");
-        }
         KhachHang khachHang = khachHangDAO.search(hoaDon.getMaKH());
         lbl_orderId.setText(hoaDon.getMaHoaDon());
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         lbl_orderDate.setText(dateFormat.format(hoaDon.getNgayLapHoaDon()));
         lbl_customerName.setText(khachHang.getTenKH());
-        if (khachHang.getMaKH().equals("KH000") && hoaDon.getLoaiHoaDon().equals("Bán hàng")) {
+        if (khachHang.getMaKH().equals("KH000")) {
             lbl_customerPhone.setVisible(false);
             jLabel9.setVisible(false);
             jLabel2.setVisible(false);
             lbl_customerAddress.setVisible(false);
         } else {
             lbl_customerPhone.setText(hoaDon.getSoDienThoai());
-            if (hoaDon.getLoaiHoaDon().equals("Đặt hàng")) {
-                lbl_customerAddress.setText(hoaDon.getDiaChiGiaoHang());
-            } else {
-                lbl_customerAddress.setText(khachHang.getDiaChi());
-            }
+            lbl_customerAddress.setText(khachHang.getDiaChi());
         }
         for (ChiTietHoaDon chiTietHoaDon : chiTietHoaDonDAO.selectbyId(hoaDon.getMaHoaDon())) {
             SanPham sanPham = sanPhamDAO.selectbyId(new SanPham(chiTietHoaDon.getMaSanPham()));
@@ -97,7 +89,7 @@ public class ThongTinHoaDon extends javax.swing.JFrame {
 
         float giamGia = 0;
         if (khuyenMai != null) {
-            giamGia = khuyenMai.getPhanTramKhuyenMai()/100;
+            giamGia = khuyenMai.getPhanTramKhuyenMai() / 100;
         }
 
         lbl_employeeName.setText(nhanVienDAO.searchEmployee(hoaDon.getMaNV()).getTenNV());
