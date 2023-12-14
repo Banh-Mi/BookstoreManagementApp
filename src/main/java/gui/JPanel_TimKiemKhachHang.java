@@ -367,7 +367,7 @@ public class JPanel_TimKiemKhachHang extends javax.swing.JPanel {
     }//GEN-LAST:event_jcbTheThanhVienActionPerformed
 
     private void jbTimKiemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbTimKiemMouseClicked
-        if (txtmaKH.getText().equals("") || txtSDT.getText().equals("") || txtEmail1.getText().equals("") || txtHoTen.getText().equals("") || jcbGioiTinh.getSelectedItem().toString().equals("Mặc định") || jcbTheThanhVien.getSelectedItem().toString().equals("Mặc định")) {
+        if (txtmaKH.getText().equals("") && txtSDT.getText().equals("") && txtEmail1.getText().equals("") && txtHoTen.getText().equals("") && jcbGioiTinh.getSelectedItem().toString().equals("Mặc định") && jcbTheThanhVien.getSelectedItem().toString().equals("Mặc định")) {
             if (ngonNgu == 2) {
                 JOptionPane.showMessageDialog(null, "Please enter information before searching!");
             } else {

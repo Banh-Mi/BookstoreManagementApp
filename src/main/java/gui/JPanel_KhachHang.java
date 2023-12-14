@@ -79,7 +79,6 @@ public class JPanel_KhachHang extends javax.swing.JPanel {
         lblPhone.setText("Phone:");
         lblGender2.setText("Gender:");
         lblGender1.setText("Registration Date:");
-        jbCustomerManagerment.setText("CUSTOMER MANAGERMENT");
         jbAdd.setText("Add");
         jbDelete.setText("Delete");
         jbRefresh.setText("Refresh");

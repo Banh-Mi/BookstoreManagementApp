@@ -1,6 +1,7 @@
 package util;
 
 import gui.JFrame_BangNhapExcel;
+import java.awt.Desktop;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 //ọadaskdk
@@ -9,6 +10,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,7 +69,7 @@ public class Excel {
                 totalAmountCell.setCellStyle(boldCellStyle);
 
                 workbook.write(outputStream);
-
+                openExcel(file.getAbsolutePath());
                 return true;
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -131,5 +133,18 @@ public class Excel {
             }
         }
         return rows;
+    }
+    
+    public static void openExcel(String filePath) {
+        File pdfFile = new File(filePath);
+        try {
+            if (pdfFile.exists()) {
+                Desktop.getDesktop().open(pdfFile);
+            } else {
+                System.out.println("Tệp không tồn tại hayx kiểm tra lại ! ");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

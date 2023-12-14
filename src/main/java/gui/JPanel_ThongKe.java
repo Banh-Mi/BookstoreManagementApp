@@ -13,6 +13,7 @@ import entity.ThongKeDoanhThuNhanVien;
 import entity.ThongKeKhachHang;
 import entity.ThongKeSanPham;
 import static gui.JFrame_GiaoDienDangNhap.ngonNgu;
+import java.awt.Desktop;
 import java.awt.Graphics2D;
 import java.sql.SQLException;
 import java.text.NumberFormat;
@@ -40,7 +41,7 @@ import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import static util.Excel.exportToExcel;
 
 public class JPanel_ThongKe extends javax.swing.JPanel {
-
+    
     private final DefaultTableModel modelDoanhThu;
     private final DefaultTableModel modelSanPham;
     private final DefaultTableModel modelKhachHang;
@@ -56,7 +57,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
     private final NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
     private KhachHangDAO khachHangDAO;
     private ThongKeDoanhThuNhanVienDAO doanhThuNhanVienDAO;
-
+    
     public JPanel_ThongKe() {
         initComponents();
         if (ngonNgu == 2) {
@@ -71,7 +72,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         loadDuLieuKhachHang();
         loadDuLieuNhanVien();
     }
-
+    
     public void ChuyenDoiNN() {
         lblLuaChonDoanhThu.setText("Statistics by:");
         lblTuNgay.setText("From:");
@@ -87,8 +88,8 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         lblTongTien.setText("Total amount:");
         lblGiamGia.setText("Discount:");
         lblDoanhThu.setText("Revenue");
-        jButton3.setText("View chart");
-
+        btnBieuDoNV.setText("View chart");
+        
         lblLuaChonSP.setText("Statistics by:");
         lblTuNgaySP.setText("From:");
         lblDenNgaySanPham.setText("To:");
@@ -102,7 +103,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         lblSoLuongHoaDonSP.setText("Quantity of products sold:");
         lblDoanhThuSanPham.setText("Total amount:");
         btnBieuDoSP.setText("View chart");
-
+        
         lblLuaChonKH.setText("Statistics by:");
         lblTuNgayKH.setText("From:");
         lblDenNgayKH.setText("To:");
@@ -118,7 +119,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         lblDoanhThuKH.setText("Total amount:");
         lblDoanhThuKH1.setText("Number of registrations:");
         btnBieuDoKH.setText("View chart");
-
+        
         lblLuaChonKH1.setText("Statistics by:");
         jLabel1.setText("Employee ID:");
         lblTuNgayKH1.setText("From:");
@@ -134,13 +135,13 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         lblDoanhThuKH2.setText("Total amount:");
         btnBieuDoNV.setText("View chart");
     }
-
+    
     private void setComponentState(boolean set, JComponent... components) {
         for (JComponent component : components) {
             component.setEnabled(set);
         }
     }
-
+    
     private void loadDuLieuDoanhThu() {
         //Tạo mảng không trùng bằng set và sử dụng HashSet để lọc
         Set<Integer> uniqueYears = new HashSet<>();
@@ -175,13 +176,13 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         svgXuatExcelDoanhThu.setSvgImage("excel.svg", 35, 35);
         svgXuatPDFDoanhThu.setSvgImage("pdf.svg", 35, 35);
     }
-
+    
     private void loadDuLieuKhachHang() {
         svgThongKeKH.setSvgImage("statistical.svg", 35, 35);
         svgLamMoiKH.setSvgImage("refresh.svg", 35, 35);
         svgXuatExcelKhachHang.setSvgImage("excel.svg", 35, 35);
         svgXuatPDFKhachHang.setSvgImage("pdf.svg", 35, 35);
-        
+
 //Tạo mảng không trùng bằng set và sử dụng HashSet để lọc
         thongKeKhachHangDAO = new ThongKeKhachHangDAO();
         modelKhachHang.setRowCount(0);
@@ -204,13 +205,13 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
             }
             i++;
         }
-
+        
         txtSoLuongDHKH.setText(soHoaDon + "");
         txtTongTienKH.setText(nf.format(tongTien));
         txtSoLuongSPKH.setText(soLuongSanPham + "");
         txtsoLuongNDK.setText(soLuongNDK + "");
     }
-
+    
     private void loadDuLieuSanPham() {
         //Tạo mảng không trùng bằng set và sử dụng HashSet để lọc
         Set<Integer> uniqueYears = new HashSet<>();
@@ -225,7 +226,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
             tongTien += dtsp.getThanhtien();
             soHoaDon += dtsp.getSoLuong();
         }
-
+        
         txtSoLuongHoaDon1.setText(soHoaDon + "");
         txtDoanhThuSP.setText(nf.format(tongTien));
         svgThongKeSP.setSvgImage("statistical.svg", 35, 35);
@@ -233,7 +234,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         svgXuatExcelSanPham.setSvgImage("excel.svg", 35, 35);
         svgXuatPDFSanPham.setSvgImage("pdf.svg", 35, 35);
     }
-
+    
     private void loadDuLieuNhanVien() {
         doanhThuNhanVienDAO = new ThongKeDoanhThuNhanVienDAO();
         modelNhanVien.setRowCount(0);
@@ -261,7 +262,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         svgXuatExcelNV.setSvgImage("excel.svg", 35, 35);
         svgXuatPDFNV.setSvgImage("pdf.svg", 35, 35);
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -293,7 +294,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         lblThangDoanhThu = new javax.swing.JLabel();
         jcbThangDoanhThu = new javax.swing.JComboBox<>();
         jcbNamDoanhThu = new javax.swing.JComboBox<>();
-        jButton3 = new javax.swing.JButton();
+        btnBieuDoNV = new javax.swing.JButton();
         lblTongTien = new javax.swing.JLabel();
         txtTongTien = new javax.swing.JLabel();
         lblGiamGia = new javax.swing.JLabel();
@@ -387,7 +388,6 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         lblTongDoanhThuKH1 = new javax.swing.JLabel();
         txtThanhTienNV = new javax.swing.JLabel();
         lblTuNgayKH1 = new javax.swing.JLabel();
-        btnBieuDoNV = new javax.swing.JButton();
         jcbMaNV = new javax.swing.JComboBox<>();
         lblLuaChonKH1 = new javax.swing.JLabel();
         jpThongKeNV = new util.JPanelRounded();
@@ -432,44 +432,22 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         scrollDoanhThu.setPreferredSize(new java.awt.Dimension(420, 395));
 
         tableDoanhThu.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        if(ngonNgu==2)
-        {
-            tableDoanhThu.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
+        tableDoanhThu.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
 
-                },
-                new String [] {
-                    "Invoice code", "Employee name", "Customer name", "Creation date", "Total amount", "Discount", "Subtotal"
-                }
-            ) {
-                Class[] types = new Class [] {
-                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-                };
+            },
+            new String [] {
+                "Mã hóa đơn", "Tên nhân viên", "Tên khách hàng", "Ngày tạo", "Tổng tiền", "Giảm giá", "Thành tiền"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
 
-                public Class getColumnClass(int columnIndex) {
-                    return types [columnIndex];
-                }
-            });
-        }
-        else
-        {
-            tableDoanhThu.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
-
-                },
-                new String [] {
-                    "Mã hóa đơn", "Tên nhân viên", "Tên khách hàng", "Ngày tạo", "Tổng tiền", "Giảm giá", "Thành tiền"
-                }
-            ) {
-                Class[] types = new Class [] {
-                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-                };
-
-                public Class getColumnClass(int columnIndex) {
-                    return types [columnIndex];
-                }
-            });
-        }
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         scrollDoanhThu.setViewportView(tableDoanhThu);
 
         tabDoanhThu.add(scrollDoanhThu, java.awt.BorderLayout.CENTER);
@@ -502,7 +480,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         jpChucNangDoanhThu.add(lblSoLuongHoaDon, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 530, -1, 40));
 
         txtDoanhThu.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jpChucNangDoanhThu.add(txtDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 710, 190, 40));
+        jpChucNangDoanhThu.add(txtDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 710, 190, 40));
 
         txtSoLuongHoaDon.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jpChucNangDoanhThu.add(txtSoLuongHoaDon, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 530, 80, 40));
@@ -584,33 +562,33 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         jcbNamDoanhThu.setEnabled(false);
         jpChucNangDoanhThu.add(jcbNamDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 240, 110, 40));
 
-        jButton3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jButton3.setText("XEM BIỂU ĐỒ");
-        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnBieuDoNV.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnBieuDoNV.setText("XEM BIỂU ĐỒ");
+        btnBieuDoNV.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton3MouseClicked(evt);
+                btnBieuDoNVMouseClicked(evt);
             }
         });
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnBieuDoNV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnBieuDoNVActionPerformed(evt);
             }
         });
-        jpChucNangDoanhThu.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 760, 150, 50));
+        jpChucNangDoanhThu.add(btnBieuDoNV, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 760, 150, 50));
 
         lblTongTien.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblTongTien.setText("Tổng tiền:");
         jpChucNangDoanhThu.add(lblTongTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 590, -1, 40));
 
         txtTongTien.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jpChucNangDoanhThu.add(txtTongTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 590, 150, 40));
+        jpChucNangDoanhThu.add(txtTongTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 590, 150, 40));
 
         lblGiamGia.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblGiamGia.setText("Giảm giá:");
         jpChucNangDoanhThu.add(lblGiamGia, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 650, -1, 40));
 
         txtGiamGia.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jpChucNangDoanhThu.add(txtGiamGia, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 650, 190, 40));
+        jpChucNangDoanhThu.add(txtGiamGia, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 650, 190, 40));
 
         jbLXuatExcelDoanhThu.setBackground(new java.awt.Color(255, 255, 255));
         jbLXuatExcelDoanhThu.setRoundedBottomLeft(10);
@@ -660,45 +638,22 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
 
         tabSanPham.setLayout(new java.awt.BorderLayout());
 
-        if(ngonNgu==2)
-        {
-            tableSanPham.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
+        tableSanPham.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
 
-                },
-                new String [] {
-                    "Product code", "Product name", "Quantity", "Subtotal"
-                }
-            ) {
-                Class[] types = new Class [] {
-                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-                };
+            },
+            new String [] {
+                "Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Thành tiền"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
 
-                public Class getColumnClass(int columnIndex) {
-                    return types [columnIndex];
-                }
-            });
-        }
-        else
-        {
-            tableSanPham.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
-
-                },
-                new String [] {
-                    "Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Thành tiền"
-                }
-            ) {
-                Class[] types = new Class [] {
-                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-                };
-
-                public Class getColumnClass(int columnIndex) {
-                    return types [columnIndex];
-                }
-            });
-
-        }
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         tableSanPham.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tableSanPhamMouseClicked(evt);
@@ -736,7 +691,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         jpChucNangSanPham.add(lblSoLuongHoaDonSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 570, -1, 40));
 
         txtDoanhThuSP.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jpChucNangSanPham.add(txtDoanhThuSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 620, 190, 40));
+        jpChucNangSanPham.add(txtDoanhThuSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 620, 190, 40));
 
         txtSoLuongHoaDon1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jpChucNangSanPham.add(txtSoLuongHoaDon1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 570, 60, 40));
@@ -900,50 +855,25 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
 
         tabKhachHang.setLayout(new java.awt.BorderLayout());
 
-        if(ngonNgu==2)
-        {
-            tableKhachHang.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
-                    {null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null}
-                },
-                new String [] {
-                    "Customer code", "Customer name", "Phone number", "Gender", "Registration date", "Number of invoices", "Total amount", "Total products"
-                }
-            ) {
-                Class[] types = new Class [] {
-                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-                };
+        tableKhachHang.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Mã khách hàng", "Tên khách hàng", "Số điện thoại", "Giới tính", "Ngày đăng ký", "Số lượng HĐ", "Tổng tiền", "Tổng SP"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
 
-                public Class getColumnClass(int columnIndex) {
-                    return types [columnIndex];
-                }
-            });
-        }
-        else
-        {
-            tableKhachHang.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
-                    {null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null}
-                },
-                new String [] {
-                    "Mã khách hàng", "Tên khách hàng", "Số điện thoại", "Giới tính", "Ngày đăng ký", "Số lượng HĐ", "Tổng tiền", "Tổng SP"
-                }
-            ) {
-                Class[] types = new Class [] {
-                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-                };
-
-                public Class getColumnClass(int columnIndex) {
-                    return types [columnIndex];
-                }
-            });
-        }
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         tableKhachHang.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tableKhachHangMouseClicked(evt);
@@ -981,7 +911,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         jpChucNangKH.add(lblSoLuongHoaDonKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 550, -1, 40));
 
         txtTongTienKH.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jpChucNangKH.add(txtTongTienKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 650, 170, 40));
+        jpChucNangKH.add(txtTongTienKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 650, 170, 40));
 
         txtSoLuongSPKH.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jpChucNangKH.add(txtSoLuongSPKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 550, 100, 40));
@@ -1149,45 +1079,22 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
 
         tabNhanVien.setLayout(new java.awt.BorderLayout());
 
-        if(ngonNgu==2)
-        {
-            tableNhanVien.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
+        tableNhanVien.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
 
-                },
-                new String [] {
-                    "Employee code", "Employee name", "Number of invoices", "Total amount", "Discount", "Subtotal"
-                }
-            ) {
-                Class[] types = new Class [] {
-                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-                };
+            },
+            new String [] {
+                "Mã nhân viên", "Tên nhân viên", "Số lượng hoá đơn", "Tổng tiền", "Giảm giá", "Thành tiền"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
 
-                public Class getColumnClass(int columnIndex) {
-                    return types [columnIndex];
-                }
-            });
-        }
-        else
-        {
-            tableNhanVien.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
-
-                },
-                new String [] {
-                    "Mã nhân viên", "Tên nhân viên", "Số lượng hoá đơn", "Tổng tiền", "Giảm giá", "Thành tiền"
-                }
-            ) {
-                Class[] types = new Class [] {
-                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-                };
-
-                public Class getColumnClass(int columnIndex) {
-                    return types [columnIndex];
-                }
-            });
-
-        }
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         tableNhanVien.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tableNhanVienMouseClicked(evt);
@@ -1221,25 +1128,11 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         jpChucNangKH1.add(lblTongDoanhThuKH1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 540, 200, -1));
 
         txtThanhTienNV.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jpChucNangKH1.add(txtThanhTienNV, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 660, 170, 40));
+        jpChucNangKH1.add(txtThanhTienNV, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 660, 170, 40));
 
         lblTuNgayKH1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblTuNgayKH1.setText("Từ ngày:");
         jpChucNangKH1.add(lblTuNgayKH1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, -1, 40));
-
-        btnBieuDoNV.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        btnBieuDoNV.setText("XEM BIỂU ĐỒ");
-        btnBieuDoNV.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnBieuDoNVMouseClicked(evt);
-            }
-        });
-        btnBieuDoNV.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBieuDoNVActionPerformed(evt);
-            }
-        });
-        jpChucNangKH1.add(btnBieuDoNV, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 720, 170, 50));
 
         jcbMaNV.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jcbMaNV.addActionListener(new java.awt.event.ActionListener() {
@@ -1420,7 +1313,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
                 java.sql.Date denNgay = jdDenNgayDoanhThu.getDate() == null ? null : new java.sql.Date(jdDenNgayDoanhThu.getDate().getTime());
                 doanhThuList = thongKeDoanhThuDAO.getHoaDon(tuNgay, denNgay);
                 break;
-
+            
             case "Theo năm":
                 doanhThuList = thongKeDoanhThuDAO.getDoanhThuThangNam(0, Integer.parseInt(jcbNamDoanhThu.getSelectedItem().toString()));
                 break;
@@ -1436,7 +1329,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
             thanhTien += doanhThu.getThanhTien();
             giamGia += doanhThu.getGiamGia();
             soHoaDon++;
-
+            
         }
         txtSoLuongHoaDon.setText(soHoaDon + "");
         txtGiamGia.setText(nf.format(giamGia));
@@ -1510,14 +1403,14 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
+        
         BufferedImage image = new BufferedImage(sanPham.getWidth(), sanPham.getHeight(), BufferedImage.TYPE_INT_ARGB);
         Graphics2D graphics = image.createGraphics();
         sanPham.paint(graphics);
 
         // Đường dẫn mặc định cho tệp PDF
         String defaultPdfFilePath = "D:/ThongKeSanPham.pdf";
-
+        
         try {
             PDDocument document = new PDDocument();
             PDPage page = new PDPage();
@@ -1525,21 +1418,34 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
 
             // Convert the image to a PDF file
             PDImageXObject pdImageXObject = LosslessFactory.createFromImage(document, image);
-
+            
             PDPageContentStream contentStream = new PDPageContentStream(document, page);
             contentStream.drawImage(pdImageXObject, 0, 0, page.getMediaBox().getWidth(), page.getMediaBox().getHeight());
             contentStream.close();
-
+            
             document.save(new File(defaultPdfFilePath));
             document.close();
-
+            
             sanPham.setVisible(false);
             JOptionPane.showMessageDialog(null, "Bạn đã xuất file pdf thành công");
+            openPDF(defaultPdfFilePath);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }//GEN-LAST:event_jpLXuatPDFSanPhamMouseClicked
 
+    public static void openPDF(String filePath) {
+        File pdfFile = new File(filePath);
+        try {
+            if (pdfFile.exists()) {
+                Desktop.getDesktop().open(pdfFile);
+            } else {
+                System.out.println("Tệp không tồn tại hayx kiểm tra lại ! ");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     //xu li su kien cua sanpham khi an thong ke
     private void jpThongKeSPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpThongKeSPMouseClicked
         //code o day
@@ -1570,7 +1476,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
                     java.sql.Date denNgay = jdDenNgayDoanhThu1.getDate() == null ? null : new java.sql.Date(jdDenNgayDoanhThu1.getDate().getTime());
                     sanPhamList = thongKeSanPhamDAO.getSanPham(tuNgay, denNgay);
                     break;
-
+                
                 case "Theo năm":
                     sanPhamList = thongKeSanPhamDAO.getDoanhThuSanPhamThangNam(0, Integer.parseInt(jcbNamDoanhThu1.getSelectedItem().toString()));
                     break;
@@ -1584,7 +1490,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
                 tongTien += dtSanPham.getThanhtien();
                 sosanpham += dtSanPham.getSoLuong();
             }
-
+            
             txtSoLuongHoaDon1.setText(sosanpham + "");
             txtDoanhThuSP.setText(nf.format(tongTien));
         } else if (luaChon.equals("Top 5 sản phẩm được bán nhiều nhất")) {
@@ -1613,7 +1519,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
                     java.sql.Date denNgay = jdDenNgayDoanhThu1.getDate() == null ? null : new java.sql.Date(jdDenNgayDoanhThu1.getDate().getTime());
                     sanPhamList = thongKeSanPhamDAO.getSanPhamBanNhieu(tuNgay, denNgay);
                     break;
-
+                
                 case "Theo năm":
                     sanPhamList = thongKeSanPhamDAO.getSanPhamThangNamBanNhieu(0, Integer.parseInt(jcbNamDoanhThu1.getSelectedItem().toString()));
                     break;
@@ -1627,7 +1533,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
                 tongTien += dtSanPham.getThanhtien();
                 sosanpham += dtSanPham.getSoLuong();
             }
-
+            
             txtSoLuongHoaDon1.setText(sosanpham + "");
             txtDoanhThuSP.setText(nf.format(tongTien));
         } else if (luaChon.equals("Top 5 sản phẩm được bán ít nhất")) {
@@ -1656,7 +1562,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
                     java.sql.Date denNgay = jdDenNgayDoanhThu1.getDate() == null ? null : new java.sql.Date(jdDenNgayDoanhThu1.getDate().getTime());
                     sanPhamList = thongKeSanPhamDAO.getSanPhamBanIt(tuNgay, denNgay);
                     break;
-
+                
                 case "Theo năm":
                     sanPhamList = thongKeSanPhamDAO.getSanPhamThangNamBanIt(0, Integer.parseInt(jcbNamDoanhThu1.getSelectedItem().toString()));
                     break;
@@ -1670,10 +1576,10 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
                 tongTien += dtSanPham.getThanhtien();
                 sosanpham += dtSanPham.getSoLuong();
             }
-
+            
             txtSoLuongHoaDon1.setText(sosanpham + "");
             txtDoanhThuSP.setText(nf.format(tongTien));
-
+            
         } else if (luaChon.equals("Top 5 sản phẩm có doanh thu cao nhất")) {
             String selectedItem = (String) jcbLuaChonDoanhThu1.getSelectedItem();
             thongKeSanPhamDAO = new ThongKeSanPhamDAO();
@@ -1700,7 +1606,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
                     java.sql.Date denNgay = jdDenNgayDoanhThu1.getDate() == null ? null : new java.sql.Date(jdDenNgayDoanhThu1.getDate().getTime());
                     sanPhamList = thongKeSanPhamDAO.getSanPhamDoanhThuNhieu(tuNgay, denNgay);
                     break;
-
+                
                 case "Theo năm":
                     sanPhamList = thongKeSanPhamDAO.getSanPhamThangNamDoanhThuNhieu(0, Integer.parseInt(jcbNamDoanhThu1.getSelectedItem().toString()));
                     break;
@@ -1714,7 +1620,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
                 tongTien += dtSanPham.getThanhtien();
                 sosanpham += dtSanPham.getSoLuong();
             }
-
+            
             txtSoLuongHoaDon1.setText(sosanpham + "");
             txtDoanhThuSP.setText(nf.format(tongTien));
         } else if (luaChon.equals("Top 5 sản phẩm có doanh thu thấp nhất")) {
@@ -1743,7 +1649,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
                     java.sql.Date denNgay = jdDenNgayDoanhThu1.getDate() == null ? null : new java.sql.Date(jdDenNgayDoanhThu1.getDate().getTime());
                     sanPhamList = thongKeSanPhamDAO.getSanPhamDoanhThuIt(tuNgay, denNgay);
                     break;
-
+                
                 case "Theo năm":
                     sanPhamList = thongKeSanPhamDAO.getSanPhamThangNamDoanhThuIt(0, Integer.parseInt(jcbNamDoanhThu1.getSelectedItem().toString()));
                     break;
@@ -1757,7 +1663,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
                 tongTien += dtSanPham.getThanhtien();
                 sosanpham += dtSanPham.getSoLuong();
             }
-
+            
             txtSoLuongHoaDon1.setText(sosanpham + "");
             txtDoanhThuSP.setText(nf.format(tongTien));
         } else if (luaChon.equals("Top 5 sản phẩm tồn kho nhiều nhất")) {
@@ -1772,7 +1678,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
                 tongTien += dtSanPham.getThanhtien();
                 sosanpham += dtSanPham.getSoLuong();
             }
-
+            
             txtSoLuongHoaDon1.setText(sosanpham + "");
             txtDoanhThuSP.setText(nf.format(tongTien));
         } else if (luaChon.equals("Top 5 sản phẩm tồn kho ít nhất")) {
@@ -1787,7 +1693,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
                 tongTien += dtSanPham.getThanhtien();
                 sosanpham += dtSanPham.getSoLuong();
             }
-
+            
             txtSoLuongHoaDon1.setText(sosanpham + "");
             txtDoanhThuSP.setText(nf.format(tongTien));
         }
@@ -1815,7 +1721,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
     }//GEN-LAST:event_btnBieuDoKHMouseClicked
     //code lua chon cua khach hang
     private void jcbLuaChonKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbLuaChonKHActionPerformed
-
+        
         String selectedItem = (String) jcbLuaChonKH.getSelectedItem();
         switch (selectedItem) {
             case "Theo tháng":
@@ -1833,7 +1739,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
             default:
                 setComponentState(false, jcbThangKH, jcbNamKH, jdDenNgayKH, jdTuNgayKH);
                 break;
-
+            
         }
     }//GEN-LAST:event_jcbLuaChonKHActionPerformed
 
@@ -1868,7 +1774,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
                     java.sql.Date denNgay = jdDenNgayKH.getDate() == null ? null : new java.sql.Date(jdDenNgayKH.getDate().getTime());
                     khachHangList = thongKeKhachHangDAO.getKHTuyChinh(tuNgay, denNgay);
                     break;
-
+                
                 case "Theo năm":
                     khachHangList = thongKeKhachHangDAO.getKHThangNam(0, Integer.parseInt(jcbNamKH.getSelectedItem().toString()));
                     break;
@@ -1884,7 +1790,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
                 soHoaDon += kh.getSoLuongDonHang();
                 soLuongNDK++;
             }
-
+            
             txtSoLuongDHKH.setText(soHoaDon + "");
             txtTongTienKH.setText(nf.format(tongTien));
             txtSoLuongSPKH.setText(soLuongSanPham + "");
@@ -1917,7 +1823,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
                     java.sql.Date denNgay = jdDenNgayKH.getDate() == null ? null : new java.sql.Date(jdDenNgayKH.getDate().getTime());
                     khachHangList = thongKeKhachHangDAO.getKHTuyChinhTongChiCaoNhat(tuNgay, denNgay);
                     break;
-
+                
                 case "Theo năm":
                     khachHangList = thongKeKhachHangDAO.getKHThangNamTongChiCaoNhat(0, Integer.parseInt(jcbNamKH.getSelectedItem().toString()));
                     break;
@@ -1933,12 +1839,12 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
                 soHoaDon += kh.getSoLuongDonHang();
                 soLuongNDK++;
             }
-
+            
             txtSoLuongDHKH.setText(soHoaDon + "");
             txtTongTienKH.setText(nf.format(tongTien));
             txtSoLuongSPKH.setText(soLuongSanPham + "");
             txtsoLuongNDK.setText(soLuongNDK + "");
-
+            
         } else if (luaChon.equals("Top 5 khách hàng tổng chi thấp nhất")) {
             String selectedItem = (String) jcbLuaChonKH.getSelectedItem();
             thongKeKhachHangDAO = new ThongKeKhachHangDAO();
@@ -1967,7 +1873,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
                     java.sql.Date denNgay = jdDenNgayKH.getDate() == null ? null : new java.sql.Date(jdDenNgayKH.getDate().getTime());
                     khachHangList = thongKeKhachHangDAO.getKHTuyChinhTongChiThapNhat(tuNgay, denNgay);
                     break;
-
+                
                 case "Theo năm":
                     khachHangList = thongKeKhachHangDAO.getKHThangNamTongChiThapNhat(0, Integer.parseInt(jcbNamKH.getSelectedItem().toString()));
                     break;
@@ -1983,7 +1889,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
                 soHoaDon += kh.getSoLuongDonHang();
                 soLuongNDK++;
             }
-
+            
             txtSoLuongDHKH.setText(soHoaDon + "");
             txtTongTienKH.setText(nf.format(tongTien));
             txtSoLuongSPKH.setText(soLuongSanPham + "");
@@ -2016,7 +1922,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
                     java.sql.Date denNgay = jdDenNgayKH.getDate() == null ? null : new java.sql.Date(jdDenNgayKH.getDate().getTime());
                     khachHangList = thongKeKhachHangDAO.getKHTuyChinhMuaHangNhieuNhat(tuNgay, denNgay);
                     break;
-
+                
                 case "Theo năm":
                     khachHangList = thongKeKhachHangDAO.getKHThangNamMuaHangNhieuNhat(0, Integer.parseInt(jcbNamKH.getSelectedItem().toString()));
                     break;
@@ -2032,7 +1938,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
                 soHoaDon += kh.getSoLuongDonHang();
                 soLuongNDK++;
             }
-
+            
             txtSoLuongDHKH.setText(soHoaDon + "");
             txtTongTienKH.setText(nf.format(tongTien));
             txtSoLuongSPKH.setText(soLuongSanPham + "");
@@ -2065,7 +1971,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
                     java.sql.Date denNgay = jdDenNgayKH.getDate() == null ? null : new java.sql.Date(jdDenNgayKH.getDate().getTime());
                     khachHangList = thongKeKhachHangDAO.getKHTuyChinhMuaHangItNhat(tuNgay, denNgay);
                     break;
-
+                
                 case "Theo năm":
                     khachHangList = thongKeKhachHangDAO.getKHThangNamMuaHangItNhat(0, Integer.parseInt(jcbNamKH.getSelectedItem().toString()));
                     break;
@@ -2081,7 +1987,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
                 soHoaDon += kh.getSoLuongDonHang();
                 soLuongNDK++;
             }
-
+            
             txtSoLuongDHKH.setText(soHoaDon + "");
             txtTongTienKH.setText(nf.format(tongTien));
             txtSoLuongSPKH.setText(soLuongSanPham + "");
@@ -2114,7 +2020,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
                     java.sql.Date denNgay = jdDenNgayKH.getDate() == null ? null : new java.sql.Date(jdDenNgayKH.getDate().getTime());
                     khachHangList = thongKeKhachHangDAO.getKHTuyChinhThuongXuyenMuaHang(tuNgay, denNgay);
                     break;
-
+                
                 case "Theo năm":
                     khachHangList = thongKeKhachHangDAO.getKHThangNamThuongXuyenMuaHang(0, Integer.parseInt(jcbNamKH.getSelectedItem().toString()));
                     break;
@@ -2130,7 +2036,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
                 soHoaDon += kh.getSoLuongDonHang();
                 soLuongNDK++;
             }
-
+            
             txtSoLuongDHKH.setText(soHoaDon + "");
             txtTongTienKH.setText(nf.format(tongTien));
             txtSoLuongSPKH.setText(soLuongSanPham + "");
@@ -2163,7 +2069,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
                     java.sql.Date denNgay = jdDenNgayKH.getDate() == null ? null : new java.sql.Date(jdDenNgayKH.getDate().getTime());
                     khachHangList = thongKeKhachHangDAO.getKHTuyChinhKhongThuongXuyenMuaHang(tuNgay, denNgay);
                     break;
-
+                
                 case "Theo năm":
                     khachHangList = thongKeKhachHangDAO.getKHThangNamKhongThuongXuyenMuaHang(0, Integer.parseInt(jcbNamKH.getSelectedItem().toString()));
                     break;
@@ -2179,7 +2085,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
                 soHoaDon += kh.getSoLuongDonHang();
                 soLuongNDK++;
             }
-
+            
             txtSoLuongDHKH.setText(soHoaDon + "");
             txtTongTienKH.setText(nf.format(tongTien));
             txtSoLuongSPKH.setText(soLuongSanPham + "");
@@ -2220,7 +2126,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jcbchonsanphamActionPerformed
 
-    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+    private void btnBieuDoNVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBieuDoNVMouseClicked
         JFrame jf = null;
         try {
             jf = new JFrame_BieuDoDoanhThu();
@@ -2229,12 +2135,12 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         }
         jf.setLocationRelativeTo(null);
         jf.setVisible(true);
-    }//GEN-LAST:event_jButton3MouseClicked
+    }//GEN-LAST:event_btnBieuDoNVMouseClicked
     //code khach hang o day
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnBieuDoNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBieuDoNVActionPerformed
 
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnBieuDoNVActionPerformed
 
     private void jcbLuaChonDoanhThu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jcbLuaChonDoanhThu1MouseClicked
 
@@ -2267,7 +2173,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
     private void tableKhachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableKhachHangMouseClicked
         JFrame_ChiTietKhachHang jf = new JFrame_ChiTietKhachHang();
         jf.setLocationRelativeTo(null);
-
+        
         jf.setVisible(true);
         khachHangDAO = new KhachHangDAO();
         String maKH = tableKhachHang.getValueAt(tableKhachHang.getSelectedRow(), 0).toString();
@@ -2319,14 +2225,14 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
+        
         BufferedImage image = new BufferedImage(sanPham.getWidth(), sanPham.getHeight(), BufferedImage.TYPE_INT_ARGB);
         Graphics2D graphics = image.createGraphics();
         sanPham.paint(graphics);
 
         // Đường dẫn mặc định cho tệp PDF
         String defaultPdfFilePath = "D:/ThongKeKhachHang.pdf";
-
+        
         try {
             PDDocument document = new PDDocument();
             PDPage page = new PDPage();
@@ -2334,16 +2240,17 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
 
             // Convert the image to a PDF file
             PDImageXObject pdImageXObject = LosslessFactory.createFromImage(document, image);
-
+            
             PDPageContentStream contentStream = new PDPageContentStream(document, page);
             contentStream.drawImage(pdImageXObject, 0, 0, page.getMediaBox().getWidth(), page.getMediaBox().getHeight());
             contentStream.close();
-
+            
             document.save(new File(defaultPdfFilePath));
             document.close();
-
+            
             sanPham.setVisible(false);
             JOptionPane.showMessageDialog(null, "Bạn đã xuất file pdf thành công");
+            openPDF(defaultPdfFilePath);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -2363,6 +2270,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Không có dữ liệu nên không thể xuất file!");
         }
     }//GEN-LAST:event_jbLXuatExcelDoanhThuMouseClicked
+    
 
     private void jpLXuatPDFDoanhThuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpLXuatPDFDoanhThuMouseClicked
         JFrame_PDFDoanhThu sanPham = new JFrame_PDFDoanhThu(tableKhachHang, txtSoLuongHoaDon.getText(), txtTongTien.getText(), txtGiamGia.getText(), txtDoanhThu.getText());
@@ -2373,14 +2281,14 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
+        
         BufferedImage image = new BufferedImage(sanPham.getWidth(), sanPham.getHeight(), BufferedImage.TYPE_INT_ARGB);
         Graphics2D graphics = image.createGraphics();
         sanPham.paint(graphics);
 
         // Đường dẫn mặc định cho tệp PDF
         String defaultPdfFilePath = "D:/ThongKeDoanhThu.pdf";
-
+        
         try {
             PDDocument document = new PDDocument();
             PDPage page = new PDPage();
@@ -2388,16 +2296,17 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
 
             // Convert the image to a PDF file
             PDImageXObject pdImageXObject = LosslessFactory.createFromImage(document, image);
-
+            
             PDPageContentStream contentStream = new PDPageContentStream(document, page);
             contentStream.drawImage(pdImageXObject, 0, 0, page.getMediaBox().getWidth(), page.getMediaBox().getHeight());
             contentStream.close();
-
+            
             document.save(new File(defaultPdfFilePath));
             document.close();
-
+            
             sanPham.setVisible(false);
             JOptionPane.showMessageDialog(null, "Bạn đã xuất file pdf thành công");
+            openPDF(defaultPdfFilePath);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -2420,14 +2329,14 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
+        
         BufferedImage image = new BufferedImage(sanPham.getWidth(), sanPham.getHeight(), BufferedImage.TYPE_INT_ARGB);
         Graphics2D graphics = image.createGraphics();
         sanPham.paint(graphics);
 
         // Đường dẫn mặc định cho tệp PDF
         String defaultPdfFilePath = "D:/ThongKeNhanVien.pdf";
-
+        
         try {
             PDDocument document = new PDDocument();
             PDPage page = new PDPage();
@@ -2435,16 +2344,17 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
 
             // Convert the image to a PDF file
             PDImageXObject pdImageXObject = LosslessFactory.createFromImage(document, image);
-
+            
             PDPageContentStream contentStream = new PDPageContentStream(document, page);
             contentStream.drawImage(pdImageXObject, 0, 0, page.getMediaBox().getWidth(), page.getMediaBox().getHeight());
             contentStream.close();
-
+            
             document.save(new File(defaultPdfFilePath));
             document.close();
-
+            
             sanPham.setVisible(false);
             JOptionPane.showMessageDialog(null, "Bạn đã xuất file pdf thành công");
+            openPDF(defaultPdfFilePath);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -2511,7 +2421,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
                 java.sql.Date denNgay = jdDenNgayNV.getDate() == null ? null : new java.sql.Date(jdDenNgayNV.getDate().getTime());
                 nhanVienList = doanhThuNhanVienDAO.getDoanhThuNhanVien(tuNgay, denNgay, tuyChonLoc, maNV);
                 break;
-
+            
             case "Theo năm":
                 nhanVienList = doanhThuNhanVienDAO.getDoanhThuNhanVienThangNam(0, Integer.parseInt(jcbNamNV.getSelectedItem().toString()), tuyChonLoc, maNV);
                 break;
@@ -2525,7 +2435,7 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
             modelNhanVien.addRow(row);
             thanhTien += doanhThu.getThanhTien();
             soHoaDon += doanhThu.getSoLuongDonHang();
-
+            
         }
         txtSoLuongDHNV.setText(soHoaDon + "");
         txtThanhTienNV.setText(nf.format(thanhTien));
@@ -2534,14 +2444,6 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
     private void jcbMaNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbMaNVActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jcbMaNVActionPerformed
-
-    private void btnBieuDoNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBieuDoNVActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnBieuDoNVActionPerformed
-
-    private void btnBieuDoNVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBieuDoNVMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnBieuDoNVMouseClicked
 
     private void jcbLuaChonNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbLuaChonNVActionPerformed
         String selectedItem = (String) jcbLuaChonNV.getSelectedItem();
@@ -2573,7 +2475,6 @@ public class JPanel_ThongKe extends javax.swing.JPanel {
     private javax.swing.JButton btnBieuDoKH;
     private javax.swing.JButton btnBieuDoNV;
     private javax.swing.JButton btnBieuDoSP;
-    private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jCBTieuChi;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JSeparator jSeparator1;

@@ -2327,16 +2327,7 @@ public class JPanel_BanHang extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_jpPaySaleMouseClicked
-    public String generateRandomNumbers()
-    {
-        String s="";
-        Random random = new Random();
-        for (int i = 0; i < 6; i++) {
-            s+= random.nextInt(10);
-        }
-        return s;
-    }
-       
+    
     
     private void pay(DonDatHang donDatHang) {
         String maHoaDon = lbl_orderIdSale.getText();

@@ -41,7 +41,7 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
         svgRefresh.setSvgImage("refresh.svg", 35, 35);
         modelNhanVien = (DefaultTableModel) tableNhanVien.getModel();
         nhanVienDao = new NhanVienDAO();
-        setValue(nhanVienDao.taoMaNhanVien(), "", "", "", "", "", radNam, "Nhân Viên bán hàng", "Đang làm","","");
+        setValue(nhanVienDao.taoMaNhanVien(), "", "", "", "", "", radNam, "Nhân Viên bán hàng", "Đang làm","");
         txtMaNV.setEditable(false);
         loadData();
     }
@@ -61,10 +61,9 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
         jbEdit.setText("Edit");
         jbRefresh.setText("Refresh");
         txtLuong.setText("Salary:");
-        jdNgaySinh2.setText("Star Date:");
     }
 
-    private void setValue(String maNV, String tenNV, String soDienThoai, String email, String ngaySinh, String diaChi, JRadioButton gioiTinh, String chucVu, String trangThai, String ngayVaoLam, String luong) {
+    private void setValue(String maNV, String tenNV, String soDienThoai, String email, String ngaySinh, String diaChi, JRadioButton gioiTinh, String chucVu, String trangThai, String luong) {
 
         txtMaNV.setText(maNV);
         txtTenNV.setText(tenNV);
@@ -88,18 +87,7 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
         cbChucVu.setSelectedItem(chucVu);
         cbTrangThai.setSelectedItem(trangThai);
         txtLuong.setText(luong);
-        if (ngayVaoLam.trim().equals("")) {
-            jdNgayVaoLam.setDate(null);
-        } else {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            java.sql.Date defaultDate;
-            try {
-                defaultDate = new java.sql.Date(dateFormat.parse(ngayVaoLam).getTime());
-                jdNgayVaoLam.setDate(defaultDate);
-            } catch (ParseException ex) {
-                Logger.getLogger(JPanel_NhanVien.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+       
         
 
     }
@@ -149,8 +137,6 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
         jbRefresh = new javax.swing.JLabel();
         svgRefresh = new util.SVGImage();
         cbChucVu = new javax.swing.JComboBox<>();
-        jdNgaySinh2 = new javax.swing.JLabel();
-        jdNgayVaoLam = new com.toedter.calendar.JDateChooser();
         lblEmail1 = new javax.swing.JLabel();
         txtEmail1 = new javax.swing.JTextField();
         lblEmployeeID1 = new javax.swing.JLabel();
@@ -312,13 +298,6 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
         cbChucVu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nhân viên bán hàng", "Quản lý" }));
         jpFunction.add(cbChucVu, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 150, 240, 40));
 
-        jdNgaySinh2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jdNgaySinh2.setText("Ngày vào làm:");
-        jpFunction.add(jdNgaySinh2, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 230, -1, 40));
-
-        jdNgayVaoLam.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jpFunction.add(jdNgayVaoLam, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 230, 200, 40));
-
         lblEmail1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblEmail1.setText("Email:");
         jpFunction.add(lblEmail1, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 150, -1, 40));
@@ -413,18 +392,19 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
                 if (!checkEmpty(tenNV) && !checkEmpty(diaChi) && !checkEmpty(soDienThoai) && !checkEmpty(email) && !checkNull(jdNgaySinh.getDate())) {
 
                     java.sql.Date ngaySinh = new java.sql.Date(jdNgaySinh.getDate().getTime());
-                    java.sql.Date ngayVaoLam = new java.sql.Date(jdNgayVaoLam.getDate().getTime());
+                    long currentTimeMillis = System.currentTimeMillis();
+                    java.sql.Date ngayVaoLam = new java.sql.Date(currentTimeMillis);
                     taiKhoanDao = new TaiKhoanDAO();
                     TaiKhoan taiKhoan = new TaiKhoan(taiKhoanDao.taoMaTK(), maNV, DigestUtils.md5Hex("1111").toUpperCase(), "User", "Đang hoạt động");
 
                     if (checkText(tenNV, "Invalid employee name") && checkPhone(soDienThoai, "Invalid phone number") && checkName(diaChi, "Invalid address") && checkDate(ngaySinh, "Not yet 18 years old") && checkMail(email, "Invalid email")) {
                         if (taiKhoanDao.themTaiKhoan(taiKhoan)) {
-                            NhanVien nhanVien = new NhanVien(maNV, tenNV, soDienThoai, email, ngaySinh, taiKhoan.getMaTK(), diaChi, gioiTinh, chucVu, trangThai,ngayVaoLam,Luong);
+                            NhanVien nhanVien = new NhanVien(maNV, tenNV, soDienThoai, email, ngaySinh, taiKhoan.getMaTK(), diaChi, gioiTinh, chucVu, trangThai, ngayVaoLam,Luong);
                             if (nhanVienDao.themNhanVien(nhanVien)) {
                                 loadData();
                                 JOptionPane.showMessageDialog(this, "Successfully added");
 
-                                setValue(nhanVienDao.taoMaNhanVien(), "", "", "", "", "", radNam, "Nhân Viên bán hàng", "Đang làm","","");
+                                setValue(nhanVienDao.taoMaNhanVien(), "", "", "", "", "", radNam, "Nhân Viên bán hàng", "Đang làm","");
                             } else {
                                 JOptionPane.showMessageDialog(this, "Failed to add");
 
@@ -451,7 +431,8 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
                 if (!checkEmpty(tenNV) && !checkEmpty(diaChi) && !checkEmpty(soDienThoai) && !checkEmpty(email) && !checkNull(jdNgaySinh.getDate())) {
 
                     java.sql.Date ngaySinh = new java.sql.Date(jdNgaySinh.getDate().getTime());
-                    java.sql.Date ngayVaoLam = new java.sql.Date(jdNgayVaoLam.getDate().getTime());
+                    long currentTimeMillis = System.currentTimeMillis();
+                    java.sql.Date ngayVaoLam = new java.sql.Date(currentTimeMillis);
                     taiKhoanDao = new TaiKhoanDAO();
                     TaiKhoan taiKhoan = new TaiKhoan(taiKhoanDao.taoMaTK(), maNV, DigestUtils.md5Hex("1111").toUpperCase(), "User", "Đang hoạt động");
 
@@ -462,7 +443,7 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
                                 loadData();
                                 JOptionPane.showMessageDialog(this, "Thêm thành công");
 
-                                setValue(nhanVienDao.taoMaNhanVien(), "", "", "", "", "", radNam, "Nhân Viên bán hàng", "Đang làm","","");
+                                setValue(nhanVienDao.taoMaNhanVien(), "", "", "", "", "", radNam, "Nhân Viên bán hàng", "Đang làm","");
                             } else {
                                 JOptionPane.showMessageDialog(this, "Thêm không thành công");
 
@@ -480,7 +461,7 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
     }//GEN-LAST:event_jpThemMouseClicked
 
     private void jbLamMoiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbLamMoiMouseClicked
-        setValue(nhanVienDao.taoMaNhanVien(), "", "", "", "", "", radNam, "Nhân Viên bán hàng", "Đang làm","","");
+        setValue(nhanVienDao.taoMaNhanVien(), "", "", "", "", "", radNam, "Nhân Viên bán hàng", "Đang làm","");
         loadData();
     }//GEN-LAST:event_jbLamMoiMouseClicked
 
@@ -498,7 +479,7 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
             String trangThai = modelNhanVien.getValueAt(rowIndex, 8).toString();
             String ngayVaoLam = modelNhanVien.getValueAt(rowIndex, 9).toString();
             String luong = modelNhanVien.getValueAt(rowIndex, 10).toString();
-            setValue(maNV, tenNV, soDienThoai, email, ngaySinh, diaChi, gioiTinh.equals("Nam") ? radNam : radNu, chucVu, trangThai,ngayVaoLam,luong);
+            setValue(maNV, tenNV, soDienThoai, email, ngaySinh, diaChi, gioiTinh.equals("Nam") ? radNam : radNu, chucVu, trangThai,luong);
         }
     }//GEN-LAST:event_tableNhanVienMouseClicked
 
@@ -507,7 +488,7 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
             int rowIndex = tableNhanVien.getSelectedRow();
             if (rowIndex < 0) {
                 JOptionPane.showMessageDialog(null, "Please select the row you want to edit");
-                setValue(nhanVienDao.taoMaNhanVien(), "", "", "", "", "", radNam, "Nhân Viên bán hàng", "Đang làm","","");
+                setValue(nhanVienDao.taoMaNhanVien(), "", "", "", "", "", radNam, "Nhân Viên bán hàng", "Đang làm", "");
             } else {
 
                 String maNV = txtMaNV.getText();
@@ -522,13 +503,15 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
 
                     if (!checkEmpty(tenNV) && !checkEmpty(diaChi) && !checkEmpty(soDienThoai) && !checkEmpty(email) && !checkNull(jdNgaySinh.getDate())) {
                         java.sql.Date ngaySinh = new java.sql.Date(jdNgaySinh.getDate().getTime());
+                        long currentTimeMillis = System.currentTimeMillis();
+                        java.sql.Date ngayVaoLam = new java.sql.Date(currentTimeMillis);
                         if (checkText(tenNV, "Invalid employee name") && checkPhone(soDienThoai, "Invalid phone number") && checkName(diaChi, "Invalid address") && checkDate(ngaySinh, "Not yet 18 years old") && checkMail(email, "Invalid email")) {
                             NhanVien nhanVien = new NhanVien(maNV, tenNV, soDienThoai, email, ngaySinh, diaChi, gioiTinh, chucVu, trangThai);
                             if (nhanVienDao.capNhatNhanVien(nhanVien)) {
                                 if (JOptionPane.showConfirmDialog(null, "Are you sure you want to edit this row?", "Xác nhận", JOptionPane.YES_OPTION) == JOptionPane.YES_OPTION) {
                                     loadData();
                                     JOptionPane.showMessageDialog(this, "Update successful");
-                                    setValue(nhanVienDao.taoMaNhanVien(), "", "", "", "", "", radNam, "Nhân Viên bán hàng", "Đang làm","","");
+                                    setValue(nhanVienDao.taoMaNhanVien(), "", "", "", "", "", radNam, "Nhân Viên bán hàng", "Đang làm","");
                                 }
                             } else {
                                 JOptionPane.showMessageDialog(this, "Update unsuccessful");
@@ -544,7 +527,7 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
             int rowIndex = tableNhanVien.getSelectedRow();
             if (rowIndex < 0) {
                 JOptionPane.showMessageDialog(null, "Vui lòng chọn dòng muốn sửa");
-                setValue(nhanVienDao.taoMaNhanVien(), "", "", "", "", "", radNam, "Nhân Viên bán hàng", "Đang làm","","");
+                setValue(nhanVienDao.taoMaNhanVien(), "", "", "", "", "", radNam, "Nhân Viên bán hàng", "Đang làm", "");
             } else {
 
                 String maNV = txtMaNV.getText();
@@ -565,7 +548,7 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
                                 if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn sửa dòng này không?", "Xác nhận", JOptionPane.YES_OPTION) == JOptionPane.YES_OPTION) {
                                     loadData();
                                     JOptionPane.showMessageDialog(this, "Cập nhật thành công");
-                                    setValue(nhanVienDao.taoMaNhanVien(), "", "", "", "", "", radNam, "Nhân Viên bán hàng", "Đang làm","","");
+                                    setValue(nhanVienDao.taoMaNhanVien(), "", "", "", "", "", radNam, "Nhân Viên bán hàng", "Đang làm", "");
                                 }
                             } else {
                                 JOptionPane.showMessageDialog(this, "Cập nhật không thành công");
@@ -594,8 +577,6 @@ public class JPanel_NhanVien extends javax.swing.JPanel {
     private util.JPanelRounded jbSua;
     private com.toedter.calendar.JDateChooser jdNgaySinh;
     private javax.swing.JLabel jdNgaySinh1;
-    private javax.swing.JLabel jdNgaySinh2;
-    private com.toedter.calendar.JDateChooser jdNgayVaoLam;
     private javax.swing.JPanel jpFunction;
     private util.JPanelRounded jpThem;
     private javax.swing.JPanel jpTitle;

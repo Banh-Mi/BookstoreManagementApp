@@ -49,7 +49,7 @@ public class NhanVienDAO {
     public boolean themNhanVien(NhanVien nhanVien) {
         Connection con = ConnectDB.getInstance().getConnection();
         PreparedStatement stmt = null;
-        String sql = "INSERT INTO NhanVien VALUES(?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO NhanVien VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             stmt = con.prepareStatement(sql);
             stmt.setString(1, nhanVien.getMaNV());
@@ -78,7 +78,7 @@ public class NhanVienDAO {
         PreparedStatement stmt = null;
         try {
             stmt = con.prepareStatement("UPDATE NhanVien SET "
-                    + "tenNV=?, soDienThoai=?, email=?, ngaySinh=?, diaChi=?, gioiTinh=?, chucVu=?, trangThai=?, ngayVaoLam=?, Luong=? "
+                    + "tenNV=?, soDienThoai=?, email=?, ngaySinh=?, diaChi=?, gioiTinh=?, chucVu=?, trangThai=?, Luong=? "
                     + "WHERE maNV=?");
 
             stmt.setString(1, nhanVien.getTenNV());
@@ -90,9 +90,8 @@ public class NhanVienDAO {
             stmt.setString(6, nhanVien.getGioiTinh());
             stmt.setString(7, nhanVien.getChucVu());
             stmt.setString(8, nhanVien.getTrangThai());
-            stmt.setDate(9, new java.sql.Date(nhanVien.getNgayVaoLam().getTime()));
-            stmt.setInt(10, nhanVien.getLuong());
-            stmt.setString(11, nhanVien.getMaNV());
+            stmt.setInt(9, nhanVien.getLuong());
+            stmt.setString(10, nhanVien.getMaNV());
 
             return stmt.executeUpdate() > 0;
         } catch (SQLException ex) {
